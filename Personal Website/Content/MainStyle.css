@@ -1,0 +1,88 @@
+﻿
+
+table.AuthorTable {
+    margin-left:auto; 
+    margin-right:auto;
+
+	padding:5px;
+
+	width:1050px;
+}
+
+.AuthorTable td {
+	padding:5px;
+}
+
+td.ResumeHeader {
+	padding-top: 10px;
+	padding-bottom: 7px;
+}
+
+#imageRowAT {
+	height:100px;
+}
+
+#imageCellAT {
+	width:30%;
+
+}
+
+#resumeCellAT {
+	width:70%;
+}
+
+#infoCellAT {
+	height:50px;
+}
+
+#blankCellAT {
+	height:800px;
+}
+
+#nameCellAT {
+	text-align: center;
+}
+
+div.resume {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+
+	border: solid #DCDCDC;
+	
+	border-width: 1px;
+}
+
+.resume table {
+	width:100%;
+}
+
+td.resumeLeft {
+	text-align:left;
+}
+
+td.resumeRight {
+	text-align:right;
+}
+
+span.ResumeHeader {
+	font-weight: bold;
+}
+
+span.ResumeBold {
+	font-weight: bolder;
+}
+
+span.ResumeBody {
+	font-weight: 100;
+}
+
+#nameSpan {
+	font-family: 'Roboto', sans-serif;
+	font-weight: bolder;
+	font-size:x-large;
+}
+
+#contacSpan {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+}
