@@ -1,4 +1,4 @@
-﻿.GradeTable table, td, th {
+﻿div.GradeTable td, th {
 
 	border: thin solid black;
 	border-collapse: collapse;
