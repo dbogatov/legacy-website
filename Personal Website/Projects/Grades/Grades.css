@@ -1,0 +1,17 @@
+﻿.GradeTable table, td, th {
+
+	border: thin solid black;
+	border-collapse: collapse;
+	padding: 5px;
+
+	background-color: lemonchiffon;
+	text-align: left;
+	margin: 10px 0;
+}
+
+#gradeTable {
+	margin-top: 20px;
+
+	margin-left:auto; 
+    margin-right:auto;
+}

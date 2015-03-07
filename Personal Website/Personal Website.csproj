@@ -166,6 +166,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
+    <Content Include="Projects\Grades\Grades.css" />
     <Content Include="Projects\Grades\GradesData.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>GradesData.designer.cs</LastGenOutput>
@@ -208,8 +209,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
-    <Content Include="SQL Scripts\GradesMain.sql" />
-    <Content Include="SQL Scripts\GradesMain_Seed.sql" />
+    <Content Include="Projects\Grades\GradesMain.sql" />
+    <Content Include="Projects\Grades\GradesMain_Seed.sql" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
