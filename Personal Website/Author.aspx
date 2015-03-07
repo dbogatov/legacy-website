@@ -7,7 +7,7 @@
 		<tr>
 			<td colspan="2" id="nameCellAT">
 				<span id="nameSpan">Dmytro Bogatov</span> <br />
-				<span id="contactSpan">100 Institute Road, Box 3397 • Worcester, MA 01609 • 508-667-7440 • dbogatov@wpi.edu</span>
+				<span id="contactSpan">100 Institute Road, Box 3397 • Worcester, MA 01609 • 508-667-7440 • <a href="mailto:dbogatov@wpi.edu" target="_top">dbogatov@wpi.edu</a></span>
 			</td>
 		</tr>
 		<tr id="imageRowAT">
