@@ -159,7 +159,7 @@ namespace Personal_Website.Projects.Grades
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(200) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string title
 		{
 			get
@@ -179,7 +179,7 @@ namespace Personal_Website.Projects.Grades
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_courseID", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_courseID", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
 		public string courseID
 		{
 			get

@@ -4,8 +4,8 @@
     <Type Name="SimpleGrade">
       <Column Name="term" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="title" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="courseID" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(200) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="courseID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="gradePercent" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="gradeLetter" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
       <Column Name="status" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
