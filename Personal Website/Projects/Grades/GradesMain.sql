@@ -5,8 +5,8 @@ DROP TABLE SimpleGrades;
 CREATE TABLE SimpleGrades (
 	[term]			CHAR(1)			NOT NULL,
 	[year]			INT				NOT NULL,
-	[title]			VARCHAR(200)	NOT NULL,
-	[courseID]		VARCHAR(10)		NOT NULL PRIMARY KEY,
+	[title]			VARCHAR(200)	NOT NULL PRIMARY KEY,
+	[courseID]		VARCHAR(10)		NOT NULL,
 	[gradePercent]	FLOAT			NOT NULL,
 	[gradeLetter]	VARCHAR(2)		NOT NULL,
 	[status]		VARCHAR(20)		NOT NULL,
