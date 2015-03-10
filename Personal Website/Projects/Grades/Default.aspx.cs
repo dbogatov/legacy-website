@@ -7,28 +7,21 @@ using System.Web.UI.WebControls;
 using System.Text;
 
 using System.IO;
+using System.Web.UI.HtmlControls;
 
 namespace Personal_Website.Projects.Grades {
 	public partial class Default : System.Web.UI.Page {
 		protected void Page_Load(object sender, EventArgs e) {
+			//CreateAndSeedDB();
 
-		}
+			var courseList = new List<object>();
 
-		protected string GetGrades() {
-			CreateAndSeedDB();
-
-			StringBuilder html = new StringBuilder();
-
-			var gradesData = new GradesDataDataContext().SimpleGrades;
-
-			foreach (var g in gradesData) {
-				html.Append(String.Format(
-					"<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td>{5}</td><td>{6}</td></tr>",
-					g.term, g.year, g.title, g.courseID, g.gradePercent, g.gradeLetter, g.status
-					));
+			foreach (var g in new GradesDataDataContext().SimpleGrades) {
+				courseList.Add(new object[] { g.term, g.year, g.title, g.courseID, g.gradePercent, g.gradeLetter, g.status, "Functionality to be developed", "Functionality to be developed" });
 			}
 
-			return html.ToString();
+			this.Store.DataSource = courseList.ToArray<object>();
+			this.Store.DataBind();			
 		}
 
 		private void CreateAndSeedDB() {
