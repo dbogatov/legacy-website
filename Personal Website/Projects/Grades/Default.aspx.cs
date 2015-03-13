@@ -14,11 +14,15 @@ namespace Personal_Website.Projects.Grades {
 		protected void Page_Load(object sender, EventArgs e) {
 			//CreateAndSeedDB();
 
-			HtmlTable table = new HtmlTable();
+			Table table = new Table();
 
-			table.Attributes.Add("class", "table table-striped table-bordered table-hover");			
+			table.Attributes.Add("class", "table table-striped table-bordered table-hover");
+			table.Attributes.Add("id", "gradeTable");
 
-			HtmlTableRow header = new HtmlTableRow();
+
+			TableRow header = new TableRow();
+
+			header.TableSection = TableRowSection.TableHeader;
 
 			header.Cells.Add(createHeaderCell("Term"));
 			header.Cells.Add(createHeaderCell("Year"));
@@ -28,10 +32,11 @@ namespace Personal_Website.Projects.Grades {
 			header.Cells.Add(createHeaderCell("Grade"));
 			header.Cells.Add(createHeaderCell("Status"));
 
+
 			table.Rows.Add(header);
 
 			foreach (var g in new GradesDataDataContext().SimpleGrades) {
-				HtmlTableRow row = new HtmlTableRow();
+				TableRow row = new TableRow();
 
 				row.Cells.Add(createNormalCell(g.term.ToString()));
 				row.Cells.Add(createNormalCell(g.year.ToString()));
@@ -68,15 +73,15 @@ namespace Personal_Website.Projects.Grades {
 			}
 		}
 
-		private HtmlTableCell createHeaderCell(string content) {
-			HtmlTableCell cell = new HtmlTableCell("th");
+		private TableHeaderCell createHeaderCell(string content) {
+			TableHeaderCell cell = new TableHeaderCell();
 			cell.Controls.Add(new LiteralControl(content));
 
 			return cell;
 		}
 
-		private HtmlTableCell createNormalCell(string content) {
-			HtmlTableCell cell = new HtmlTableCell();
+		private TableCell createNormalCell(string content) {
+			TableCell cell = new TableCell();
 			cell.Controls.Add(new LiteralControl(content));
 
 			return cell;
