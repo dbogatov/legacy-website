@@ -1,62 +1,30 @@
-﻿
+﻿/* BOOTSTRAP */
 
-table.AuthorTable {
-    margin-left:auto; 
-    margin-right:auto;
-
-	padding:5px;
-
-	width:1100px;
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
 }
 
-.AuthorTable td {
-	padding:5px;
-}
+/* RESUME */
 
 td.ResumeHeader {
 	padding-top: 10px;
 	padding-bottom: 7px;
 }
 
-#imageRowAT {
-	height:100px;
-}
-
-#imageCellAT {
-	width:30%;
-
-}
-
-#resumeCellAT {
-	width:70%;
-}
-
-#infoCellAT {
-	height:50px;
-}
-
-#blankCellAT {
-	height:800px;
-}
-
-#nameCellAT {
-	text-align: center;
-}
-
 div.resume {
 	font-family: 'Roboto', sans-serif;
-	/* font-weight: 100; */
-
 	border: solid #DCDCDC;
-	
 	border-width: 1px;
-
 	padding:15px;
-
-	/*
-	padding-left:15px;
-	padding-right:15px;
-	*/
 }
 
 .resume table {

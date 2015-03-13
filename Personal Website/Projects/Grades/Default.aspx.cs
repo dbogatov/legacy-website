@@ -11,7 +11,7 @@ using Personal_Website.Models;
 namespace Personal_Website.Projects.Grades {
 	public partial class Default : System.Web.UI.Page {
 		protected void Page_Load(object sender, EventArgs e) {
-			//DatabaseReset.ResetAllStatic();
+			DatabaseReset.ResetAllStatic();
 
 			Table table = new Table();
 
@@ -44,6 +44,8 @@ namespace Personal_Website.Projects.Grades {
 				row.Cells.Add(createNormalCell(g.gradePercent.ToString()));
 				row.Cells.Add(createNormalCell(g.gradeLetter.ToString()));
 				row.Cells.Add(createNormalCell(g.status.ToString()));
+
+				row.Attributes.Add("class", (g.gradeLetter == "A" ? "success" : "warning") );
 
 				table.Rows.Add(row);
 			}

@@ -2,8 +2,8 @@
 
 INSERT INTO SimpleGrades VALUES( 'C', 2015, 'Molecularity',											'CH1010',	93.05,	'A', 'Completed'		);
 INSERT INTO SimpleGrades VALUES( 'C', 2015, 'Database Systems I',									'CS3431',	91.70,	'A', 'Completed'		);
-INSERT INTO SimpleGrades VALUES( 'C', 2015, 'Probability for Applications',							'MA2621',	90.40,	'A', 'in progress...'	);
-INSERT INTO SimpleGrades VALUES( 'C', 2015, 'IQP Term C',											'HH1423',	100,	'A', 'in progress...'	);
+INSERT INTO SimpleGrades VALUES( 'C', 2015, 'Probability for Applications',							'MA2621',	90.40,	'A', 'Completed'		);
+INSERT INTO SimpleGrades VALUES( 'C', 2015, 'IQP Term C',											'HH1423',	100,	'A', 'Completed'		);
 
 INSERT INTO SimpleGrades VALUES( 'B', 2014, 'IQP Term B',											'HH1423',	100,	'A', 'Completed'		);
 INSERT INTO SimpleGrades VALUES( 'B', 2014, 'Software Engineering',									'CS3733',	89.85,	'B', 'Completed'		);

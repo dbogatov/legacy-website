@@ -3,32 +3,23 @@
 	
 	<h2><%: Title %>.</h2>
 
-	<table class="AuthorTable">
-		<tr>
-			<td colspan="2" id="nameCellAT">
-				<span id="nameSpan">Dmytro Bogatov</span> <br />
-				<span id="contactSpan">100 Institute Road, Box 3397 • Worcester, MA 01609 • 508-667-7440 • <a href="mailto:dbogatov@wpi.edu" target="_top">dbogatov@wpi.edu</a></span>
-			</td>
-		</tr>
-		<tr id="imageRowAT">
-			<td id="imageCellAT">
-				<asp:Image runat="server" ImageUrl="~/Images/DmytroBogatov.jpg" Width="300px" />
-			</td>
-			<td id="resumeCellAT" rowspan="3">
-				<!-- #include file ="Includes/Resume.html" -->
-			</td>
-		</tr>
-		<tr>
-			<td id="infoCellAT">
+
+
+	<div class="row">
+		<div class="col-md-12 row-centered" style="padding-bottom:10px">
+			<span id="nameSpan">Dmytro Bogatov</span> <br />
+			<span id="contactSpan">100 Institute Road, Box 3397 • Worcester, MA 01609 • 508-667-7440 • <a href="mailto:dbogatov@wpi.edu" target="_top">dbogatov@wpi.edu</a></span>
+		</div>
+		<div class="col-md-12">
+			<div class="col-md-3">
+				<asp:Image runat="server" ImageUrl="~/Images/DmytroBogatov.jpg" Width="250px" class="img-rounded" /><br /><br />
 				Worcester Polytechnic Institute <br />
 				Computer Science, Class of 2017
-			</td>
-		</tr>
-		<tr>
-			<td id="blankCellAT">
-				
-			</td>
-		</tr>
-	</table>
+			</div>
+			<div class="resume col-md-9">
+				<!-- #include file ="Includes/Resume.html" -->
+			</div>
+		</div>
+	</div>
 
 </asp:Content>
