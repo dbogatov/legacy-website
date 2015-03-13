@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Author" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Author.aspx.cs" Inherits="Personal_Website.Author" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	
-	<h2><%: Title %>.</h2>
+	<h3><%: Title %>.</h3>
 
 
 

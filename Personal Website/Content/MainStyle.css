@@ -65,3 +65,9 @@ span.ResumeBody {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 100;
 }
+
+/* PROJECTS */
+
+.project-thumbnail {
+	padding-top:10px;
+}

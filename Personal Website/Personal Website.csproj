@@ -189,6 +189,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
+    <Content Include="Projects\Default.aspx" />
     <Content Include="Projects\Grades\Grades.css" />
     <Content Include="Projects\Grades\GradesData.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -201,6 +202,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Projects\Grades\Default.aspx" />
     <Content Include="Projects\Grades\GradesScript.js" />
+    <Content Include="Projects\Projects.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -322,6 +324,13 @@
     </Compile>
     <Compile Include="Models\DatabaseReset.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Projects\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Projects\Grades\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
