@@ -320,6 +320,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DatabaseReset.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Projects\Grades\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
