@@ -14,14 +14,39 @@ namespace Personal_Website.Projects.Grades {
 		protected void Page_Load(object sender, EventArgs e) {
 			//CreateAndSeedDB();
 
-			var courseList = new List<object>();
+			HtmlTable table = new HtmlTable();
+
+			table.Attributes.Add("class", "table table-striped table-bordered table-hover");			
+
+			HtmlTableRow header = new HtmlTableRow();
+
+			header.Cells.Add(createHeaderCell("Term"));
+			header.Cells.Add(createHeaderCell("Year"));
+			header.Cells.Add(createHeaderCell("Title"));
+			header.Cells.Add(createHeaderCell("Course ID"));
+			header.Cells.Add(createHeaderCell("% Grade"));
+			header.Cells.Add(createHeaderCell("Grade"));
+			header.Cells.Add(createHeaderCell("Status"));
+
+			table.Rows.Add(header);
 
 			foreach (var g in new GradesDataDataContext().SimpleGrades) {
-				courseList.Add(new object[] { g.term, g.year, g.title, g.courseID, g.gradePercent, g.gradeLetter, g.status, "Functionality to be developed", "Functionality to be developed" });
+				HtmlTableRow row = new HtmlTableRow();
+
+				row.Cells.Add(createNormalCell(g.term.ToString()));
+				row.Cells.Add(createNormalCell(g.year.ToString()));
+				row.Cells.Add(createNormalCell(g.title.ToString()));
+				row.Cells.Add(createNormalCell(g.courseID.ToString()));
+				row.Cells.Add(createNormalCell(g.gradePercent.ToString()));
+				row.Cells.Add(createNormalCell(g.gradeLetter.ToString()));
+				row.Cells.Add(createNormalCell(g.status.ToString()));
+
+				table.Rows.Add(row);
 			}
 
-			this.Store.DataSource = courseList.ToArray<object>();
-			this.Store.DataBind();			
+			gradesTable.Controls.Clear();
+			gradesTable.Controls.Add(table);
+
 		}
 
 		private void CreateAndSeedDB() {
@@ -41,6 +66,20 @@ namespace Personal_Website.Projects.Grades {
 			} catch (Exception) {
 				System.Diagnostics.Debug.WriteLine("Something was wrong with the script");
 			}
+		}
+
+		private HtmlTableCell createHeaderCell(string content) {
+			HtmlTableCell cell = new HtmlTableCell("th");
+			cell.Controls.Add(new LiteralControl(content));
+
+			return cell;
+		}
+
+		private HtmlTableCell createNormalCell(string content) {
+			HtmlTableCell cell = new HtmlTableCell();
+			cell.Controls.Add(new LiteralControl(content));
+
+			return cell;
 		}
 	}
 }

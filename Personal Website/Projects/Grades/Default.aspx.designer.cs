@@ -13,39 +13,12 @@ namespace Personal_Website.Projects.Grades {
     public partial class Default {
         
         /// <summary>
-        /// ResourceManager control.
+        /// gradesTable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.ResourceManager ResourceManager;
-        
-        /// <summary>
-        /// GridPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridPanel GridPanel;
-        
-        /// <summary>
-        /// Store control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store Store;
-        
-        /// <summary>
-        /// RowExpander control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.RowExpander RowExpander;
+        protected global::System.Web.UI.WebControls.PlaceHolder gradesTable;
     }
 }
