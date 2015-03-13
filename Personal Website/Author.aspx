@@ -11,8 +11,8 @@
 			<span id="contactSpan">100 Institute Road, Box 3397 • Worcester, MA 01609 • 508-667-7440 • <a href="mailto:dbogatov@wpi.edu" target="_top">dbogatov@wpi.edu</a></span>
 		</div>
 		<div class="col-md-12">
-			<div class="col-md-3">
-				<asp:Image runat="server" ImageUrl="~/Images/DmytroBogatov.jpg" Width="250px" class="img-rounded" /><br /><br />
+			<div class="col-md-3 row-centered">
+				<asp:Image runat="server" ImageUrl="~/Images/DmytroBogatov.jpg" Width="210px" class="img-rounded" style="padding-bottom:5px" /><br />
 				Worcester Polytechnic Institute <br />
 				Computer Science, Class of 2017
 			</div>
