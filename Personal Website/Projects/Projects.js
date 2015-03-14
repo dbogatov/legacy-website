@@ -73,8 +73,21 @@ $(document).ready(function () {
 		$(this).height(260 - $(this).parent().children().eq(0).height());
 	});
 
-	$(".description").succinct({
-		size: 80
+	
+
+	$(".description").each(function () {
+		if ($(this).text().length > 70) {
+
+			var title = $(this).text();
+
+			$(this).succinct({
+				size: 70
+			}).append(" <a href='#' data-toggle='tooltip' data-placement='top' title='"+title+"'>view all</a>");
+		}
+	});
+
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
 	});
 
 });
