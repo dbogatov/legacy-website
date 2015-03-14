@@ -15,6 +15,7 @@ CREATE TABLE Projects (
 	descriptionText	VARCHAR(1024)	NOT NULL			,
 	dateCompleted	DATE			NOT NULL			,
 	weblink			VARCHAR(2083)	NOT NULL			,
+	sourceLink		VARCHAR(2083)						,
 	imgeFilePath	VARCHAR(255)	NOT NULL			,
 
 );
@@ -40,12 +41,11 @@ CREATE TABLE ProjectTag (
 );
 
 
-
-
-INSERT INTO Projects VALUES (1, 'Minesweeper',	'The description for Minesweeper',	'20140930', 'http://minesweeper.dbogatov.org',	'../Images/DmytroBogatov.jpg');
+INSERT INTO Projects VALUES (1, 'Minesweeper',	'The description for Minesweeper',	'20140930', 'http://minesweeper.dbogatov.org', 'https://bitbucket.org/Dima4ka/minsweeper', '../Images/DmytroBogatov.jpg');
 
 INSERT INTO Tags VALUES (1, 'Large');
 INSERT INTO Tags VALUES (2, 'University');
 
 INSERT INTO ProjectTag (projectID, tagID) VALUES (1, 1);
 INSERT INTO ProjectTag (projectID, tagID) VALUES (1, 2);
+

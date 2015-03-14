@@ -30,15 +30,15 @@ namespace Personal_Website.Projects
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertProject(Project instance);
-    partial void UpdateProject(Project instance);
-    partial void DeleteProject(Project instance);
     partial void InsertProjectTag(ProjectTag instance);
     partial void UpdateProjectTag(ProjectTag instance);
     partial void DeleteProjectTag(ProjectTag instance);
     partial void InsertTag(Tag instance);
     partial void UpdateTag(Tag instance);
     partial void DeleteTag(Tag instance);
+    partial void InsertProject(Project instance);
+    partial void UpdateProject(Project instance);
+    partial void DeleteProject(Project instance);
     #endregion
 		
 		public ProjectsDataContext() : 
@@ -71,14 +71,6 @@ namespace Personal_Website.Projects
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Project> Projects
-		{
-			get
-			{
-				return this.GetTable<Project>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ProjectTag> ProjectTags
 		{
 			get
@@ -95,220 +87,18 @@ namespace Personal_Website.Projects
 			}
 		}
 		
+		public System.Data.Linq.Table<Project> Projects
+		{
+			get
+			{
+				return this.GetTable<Project>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTagsForProject", IsComposable=true)]
 		public IQueryable<GetTagsForProjectResult> GetTagsForProject([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> projectID)
 		{
 			return this.CreateMethodCallQuery<GetTagsForProjectResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), projectID);
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Projects")]
-	public partial class Project : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _projectID;
-		
-		private string _title;
-		
-		private string _descriptionText;
-		
-		private System.DateTime _dateCompleted;
-		
-		private string _weblink;
-		
-		private string _imgeFilePath;
-		
-		private EntitySet<ProjectTag> _ProjectTags;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnprojectIDChanging(int value);
-    partial void OnprojectIDChanged();
-    partial void OntitleChanging(string value);
-    partial void OntitleChanged();
-    partial void OndescriptionTextChanging(string value);
-    partial void OndescriptionTextChanged();
-    partial void OndateCompletedChanging(System.DateTime value);
-    partial void OndateCompletedChanged();
-    partial void OnweblinkChanging(string value);
-    partial void OnweblinkChanged();
-    partial void OnimgeFilePathChanging(string value);
-    partial void OnimgeFilePathChanged();
-    #endregion
-		
-		public Project()
-		{
-			this._ProjectTags = new EntitySet<ProjectTag>(new Action<ProjectTag>(this.attach_ProjectTags), new Action<ProjectTag>(this.detach_ProjectTags));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_projectID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int projectID
-		{
-			get
-			{
-				return this._projectID;
-			}
-			set
-			{
-				if ((this._projectID != value))
-				{
-					this.OnprojectIDChanging(value);
-					this.SendPropertyChanging();
-					this._projectID = value;
-					this.SendPropertyChanged("projectID");
-					this.OnprojectIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string title
-		{
-			get
-			{
-				return this._title;
-			}
-			set
-			{
-				if ((this._title != value))
-				{
-					this.OntitleChanging(value);
-					this.SendPropertyChanging();
-					this._title = value;
-					this.SendPropertyChanged("title");
-					this.OntitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descriptionText", DbType="VarChar(1024) NOT NULL", CanBeNull=false)]
-		public string descriptionText
-		{
-			get
-			{
-				return this._descriptionText;
-			}
-			set
-			{
-				if ((this._descriptionText != value))
-				{
-					this.OndescriptionTextChanging(value);
-					this.SendPropertyChanging();
-					this._descriptionText = value;
-					this.SendPropertyChanged("descriptionText");
-					this.OndescriptionTextChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dateCompleted", DbType="Date NOT NULL")]
-		public System.DateTime dateCompleted
-		{
-			get
-			{
-				return this._dateCompleted;
-			}
-			set
-			{
-				if ((this._dateCompleted != value))
-				{
-					this.OndateCompletedChanging(value);
-					this.SendPropertyChanging();
-					this._dateCompleted = value;
-					this.SendPropertyChanged("dateCompleted");
-					this.OndateCompletedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_weblink", DbType="VarChar(2083) NOT NULL", CanBeNull=false)]
-		public string weblink
-		{
-			get
-			{
-				return this._weblink;
-			}
-			set
-			{
-				if ((this._weblink != value))
-				{
-					this.OnweblinkChanging(value);
-					this.SendPropertyChanging();
-					this._weblink = value;
-					this.SendPropertyChanged("weblink");
-					this.OnweblinkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imgeFilePath", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
-		public string imgeFilePath
-		{
-			get
-			{
-				return this._imgeFilePath;
-			}
-			set
-			{
-				if ((this._imgeFilePath != value))
-				{
-					this.OnimgeFilePathChanging(value);
-					this.SendPropertyChanging();
-					this._imgeFilePath = value;
-					this.SendPropertyChanged("imgeFilePath");
-					this.OnimgeFilePathChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_ProjectTag", Storage="_ProjectTags", ThisKey="projectID", OtherKey="projectID")]
-		public EntitySet<ProjectTag> ProjectTags
-		{
-			get
-			{
-				return this._ProjectTags;
-			}
-			set
-			{
-				this._ProjectTags.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ProjectTags(ProjectTag entity)
-		{
-			this.SendPropertyChanging();
-			entity.Project = this;
-		}
-		
-		private void detach_ProjectTags(ProjectTag entity)
-		{
-			this.SendPropertyChanging();
-			entity.Project = null;
 		}
 	}
 	
@@ -324,9 +114,9 @@ namespace Personal_Website.Projects
 		
 		private System.Nullable<int> _tagID;
 		
-		private EntityRef<Project> _Project;
-		
 		private EntityRef<Tag> _Tag;
+		
+		private EntityRef<Project> _Project;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -342,8 +132,8 @@ namespace Personal_Website.Projects
 		
 		public ProjectTag()
 		{
-			this._Project = default(EntityRef<Project>);
 			this._Tag = default(EntityRef<Tag>);
+			this._Project = default(EntityRef<Project>);
 			OnCreated();
 		}
 		
@@ -415,40 +205,6 @@ namespace Personal_Website.Projects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_ProjectTag", Storage="_Project", ThisKey="projectID", OtherKey="projectID", IsForeignKey=true)]
-		public Project Project
-		{
-			get
-			{
-				return this._Project.Entity;
-			}
-			set
-			{
-				Project previousValue = this._Project.Entity;
-				if (((previousValue != value) 
-							|| (this._Project.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Project.Entity = null;
-						previousValue.ProjectTags.Remove(this);
-					}
-					this._Project.Entity = value;
-					if ((value != null))
-					{
-						value.ProjectTags.Add(this);
-						this._projectID = value.projectID;
-					}
-					else
-					{
-						this._projectID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Project");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tag_ProjectTag", Storage="_Tag", ThisKey="tagID", OtherKey="tagID", IsForeignKey=true)]
 		public Tag Tag
 		{
@@ -479,6 +235,40 @@ namespace Personal_Website.Projects
 						this._tagID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Tag");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_ProjectTag", Storage="_Project", ThisKey="projectID", OtherKey="projectID", IsForeignKey=true)]
+		public Project Project
+		{
+			get
+			{
+				return this._Project.Entity;
+			}
+			set
+			{
+				Project previousValue = this._Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Project.Entity = null;
+						previousValue.ProjectTags.Remove(this);
+					}
+					this._Project.Entity = value;
+					if ((value != null))
+					{
+						value.ProjectTags.Add(this);
+						this._projectID = value.projectID;
+					}
+					else
+					{
+						this._projectID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Project");
 				}
 			}
 		}
@@ -615,6 +405,240 @@ namespace Personal_Website.Projects
 		{
 			this.SendPropertyChanging();
 			entity.Tag = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Projects")]
+	public partial class Project : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _projectID;
+		
+		private string _title;
+		
+		private string _descriptionText;
+		
+		private System.DateTime _dateCompleted;
+		
+		private string _weblink;
+		
+		private string _sourceLink;
+		
+		private string _imgeFilePath;
+		
+		private EntitySet<ProjectTag> _ProjectTags;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnprojectIDChanging(int value);
+    partial void OnprojectIDChanged();
+    partial void OntitleChanging(string value);
+    partial void OntitleChanged();
+    partial void OndescriptionTextChanging(string value);
+    partial void OndescriptionTextChanged();
+    partial void OndateCompletedChanging(System.DateTime value);
+    partial void OndateCompletedChanged();
+    partial void OnweblinkChanging(string value);
+    partial void OnweblinkChanged();
+    partial void OnsourceLinkChanging(string value);
+    partial void OnsourceLinkChanged();
+    partial void OnimgeFilePathChanging(string value);
+    partial void OnimgeFilePathChanged();
+    #endregion
+		
+		public Project()
+		{
+			this._ProjectTags = new EntitySet<ProjectTag>(new Action<ProjectTag>(this.attach_ProjectTags), new Action<ProjectTag>(this.detach_ProjectTags));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_projectID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int projectID
+		{
+			get
+			{
+				return this._projectID;
+			}
+			set
+			{
+				if ((this._projectID != value))
+				{
+					this.OnprojectIDChanging(value);
+					this.SendPropertyChanging();
+					this._projectID = value;
+					this.SendPropertyChanged("projectID");
+					this.OnprojectIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string title
+		{
+			get
+			{
+				return this._title;
+			}
+			set
+			{
+				if ((this._title != value))
+				{
+					this.OntitleChanging(value);
+					this.SendPropertyChanging();
+					this._title = value;
+					this.SendPropertyChanged("title");
+					this.OntitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descriptionText", DbType="VarChar(1024) NOT NULL", CanBeNull=false)]
+		public string descriptionText
+		{
+			get
+			{
+				return this._descriptionText;
+			}
+			set
+			{
+				if ((this._descriptionText != value))
+				{
+					this.OndescriptionTextChanging(value);
+					this.SendPropertyChanging();
+					this._descriptionText = value;
+					this.SendPropertyChanged("descriptionText");
+					this.OndescriptionTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dateCompleted", DbType="Date NOT NULL")]
+		public System.DateTime dateCompleted
+		{
+			get
+			{
+				return this._dateCompleted;
+			}
+			set
+			{
+				if ((this._dateCompleted != value))
+				{
+					this.OndateCompletedChanging(value);
+					this.SendPropertyChanging();
+					this._dateCompleted = value;
+					this.SendPropertyChanged("dateCompleted");
+					this.OndateCompletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_weblink", DbType="VarChar(2083) NOT NULL", CanBeNull=false)]
+		public string weblink
+		{
+			get
+			{
+				return this._weblink;
+			}
+			set
+			{
+				if ((this._weblink != value))
+				{
+					this.OnweblinkChanging(value);
+					this.SendPropertyChanging();
+					this._weblink = value;
+					this.SendPropertyChanged("weblink");
+					this.OnweblinkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sourceLink", DbType="VarChar(2083)")]
+		public string sourceLink
+		{
+			get
+			{
+				return this._sourceLink;
+			}
+			set
+			{
+				if ((this._sourceLink != value))
+				{
+					this.OnsourceLinkChanging(value);
+					this.SendPropertyChanging();
+					this._sourceLink = value;
+					this.SendPropertyChanged("sourceLink");
+					this.OnsourceLinkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imgeFilePath", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string imgeFilePath
+		{
+			get
+			{
+				return this._imgeFilePath;
+			}
+			set
+			{
+				if ((this._imgeFilePath != value))
+				{
+					this.OnimgeFilePathChanging(value);
+					this.SendPropertyChanging();
+					this._imgeFilePath = value;
+					this.SendPropertyChanged("imgeFilePath");
+					this.OnimgeFilePathChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_ProjectTag", Storage="_ProjectTags", ThisKey="projectID", OtherKey="projectID")]
+		public EntitySet<ProjectTag> ProjectTags
+		{
+			get
+			{
+				return this._ProjectTags;
+			}
+			set
+			{
+				this._ProjectTags.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ProjectTags(ProjectTag entity)
+		{
+			this.SendPropertyChanging();
+			entity.Project = this;
+		}
+		
+		private void detach_ProjectTags(ProjectTag entity)
+		{
+			this.SendPropertyChanging();
+			entity.Project = null;
 		}
 	}
 	

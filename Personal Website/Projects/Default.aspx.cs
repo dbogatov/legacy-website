@@ -31,11 +31,11 @@ namespace Personal_Website.Projects {
 					"<div class='caption'>" +
 					"<h3>{2}</h3>" +
 					"<p>{3}</p>" +
-					"<p><a href='#' class='btn btn-primary' role='button'>Try it!</a> <a href='#' class='btn btn-default' role='button'>View source</a></p>" +
+					"<p><a href='{4}' target=_blank class='btn btn-primary' role='button'>Try it!</a> <a href='{5}' target=_blank class='btn btn-default' role='button'>View source</a></p>" +
 					"</div>" +
 					"</div>" +
 					"</div>",
-					tags, project.imgeFilePath.ToString(), project.title.ToString(), project.descriptionText.ToString()
+					tags, project.imgeFilePath.ToString(), project.title.ToString(), project.descriptionText.ToString(), project.weblink.ToString(), project.sourceLink.ToString()
 					));
 			}
 

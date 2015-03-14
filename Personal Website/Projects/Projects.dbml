@@ -1,23 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ProjectsDB" Class="ProjectsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=(localdb)\v11.0;Initial Catalog=ProjectsDB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ProjectsDBConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Projects" Member="Projects">
-    <Type Name="Project">
-      <Column Name="projectID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="title" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="descriptionText" Type="System.String" DbType="VarChar(1024) NOT NULL" CanBeNull="false" />
-      <Column Name="dateCompleted" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="weblink" Type="System.String" DbType="VarChar(2083) NOT NULL" CanBeNull="false" />
-      <Column Name="imgeFilePath" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Association Name="Project_ProjectTag" Member="ProjectTags" ThisKey="projectID" OtherKey="projectID" Type="ProjectTag" />
-    </Type>
-  </Table>
   <Table Name="dbo.ProjectTag" Member="ProjectTags">
     <Type Name="ProjectTag">
       <Column Name="relID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="projectID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="tagID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Project_ProjectTag" Member="Project" ThisKey="projectID" OtherKey="projectID" Type="Project" IsForeignKey="true" />
       <Association Name="Tag_ProjectTag" Member="Tag" ThisKey="tagID" OtherKey="tagID" Type="Tag" IsForeignKey="true" />
+      <Association Name="Project_ProjectTag" Member="Project" ThisKey="projectID" OtherKey="projectID" Type="Project" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tags" Member="Tags">
@@ -25,6 +14,18 @@
       <Column Name="tagID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="tagName" Type="System.String" DbType="VarChar(127) NOT NULL" CanBeNull="false" />
       <Association Name="Tag_ProjectTag" Member="ProjectTags" ThisKey="tagID" OtherKey="tagID" Type="ProjectTag" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Projects" Member="Projects">
+    <Type Name="Project">
+      <Column Name="projectID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="descriptionText" Type="System.String" DbType="VarChar(1024) NOT NULL" CanBeNull="false" />
+      <Column Name="dateCompleted" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="weblink" Type="System.String" DbType="VarChar(2083) NOT NULL" CanBeNull="false" />
+      <Column Name="sourceLink" Type="System.String" DbType="VarChar(2083)" CanBeNull="true" />
+      <Column Name="imgeFilePath" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Project_ProjectTag" Member="ProjectTags" ThisKey="projectID" OtherKey="projectID" Type="ProjectTag" />
     </Type>
   </Table>
   <Function Name="dbo.GetTagsForProject" Method="GetTagsForProject" IsComposable="true">
