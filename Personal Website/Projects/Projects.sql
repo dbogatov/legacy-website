@@ -42,7 +42,7 @@ CREATE TABLE ProjectTag (
 
 
 
-INSERT INTO Projects VALUES (1, 'Minesweeper',	'The description for Minesweeper',	'20140930', 'http://minesweeper.dbogatov.org',	'~/Images/DmytroBogatov.jpg');
+INSERT INTO Projects VALUES (1, 'Minesweeper',	'The description for Minesweeper',	'20140930', 'http://minesweeper.dbogatov.org',	'../Images/DmytroBogatov.jpg');
 
 INSERT INTO Tags VALUES (1, 'Large');
 INSERT INTO Tags VALUES (2, 'University');

@@ -179,7 +179,6 @@
     <Content Include="Content\MainStyle.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Error.aspx" />
-    <Content Include="Ext.NET.Default.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\DmytroBogatov.jpg" />
     <Content Include="Includes\Resume.html" />

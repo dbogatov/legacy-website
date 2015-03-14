@@ -11,10 +11,18 @@ namespace Personal_Website.Models {
 		public static void ResetAllStatic() {
 
 			ResetGrades();
+			ResetProjects();
 
 		}
 
-		private static void ResetGrades() {
+		public static void ResetProjects() {
+
+			ExecuteSQLScript("~/Projects/Projects", new Personal_Website.Projects.ProjectsDataContext());
+			ExecuteSQLScript("~/Projects/ProjectsProcedures", new Personal_Website.Projects.ProjectsDataContext());
+
+		}
+
+		public static void ResetGrades() {
 
 			ExecuteSQLScript("~/Projects/Grades/GradesMain", new Personal_Website.Projects.Grades.GradesDataDataContext());
 			ExecuteSQLScript("~/Projects/Grades/GradesMain_Seed", new Personal_Website.Projects.Grades.GradesDataDataContext());
