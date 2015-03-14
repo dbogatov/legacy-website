@@ -12,8 +12,11 @@
 			<h3><%: Title %></h3>
 			<ul class="nav nav-pills nav-justified" id="myTab">
 				<li role="presentation" class="active"><a href="#all">All</a></li>
-				<li role="presentation"><a href="#large">Large</a></li>
-				<li role="presentation"><a href="#university">University</a></li>
+				<%					
+					foreach (var tag in new Personal_Website.Projects.ProjectsDataContext().Tags ) {
+						Response.Write("<li role=''presentation'><a href='#" + tag.tagName.ToString().ToLower() + "'>" + tag.tagName + "</a></li>");
+					}
+					 %>
 			</ul>
 		</div>
 
