@@ -9,6 +9,12 @@ namespace Personal_Website.Projects {
 	public partial class Default : System.Web.UI.Page {
 		protected void Page_Load(object sender, EventArgs e) {
 
+			foreach (var project in new ProjectsDataContext().Projects) {
+				var q = new ProjectsDataContext().GetTagsForProject(project.projectID);
+
+			}
+
+			
 		}
 	}
 }
