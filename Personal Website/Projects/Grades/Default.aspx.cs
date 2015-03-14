@@ -11,7 +11,7 @@ using Personal_Website.Models;
 namespace Personal_Website.Projects.Grades {
 	public partial class Default : System.Web.UI.Page {
 		protected void Page_Load(object sender, EventArgs e) {
-			//DatabaseReset.ResetAllStatic();
+			//DatabaseReset.ResetGrades();
 
 			Table table = new Table();
 

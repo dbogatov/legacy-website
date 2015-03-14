@@ -7,6 +7,10 @@
 		filterUsingKey($(this).attr('href').substr(1));
 	});
 
+	$(".fixHeight").each(function () {
+		$(this).height(260 - $(this).parent().children().eq(0).height());
+	});
+
 });
 
 function filterUsingKey(key) {

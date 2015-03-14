@@ -181,6 +181,8 @@
     <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\DmytroBogatov.jpg" />
+    <Content Include="Images\Minesweeper.png" />
+    <Content Include="Images\PersonalWebsite.png" />
     <Content Include="Includes\Resume.html" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -206,7 +208,8 @@
     <Content Include="Projects\Grades\Default.aspx" />
     <Content Include="Projects\Grades\GradesScript.js" />
     <Content Include="Projects\Projects.js" />
-    <Content Include="Projects\Projects.sql" />
+    <Content Include="Projects\ProjectsSeed.sql" />
+    <Content Include="Projects\ProjectsTables.sql" />
     <Content Include="Projects\ProjectsProcedures.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

@@ -17,7 +17,8 @@ namespace Personal_Website.Models {
 
 		public static void ResetProjects() {
 
-			ExecuteSQLScript("~/Projects/Projects", new Personal_Website.Projects.ProjectsDataContext());
+			ExecuteSQLScript("~/Projects/ProjectsTables", new Personal_Website.Projects.ProjectsDataContext());
+			ExecuteSQLScript("~/Projects/ProjectsSeed", new Personal_Website.Projects.ProjectsDataContext());
 			ExecuteSQLScript("~/Projects/ProjectsProcedures", new Personal_Website.Projects.ProjectsDataContext());
 
 		}
