@@ -2,6 +2,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 
+	<script>
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		});
+	</script>
+
 	<div class="row">
 		<div class="col-md-12 row-centered" style="padding-bottom:10px; padding-top:10px">
 			<h2>WPI Calendar Event Creator</h2>
