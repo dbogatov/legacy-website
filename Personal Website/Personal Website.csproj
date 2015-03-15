@@ -181,6 +181,9 @@
     <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\Banker.png" />
+    <Content Include="Images\Banker\IMG_0474.PNG" />
+    <Content Include="Images\Banker\IMG_0475.PNG" />
+    <Content Include="Images\Banker\IMG_0476.PNG" />
     <Content Include="Images\DmytroBogatov.jpg" />
     <Content Include="Images\Minesweeper.png" />
     <Content Include="Images\PersonalWebsite.png" />

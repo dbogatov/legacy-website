@@ -13,7 +13,7 @@ namespace Personal_Website.Projects {
 		}
 
 		protected string GetProjects() {
-			//Personal_Website.Models.DatabaseReset.ResetProjects();
+			Personal_Website.Models.DatabaseReset.ResetProjects();
 			
 			StringBuilder html = new StringBuilder();
 
