@@ -90,6 +90,8 @@ $(document).ready(function () {
 		$('[data-toggle="tooltip"]').tooltip()
 	});
 
+	$(window).trigger('resize');
+
 });
 
 function filterUsingKey(key) {
