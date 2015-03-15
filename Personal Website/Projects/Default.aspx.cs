@@ -27,7 +27,7 @@ namespace Personal_Website.Projects {
 				html.Append(String.Format(
 					"<div class='col-sm-6 col-md-4 project-thumbnail {0}' style='padding-top:10px' >" +
 						"<div class='thumbnail' style='height: 450px'>" +
-							"<img src='{1}' alt='Here should have been an image' style='max-height:255px'>" +
+							"<img src='{1}' alt='Here should have been an image' style='max-height:255px' class='img-rounded'>" +
 							"<div class='fixHeight'></div>" +
 							"<div class='caption'>" +
 								"<h3>{2}</h3>" +

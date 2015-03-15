@@ -190,6 +190,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
+    <Content Include="Projects\Banker\Default.aspx" />
     <Content Include="Projects\Default.aspx" />
     <Content Include="Projects\Grades\Grades.css" />
     <Content Include="Projects\Grades\GradesData.dbml">
@@ -326,6 +327,13 @@
     </Compile>
     <Compile Include="Models\DatabaseReset.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Projects\Banker\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\Banker\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Projects\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
