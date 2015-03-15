@@ -184,15 +184,22 @@
     <Content Include="Images\Banker\IMG_0474.PNG" />
     <Content Include="Images\Banker\IMG_0475.PNG" />
     <Content Include="Images\Banker\IMG_0476.PNG" />
+    <Content Include="Images\CalendarEventCreator\tutorial1.png" />
+    <Content Include="Images\CalendarEventCreator\tutorial3.png" />
+    <Content Include="Images\CalendarEventCreator\tutorial5.png" />
+    <Content Include="Images\CalendarEventCreator\tutorial6.png" />
+    <Content Include="Images\CalendarEventCreator\tutorial7.png" />
     <Content Include="Images\DmytroBogatov.jpg" />
     <Content Include="Images\Minesweeper.png" />
     <Content Include="Images\PersonalWebsite.png" />
+    <Content Include="Images\WPICalendarEventCreator.png" />
     <Content Include="Includes\Resume.html" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
+    <Content Include="Projects\Calendar-Event-Creator\Default.aspx" />
     <Content Include="Projects\Banker\Default.aspx" />
     <Content Include="Projects\Default.aspx" />
     <Content Include="Projects\Grades\Grades.css" />
@@ -330,6 +337,13 @@
     </Compile>
     <Compile Include="Models\DatabaseReset.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Projects\Calendar-Event-Creator\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\Calendar-Event-Creator\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Projects\Banker\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
