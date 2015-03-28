@@ -37,7 +37,7 @@
 					</div>
         
 					<div class="form-group">
-						<asp:Label runat="server" AssociatedControlID="Comment" CssClass="col-md-2 control-label">Who are you?</asp:Label>
+						<asp:Label runat="server" AssociatedControlID="Comment" CssClass="col-md-2 control-label">Your message</asp:Label>
 						<div class="col-md-5">
 							<asp:TextBox runat="server" ID="Comment" TextMode="MultiLine" CssClass="form-control" Rows="5" placeholder="Who are you and why do you contact me. Your answer is appreciated." />
 						</div>
