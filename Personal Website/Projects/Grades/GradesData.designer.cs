@@ -22,7 +22,7 @@ namespace Personal_Website.Projects.Grades
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="GradesDB")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="aspnet-Personal Website-20150222081252")]
 	public partial class GradesDataDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -36,7 +36,7 @@ namespace Personal_Website.Projects.Grades
     #endregion
 		
 		public GradesDataDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["GradesDBConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

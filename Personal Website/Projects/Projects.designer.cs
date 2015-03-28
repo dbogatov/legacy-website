@@ -22,7 +22,7 @@ namespace Personal_Website.Projects
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="ProjectsDB")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="aspnet-Personal Website-20150222081252")]
 	public partial class ProjectsDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -30,19 +30,19 @@ namespace Personal_Website.Projects
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertProject(Project instance);
+    partial void UpdateProject(Project instance);
+    partial void DeleteProject(Project instance);
     partial void InsertProjectTag(ProjectTag instance);
     partial void UpdateProjectTag(ProjectTag instance);
     partial void DeleteProjectTag(ProjectTag instance);
     partial void InsertTag(Tag instance);
     partial void UpdateTag(Tag instance);
     partial void DeleteTag(Tag instance);
-    partial void InsertProject(Project instance);
-    partial void UpdateProject(Project instance);
-    partial void DeleteProject(Project instance);
     #endregion
 		
 		public ProjectsDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ProjectsDBConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -71,6 +71,14 @@ namespace Personal_Website.Projects
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<Project> Projects
+		{
+			get
+			{
+				return this.GetTable<Project>();
+			}
+		}
+		
 		public System.Data.Linq.Table<ProjectTag> ProjectTags
 		{
 			get
@@ -87,324 +95,10 @@ namespace Personal_Website.Projects
 			}
 		}
 		
-		public System.Data.Linq.Table<Project> Projects
-		{
-			get
-			{
-				return this.GetTable<Project>();
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTagsForProject", IsComposable=true)]
 		public IQueryable<GetTagsForProjectResult> GetTagsForProject([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> projectID)
 		{
 			return this.CreateMethodCallQuery<GetTagsForProjectResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), projectID);
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ProjectTag")]
-	public partial class ProjectTag : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _relID;
-		
-		private System.Nullable<int> _projectID;
-		
-		private System.Nullable<int> _tagID;
-		
-		private EntityRef<Tag> _Tag;
-		
-		private EntityRef<Project> _Project;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnrelIDChanging(int value);
-    partial void OnrelIDChanged();
-    partial void OnprojectIDChanging(System.Nullable<int> value);
-    partial void OnprojectIDChanged();
-    partial void OntagIDChanging(System.Nullable<int> value);
-    partial void OntagIDChanged();
-    #endregion
-		
-		public ProjectTag()
-		{
-			this._Tag = default(EntityRef<Tag>);
-			this._Project = default(EntityRef<Project>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_relID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int relID
-		{
-			get
-			{
-				return this._relID;
-			}
-			set
-			{
-				if ((this._relID != value))
-				{
-					this.OnrelIDChanging(value);
-					this.SendPropertyChanging();
-					this._relID = value;
-					this.SendPropertyChanged("relID");
-					this.OnrelIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_projectID", DbType="Int")]
-		public System.Nullable<int> projectID
-		{
-			get
-			{
-				return this._projectID;
-			}
-			set
-			{
-				if ((this._projectID != value))
-				{
-					if (this._Project.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnprojectIDChanging(value);
-					this.SendPropertyChanging();
-					this._projectID = value;
-					this.SendPropertyChanged("projectID");
-					this.OnprojectIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tagID", DbType="Int")]
-		public System.Nullable<int> tagID
-		{
-			get
-			{
-				return this._tagID;
-			}
-			set
-			{
-				if ((this._tagID != value))
-				{
-					if (this._Tag.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OntagIDChanging(value);
-					this.SendPropertyChanging();
-					this._tagID = value;
-					this.SendPropertyChanged("tagID");
-					this.OntagIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tag_ProjectTag", Storage="_Tag", ThisKey="tagID", OtherKey="tagID", IsForeignKey=true)]
-		public Tag Tag
-		{
-			get
-			{
-				return this._Tag.Entity;
-			}
-			set
-			{
-				Tag previousValue = this._Tag.Entity;
-				if (((previousValue != value) 
-							|| (this._Tag.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Tag.Entity = null;
-						previousValue.ProjectTags.Remove(this);
-					}
-					this._Tag.Entity = value;
-					if ((value != null))
-					{
-						value.ProjectTags.Add(this);
-						this._tagID = value.tagID;
-					}
-					else
-					{
-						this._tagID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Tag");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_ProjectTag", Storage="_Project", ThisKey="projectID", OtherKey="projectID", IsForeignKey=true)]
-		public Project Project
-		{
-			get
-			{
-				return this._Project.Entity;
-			}
-			set
-			{
-				Project previousValue = this._Project.Entity;
-				if (((previousValue != value) 
-							|| (this._Project.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Project.Entity = null;
-						previousValue.ProjectTags.Remove(this);
-					}
-					this._Project.Entity = value;
-					if ((value != null))
-					{
-						value.ProjectTags.Add(this);
-						this._projectID = value.projectID;
-					}
-					else
-					{
-						this._projectID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Project");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tags")]
-	public partial class Tag : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _tagID;
-		
-		private string _tagName;
-		
-		private EntitySet<ProjectTag> _ProjectTags;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OntagIDChanging(int value);
-    partial void OntagIDChanged();
-    partial void OntagNameChanging(string value);
-    partial void OntagNameChanged();
-    #endregion
-		
-		public Tag()
-		{
-			this._ProjectTags = new EntitySet<ProjectTag>(new Action<ProjectTag>(this.attach_ProjectTags), new Action<ProjectTag>(this.detach_ProjectTags));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tagID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int tagID
-		{
-			get
-			{
-				return this._tagID;
-			}
-			set
-			{
-				if ((this._tagID != value))
-				{
-					this.OntagIDChanging(value);
-					this.SendPropertyChanging();
-					this._tagID = value;
-					this.SendPropertyChanged("tagID");
-					this.OntagIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tagName", DbType="VarChar(127) NOT NULL", CanBeNull=false)]
-		public string tagName
-		{
-			get
-			{
-				return this._tagName;
-			}
-			set
-			{
-				if ((this._tagName != value))
-				{
-					this.OntagNameChanging(value);
-					this.SendPropertyChanging();
-					this._tagName = value;
-					this.SendPropertyChanged("tagName");
-					this.OntagNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tag_ProjectTag", Storage="_ProjectTags", ThisKey="tagID", OtherKey="tagID")]
-		public EntitySet<ProjectTag> ProjectTags
-		{
-			get
-			{
-				return this._ProjectTags;
-			}
-			set
-			{
-				this._ProjectTags.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ProjectTags(ProjectTag entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tag = this;
-		}
-		
-		private void detach_ProjectTags(ProjectTag entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tag = null;
 		}
 	}
 	
@@ -639,6 +333,312 @@ namespace Personal_Website.Projects
 		{
 			this.SendPropertyChanging();
 			entity.Project = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ProjectTag")]
+	public partial class ProjectTag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _relID;
+		
+		private System.Nullable<int> _projectID;
+		
+		private System.Nullable<int> _tagID;
+		
+		private EntityRef<Project> _Project;
+		
+		private EntityRef<Tag> _Tag;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnrelIDChanging(int value);
+    partial void OnrelIDChanged();
+    partial void OnprojectIDChanging(System.Nullable<int> value);
+    partial void OnprojectIDChanged();
+    partial void OntagIDChanging(System.Nullable<int> value);
+    partial void OntagIDChanged();
+    #endregion
+		
+		public ProjectTag()
+		{
+			this._Project = default(EntityRef<Project>);
+			this._Tag = default(EntityRef<Tag>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_relID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int relID
+		{
+			get
+			{
+				return this._relID;
+			}
+			set
+			{
+				if ((this._relID != value))
+				{
+					this.OnrelIDChanging(value);
+					this.SendPropertyChanging();
+					this._relID = value;
+					this.SendPropertyChanged("relID");
+					this.OnrelIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_projectID", DbType="Int")]
+		public System.Nullable<int> projectID
+		{
+			get
+			{
+				return this._projectID;
+			}
+			set
+			{
+				if ((this._projectID != value))
+				{
+					if (this._Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnprojectIDChanging(value);
+					this.SendPropertyChanging();
+					this._projectID = value;
+					this.SendPropertyChanged("projectID");
+					this.OnprojectIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tagID", DbType="Int")]
+		public System.Nullable<int> tagID
+		{
+			get
+			{
+				return this._tagID;
+			}
+			set
+			{
+				if ((this._tagID != value))
+				{
+					if (this._Tag.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OntagIDChanging(value);
+					this.SendPropertyChanging();
+					this._tagID = value;
+					this.SendPropertyChanged("tagID");
+					this.OntagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_ProjectTag", Storage="_Project", ThisKey="projectID", OtherKey="projectID", IsForeignKey=true)]
+		public Project Project
+		{
+			get
+			{
+				return this._Project.Entity;
+			}
+			set
+			{
+				Project previousValue = this._Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Project.Entity = null;
+						previousValue.ProjectTags.Remove(this);
+					}
+					this._Project.Entity = value;
+					if ((value != null))
+					{
+						value.ProjectTags.Add(this);
+						this._projectID = value.projectID;
+					}
+					else
+					{
+						this._projectID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tag_ProjectTag", Storage="_Tag", ThisKey="tagID", OtherKey="tagID", IsForeignKey=true)]
+		public Tag Tag
+		{
+			get
+			{
+				return this._Tag.Entity;
+			}
+			set
+			{
+				Tag previousValue = this._Tag.Entity;
+				if (((previousValue != value) 
+							|| (this._Tag.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tag.Entity = null;
+						previousValue.ProjectTags.Remove(this);
+					}
+					this._Tag.Entity = value;
+					if ((value != null))
+					{
+						value.ProjectTags.Add(this);
+						this._tagID = value.tagID;
+					}
+					else
+					{
+						this._tagID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Tag");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tags")]
+	public partial class Tag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _tagID;
+		
+		private string _tagName;
+		
+		private EntitySet<ProjectTag> _ProjectTags;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OntagIDChanging(int value);
+    partial void OntagIDChanged();
+    partial void OntagNameChanging(string value);
+    partial void OntagNameChanged();
+    #endregion
+		
+		public Tag()
+		{
+			this._ProjectTags = new EntitySet<ProjectTag>(new Action<ProjectTag>(this.attach_ProjectTags), new Action<ProjectTag>(this.detach_ProjectTags));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tagID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int tagID
+		{
+			get
+			{
+				return this._tagID;
+			}
+			set
+			{
+				if ((this._tagID != value))
+				{
+					this.OntagIDChanging(value);
+					this.SendPropertyChanging();
+					this._tagID = value;
+					this.SendPropertyChanged("tagID");
+					this.OntagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tagName", DbType="VarChar(127) NOT NULL", CanBeNull=false)]
+		public string tagName
+		{
+			get
+			{
+				return this._tagName;
+			}
+			set
+			{
+				if ((this._tagName != value))
+				{
+					this.OntagNameChanging(value);
+					this.SendPropertyChanging();
+					this._tagName = value;
+					this.SendPropertyChanged("tagName");
+					this.OntagNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tag_ProjectTag", Storage="_ProjectTags", ThisKey="tagID", OtherKey="tagID")]
+		public EntitySet<ProjectTag> ProjectTags
+		{
+			get
+			{
+				return this._ProjectTags;
+			}
+			set
+			{
+				this._ProjectTags.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ProjectTags(ProjectTag entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tag = this;
+		}
+		
+		private void detach_ProjectTags(ProjectTag entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tag = null;
 		}
 	}
 	

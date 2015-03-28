@@ -163,6 +163,10 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="App_Data\aspnet-Personal Website-20150222081252.mdf" />
+    <Content Include="App_Data\aspnet-Personal Website-20150222081252_log.ldf">
+      <DependentUpon>aspnet-Personal Website-20150222081252.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Readme\Ext.NET.Utilities\BREAKING_CHANGES.txt" />
     <Content Include="App_Readme\Ext.NET.Utilities\LICENSE.txt" />
     <Content Include="App_Readme\Ext.NET.Utilities\README.txt" />
@@ -216,6 +220,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\dbogatov - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dbogatov - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Smarter.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Projects\Grades\Default.aspx" />
     <Content Include="Projects\Grades\GradesScript.js" />
@@ -399,9 +404,7 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
