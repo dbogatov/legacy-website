@@ -60,6 +60,8 @@ $(window).resize(function () {
 	});
 });
 
+$(".fixHeight").ready(function () { $(window).trigger('resize'); });
+
 $(document).ready(function () {
 
 	$('#myTab a').click(function (e) {
@@ -67,13 +69,7 @@ $(document).ready(function () {
 		$(this).tab('show')
 
 		filterUsingKey($(this).attr('href').substr(1));
-	});
-
-	$(".fixHeight").each(function () {
-		$(this).height(260 - $(this).parent().children().eq(0).height());
-	});
-
-	
+	});	
 
 	$(".description").each(function () {
 		if ($(this).text().length > 70) {
@@ -89,9 +85,6 @@ $(document).ready(function () {
 	$(function () {
 		$('[data-toggle="tooltip"]').tooltip()
 	});
-
-	$(window).trigger('resize');
-
 });
 
 function filterUsingKey(key) {
@@ -103,4 +96,3 @@ function filterUsingKey(key) {
 		$('.project-' + key).fadeIn("slow", function () {});
 	}
 }
-
