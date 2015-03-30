@@ -237,6 +237,8 @@
     <Content Include="Projects\ProjectsSeed.sql" />
     <Content Include="Projects\ProjectsTables.sql" />
     <Content Include="Projects\ProjectsProcedures.sql" />
+    <Content Include="Projects\Yahoo-Finance-Parser\Default.aspx" />
+    <Content Include="Projects\Yahoo-Finance-Parser\financeParser.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -406,6 +408,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Projects.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\Yahoo-Finance-Parser\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\Yahoo-Finance-Parser\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
