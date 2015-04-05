@@ -13,33 +13,6 @@ namespace Personal_Website.Projects.Yahoo_Finance_Parser {
     public partial class Default {
         
         /// <summary>
-        /// MyStrike control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MyStrike;
-        
-        /// <summary>
-        /// MySymbol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MySymbol;
-        
-        /// <summary>
-        /// FinanceContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FinanceContent;
-        
-        /// <summary>
         /// Symbol control.
         /// </summary>
         /// <remarks>

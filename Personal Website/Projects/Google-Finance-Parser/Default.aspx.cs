@@ -31,18 +31,56 @@ namespace Personal_Website.Projects.Yahoo_Finance_Parser {
 				if (symbol == null || strike == null) {
 					symbol = "AAPL";
 					strike = "128";
-				}
+				} if (symbol[0] == '{') {
 
-				SymbolStrike input = new SymbolStrike() {
+					var symbols = symbol.Substring(1, symbol.Length - 2).Split(' ');
+					var strikes = strike.Substring(1, strike.Length - 2).Split(' ');
+
+					List<SymbolStrike> input = new List<SymbolStrike>();
+
+					for (int i = 0; i < symbols.Length; i++) {
+						input.Add(new SymbolStrike() {
+							symbol = symbols[i],
+							strike = strikes[i]
+						});
+					}
+
+					computeOutput(input.ToArray());
+
+					return;
+				}
+				
+				computeOutput( new SymbolStrike() {
 					symbol = symbol,
 					strike = strike
-				};
-				
-				computeOutput( input );
+				});
+		}
 
+		private void setCookie(params SymbolStrike[] args) {
+
+			var sym = "symbol={";
+			var str = "strike={";
+			var url = "Default.aspx?";
+
+			foreach (var item in args) {
+				sym += "+" + item.symbol;
+				str += "+" + item.strike;
+			}
+
+			sym += "}";
+			str += "}";
+
+			url += sym + "&" + str;
+			
+			HttpCookie cookieUser = new HttpCookie("parserCookie");
+			cookieUser.Value = url; //HttpContext.Current.Request.Url.AbsoluteUri;
+			cookieUser.Expires = DateTime.MaxValue;
+			HttpContext.Current.Response.SetCookie(cookieUser);
 		}
 
 		private void computeOutput(params SymbolStrike[] args) {
+
+			setCookie(args);
 
 			List<SymbolStrike> resultList = new List<SymbolStrike>();
 
