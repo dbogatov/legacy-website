@@ -16,7 +16,7 @@ CREATE TABLE Projects (
 	dateCompleted	DATE			NOT NULL			,
 	weblink			VARCHAR(2083)	NOT NULL			,
 	sourceLink		VARCHAR(2083)						,
-	imgeFilePath	VARCHAR(255)	NOT NULL			,
+	imgeFilePath	VARCHAR(255)	NOT NULL
 
 );
 

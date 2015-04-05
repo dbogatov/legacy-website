@@ -7,63 +7,45 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Personal_Website.Projects.Yahoo_Finance_Parser {
+namespace Personal_Website.Admin.SQL {
     
     
     public partial class Default {
         
         /// <summary>
-        /// MyStrike control.
+        /// ConnString control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MyStrike;
+        protected global::System.Web.UI.WebControls.TextBox ConnString;
         
         /// <summary>
-        /// MySymbol control.
+        /// SQLQuery control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MySymbol;
+        protected global::System.Web.UI.WebControls.TextBox SQLQuery;
         
         /// <summary>
-        /// FinanceContent control.
+        /// SQLResponse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FinanceContent;
+        protected global::System.Web.UI.WebControls.Label SQLResponse;
         
         /// <summary>
-        /// Symbol control.
+        /// Message control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Symbol;
-        
-        /// <summary>
-        /// Strike control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Strike;
-        
-        /// <summary>
-        /// resultingTable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl resultingTable;
+        protected global::System.Web.UI.WebControls.Label Message;
     }
 }

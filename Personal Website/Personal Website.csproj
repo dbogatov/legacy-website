@@ -38,12 +38,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ext.Net">
-      <HintPath>..\packages\Ext.NET.3.1.0\lib\net45\Ext.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Ext.Net.Utilities">
-      <HintPath>..\packages\Ext.NET.Utilities.2.5.0\lib\Ext.Net.Utilities.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -55,6 +49,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Json">
+      <HintPath>..\packages\System.Json.4.0.20126.16343\lib\net40\System.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -84,12 +81,6 @@
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="Transformer.NET">
-      <HintPath>..\packages\Transformer.NET.2.1.1\lib\net35\Transformer.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="WebActivatorEx">
-      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -166,20 +157,11 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Account\Users.sql" />
     <Content Include="Account\UsersProcedures.sql" />
+    <Content Include="Admin\SQL\Default.aspx" />
     <Content Include="App_Data\aspnet-Personal Website-20150222081252.mdf" />
     <Content Include="App_Data\aspnet-Personal Website-20150222081252_log.ldf">
       <DependentUpon>aspnet-Personal Website-20150222081252.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Readme\Ext.NET.Utilities\BREAKING_CHANGES.txt" />
-    <Content Include="App_Readme\Ext.NET.Utilities\LICENSE.txt" />
-    <Content Include="App_Readme\Ext.NET.Utilities\README.txt" />
-    <Content Include="App_Readme\Ext.NET\BREAKING_CHANGES.txt" />
-    <Content Include="App_Readme\Ext.NET\CHANGELOG.txt" />
-    <Content Include="App_Readme\Ext.NET\Ext.NET.Default.aspx" />
-    <Content Include="App_Readme\Ext.NET\LICENSE.txt" />
-    <Content Include="App_Readme\Ext.NET\README.txt" />
-    <Content Include="App_Readme\Transformer.NET\LICENSE.txt" />
-    <Content Include="App_Readme\Transformer.NET\README.txt" />
     <Content Include="Author.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -216,7 +198,6 @@
       <LastGenOutput>GradesData.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_Readme\Ext.NET\Sample.Web.config" />
     <Content Include="Projects\Projects.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Projects.designer.cs</LastGenOutput>
@@ -229,14 +210,15 @@
     </Content>
     <None Include="Properties\PublishProfiles\dbogatov - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dbogatov - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\dbogatov.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Smarter.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Projects\Grades\Default.aspx" />
     <Content Include="Projects\Grades\GradesScript.js" />
     <Content Include="Projects\Projects.js" />
-    <Content Include="Projects\ProjectsSeed.sql" />
-    <Content Include="Projects\ProjectsTables.sql" />
-    <Content Include="Projects\ProjectsProcedures.sql" />
+    <Content Include="Projects\SQL\ProjectsSeed.sql" />
+    <Content Include="Projects\SQL\ProjectsTables.sql" />
+    <Content Include="Projects\SQL\ProjectsProcedures.sql" />
     <Content Include="Projects\Google-Finance-Parser\Default.aspx" />
     <Content Include="Projects\Google-Finance-Parser\financeParser.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -334,6 +316,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Users.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SQL\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SQL\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
