@@ -181,6 +181,7 @@
     <Content Include="Images\DmytroBogatov.jpg" />
     <Content Include="Images\Minesweeper.png" />
     <Content Include="Images\PersonalWebsite.png" />
+    <Content Include="Images\FinanceParser.png" />
     <Content Include="Images\WPICalendarEventCreator.png" />
     <Content Include="Includes\Resume.html" />
     <Content Include="Notification.aspx" />
