@@ -85,6 +85,8 @@ $(document).ready(function () {
 	$(function () {
 		$('[data-toggle="tooltip"]').tooltip()
 	});
+
+	setInterval(function () { $(window).trigger('resize'); }, 300);
 });
 
 function filterUsingKey(key) {
