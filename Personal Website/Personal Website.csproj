@@ -199,6 +199,44 @@
       <LastGenOutput>GradesData.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Projects\Minesweeper\CSS Styles\Style.css" />
+    <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.addAchievment.sql" />
+    <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.addNickNameID.sql" />
+    <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.addTryID.sql" />
+    <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.getLeaderBoard.sql" />
+    <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.getNickname.sql" />
+    <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.updateNickNameID.sql" />
+    <Content Include="Projects\Minesweeper\DataBase\Tables\dbo.GameStats.sql" />
+    <Content Include="Projects\Minesweeper\DataBase\Tables\dbo.LeaderBoards.sql" />
+    <Content Include="Projects\Minesweeper\DataBase\Tables\dbo.NickNameID.sql" />
+    <Content Include="Projects\Minesweeper\Default.aspx" />
+    <Content Include="Projects\Minesweeper\HTMLs\Instructions\Instructions.en-en.html" />
+    <Content Include="Projects\Minesweeper\HTMLs\Instructions\Instructions.uk-ua.html" />
+    <Content Include="Projects\Minesweeper\HTMLs\Instructions\Pictures\Footer.png" />
+    <Content Include="Projects\Minesweeper\HTMLs\Instructions\Pictures\GameModes.png" />
+    <Content Include="Projects\Minesweeper\HTMLs\Instructions\Pictures\Header.png" />
+    <Content Include="Projects\Minesweeper\HTMLs\Instructions\Pictures\LeaderBoard.png" />
+    <Content Include="Projects\Minesweeper\HTMLs\Instructions\Pictures\MainPanel.png" />
+    <Content Include="Projects\Minesweeper\HTMLs\Instructions\Pictures\RightBar.png" />
+    <Content Include="Projects\Minesweeper\HTMLs\Instructions\Pictures\SpecialOptions.png" />
+    <Content Include="Projects\Minesweeper\HTMLs\Rules\Rules.en-en.html" />
+    <Content Include="Projects\Minesweeper\HTMLs\Rules\Rules.uk-ua.html" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\Authors\Bogdan.jpg" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\Authors\Dmytro.jpg" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\us-lang.gif" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\USFlag.png" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\flag.jpg" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\mine.jpg" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\Poster.png" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\refresh.png" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\start_button.gif" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\ua-lang.gif" />
+    <Content Include="Projects\Minesweeper\Resources\Pictures\USFlag-old.png" />
+    <Content Include="Projects\Minesweeper\Scripts\jquery.js" />
+    <Content Include="Projects\Minesweeper\Scripts\jsAPI.js" />
+    <Content Include="Projects\Minesweeper\Scripts\minesweeper.js" />
+    <Content Include="Projects\Minesweeper\Scripts\modernizr.custom.06116.js" />
+    <Content Include="Projects\Minesweeper\Scripts\solver.js" />
     <Content Include="Projects\Projects.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Projects.designer.cs</LastGenOutput>
@@ -207,6 +245,12 @@
     <Content Include="Account\Users.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Users.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Projects\Minesweeper\Resources\PDFs\Poster.pdf" />
+    <Content Include="Projects\Minesweeper\Data.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Data.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\dbogatov - FTP.pubxml" />
@@ -394,6 +438,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GradesData.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Projects\Minesweeper\Classes\Field.cs" />
+    <Compile Include="Projects\Minesweeper\Classes\Solver.cs" />
+    <Compile Include="Projects\Minesweeper\Classes\Utility.cs" />
+    <Compile Include="Projects\Minesweeper\Data.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Data.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\Minesweeper\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\Minesweeper\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\Minesweeper\Structures\Structs.cs" />
     <Compile Include="Projects\Projects.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -440,6 +500,15 @@
     <None Include="Projects\Projects.dbml.layout">
       <DependentUpon>Projects.dbml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Projects\Minesweeper\Data.dbml.layout">
+      <DependentUpon>Data.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Projects\Minesweeper\App_LocalResources\Default.aspx.resx" />
+    <Content Include="Projects\Minesweeper\App_LocalResources\Default.aspx.uk-ua.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Data">
+  <DataContextMoniker Name="/DataDataContext" />
+  <nestedChildShapes>
+    <classShape Id="3df05941-f925-4d5c-98bb-d567df701fc3" absoluteBounds="3.5, 1.75, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/DataDataContext/NickNameID" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8ee5c6db-d6db-4f51-a59c-239c2add02c1" absoluteBounds="3.5150000000000006, 2.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5dba8797-ecfd-4888-8b56-3528032f48f7" absoluteBounds="1.125, 0.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/DataDataContext/GameStat" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e9fe8f67-060b-475f-b1ac-933f4cc3435b" absoluteBounds="1.1400000000000001, 0.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="59753aaf-4cac-4845-9b55-a841efac403d" absoluteBounds="0.75, 2.75, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/DataDataContext/LeaderBoard" />
+      <nestedChildShapes>
+        <elementListCompartment Id="17ecbecc-0ebe-4fa1-b57d-57b2dbc2bd08" absoluteBounds="0.76500000000000012, 3.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
