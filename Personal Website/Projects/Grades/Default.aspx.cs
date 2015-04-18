@@ -34,7 +34,7 @@ namespace Personal_Website.Projects.Grades {
 
 			table.Rows.Add(header);
 
-			foreach (var g in new GradesDataDataContext().SimpleGrades) {
+			foreach (var g in new GradesDataDataContext().GradesViews) {
 				TableRow row = new TableRow();
 
 				row.Cells.Add(createNormalCell(g.term.ToString()));

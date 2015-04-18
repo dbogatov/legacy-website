@@ -193,7 +193,7 @@
     <Content Include="Projects\Calendar-Event-Creator\Default.aspx" />
     <Content Include="Projects\Banker\Default.aspx" />
     <Content Include="Projects\Default.aspx" />
-    <Content Include="Projects\Grades\Grades.css" />
+    <Content Include="Projects\Grades\GradesView.sql" />
     <Content Include="Projects\Grades\GradesData.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>GradesData.designer.cs</LastGenOutput>

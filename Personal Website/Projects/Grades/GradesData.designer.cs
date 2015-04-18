@@ -30,9 +30,6 @@ namespace Personal_Website.Projects.Grades
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertSimpleGrade(SimpleGrade instance);
-    partial void UpdateSimpleGrade(SimpleGrade instance);
-    partial void DeleteSimpleGrade(SimpleGrade instance);
     #endregion
 		
 		public GradesDataDataContext() : 
@@ -65,20 +62,18 @@ namespace Personal_Website.Projects.Grades
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<SimpleGrade> SimpleGrades
+		public System.Data.Linq.Table<GradesView> GradesViews
 		{
 			get
 			{
-				return this.GetTable<SimpleGrade>();
+				return this.GetTable<GradesView>();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SimpleGrades")]
-	public partial class SimpleGrade : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GradesView")]
+	public partial class GradesView
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private char _term;
 		
@@ -94,29 +89,10 @@ namespace Personal_Website.Projects.Grades
 		
 		private string _status;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OntermChanging(char value);
-    partial void OntermChanged();
-    partial void OnyearChanging(int value);
-    partial void OnyearChanged();
-    partial void OntitleChanging(string value);
-    partial void OntitleChanged();
-    partial void OncourseIDChanging(string value);
-    partial void OncourseIDChanged();
-    partial void OngradePercentChanging(double value);
-    partial void OngradePercentChanged();
-    partial void OngradeLetterChanging(string value);
-    partial void OngradeLetterChanged();
-    partial void OnstatusChanging(string value);
-    partial void OnstatusChanged();
-    #endregion
+		private string _reqName;
 		
-		public SimpleGrade()
+		public GradesView()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_term", DbType="Char(1) NOT NULL")]
@@ -130,11 +106,7 @@ namespace Personal_Website.Projects.Grades
 			{
 				if ((this._term != value))
 				{
-					this.OntermChanging(value);
-					this.SendPropertyChanging();
 					this._term = value;
-					this.SendPropertyChanged("term");
-					this.OntermChanged();
 				}
 			}
 		}
@@ -150,16 +122,12 @@ namespace Personal_Website.Projects.Grades
 			{
 				if ((this._year != value))
 				{
-					this.OnyearChanging(value);
-					this.SendPropertyChanging();
 					this._year = value;
-					this.SendPropertyChanged("year");
-					this.OnyearChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(200) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
 		public string title
 		{
 			get
@@ -170,11 +138,7 @@ namespace Personal_Website.Projects.Grades
 			{
 				if ((this._title != value))
 				{
-					this.OntitleChanging(value);
-					this.SendPropertyChanging();
 					this._title = value;
-					this.SendPropertyChanged("title");
-					this.OntitleChanged();
 				}
 			}
 		}
@@ -190,11 +154,7 @@ namespace Personal_Website.Projects.Grades
 			{
 				if ((this._courseID != value))
 				{
-					this.OncourseIDChanging(value);
-					this.SendPropertyChanging();
 					this._courseID = value;
-					this.SendPropertyChanged("courseID");
-					this.OncourseIDChanged();
 				}
 			}
 		}
@@ -210,11 +170,7 @@ namespace Personal_Website.Projects.Grades
 			{
 				if ((this._gradePercent != value))
 				{
-					this.OngradePercentChanging(value);
-					this.SendPropertyChanging();
 					this._gradePercent = value;
-					this.SendPropertyChanged("gradePercent");
-					this.OngradePercentChanged();
 				}
 			}
 		}
@@ -230,11 +186,7 @@ namespace Personal_Website.Projects.Grades
 			{
 				if ((this._gradeLetter != value))
 				{
-					this.OngradeLetterChanging(value);
-					this.SendPropertyChanging();
 					this._gradeLetter = value;
-					this.SendPropertyChanged("gradeLetter");
-					this.OngradeLetterChanged();
 				}
 			}
 		}
@@ -250,32 +202,24 @@ namespace Personal_Website.Projects.Grades
 			{
 				if ((this._status != value))
 				{
-					this.OnstatusChanging(value);
-					this.SendPropertyChanging();
 					this._status = value;
-					this.SendPropertyChanged("status");
-					this.OnstatusChanged();
 				}
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reqName", DbType="VarChar(128) NOT NULL", CanBeNull=false)]
+		public string reqName
 		{
-			if ((this.PropertyChanging != null))
+			get
 			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
+				return this._reqName;
 			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
+			set
 			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				if ((this._reqName != value))
+				{
+					this._reqName = value;
+				}
 			}
 		}
 	}

@@ -3,6 +3,8 @@
 	
 	<h2><%: Title %>.</h2>
 
+	
+
 	<asp:PlaceHolder id="gradesTable" runat="server"/>
 
 	<script src="../../Scripts/jquery.tablesorter.min.js"></script>
