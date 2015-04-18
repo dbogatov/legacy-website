@@ -2,10 +2,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	
 	<script>
+
+		function getParameterByName(name) {
+			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+			var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+				results = regex.exec(location.search);
+			return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+
 		$(document).ready(function () {
 			// Handler for .ready() called.
 			window.setTimeout(function () {
-				location.href = "Default.aspx";
+				location.href = getParameterByName('returnUrl');;
 			}, 5000);
 
 			CreateTimer("counter", 5);
@@ -45,5 +53,5 @@
 			Response.Write(Request.QueryString["message"]);	
 		 %>
 	</h3>
-	<a href="Default.aspx">Go home...</a> or you will be redirected there in <span id="counter">5</span> seconds...
+	<a href="Default.aspx">Go home...</a> or you will be redirected where you were in <span id="counter">5</span> seconds...
 </asp:Content>

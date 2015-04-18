@@ -7,27 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Personal_Website {
+namespace Personal_Website.General_User_Controls {
     
     
-    public partial class SiteMaster {
+    public partial class SignInRequest {
         
         /// <summary>
-        /// signInRequest control.
+        /// alertBanner control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Personal_Website.General_User_Controls.SignInRequest signInRequest;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alertBanner;
         
         /// <summary>
-        /// MainContent control.
+        /// returnBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor returnBtn;
     }
 }

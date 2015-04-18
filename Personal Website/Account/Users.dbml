@@ -19,4 +19,8 @@
     <Parameter Name="hash" Type="System.String" DbType="VarChar(255)" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.CheckUser" Method="CheckUser">
+    <Parameter Name="hash" Type="System.String" DbType="VarChar(255)" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

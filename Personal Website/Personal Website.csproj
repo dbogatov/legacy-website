@@ -156,7 +156,8 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Account\Users.sql" />
-    <Content Include="Account\UsersProcedures.sql" />
+    <Content Include="Account\Users_AddUser.sql" />
+    <Content Include="Account\Users_CheckUser.sql" />
     <Content Include="Admin\SQL\Default.aspx" />
     <Content Include="App_Data\aspnet-Personal Website-20150222081252.mdf" />
     <Content Include="App_Data\aspnet-Personal Website-20150222081252_log.ldf">
@@ -169,6 +170,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="General User Controls\SignInRequest.ascx" />
     <Content Include="Images\Banker.png" />
     <Content Include="Images\Banker\IMG_0474.PNG" />
     <Content Include="Images\Banker\IMG_0475.PNG" />
@@ -394,9 +396,17 @@
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
+    <Compile Include="General User Controls\SignInRequest.ascx.cs">
+      <DependentUpon>SignInRequest.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General User Controls\SignInRequest.ascx.designer.cs">
+      <DependentUpon>SignInRequest.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Authentication.cs" />
     <Compile Include="Models\DatabaseReset.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Notification.aspx.cs">

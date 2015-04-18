@@ -1,0 +1,7 @@
+﻿CREATE PROCEDURE [dbo].[checkUser]
+	@hash VARCHAR(255)
+AS
+	IF EXISTS (SELECT * FROM Users WHERE hash=@hash)
+		RETURN 1
+	ELSE
+		RETURN 0;

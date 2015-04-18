@@ -12,7 +12,7 @@ using System.Text;
 namespace Personal_Website.Account {
 	public partial class Contact : System.Web.UI.Page {
 		protected void Page_Load(object sender, EventArgs e) {
-
+			this.Master.FindControl("signInRequest").Visible = false;
 		}
 
 		protected void SendInfo_Click(object sender, EventArgs e) {
@@ -20,6 +20,8 @@ namespace Personal_Website.Account {
 			var email = Email.Text;
 			var story = Comment.Text;
 			var lang = Language.SelectedValue;
+
+			var returnUrl = Request.QueryString["returnUrl"] ?? HttpContext.Current.Request.Url.Host;
 
 			if (HttpContext.Current.Request.Cookies["userCookie"] == null) {
 
@@ -41,9 +43,9 @@ namespace Personal_Website.Account {
 					new UsersDataContext().AddUser(name, email, story, lang, hash);
 				}).Start();
 
-				Response.Redirect(String.Format("~/Notification.aspx?name={0}&message={1}", name, "You have successfully contacted me. I will get in touch shortly."));
+				Response.Redirect(String.Format("~/Notification.aspx?name={0}&message={1}&returnUrl={2}", name, "You have successfully contacted me. I will get in touch shortly.", returnUrl));
 			} else {
-				Response.Redirect(String.Format("~/Notification.aspx?name={0}&message={1}", name, "You have already registered. Don't try again!"));
+				Response.Redirect(String.Format("~/Notification.aspx?name={0}&message={1}&returnUrl={2}", name, "You have already registered. Don't try again!", returnUrl));
 			}
 		}
 

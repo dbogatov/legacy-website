@@ -20,7 +20,7 @@ namespace Personal_Website.Projects.Grades {
 
 					row.Cells.Add(createNormalCell(g.term.ToString()));
 					row.Cells.Add(createNormalCell(g.year.ToString()));
-					row.Cells.Add(createNormalCell("<em>" + g.title.ToString() + "</em>"));
+					row.Cells.Add(createNormalCell("" + g.title.ToString() + ""));
 					//row.Cells.Add(createNormalCell(g.courseID.ToString()));
 					//row.Cells.Add(createNormalCell(g.gradePercent.ToString()));
 					row.Cells.Add(createNormalCell(g.gradeLetter.ToString()));
