@@ -11,6 +11,7 @@ INSERT INTO DiplomaReqs VALUES( 8, 'Physical Education'	);
 INSERT INTO DiplomaReqs VALUES( 9, 'IQP'				);
 INSERT INTO DiplomaReqs VALUES( 10, 'Free Elective'		);
 
+INSERT INTO SimpleGrades VALUES( 'A', 2016, 'Financial Accounting',									'ACC1100',	90.00,	'I', 'Registered', 10	);
 
 INSERT INTO SimpleGrades VALUES( 'D', 2016, 'Programming Languages',								'CS4536',	90.00,	'I', 'Registered', 1	);
 INSERT INTO SimpleGrades VALUES( 'D', 2016, 'Practicum in Humanities: Visual Persuasion',			'HU3910',	90.00,	'I', 'Registered', 6	);

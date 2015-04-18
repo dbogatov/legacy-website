@@ -3,11 +3,11 @@
 <table id="gradeTable" class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<td>Term</td>
-			<td>Year</td>
-			<td>TItle</td>
-			<td>Grade</td>
-			<td>Status</td>
+			<th>Term</th>
+			<th>Year</th>
+			<th>TItle</th>
+			<th>Grade</th>
+			<th>Status</th>
 		</tr>
 	</thead>
 	<tbody id="body" runat="server">
