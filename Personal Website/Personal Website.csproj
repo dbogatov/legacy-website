@@ -193,6 +193,7 @@
     <Content Include="Projects\Calendar-Event-Creator\Default.aspx" />
     <Content Include="Projects\Banker\Default.aspx" />
     <Content Include="Projects\Default.aspx" />
+    <Content Include="Projects\Grades\GradesTable.ascx" />
     <Content Include="Projects\Grades\GradesView.sql" />
     <Content Include="Projects\Grades\GradesData.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -437,6 +438,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GradesData.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\Grades\GradesTable.ascx.cs">
+      <DependentUpon>GradesTable.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\Grades\GradesTable.ascx.designer.cs">
+      <DependentUpon>GradesTable.ascx</DependentUpon>
     </Compile>
     <Compile Include="Projects\Minesweeper\Classes\Field.cs" />
     <Compile Include="Projects\Minesweeper\Classes\Solver.cs" />

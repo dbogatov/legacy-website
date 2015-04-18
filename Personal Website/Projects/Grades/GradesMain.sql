@@ -23,11 +23,11 @@ CREATE TABLE SimpleGrades (
 	[status]		VARCHAR(20)		NOT NULL					,
 	[reqID]			INT											,
 
-	CHECK(	term IN ('A', 'B', 'C', 'D')						),
-	CHECK(	Year > 2012 AND Year < 2018							),
-	CHECK(	gradePercent <= 100 AND gradePercent > 0			),
-	CHECK(	gradeLetter IN ('A', 'B', 'C', 'NR')				),
-	CHECK(	status IN ('Completed', 'in progress...', 'In plan')),
+	CHECK(	term IN ('A', 'B', 'C', 'D')							),
+	CHECK(	Year > 2012 AND Year < 2018								),
+	CHECK(	gradePercent <= 100 AND gradePercent > 0				),
+	CHECK(	gradeLetter IN ('A', 'B', 'C', 'NR', 'I')				),
+	CHECK(	status IN ('Completed', 'in progress...', 'Registered')	),
 
 	CONSTRAINT FK_GRADES_reqID		FOREIGN KEY (reqID)
 		REFERENCES DiplomaReqs (reqID)

@@ -12,11 +12,28 @@ INSERT INTO DiplomaReqs VALUES( 9, 'IQP'				);
 INSERT INTO DiplomaReqs VALUES( 10, 'Free Elective'		);
 
 
+INSERT INTO SimpleGrades VALUES( 'D', 2016, 'Programming Languages',								'CS4536',	90.00,	'I', 'Registered', 1	);
+INSERT INTO SimpleGrades VALUES( 'D', 2016, 'Practicum in Humanities: Visual Persuasion',			'HU3910',	90.00,	'I', 'Registered', 6	);
+INSERT INTO SimpleGrades VALUES( 'D', 2016, 'Introduction to Electrical and Computer Engineering',	'ECE2010',	90.00,	'I', 'Registered', 3	);
+
+INSERT INTO SimpleGrades VALUES( 'C', 2016, 'Distributed Computing Systems',						'CS4513',	90.00,	'I', 'Registered', 1	);
+INSERT INTO SimpleGrades VALUES( 'C', 2016, '3D Modeling I',										'AR2102',	90.00,	'I', 'Registered', 5	);
+INSERT INTO SimpleGrades VALUES( 'C', 2016, 'MATTERS. Data Mining',									'EAR1501',	90.00,	'I', 'Registered', 1	);
+INSERT INTO SimpleGrades VALUES( 'C', 2016, 'Soccer',												'PE1019',	90.00,	'I', 'Registered', 8	);
+
+INSERT INTO SimpleGrades VALUES( 'B', 2015, 'Webware: Computational Technology for Network Inforamtion Systems',	'CS4241',	90.00,	'I', 'Registered', 1	);
+INSERT INTO SimpleGrades VALUES( 'B', 2015, 'Data Mining and Knowledge Discovery in Databases',		'CS4445',	90.00,	'I', 'Registered', 1	);
+INSERT INTO SimpleGrades VALUES( 'B', 2015, 'MATTERS. Data Mining',									'EAR1501',	90.00,	'I', 'Registered', 1	);
+INSERT INTO SimpleGrades VALUES( 'B', 2015, 'Soccer',												'PE1019',	90.00,	'I', 'Registered', 8	);
+
+INSERT INTO SimpleGrades VALUES( 'A', 2015, 'Operating Systems',									'CS3013',	90.00,	'I', 'Registered', 1	);
+INSERT INTO SimpleGrades VALUES( 'A', 2015, 'Introduction to History of Technology',				'HI1332',	90.00,	'I', 'Registered', 4	);
+INSERT INTO SimpleGrades VALUES( 'A', 2015, 'MATTERS. Data Mining',									'EAR1501',	90.00,	'I', 'Registered', 1	);
 
 INSERT INTO SimpleGrades VALUES( 'D', 2015, 'IQP Term D',											'HH1423',	100,	'A', 'in progress...', 9	);
 INSERT INTO SimpleGrades VALUES( 'D', 2015, 'Algorithms',											'CS2223',	97.00,	'A', 'in progress...', 1	);
 INSERT INTO SimpleGrades VALUES( 'D', 2015, 'Elements of Writing',									'WR1010',	93.00,	'A', 'in progress...', 4	);
-INSERT INTO SimpleGrades VALUES( 'D', 2015, 'Soccer',												'PE11019',	100,	'A', 'in progress...', 8	);
+INSERT INTO SimpleGrades VALUES( 'D', 2015, 'Soccer',												'PE1019',	100,	'A', 'in progress...', 8	);
 
 INSERT INTO SimpleGrades VALUES( 'C', 2015, 'Molecularity',											'CH1010',	93.05,	'A', 'Completed', 3		);
 INSERT INTO SimpleGrades VALUES( 'C', 2015, 'Database Systems I',									'CS3431',	91.70,	'A', 'Completed', 1		);
