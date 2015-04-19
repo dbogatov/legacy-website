@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SpecializedSignInRequest.ascx.cs" Inherits="Personal_Website.General_User_Controls.SpecializedSignInRequest" %>
 
-<div id="alertBanner" runat="server" class="alert alert-warning" role="alert">
+<div id="alertBanner" runat="server" class="alert alert-warning row-centered" role="alert">
 	
 	<h3>
 		Information is not complete!

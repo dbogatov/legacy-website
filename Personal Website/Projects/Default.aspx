@@ -5,13 +5,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 	<script src="Projects.js"></script>
-
-	<My:SpecializedSignInRequest runat="server" Text="Please, tell me who you are to enable links to projects and their repositories."></My:SpecializedSignInRequest>
 	
 	<div class="row">
 
 		<div class="col-md-12 row-centered">
 			<h3><%: Title %></h3>
+
+			<My:SpecializedSignInRequest runat="server" Text="Please, tell me who you are to enable links to projects and their repositories."></My:SpecializedSignInRequest>
+
 			<ul class="nav nav-pills nav-justified" id="myTab">
 				<li role="presentation" class="active"><a href="#all">All</a></li>
 				<%					
