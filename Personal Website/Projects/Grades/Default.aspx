@@ -64,8 +64,6 @@
 		</div>
 	</div>
 
-	<!-- <asp:PlaceHolder id="gradesTable" runat="server"/> -->
-
 	<script src="../../Scripts/jquery.tablesorter.min.js"></script>
 	<script src="GradesScript.js"></script>
 

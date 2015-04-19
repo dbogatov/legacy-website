@@ -69,6 +69,8 @@ namespace Personal_Website
 
         protected void Page_Load(object sender, EventArgs e)
         {
+			Page.DataBind();
+
 			if (Request.QueryString["action"] == "Demo") {
 				Authentication.startDemo();
 			} else if (Request.QueryString["action"] == "ClearCookie") {

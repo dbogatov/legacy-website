@@ -83,6 +83,10 @@ namespace Personal_Website.Models {
 			return HttpContext.Current.Request.Cookies["userCookie"] != null && HttpContext.Current.Request.Cookies["userCookie"].Value == "Demo";
 		}
 
+		public static bool grantAccess() {
+			return isRegistered() || isDemo();
+		}
+
 		public static void clearCookie() {
 			HttpCookie cookieUser = new HttpCookie("userCookie");
 			cookieUser.Expires = DateTime.Now.AddDays(-1d);

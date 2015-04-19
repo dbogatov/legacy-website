@@ -265,6 +265,7 @@
     <Content Include="Projects\Grades\Default.aspx" />
     <Content Include="Projects\Grades\GradesScript.js" />
     <Content Include="Projects\Projects.js" />
+    <Content Include="Projects\ProjectThubnail.ascx" />
     <Content Include="Projects\SQL\ProjectsSeed.sql" />
     <Content Include="Projects\SQL\ProjectsTables.sql" />
     <Content Include="Projects\SQL\ProjectsProcedures.sql" />
@@ -491,6 +492,13 @@
     </Compile>
     <Compile Include="Projects\Google-Finance-Parser\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\ProjectThubnail.ascx.cs">
+      <DependentUpon>ProjectThubnail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\ProjectThubnail.ascx.designer.cs">
+      <DependentUpon>ProjectThubnail.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
