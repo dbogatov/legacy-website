@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Personal_Website.Models;
 
 namespace Personal_Website
 {
@@ -68,7 +69,11 @@ namespace Personal_Website
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+			if (Request.QueryString["action"] == "Demo") {
+				Authentication.startDemo();
+			} else if (Request.QueryString["action"] == "ClearCookie") {
+				Authentication.clearCookie();
+			}
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

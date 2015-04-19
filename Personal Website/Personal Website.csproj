@@ -171,6 +171,7 @@
     <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="General User Controls\SignInRequest.ascx" />
+    <Content Include="General User Controls\SpecializedSignInRequest.ascx" />
     <Content Include="Images\Banker.png" />
     <Content Include="Images\Banker\IMG_0474.PNG" />
     <Content Include="Images\Banker\IMG_0475.PNG" />
@@ -402,6 +403,13 @@
     </Compile>
     <Compile Include="General User Controls\SignInRequest.ascx.designer.cs">
       <DependentUpon>SignInRequest.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General User Controls\SpecializedSignInRequest.ascx.cs">
+      <DependentUpon>SpecializedSignInRequest.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General User Controls\SpecializedSignInRequest.ascx.designer.cs">
+      <DependentUpon>SpecializedSignInRequest.ascx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

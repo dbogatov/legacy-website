@@ -5,16 +5,25 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Personal_Website.Models;
+
 
 namespace Personal_Website.Projects.Grades {
 	public partial class GradesTable : System.Web.UI.UserControl {
 
 		public string Requirement;
+		private int maxForUnregistered = (Authentication.isRegistered() || Authentication.isDemo()) ? Int32.MaxValue : 2;
 
 		protected void Page_Load(object sender, EventArgs e) {
 
+			int canary = 0;
 			foreach (var g in new GradesDataDataContext().GradesViews) {
+				
+				if (canary == maxForUnregistered)
+					break;
+
 				if (g.reqName.ToString().Equals(Requirement)) {
+					canary++;
 
 					HtmlTableRow row = new HtmlTableRow();
 

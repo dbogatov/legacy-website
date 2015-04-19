@@ -1,8 +1,11 @@
 ﻿<%@ Page Title="My Grades" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Personal_Website.Projects.Grades.Default" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <%@ Register TagPrefix="My" TagName="GradesTable" Src="~/Projects/Grades/GradesTable.ascx" %>
+<%@ Register TagPrefix="My" TagName="SpecializedSignInRequest" Src="~/General User Controls/SpecializedSignInRequest.ascx" %>
 
 	<h2><%: Title %>.</h2>
+
+	<My:SpecializedSignInRequest runat="server" Text="Please, tell me who you are to see all classes and grades."></My:SpecializedSignInRequest>
 
 	<div class="row">
 		<div class="col-md-6">
