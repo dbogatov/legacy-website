@@ -13,6 +13,15 @@ namespace Personal_Website.Projects.Grades {
     public partial class GradesTable {
         
         /// <summary>
+        /// gradeHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell gradeHeader;
+        
+        /// <summary>
         /// body control.
         /// </summary>
         /// <remarks>

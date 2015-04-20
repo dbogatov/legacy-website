@@ -5,8 +5,8 @@
 		<tr>
 			<th>Term</th>
 			<th>Year</th>
-			<th>TItle</th>
-			<th>Grade</th>
+			<th>Title</th>
+			<th id="gradeHeader" runat="server">Grade</th>
 			<th>Status</th>
 		</tr>
 	</thead>

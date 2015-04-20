@@ -16,6 +16,8 @@ namespace Personal_Website.Projects.Grades {
 
 		protected void Page_Load(object sender, EventArgs e) {
 
+			gradeHeader.Visible = Authentication.grantAccess();
+
 			int canary = 0;
 			foreach (var g in new GradesDataDataContext().GradesViews) {
 				
@@ -30,9 +32,9 @@ namespace Personal_Website.Projects.Grades {
 					row.Cells.Add(createNormalCell(g.term.ToString()));
 					row.Cells.Add(createNormalCell(g.year.ToString()));
 					row.Cells.Add(createNormalCell("" + g.title.ToString() + ""));
-					//row.Cells.Add(createNormalCell(g.courseID.ToString()));
-					//row.Cells.Add(createNormalCell(g.gradePercent.ToString()));
-					row.Cells.Add(createNormalCell(g.gradeLetter.ToString()));
+					if (Authentication.grantAccess()) {
+						row.Cells.Add(createNormalCell(g.gradeLetter.ToString()));
+					}
 					row.Cells.Add(createNormalCell(g.status.ToString()));
 
 					switch (g.status.ToString()) {

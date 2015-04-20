@@ -10,7 +10,7 @@
 
 
 	<h3><%: Title %>.</h3>
-	<h4>
+	<h4 id="downloads" runat="server">
 		<a href="Compact.aspx">See compact version</a><br />
 		<a href="Resume.pdf">Download PDF</a>
 	</h4>

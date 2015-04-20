@@ -94,5 +94,9 @@ namespace Personal_Website.Models {
 
 			HttpContext.Current.Response.Redirect(HttpContext.Current.Request.Url.AbsolutePath);
 		}
+
+		public static void redirectToHome() {
+			HttpContext.Current.Response.Redirect("~/");
+		}
 	}
 }
