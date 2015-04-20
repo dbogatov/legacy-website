@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="Banker" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Personal_Website.Projects.Banker.Default" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+	<script>
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		});
+	</script>
 
 	<div class="row">
 		<div class="col-md-12 row-centered" style="padding-bottom:10px; padding-top:10px">
@@ -115,7 +120,7 @@
 						</tbody>
 					</table>
 					<hr />
-					<p style="text-align:center"><a href="https://itunes.apple.com/us/app/banker-game-assistant/id961296297" target="_blank" class="btn btn-primary" role="button">View in iTunes</a></p>
+					<p style="text-align:center"><a href="#" target="_blank" class="btn btn-primary disabled" role="button">Not in iTunes</a> <a href='#' data-toggle='tooltip' data-placement='top' title='Simple - developer paid membership has expired. It is not renewed yet.'>why?</a> </p>
 					<p> © 2015 Dmytro Bogatov </p>
 			  </div>
 			</div>

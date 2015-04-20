@@ -10,6 +10,10 @@
 
 
 	<h3><%: Title %>.</h3>
+	<h4>
+		<a href="Compact.aspx">See compact version</a><br />
+		<a href="Resume.pdf">Download PDF</a>
+	</h4>
 
 	<My:SpecializedSignInRequest runat="server" Text="Please, tell me who you are to view full resume - my working experience and completed projects."></My:SpecializedSignInRequest>
 

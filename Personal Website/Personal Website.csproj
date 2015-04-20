@@ -259,6 +259,7 @@
       <LastGenOutput>Data.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Author\Resume.pdf" />
     <None Include="Properties\PublishProfiles\dbogatov - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dbogatov - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\dbogatov.com - Web Deploy.pubxml" />

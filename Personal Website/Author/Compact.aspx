@@ -17,7 +17,7 @@
 				Computer Science, Class of 2017
 			</div>
 			<div class="resume col-md-9">
-				<!-- #include file ="Includes/Resume.html" -->
+				<!-- #include file ="../Includes/Resume.html" -->
 			</div>
 		</div>
 	</div>
