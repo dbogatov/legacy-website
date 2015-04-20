@@ -7,7 +7,7 @@
 	<h4>
 		I am so glad to see you here, on my website! <br />
 		I would really want to share all the information with you but I cannot leave it public... :( <br />
-		Neverthless, I just need your name and email to grant you full access. I am so interested in talking to you! <br /> 
+		Nevertheless, I just need your name and email to grant you full access. I am so interested in talking to you! <br /> 
 	</h4>
 	<a id="returnBtn" class="btn btn-primary" runat="server" href="~/Account/Contact.aspx">Kindly leave some contact information</a>
 

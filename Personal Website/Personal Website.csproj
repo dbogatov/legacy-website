@@ -163,7 +163,9 @@
     <Content Include="App_Data\aspnet-Personal Website-20150222081252_log.ldf">
       <DependentUpon>aspnet-Personal Website-20150222081252.mdf</DependentUpon>
     </Content>
-    <Content Include="Author.aspx" />
+    <Content Include="Author\Author.css" />
+    <Content Include="Author\Default.aspx" />
+    <Content Include="Author\Old.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\MainStyle.css" />
@@ -377,12 +379,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Author.aspx.cs">
-      <DependentUpon>Author.aspx</DependentUpon>
+    <Compile Include="Author\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Author.aspx.designer.cs">
-      <DependentUpon>Author.aspx</DependentUpon>
+    <Compile Include="Author\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Author\Old.aspx.cs">
+      <DependentUpon>Old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Author\Old.aspx.designer.cs">
+      <DependentUpon>Old.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

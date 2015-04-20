@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Author" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Author.aspx.cs" Inherits="Personal_Website.Author" %>
+﻿<%@ Page Title="Author" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Old.aspx.cs" Inherits="Personal_Website.Old" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	
 	<h3><%: Title %>.</h3>
@@ -12,7 +12,7 @@
 		</div>
 		<div class="col-md-12">
 			<div class="col-md-3 row-centered">
-				<asp:Image runat="server" ImageUrl="~/Images/DmytroBogatov.jpg" Width="210px" class="img-rounded" style="padding-bottom:5px" /><br />
+				<asp:Image runat="server" ImageUrl="~/Images/DmytroBogatov.jpg" Width="210px" CssClass="img-rounded" style="padding-bottom:5px" /><br />
 				Worcester Polytechnic Institute <br />
 				Computer Science, Class of 2017
 			</div>
