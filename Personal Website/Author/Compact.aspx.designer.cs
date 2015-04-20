@@ -10,6 +10,6 @@
 namespace Personal_Website {
 
 
-	public partial class Old {
+	public partial class Compact {
 	}
 }

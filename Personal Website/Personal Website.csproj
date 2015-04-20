@@ -165,7 +165,7 @@
     </Content>
     <Content Include="Author\Author.css" />
     <Content Include="Author\Default.aspx" />
-    <Content Include="Author\Old.aspx" />
+    <Content Include="Author\Compact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\MainStyle.css" />
@@ -386,12 +386,12 @@
     <Compile Include="Author\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Author\Old.aspx.cs">
-      <DependentUpon>Old.aspx</DependentUpon>
+    <Compile Include="Author\Compact.aspx.cs">
+      <DependentUpon>Compact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Author\Old.aspx.designer.cs">
-      <DependentUpon>Old.aspx</DependentUpon>
+    <Compile Include="Author\Compact.aspx.designer.cs">
+      <DependentUpon>Compact.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

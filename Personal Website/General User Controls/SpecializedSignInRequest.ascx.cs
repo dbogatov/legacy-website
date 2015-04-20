@@ -15,7 +15,7 @@ namespace Personal_Website.General_User_Controls {
 			alertText.InnerText = Text;
 
 			returnBtn.HRef += "?returnUrl=" + HttpContext.Current.Request.Url.AbsoluteUri;
-			alertBanner.Visible = !(Authentication.isRegistered() || Authentication.isDemo());
+			alertBanner.Visible = !Authentication.grantAccess(); //!(Authentication.isRegistered() || Authentication.isDemo());
 		}
 	}
 }

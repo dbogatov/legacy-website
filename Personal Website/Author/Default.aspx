@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Author" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Personal_Website.Author.Default" %>
+<%@ Register TagPrefix="My" TagName="SpecializedSignInRequest" Src="~/General User Controls/SpecializedSignInRequest.ascx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
 	<link href="Author.css" rel="stylesheet" type="text/css" />
@@ -9,6 +10,8 @@
 
 
 	<h3><%: Title %>.</h3>
+
+	<My:SpecializedSignInRequest runat="server" Text="Please, tell me who you are to view full resume - my working experience and completed projects."></My:SpecializedSignInRequest>
 
 	<div id="mainContent">
 
@@ -69,7 +72,7 @@
 		<!-- Independent Projects -->
 
 		<div class="row">
-			<div class="col-md-10 col-md-offset-1" id="independent-projects">
+			<div class="col-md-10 col-md-offset-1" id="independentProjects" runat="server">
 			
 				<hr style="opacity: 1;">
 				<h2 class="row-centered section">Independent Projects</h2>
@@ -107,7 +110,7 @@
 		<!-- Academic Projects -->
 		
 		<div class="row">
-			<div class="col-md-10 col-md-offset-1" id="academic-projects">
+			<div class="col-md-10 col-md-offset-1" id="academicProjects" runat="server">
 			
 				<hr style="opacity: 1;">
 				<h2 class="row-centered section">Academic Projects</h2>
@@ -160,7 +163,7 @@
 		<!-- Experience -->
 
 		<div class="row">
-			<div class="col-md-10 col-md-offset-1" id="experience">
+			<div class="col-md-10 col-md-offset-1" id="experience" runat="server">
 			
 				<hr style="opacity: 1;">
 				<h2 class="row-centered section">Experience</h2>
