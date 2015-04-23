@@ -13,7 +13,8 @@
 		$(document).ready(function () {
 			// Handler for .ready() called.
 			window.setTimeout(function () {
-				location.href = getParameterByName('returnUrl');;
+				var ref = getParameterByName('returnUrl');
+				location.href = ref == "" ? location.href = location.origin : location.href = ref;
 			}, 5000);
 
 			CreateTimer("counter", 5);

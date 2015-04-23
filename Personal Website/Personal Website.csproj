@@ -189,6 +189,9 @@
     <Content Include="Images\FinanceParser.png" />
     <Content Include="Images\WPICalendarEventCreator.png" />
     <Content Include="Includes\Resume.html" />
+    <Content Include="Models\SQL\Dictionary.sql" />
+    <Content Include="Models\smtptester.aspx" />
+    <Content Include="Models\SQL\Dictionary_Seed.sql" />
     <Content Include="Notification.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -260,6 +263,11 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Author\Resume.pdf" />
+    <Content Include="Models\Email.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Email.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\dbogatov - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dbogatov - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\dbogatov.com - Web Deploy.pubxml" />
@@ -427,6 +435,12 @@
     </Compile>
     <Compile Include="Models\Authentication.cs" />
     <Compile Include="Models\DatabaseReset.cs" />
+    <Compile Include="Models\Email.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Email.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmailManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Notification.aspx.cs">
       <DependentUpon>Notification.aspx</DependentUpon>
@@ -553,6 +567,11 @@
   <ItemGroup>
     <Content Include="Projects\Minesweeper\App_LocalResources\Default.aspx.resx" />
     <Content Include="Projects\Minesweeper\App_LocalResources\Default.aspx.uk-ua.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\Email.dbml.layout">
+      <DependentUpon>Email.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

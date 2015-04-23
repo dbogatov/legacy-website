@@ -24,6 +24,11 @@ namespace Personal_Website.Account {
 			var returnUrl = Request.QueryString["returnUrl"] ?? "";
 
 			if (Authentication.Register(email, name, story, lang)) {
+				
+				new Thread(delegate() {
+					EmailManager.sendAfterContact(email, lang, name);
+				}).Start();
+
 				Response.Redirect(String.Format("~/Notification.aspx?name={0}&message={1}&returnUrl={2}", name, "You have successfully contacted me. I will get in touch shortly.", returnUrl));
 			} else {
 				Response.Redirect(String.Format("~/Notification.aspx?name={0}&message={1}&returnUrl={2}", name, "You have already registered. Don't try again!", returnUrl));
