@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Personal_Website.SiteMaster" %>
 <%@ Register TagPrefix="My" TagName="SignInRequest" Src="~/General User Controls/SignInRequest.ascx" %>	
+<%@ Register TagPrefix="My" TagName="FeedbackModal" Src="~/General User Controls/FeedbackModal.ascx" %>	
 
 <!DOCTYPE html>
 
@@ -77,6 +78,7 @@
             </div>
         </div>
         <div class="container body-content">
+			<My:FeedbackModal ID="feedbackModal" runat="server"></My:FeedbackModal>
 			<My:SignInRequest ID="signInRequest" runat="server"></My:SignInRequest>
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
@@ -84,6 +86,7 @@
             <footer>
                 <p style="text-align:center">&copy; <%: DateTime.Now.Year %> - Dmytro Bogatov's Personal Website</p>
             </footer>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedbackView" style="position: fixed; bottom: 10px; right: 30px;">Feedback</button>
         </div>
     </form>
 </body>

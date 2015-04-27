@@ -32,6 +32,10 @@ namespace Personal_Website.Models {
 			return true;
 		}
 
+		public static bool sendFeedback(string subject, string body, string from, string url) {
+			return sendEmail("dbogatov@wpi.edu", "author@dbogatov.org", "Feedback Manager", "FEEDBACK: " + subject, "URL: "+url+"\n\nFrom " + (from != "" ? from : "{email not provided}") + ":\n\n" + body + "\n\nEnd of feedback.");
+		}
+
 		public static bool sendAfterContact(string email, string language, string name, string story) {
 			
 			string subject = "Lang error";

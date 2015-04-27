@@ -159,6 +159,8 @@
     <Content Include="Account\Users_AddUser.sql" />
     <Content Include="Account\Users_CheckUser.sql" />
     <Content Include="Admin\SQL\Default.aspx" />
+    <Content Include="API\ajaxAPI.js" />
+    <Content Include="API\FeedbackManager.asmx" />
     <Content Include="App_Data\aspnet-Personal Website-20150222081252.mdf" />
     <Content Include="App_Data\aspnet-Personal Website-20150222081252_log.ldf">
       <DependentUpon>aspnet-Personal Website-20150222081252.mdf</DependentUpon>
@@ -172,6 +174,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="General User Controls\FeedbackModal.ascx" />
     <Content Include="General User Controls\SignInRequest.ascx" />
     <Content Include="General User Controls\SpecializedSignInRequest.ascx" />
     <Content Include="Images\Banker.png" />
@@ -387,6 +390,10 @@
     <Compile Include="Admin\SQL\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="API\FeedbackManager.asmx.cs">
+      <DependentUpon>FeedbackManager.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -417,6 +424,13 @@
     </Compile>
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="General User Controls\FeedbackModal.ascx.cs">
+      <DependentUpon>FeedbackModal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General User Controls\FeedbackModal.ascx.designer.cs">
+      <DependentUpon>FeedbackModal.ascx</DependentUpon>
     </Compile>
     <Compile Include="General User Controls\SignInRequest.ascx.cs">
       <DependentUpon>SignInRequest.ascx</DependentUpon>

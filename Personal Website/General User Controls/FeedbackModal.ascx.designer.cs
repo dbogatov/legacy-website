@@ -7,45 +7,45 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Personal_Website {
+namespace Personal_Website.General_User_Controls {
     
     
-    public partial class SiteMaster {
+    public partial class FeedbackModal {
         
         /// <summary>
-        /// head control.
+        /// sender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText sender;
         
         /// <summary>
-        /// feedbackModal control.
+        /// regexEmailValid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Personal_Website.General_User_Controls.FeedbackModal feedbackModal;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexEmailValid;
         
         /// <summary>
-        /// signInRequest control.
+        /// subject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Personal_Website.General_User_Controls.SignInRequest signInRequest;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText subject;
         
         /// <summary>
-        /// MainContent control.
+        /// messageText control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea messageText;
     }
 }
