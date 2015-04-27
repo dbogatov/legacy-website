@@ -35,7 +35,7 @@
 				</div>
 
 			</div>
-			<div class="col-md-3 col-md-offset-0">
+			<div class="col-md-3 col-md-offset-0 row-centered">
 				<asp:Image runat="server" ImageUrl="~/Images/DmytroBogatov.jpg" Width="210px" CssClass="img-rounded" style="padding-bottom:5px" />
 			</div>
 

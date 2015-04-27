@@ -26,7 +26,7 @@ namespace Personal_Website.Account {
 			if (Authentication.Register(email, name, story, lang)) {
 				
 				new Thread(delegate() {
-					EmailManager.sendAfterContact(email, lang, name);
+					EmailManager.sendAfterContact(email, lang, name, story);
 				}).Start();
 
 				Response.Redirect(String.Format("~/Notification.aspx?name={0}&message={1}&returnUrl={2}", name, "You have successfully contacted me. I will get in touch shortly.", returnUrl));
