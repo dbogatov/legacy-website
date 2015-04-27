@@ -282,6 +282,8 @@
     <Content Include="Projects\SQL\ProjectsProcedures.sql" />
     <Content Include="Projects\Google-Finance-Parser\Default.aspx" />
     <Content Include="Projects\Google-Finance-Parser\financeParser.js" />
+    <Content Include="Scripts\bootstrap-progressbar.js" />
+    <Content Include="Scripts\bootstrap-progressbar.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

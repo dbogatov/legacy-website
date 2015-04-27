@@ -77,3 +77,11 @@ span.ResumeBody {
 .project-thumbnail {
 	padding-top:10px;
 }
+
+.five-sec-ease-in-out {
+    -webkit-transition: width 5s ease-in-out;
+    -moz-transition: width 5s ease-in-out;
+    -ms-transition: width 5s ease-in-out;
+    -o-transition: width 5s ease-in-out;
+    transition: width 5s ease-in-out;
+}

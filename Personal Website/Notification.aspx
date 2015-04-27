@@ -1,4 +1,9 @@
 ﻿<%@ Page Title="Notification" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Notification.aspx.cs" Inherits="Personal_Website.Notification" %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+	<link href="Content/MainStyle.css" rel="stylesheet" type="text/css" />
+</asp:Content>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	
 	<script>
@@ -44,6 +49,14 @@
 
 	</script>
 
+	<script src="Scripts/bootstrap-progressbar.js"></script>
+	
+	<script>
+		$(document).ready(function() {
+			$('.progress-bar').progressbar();
+		});
+	</script>
+
 	<h2>
 		Dear <%
 			Response.Write(Request.QueryString["name"]);	
@@ -55,4 +68,8 @@
 		 %>
 	</h3>
 	<a href="Default.aspx">Go home...</a> or you will be redirected where you were in <span id="counter">5</span> seconds...
+
+	<div class="progress progress-striped">
+		<div class="progress-bar five-sec-ease-in-out" role="progressbar" data-transitiongoal="100"></div>
+	</div>
 </asp:Content>
