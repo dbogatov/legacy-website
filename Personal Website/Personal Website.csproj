@@ -168,10 +168,12 @@
     <Content Include="Author\Author.css" />
     <Content Include="Author\Default.aspx" />
     <Content Include="Author\Compact.aspx" />
+    <Content Include="Clear.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\MainStyle.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Demo.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="General User Controls\FeedbackModal.ascx" />
@@ -411,12 +413,26 @@
     <Compile Include="Author\Compact.aspx.designer.cs">
       <DependentUpon>Compact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Clear.aspx.cs">
+      <DependentUpon>Clear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Clear.aspx.designer.cs">
+      <DependentUpon>Clear.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Demo.aspx.cs">
+      <DependentUpon>Demo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Demo.aspx.designer.cs">
+      <DependentUpon>Demo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
