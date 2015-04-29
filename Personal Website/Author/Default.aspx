@@ -60,7 +60,7 @@
 			
 				<h2 class="row-centered section">Education</h2>
 				<span id="degree">Bachelor of Science in Computer Science</span>
-				<span class="large-description">Worcester Polytechnic Institute • Worcester, MA • 2017 • <strong>3.95 GPA</strong></span>
+				<span class="large-description">Worcester Polytechnic Institute • Worcester, MA • 2017 • <strong><a target="_blank" href="../Projects/Grades/Default.aspx">GPA 3.96</a></strong></span>
 				<div class="col-md-10 col-md-offset-1 pull-left">
 					<span class="mid-data">Related Coursework</span><br />
 					<div class="description">
@@ -86,7 +86,7 @@
 					<span class="mid-data">Worcester Polytechnic Institute • Worcester, MA • January 2015</span><br />
 					<div class="description">
 						Developed an iOS application, Banker Game Assistant, which serves as an useful tool when playing board games involving cash like Monopoly®. Led application from the idea to the AppStore. 
-						<p>Link: <a target="_blank" href="../Projects/Banker/Default.aspx">http://dbogatov.org/Projects/Banker/</a></p>
+						<p>Link: <a target="_blank" href="../Projects/Banker/Default.aspx">banker-game.dbogatov.org</a></p>
 					</div>
 				</div>
 
@@ -95,7 +95,7 @@
 					<span class="mid-data">Kiev • Ukraine • June - August 2014</span><br />
 					<div class="description">
 						Worked with a partner to develop a simple web-based game, Minesweeper. Programmed the server side of the application.
-						<p>Link: <a target="_blank" href="../Projects/Minesweeper/Default.aspx">http://dbogatov.org/Projects/Minesweeper/</a></p>
+						<p>Link: <a target="_blank" href="../Projects/Minesweeper/Default.aspx">minesweeper.dbogatov.org</a></p>
 					</div>
 				</div>
 
@@ -104,7 +104,7 @@
 					<span class="mid-data">Worcester Polytechnic Institute • Worcester, MA • September - December 2013</span><br />
 					<div class="description">
 						Developed an iOS application, WPI Calendar Event Creator, which provides an easy and fast way to create university-related events in a calendar. 
-						<p>Link: <a target="_blank" href="../Projects/Calendar-Event-Creator/Default.aspx">http://dbogatov.org/Projects/Calendar-Event-Creator/</a></p>
+						<p>Link: <a target="_blank" href="../Projects/Calendar-Event-Creator/Default.aspx">wpi-event-creator.dbogatov.org</a></p>
 					</div>
 				</div>
 

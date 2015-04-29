@@ -9,7 +9,7 @@ using Personal_Website.Models;
 namespace Personal_Website {
 	public partial class Demo : System.Web.UI.Page {
 		protected void Page_Load(object sender, EventArgs e) {
-			if (!Authentication.isDemo()) {
+			if (!Authentication.grantAccess()) {
 				Authentication.startDemo();
 			} else {
 				Response.Redirect("~/");
