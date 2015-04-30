@@ -14,11 +14,16 @@ namespace Personal_Website.Projects.Grades {
 		public string Requirement;
 		private int maxForUnregistered = (Authentication.isRegistered() || Authentication.isDemo()) ? Int32.MaxValue : 2;
 
+		public decimal GPA = 0;
+		public int sumPoints = 0;
+		public int completedNumber = 0;
+
 		protected void Page_Load(object sender, EventArgs e) {
 
 			gradeHeader.Visible = Authentication.grantAccess();
 
 			int canary = 0;
+
 			foreach (var g in new GradesDataDataContext().GradesViews) {
 				
 				if (canary == maxForUnregistered)
@@ -40,6 +45,22 @@ namespace Personal_Website.Projects.Grades {
 					switch (g.status.ToString()) {
 						case "Completed":
 							row.Attributes.Add("class", "success");
+							
+							switch (g.gradeLetter.ToString()) {
+								case "A":
+									sumPoints += 4;
+									break;
+								case "B":
+									sumPoints += 3;
+									break;
+								case "C":
+									sumPoints += 2;
+									break;
+								default:
+									sumPoints += 0;
+									break;
+							}
+							completedNumber++;
 							break;
 						case "in progress...":
 							row.Attributes.Add("class", "active");
@@ -57,6 +78,12 @@ namespace Personal_Website.Projects.Grades {
 				}
 			}
 
+			GPA = completedNumber != 0 ? Math.Round((decimal)sumPoints / completedNumber, 2) : 4;
+			//GPA = completedNumber != 0 ? (decimal)sumPoints / completedNumber : 4;
+		}
+
+		public decimal Round(decimal num, int digits) {
+			return Math.Round(num, digits);
 		}
 
 		private HtmlTableCell createNormalCell(string content) {

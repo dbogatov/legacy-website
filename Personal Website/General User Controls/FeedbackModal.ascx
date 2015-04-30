@@ -76,27 +76,18 @@
 				<h4 class="modal-title" id="exampleModalLabel">Feedback Message</h4>
 			</div>
 			<div class="modal-body">
-				<asp:ValidationSummary runat="server" CssClass="text-danger" />
 				<form>
 					<div class="form-group">
 						<label for="sender" class="control-label">Your email: (not required, but appreciated)</label>
 						<input type="text" class="form-control" id="sender" runat="server" placeholder="eq. name@example.com">
-						<asp:RegularExpressionValidator ID="regexEmailValid" runat="server"
-							ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
-							ControlToValidate="sender" ErrorMessage="Invalid Email Format" CssClass="text-danger">
-						</asp:RegularExpressionValidator>
 					</div>
 					<div class="form-group">
 						<label for="subject" class="control-label">Subject*:</label>
 						<input type="text" class="form-control" id="subject" runat="server" placeholder="eq. Broken link">
-						<asp:RequiredFieldValidator runat="server" ControlToValidate="subject"
-								CssClass="text-danger" ErrorMessage="The subject field is required." />
 					</div>
 					<div class="form-group">
 						<label for="message-text" class="control-label">Message*:</label>
 						<textarea rows="6" class="form-control" id="messageText" runat="server" placeholder="eq. The link to your project on this page is broken."></textarea>
-						<asp:RequiredFieldValidator runat="server" ControlToValidate="messageText"
-								CssClass="text-danger" ErrorMessage="The subject field is required." />
 					</div>
 				</form>
 			</div>

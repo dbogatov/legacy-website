@@ -62,13 +62,78 @@ $(window).resize(function () {
 
 $(".fixHeight").ready(function () { $(window).trigger('resize'); });
 
+function updateProjects(text) {
+	var atLeastOneShow = false;
+
+	$('.project-thumbnail').each(function () {
+		var flag = false;
+
+		var titie = $(this).find(".projectTitle").text().toLowerCase();
+
+		if ($("#titleChbx").is(':checked') &&  $(this).find(".projectTitle").text().toLowerCase().indexOf(text.toLowerCase()) >= 0 ) {
+			flag = true;
+		}
+
+		if (!flag && $("#descriptionChbx").is(':checked') && $(this).find(".description").text().toLowerCase().indexOf(text.toLowerCase()) >= 0 ) {
+			flag = true;
+		}
+
+		if (!flag) {
+			$(this).hide();
+		} else {
+			$(this).show();
+			atLeastOneShow = true;
+		}
+	});
+
+	if (atLeastOneShow) {
+		$("#emptySearchPlaceholder").hide();
+		$("#searchDiv").removeClass("has-error").addClass("has-success");
+	} else {
+		$("#emptySearchPlaceholder").show();
+		$("#searchDiv").removeClass("has-success").addClass("has-error");
+	}
+}
+
 $(document).ready(function () {
+
+	// Search events
+
+	$("#searchBar").keyup(function() {
+		updateProjects($(this).val());
+	});
+
+	$("#searchBar").on('paste', function () {
+		setTimeout(function () {
+			updateProjects($("#searchBar").val());
+		}, 200);
+	});
+
+	$("#searchBar").on('cut', function () {
+		setTimeout(function () {
+			updateProjects($("#searchBar").val());
+		}, 200);
+	});
+
+	$("input:checkbox").change(function () {
+		updateProjects($("#searchBar").val());
+	});
+
+	$("#clearSearch").click(function () {
+		$("input:checkbox").prop('checked', true);
+		$("#searchBar").val("");
+		updateProjects("");
+	});
+
+	// Filter code
 
 	$('#myTab a').click(function (e) {
 		e.preventDefault();
 		$(this).tab('show')
 
 		filterUsingKey($(this).attr('href').substr(1));
+
+		$("#searchBar").val("");
 	});	
 
 	$(".description").each(function () {

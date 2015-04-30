@@ -11,5 +11,95 @@ namespace Personal_Website.Projects.Grades {
     
     
     public partial class Default {
+        
+        /// <summary>
+        /// CSIQP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Personal_Website.Projects.Grades.GradesTable CSIQP;
+        
+        /// <summary>
+        /// Math control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Personal_Website.Projects.Grades.GradesTable Math;
+        
+        /// <summary>
+        /// Science control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Personal_Website.Projects.Grades.GradesTable Science;
+        
+        /// <summary>
+        /// SocScinces control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Personal_Website.Projects.Grades.GradesTable SocScinces;
+        
+        /// <summary>
+        /// Breadth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Personal_Website.Projects.Grades.GradesTable Breadth;
+        
+        /// <summary>
+        /// Depth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Personal_Website.Projects.Grades.GradesTable Depth;
+        
+        /// <summary>
+        /// Seminar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Personal_Website.Projects.Grades.GradesTable Seminar;
+        
+        /// <summary>
+        /// PE control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Personal_Website.Projects.Grades.GradesTable PE;
+        
+        /// <summary>
+        /// IQP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Personal_Website.Projects.Grades.GradesTable IQP;
+        
+        /// <summary>
+        /// FreeElect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Personal_Website.Projects.Grades.GradesTable FreeElect;
     }
 }

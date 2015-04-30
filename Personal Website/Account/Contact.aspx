@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="Personal_Website.Account.Contact" %>
+﻿<%@ Page Title="Contact" EnableEventValidation="false" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="Personal_Website.Account.Contact" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 	<h2><%: Title %>.</h2>
