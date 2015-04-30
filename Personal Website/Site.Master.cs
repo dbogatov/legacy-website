@@ -76,6 +76,7 @@ namespace Personal_Website
 			} else if (Request.QueryString["action"] == "ClearCookie") {
 				Authentication.clearCookie();
 			}
+
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

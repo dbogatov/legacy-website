@@ -37,7 +37,20 @@ namespace Personal_Website.Models {
 				HttpContext.Current.Response.SetCookie(cookieUser);
 
 				new Thread(delegate() {
-					new UsersDataContext().AddUser(name, email, story, lang, hash);
+
+					UsersDataContext context = new UsersDataContext();
+					User u = new User() {
+						userName = name,
+						userEmail = email,
+						userComment = story,
+						userLanguage = lang,
+						hash = hash,
+						regTime = System.DateTime.Now
+					};
+					context.Users.InsertOnSubmit(u);
+					context.SubmitChanges();
+
+					//new UsersDataContext().AddUser(name, email, story, lang, hash);
 				}).Start();
 
 				return true;

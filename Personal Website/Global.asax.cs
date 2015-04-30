@@ -6,6 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using Personal_Website.Models;
 
 namespace Personal_Website
 {
@@ -16,6 +17,10 @@ namespace Personal_Website
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+			// Create the custom role and user.
+			RoleActions roleActions = new RoleActions();
+			roleActions.AddUserAndRole();
         }
     }
 }

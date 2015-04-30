@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[AddUser]
-	@name		VARCHAR(255),
+	@name		NVARCHAR(255),
 	@email		VARCHAR(127),
-	@comment	VARCHAR(2083),
+	@comment	NVARCHAR(2083),
 	@language	VARCHAR(63),
 	@hash		VARCHAR(255)
 AS

@@ -158,7 +158,10 @@
     <Content Include="Account\Users.sql" />
     <Content Include="Account\Users_AddUser.sql" />
     <Content Include="Account\Users_CheckUser.sql" />
+    <Content Include="Admin\Default.aspx" />
+    <Content Include="Admin\Feedback.aspx" />
     <Content Include="Admin\SQL\Default.aspx" />
+    <Content Include="Admin\Users.aspx" />
     <Content Include="API\ajaxAPI.js" />
     <Content Include="API\FeedbackManager.asmx" />
     <Content Include="App_Data\aspnet-Personal Website-20150222081252.mdf" />
@@ -278,6 +281,7 @@
       <LastGenOutput>Feedback.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Admin\Web.config" />
     <None Include="Properties\PublishProfiles\dbogatov - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dbogatov - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\dbogatov.com - Web Deploy.pubxml" />
@@ -390,12 +394,33 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Users.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Feedback.aspx.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Feedback.aspx.designer.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\SQL\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\SQL\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Users.aspx.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Users.aspx.designer.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
     </Compile>
     <Compile Include="API\FeedbackManager.asmx.cs">
       <DependentUpon>FeedbackManager.asmx</DependentUpon>
@@ -484,6 +509,7 @@
       <DependentUpon>Feedback.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\RoleActions.cs" />
     <Compile Include="Notification.aspx.cs">
       <DependentUpon>Notification.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
