@@ -21,6 +21,17 @@ namespace Personal_Website.API {
 		public bool leaveFeedback(string from, string subject, string body, string url) {
 
 			new Thread(delegate() {
+
+				Feedback fdbk = new Feedback() {
+					Subject = subject,
+					Email = from == "" ? null : from,
+					Body = body
+				};
+
+				FeedbackDataContext context = new FeedbackDataContext();
+				context.Feedbacks.InsertOnSubmit(fdbk);
+				context.SubmitChanges();
+
 				EmailManager.sendFeedback(subject, body, from, url);
 			}).Start();
 

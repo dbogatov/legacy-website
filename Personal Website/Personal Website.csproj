@@ -195,8 +195,8 @@
     <Content Include="Images\WPICalendarEventCreator.png" />
     <Content Include="Includes\Resume.html" />
     <Content Include="Models\SQL\Dictionary.sql" />
-    <Content Include="Models\smtptester.aspx" />
     <Content Include="Models\SQL\Dictionary_Seed.sql" />
+    <Content Include="Models\SQL\FeedbackTable.sql" />
     <Content Include="Notification.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -271,6 +271,11 @@
     <Content Include="Models\Email.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Email.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Models\Feedback.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Feedback.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\dbogatov - FTP.pubxml" />
@@ -473,6 +478,11 @@
       <DependentUpon>Email.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailManager.cs" />
+    <Compile Include="Models\Feedback.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Feedback.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Notification.aspx.cs">
       <DependentUpon>Notification.aspx</DependentUpon>
@@ -603,6 +613,11 @@
   <ItemGroup>
     <None Include="Models\Email.dbml.layout">
       <DependentUpon>Email.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\Feedback.dbml.layout">
+      <DependentUpon>Feedback.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>
