@@ -180,6 +180,7 @@
     <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="General User Controls\FeedbackModal.ascx" />
+    <Content Include="General User Controls\Pagination.ascx" />
     <Content Include="General User Controls\SignInRequest.ascx" />
     <Content Include="General User Controls\SpecializedSignInRequest.ascx" />
     <Content Include="Images\Banker.png" />
@@ -216,6 +217,7 @@
       <LastGenOutput>GradesData.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Projects\IQP\Default.aspx" />
     <Content Include="Projects\Minesweeper\CSS Styles\Style.css" />
     <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.addAchievment.sql" />
     <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.addNickNameID.sql" />
@@ -478,6 +480,13 @@
     <Compile Include="General User Controls\FeedbackModal.ascx.designer.cs">
       <DependentUpon>FeedbackModal.ascx</DependentUpon>
     </Compile>
+    <Compile Include="General User Controls\Pagination.ascx.cs">
+      <DependentUpon>Pagination.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General User Controls\Pagination.ascx.designer.cs">
+      <DependentUpon>Pagination.ascx</DependentUpon>
+    </Compile>
     <Compile Include="General User Controls\SignInRequest.ascx.cs">
       <DependentUpon>SignInRequest.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -556,6 +565,13 @@
     </Compile>
     <Compile Include="Projects\Grades\GradesTable.ascx.designer.cs">
       <DependentUpon>GradesTable.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\IQP\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\IQP\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Projects\Minesweeper\Classes\Field.cs" />
     <Compile Include="Projects\Minesweeper\Classes\Solver.cs" />
@@ -646,6 +662,7 @@
       <DependentUpon>Feedback.dbml</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
