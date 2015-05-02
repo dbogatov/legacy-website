@@ -3,23 +3,23 @@
   <Table Name="dbo.Users" Member="Users">
     <Type Name="User">
       <Column Name="userID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="userName" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="userEmail" Type="System.String" DbType="VarChar(127) NOT NULL" CanBeNull="false" />
-      <Column Name="userComment" Type="System.String" DbType="VarChar(2083) NOT NULL" CanBeNull="false" />
-      <Column Name="userLanguage" Type="System.String" DbType="VarChar(63) NOT NULL" CanBeNull="false" />
+      <Column Name="userName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="userEmail" Type="System.String" DbType="NVarChar(127) NOT NULL" CanBeNull="false" />
+      <Column Name="userComment" Type="System.String" DbType="NVarChar(2083) NOT NULL" CanBeNull="false" />
+      <Column Name="userLanguage" Type="System.String" DbType="NVarChar(63) NOT NULL" CanBeNull="false" />
       <Column Name="regTime" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="hash" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Function Name="dbo.AddUser" Method="AddUser">
-    <Parameter Name="name" Type="System.String" DbType="VarChar(255)" />
-    <Parameter Name="email" Type="System.String" DbType="VarChar(127)" />
-    <Parameter Name="comment" Type="System.String" DbType="VarChar(2083)" />
-    <Parameter Name="language" Type="System.String" DbType="VarChar(63)" />
+  <Function Name="dbo.CheckUser" Method="CheckUser">
     <Parameter Name="hash" Type="System.String" DbType="VarChar(255)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.CheckUser" Method="CheckUser">
+  <Function Name="dbo.AddUser" Method="AddUser">
+    <Parameter Name="name" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(127)" />
+    <Parameter Name="comment" Type="System.String" DbType="NVarChar(2083)" />
+    <Parameter Name="language" Type="System.String" DbType="VarChar(63)" />
     <Parameter Name="hash" Type="System.String" DbType="VarChar(255)" />
     <Return Type="System.Int32" />
   </Function>

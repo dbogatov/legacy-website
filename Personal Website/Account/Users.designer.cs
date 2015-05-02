@@ -73,17 +73,17 @@ namespace Personal_Website.Account
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddUser")]
-		public int AddUser([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(127)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(2083)")] string comment, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(63)")] string language, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string hash)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, email, comment, language, hash);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.CheckUser")]
 		public int CheckUser([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string hash)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), hash);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddUser")]
+		public int AddUser([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(255)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(127)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(2083)")] string comment, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(63)")] string language, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string hash)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, email, comment, language, hash);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -153,7 +153,7 @@ namespace Personal_Website.Account
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userName", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userName", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
 		public string userName
 		{
 			get
@@ -173,7 +173,7 @@ namespace Personal_Website.Account
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userEmail", DbType="VarChar(127) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userEmail", DbType="NVarChar(127) NOT NULL", CanBeNull=false)]
 		public string userEmail
 		{
 			get
@@ -193,7 +193,7 @@ namespace Personal_Website.Account
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userComment", DbType="VarChar(2083) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userComment", DbType="NVarChar(2083) NOT NULL", CanBeNull=false)]
 		public string userComment
 		{
 			get
@@ -213,7 +213,7 @@ namespace Personal_Website.Account
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userLanguage", DbType="VarChar(63) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userLanguage", DbType="NVarChar(63) NOT NULL", CanBeNull=false)]
 		public string userLanguage
 		{
 			get
