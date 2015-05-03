@@ -11,6 +11,8 @@ namespace Personal_Website.Projects.IQP {
 		protected void Page_Load(object sender, EventArgs e) {
 
 			Pagination.defaultActive = Request.QueryString["page"] != null ? Int32.Parse(Request.QueryString["page"]) : 1;
+
+			pageLabel.InnerText = Request.QueryString["page"] != null ? Request.QueryString["page"] : "1";
 		}
 	}
 }

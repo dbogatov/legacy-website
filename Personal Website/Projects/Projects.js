@@ -58,6 +58,8 @@ $(window).resize(function () {
 	$(".fixHeight").each(function () {
 		$(this).height(260 - $(this).parent().children().eq(0).height());
 	});
+
+	$("[href='#']").addClass("disabled");
 });
 
 $(".fixHeight").ready(function () { $(window).trigger('resize'); });
@@ -96,6 +98,8 @@ function updateProjects(text) {
 }
 
 $(document).ready(function () {
+
+	
 
 	// Search events
 

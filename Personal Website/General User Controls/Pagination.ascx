@@ -48,7 +48,7 @@
 <label id="actLabel" runat="server" hidden class="actLabel"></label>
 <label id="dispLabel" runat="server" hidden class="dispLabel"></label>
 
-<nav>
+<nav class="row-centered">
 	<ul class="pagination">
 		<li id="prevPageLi">
 			<a id="prevPage" href="#" aria-label="Previous">

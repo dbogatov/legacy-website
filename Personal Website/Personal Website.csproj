@@ -192,6 +192,7 @@
     <Content Include="Images\CalendarEventCreator\tutorial5.png" />
     <Content Include="Images\CalendarEventCreator\tutorial6.png" />
     <Content Include="Images\CalendarEventCreator\tutorial7.png" />
+    <Content Include="Images\IQP.jpg" />
     <Content Include="Images\DmytroBogatov.jpg" />
     <Content Include="Images\Minesweeper.png" />
     <Content Include="Images\PersonalWebsite.png" />
@@ -218,6 +219,20 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Projects\IQP\Default.aspx" />
+    <Content Include="Projects\IQP\IQPStyle.css" />
+    <Content Include="Projects\IQP\Prism\prism.css" />
+    <Content Include="Projects\IQP\Prism\prism.js" />
+    <Content Include="Projects\IQP\Resources\BollFlow.png" />
+    <Content Include="Projects\IQP\Resources\BollingerBands.png" />
+    <Content Include="Projects\IQP\Resources\BollMonte1.png" />
+    <Content Include="Projects\IQP\Resources\BollMonte2.png" />
+    <Content Include="Projects\IQP\Resources\BollMonte3.png" />
+    <Content Include="Projects\IQP\Resources\BollMonte4.png" />
+    <Content Include="Projects\IQP\Resources\BollMonte5.png" />
+    <Content Include="Projects\IQP\Resources\BollOpt.png" />
+    <Content Include="Projects\IQP\Resources\BollPerf.png" />
+    <Content Include="Projects\IQP\Resources\BollWalkForw.png" />
+    <Content Include="Projects\IQP\Resources\WPI.png" />
     <Content Include="Projects\Minesweeper\CSS Styles\Style.css" />
     <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.addAchievment.sql" />
     <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.addNickNameID.sql" />
