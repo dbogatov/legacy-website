@@ -1,0 +1,54 @@
+﻿body {
+}
+
+.IQPPage {
+	border:2px solid black;
+	font-family: 'Lato', sans-serif;
+	font-weight:300;
+	color:black;
+}
+
+.bold-data {
+	font-weight: bold;
+	font-size: 15pt;
+}
+
+.italic-data {
+	font-style:italic;
+}
+
+.all-cap-data {
+	text-transform: uppercase;
+}
+
+.padding-bottom-twenty {
+	padding-bottom:20px;
+}
+
+.firstPage > span {
+	display:inline-block;
+	padding-top:20px;
+}
+
+.section {
+	display:inline-block;
+	padding-bottom:30px;
+}
+
+.subsection {
+	font-weight: bold;
+	font-size: 13pt;
+	display:inline-block;
+	padding-bottom:20px;
+}
+
+.usual-data {
+	text-align:justify;
+}
+
+.IQPPage > img {
+	width:500px;
+	padding-bottom:20px;
+	padding-top:20px;
+	display:inline-block;
+}

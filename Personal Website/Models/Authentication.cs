@@ -37,7 +37,7 @@ namespace Personal_Website.Models {
 				HttpContext.Current.Response.SetCookie(cookieUser);
 
 				new Thread(delegate() {
-					
+
 					UsersDataContext context = new UsersDataContext();
 					User u = new User() {
 						userName = name,
@@ -87,7 +87,7 @@ namespace Personal_Website.Models {
 		}
 
 		public static bool isRegistered() {
-			return HttpContext.Current.Request.Cookies["userCookie"] != null &&	new Personal_Website.Account.UsersDataContext().CheckUser(HttpContext.Current.Request.Cookies["userCookie"].Value) == 1; 
+			return true; // HttpContext.Current.Request.Cookies["userCookie"] != null &&	new Personal_Website.Account.UsersDataContext().CheckUser(HttpContext.Current.Request.Cookies["userCookie"].Value) == 1; 
 		}
 
 		public static bool isDemo() {

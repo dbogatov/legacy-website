@@ -197,6 +197,7 @@
     <Content Include="Images\Minesweeper.png" />
     <Content Include="Images\PersonalWebsite.png" />
     <Content Include="Images\FinanceParser.png" />
+    <Content Include="Images\MHTC.png" />
     <Content Include="Images\WPICalendarEventCreator.png" />
     <Content Include="Includes\Resume.html" />
     <Content Include="Models\SQL\Dictionary.sql" />
@@ -233,6 +234,7 @@
     <Content Include="Projects\IQP\Resources\BollPerf.png" />
     <Content Include="Projects\IQP\Resources\BollWalkForw.png" />
     <Content Include="Projects\IQP\Resources\WPI.png" />
+    <Content Include="Projects\MHTC\Default.aspx" />
     <Content Include="Projects\Minesweeper\CSS Styles\Style.css" />
     <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.addAchievment.sql" />
     <Content Include="Projects\Minesweeper\DataBase\Stored Procedures\dbo.addNickNameID.sql" />
@@ -586,6 +588,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Projects\IQP\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\MHTC\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\MHTC\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Projects\Minesweeper\Classes\Field.cs" />
