@@ -1,6 +1,19 @@
 ﻿$(document).ready(function () {
 	constructTable();
+	AJAXTest();
 });
+
+function AJAXTest() {
+	var data = JSON.stringify({ data: "foo" });
+
+	$.post("/api/projects/pentago/host", "=" + data)
+		.done(function (returned) {
+			alert(returned);
+		})
+	.fail(function (xhr, textStatus, errorThrown) {
+		alert(textStatus);
+	});
+}
 
 function constructTable() {
 	var html = "";

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Pentago">
+  <DataContextMoniker Name="/PentagoDataContext" />
+  <nestedChildShapes>
+    <classShape Id="ab20b5fe-64c2-412c-a380-9abdb1bc1ffa" absoluteBounds="4.5, 2.875, 2, 3.1170068359375">
+      <DataClassMoniker Name="/PentagoDataContext/PentagoGame" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c4489be9-f54f-4d86-81a2-022c0d7f7c93" absoluteBounds="4.515, 3.335, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

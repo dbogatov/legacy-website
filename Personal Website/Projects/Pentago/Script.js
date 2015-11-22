@@ -2,6 +2,7 @@
 
 var mode;
 var hostCode = "";
+var checkJoinIntervalID;
 
 $(document).ready(fixPanel);
 
@@ -70,27 +71,47 @@ $(document).ready(function () {
 
 	$("#enterCodeBtn").click(function () {
 		if ($("#multiplayerCode").val().length > 0) {
-			lookForJinedPlayer();
+			joinGame($("#multiplayerCode").val());
 		}
 	});
 });
 
 function getHostCode() {
 	if (hostCode.length === 0) {
-		// API CALL HERE
-		hostCode = "SSDFAFS";
-		$("#hostCode").text(hostCode);
-		lookForJinedPlayer();
+		async(function () {
+			hostCode = pentagoAPIWrapper.hostGame();
+			$("#hostCode").text(hostCode);
+		}, lookForJinedPlayer);
+
+		//lookForJinedPlayer();
 	}
 }
 
-function lookForJinedPlayer() {
-	// API CALL HERE
-	setTimeout(function () {
+function joinGame(gameCode) {
+	if (pentagoAPIWrapper.joinGame(gameCode)) {
 		$("#playMultiBtn").removeClass("disabled");
 		$("#host").hide();
 		$("#join").hide();
 		$("#multiplayerTabs").hide();
 		$("#readyLabel").show();
+	}
+}
+
+function lookForJinedPlayer() {
+
+	checkJoinIntervalID = window.setInterval(function () {
+
+		if (pentagoAPIWrapper.checkJoin(hostCode)) {
+			window.clearInterval(checkJoinIntervalID);
+
+			$("#playMultiBtn").removeClass("disabled");
+			$("#host").hide();
+			$("#join").hide();
+			$("#multiplayerTabs").hide();
+			$("#readyLabel").show();
+		} else {
+			console.log("Not joined yet...");
+		};
+
 	}, 3000);
 }

@@ -39,6 +39,7 @@
 
 		<!-- My Script -->
 		<script src="Script.js"></script>
+		<script src="PentagoAPIWrapper.js"></script>
 
 		<div class="row centering">
 			<div class="panel panel-primary" id="setupPanel">
@@ -151,7 +152,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" id="playMultiBtn" class="btn btn-primary disabled">Play</button>
+					<a href="Play.aspx" id="playMultiBtn" class="btn btn-primary disabled">Play</a>
 				</div>
 			</div>
 		</div>
