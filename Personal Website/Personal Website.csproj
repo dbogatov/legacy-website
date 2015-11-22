@@ -275,6 +275,8 @@
     <Content Include="Projects\Minesweeper\Scripts\modernizr.custom.06116.js" />
     <Content Include="Projects\Minesweeper\Scripts\solver.js" />
     <Content Include="Projects\Pentago\Default.aspx" />
+    <Content Include="Projects\Pentago\Game.js" />
+    <Content Include="Projects\Pentago\Play.aspx" />
     <Content Include="Projects\Pentago\Script.js" />
     <Content Include="Projects\Pentago\Style.css" />
     <Content Include="Projects\Projects.dbml">
@@ -623,6 +625,13 @@
     </Compile>
     <Compile Include="Projects\Pentago\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\Pentago\Play.aspx.cs">
+      <DependentUpon>Play.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\Pentago\Play.aspx.designer.cs">
+      <DependentUpon>Play.aspx</DependentUpon>
     </Compile>
     <Compile Include="Projects\Projects.designer.cs">
       <AutoGen>True</AutoGen>
