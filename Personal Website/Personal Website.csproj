@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -273,6 +274,9 @@
     <Content Include="Projects\Minesweeper\Scripts\minesweeper.js" />
     <Content Include="Projects\Minesweeper\Scripts\modernizr.custom.06116.js" />
     <Content Include="Projects\Minesweeper\Scripts\solver.js" />
+    <Content Include="Projects\Pentago\Default.aspx" />
+    <Content Include="Projects\Pentago\Script.js" />
+    <Content Include="Projects\Pentago\Style.css" />
     <Content Include="Projects\Projects.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Projects.designer.cs</LastGenOutput>
@@ -613,6 +617,13 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Projects\Minesweeper\Structures\Structs.cs" />
+    <Compile Include="Projects\Pentago\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects\Pentago\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Projects\Projects.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
