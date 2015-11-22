@@ -86,7 +86,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" id="playBtn" class="btn btn-primary">Play</button>
+					<a href="Play.aspx" id="playBtn" class="btn btn-primary disabled">Play</a>
 				</div>
 			</div>
 		</div>

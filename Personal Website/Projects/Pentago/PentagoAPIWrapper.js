@@ -1,6 +1,6 @@
 ﻿var pentagoAPIWrapper = (function () {
 	var apiUrl = "/api/projects/pentago/";
-	var AJAXReturnValue;
+	var ajaxReturnValue;
 
 	/* successCallback has a signature
 	 * void function successCallback(data) {}
@@ -9,14 +9,14 @@
 	 * data and successCallback are optional
 	 * 
 	*/
-	function performAJAX(async, url, data, successCallback) {
+	function performAjax(async, url, data, successCallback) {
 		data = data || {};
 
 		successCallback = successCallback || function (data) {
-			AJAXReturnValue = data;
+			ajaxReturnValue = data;
 		};
 
-		AJAXReturnValue = null;
+		ajaxReturnValue = null;
 
 		jQuery.ajaxSetup({ async: async });
 
@@ -27,25 +27,46 @@
 
 		jQuery.ajaxSetup({ async: true });
 
-		return AJAXReturnValue;
+		return ajaxReturnValue;
 	}
 
 	function hostGame() {
-		return performAJAX(false, "host");
+		return performAjax(false, "host");
 	}
 
 	function joinGame(gameCode) {
-		return performAJAX(false, "join", { gameCode: gameCode });
+		return performAjax(false, "join", { gameCode: gameCode });
 	}
 
 	function checkJoin(gameCode) {
-		return performAJAX(false, "checkjoin", { gameCode: gameCode });
+		return performAjax(false, "checkjoin", { gameCode: gameCode });
+	}
+
+	function getField() {
+		return performAjax(false, "getfield");
+	}
+
+	function isMyMarkCross(parameters) {
+		return performAjax(false, "ismymarkcross");
+	}
+
+	function makeTurn(x, y, mark, field, dir) {
+		return performAjax(false, "maketurn", {
+			x: x,
+			y: y,
+			mark: mark,
+			field: field,
+			direction: dir
+		});
 	}
 
 	return {
 		hostGame: hostGame,
 		joinGame: joinGame,
-		checkJoin: checkJoin
+		checkJoin: checkJoin,
+		getField: getField,
+		amICross: isMyMarkCross,
+		makeTurn: makeTurn
 	};
 
 })();

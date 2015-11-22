@@ -39,6 +39,7 @@
 
 		<!-- My Script -->
 		<script src="Game.js"></script>
+		<script src="PentagoAPIWrapper.js"></script>
 
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">

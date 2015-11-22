@@ -653,6 +653,7 @@
       <DependentUpon>Pentago.dbml</DependentUpon>
     </Compile>
     <Compile Include="Projects\Pentago\PentagoController.cs" />
+    <Compile Include="Projects\Pentago\PentagoField.cs" />
     <Compile Include="Projects\Pentago\Play.aspx.cs">
       <DependentUpon>Play.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

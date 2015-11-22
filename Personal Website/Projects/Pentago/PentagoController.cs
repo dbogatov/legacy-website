@@ -38,6 +38,39 @@ namespace Personal_Website.Projects.Pentago {
 				return GameModel.JoinGame((String)data.gameCode);
 			}
 
+			[Route("maketurn")]
+			[HttpPost]
+			public String MakeTurn([FromBody] String json) {
+				dynamic data = JsonConvert.DeserializeObject(json);
+
+				var x = (int)data.x;
+				var y = (int)data.y;
+				var mark = (Cell)data.mark;
+				var field = (Quadrant)data.field;
+				var direction = (RotDirection)data.direction;
+
+				return GameModel.MakeTurn(x, y, mark, field, direction);
+			}
+
+			[Route("ismyturn")]
+			[HttpPost]
+			public bool IsMyTurn([FromBody] String json) {
+				return GameModel.IsMyTurn();
+			}
+
+			[Route("ismymarkcross")]
+			[HttpPost]
+			public bool IsMyMarkCross([FromBody] String json) {
+				return GameModel.IsMyMarkCross();
+			}
+
+			[Route("getfield")]
+			[HttpPost]
+			public String GetField([FromBody] String json) {
+				return GameModel.GetField();
+			}
+
+
 		}
 
 
