@@ -120,7 +120,8 @@
 									<div class="panel-heading">Waiting for the other player to join</div>
 
 									<div class="panel-body">
-										Here is your code: <strong id="hostCode">ERROR</strong>. Give it to your friend and ask to join.
+										<p id="codeGenerating">Generating code for you... Please wait a second.</p>
+										<p id="codeGenerated" hidden>Here is your code: <strong id="hostCode">ERROR</strong>. Give it to your friend and ask to join.</p>
 
 										<div class="progress" style="margin-top: 15px;">
 											<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">

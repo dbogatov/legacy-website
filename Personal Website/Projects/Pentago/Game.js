@@ -151,66 +151,99 @@ var gameController = (function () {
 	}
 
 	function checkGameResult() {
+
+		pentagoAPIWrapper.init(function (result) {
+			console.log("Checking game result: " + result);
+
+			if (!pentagoAPIWrapper.isGameInProgress(result)) {
+				endGame(result);
+			}
+		}).gameResult();
+
+		/*
 		var result = pentagoAPIWrapper.gameResult();
 		console.log("Checking game result: " + result);
 		if (!pentagoAPIWrapper.isGameInProgress(result)) {
 			endGame(result);
-		}
+		}*/
 	}
 
 	function stopWaitingForTurn() {
 		console.log("It's my turn, stop waitng.");
 		isMyTurn = true;
 		window.clearInterval(waitIntervalHandler);
-		viewController.animateField(pentagoAPIWrapper.getField());
-		checkGameResult();
-		viewController.allowTurn();
+		pentagoAPIWrapper.init(function (result) {
+			viewController.animateField(result);
+			checkGameResult();
+			viewController.allowTurn();
+		}).getField();
+
 	}
 
 	function waitForTurn() {
 		waitIntervalHandler = window.setInterval(function () {
-			var myTurn = pentagoAPIWrapper.isMyTurn();
-			console.log("Waiting for turn: myTurn? " + myTurn);
-			if (myTurn) {
-				stopWaitingForTurn();
-			}
+
+			pentagoAPIWrapper.init(function (result) {
+				var myTurn = result;
+				console.log("Waiting for turn: myTurn? " + myTurn);
+				if (myTurn) {
+					stopWaitingForTurn();
+				}
+			}).isMyTurn();
+
+
 		}, waitInterval);
 	}
 
 	function drawInitialField() {
-		viewController.renderField(pentagoAPIWrapper.getField());
+		pentagoAPIWrapper.init(function (result) {
+			viewController.renderField(result);
+		}).getField();
 	}
 
 	function initControler() {
-		mark = pentagoAPIWrapper.amICross() ? 0 : 1;
-		isMyTurn = pentagoAPIWrapper.isMyTurn();
-		if (isMyTurn) {
-			stopWaitingForTurn();
-		} else {
-			waitForTurn();
-		}
-	}
 
+		pentagoAPIWrapper.init(function (result) {
+			mark = result ? 0 : 1;
+		}).amICross();
+
+		pentagoAPIWrapper.init(function (result) {
+			isMyTurn = result;
+
+			if (isMyTurn) {
+				stopWaitingForTurn();
+			} else {
+				waitForTurn();
+			}
+		}).isMyTurn();
+
+
+	}
+	/*
 	function testMove() {
 		viewController.renderField(pentagoAPIWrapper.makeTurn(0, 0, mark, 0, 1));
-	}
+	}*/
 
 	function putMark(x, y, field, dir) {
 		if (isMyTurn) {
-			if (viewController.animateField(pentagoAPIWrapper.makeTurn(x, y, mark, field, dir), field, dir)) {
-				console.log("just made a turn: " + x + " " + y);
-				viewController.restrictTurn();
-				checkGameResult();
-				waitForTurn();
-			}
+
+			pentagoAPIWrapper.init(function (result) {
+				if (viewController.animateField(result, field, dir)) {
+					console.log("just made a turn: " + x + " " + y);
+					viewController.restrictTurn();
+					checkGameResult();
+					waitForTurn();
+				}
+			}).makeTurn(x, y, mark, field, dir);
+
 		}
 	}
 
 	return {
 		putMark: putMark,
 		drawInitialField: drawInitialField,
-		init: initControler,
-		testMove: testMove
+		init: initControler
+		//testMove: testMove
 	};
 
 })();
@@ -227,17 +260,6 @@ $(document).ready(function () {
 });
 
 $(window).resize(function () {
+	console.log("resize");
 	viewController.resizeTable();
 });
-
-function AJAXTest() {
-	var data = JSON.stringify({ data: "foo" });
-
-	$.post("/api/projects/pentago/host", "=" + data)
-		.done(function (returned) {
-			alert(returned);
-		})
-	.fail(function (xhr, textStatus, errorThrown) {
-		alert(textStatus);
-	});
-}

@@ -78,40 +78,49 @@ $(document).ready(function () {
 
 function getHostCode() {
 	if (hostCode.length === 0) {
-		async(function () {
-			hostCode = pentagoAPIWrapper.hostGame();
-			$("#hostCode").text(hostCode);
-		}, lookForJinedPlayer);
 
-		//lookForJinedPlayer();
+		pentagoAPIWrapper.init(function (result) {
+			hostCode = result;
+			$("#hostCode").text(hostCode);
+			$("#codeGenerating").hide();
+			$("#codeGenerated").show();
+			lookForJinedPlayer();
+		}).hostGame();
 	}
 }
 
 function joinGame(gameCode) {
-	if (pentagoAPIWrapper.joinGame(gameCode)) {
-		$("#playMultiBtn").removeClass("disabled");
-		$("#host").hide();
-		$("#join").hide();
-		$("#multiplayerTabs").hide();
-		$("#readyLabel").show();
-	}
+
+	pentagoAPIWrapper.init(function (result) {
+		if (result) {
+			$("#playMultiBtn").removeClass("disabled");
+			$("#host").hide();
+			$("#join").hide();
+			$("#multiplayerTabs").hide();
+			$("#readyLabel").show();
+		}
+	}).joinGame(gameCode);
+
 }
 
 function lookForJinedPlayer() {
 
 	checkJoinIntervalID = window.setInterval(function () {
 
-		if (pentagoAPIWrapper.checkJoin(hostCode)) {
-			window.clearInterval(checkJoinIntervalID);
+		pentagoAPIWrapper.init(function (result) {
+			if (result) {
+				window.clearInterval(checkJoinIntervalID);
 
-			$("#playMultiBtn").removeClass("disabled");
-			$("#host").hide();
-			$("#join").hide();
-			$("#multiplayerTabs").hide();
-			$("#readyLabel").show();
-		} else {
-			console.log("Not joined yet...");
-		};
+				$("#playMultiBtn").removeClass("disabled");
+				$("#host").hide();
+				$("#join").hide();
+				$("#multiplayerTabs").hide();
+				$("#readyLabel").show();
+			} else {
+				console.log("Not joined yet...");
+			};
+
+		}).checkJoin(hostCode);
 
 	}, 3000);
 }

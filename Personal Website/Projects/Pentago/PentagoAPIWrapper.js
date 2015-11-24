@@ -1,6 +1,7 @@
 ﻿var pentagoAPIWrapper = (function () {
 	var apiUrl = "/api/projects/pentago/";
 	var ajaxReturnValue;
+	var generalCallback;
 
 	/* successCallback has a signature
 	 * void function successCallback(data) {}
@@ -30,42 +31,79 @@
 		return ajaxReturnValue;
 	}
 
+	/*
+	*	Requires init() first.
+	*/
+	function performAjaxAsync(url, data) {
+		data = data || {};
+
+		var successCallback = generalCallback;
+
+		ajaxReturnValue = null;
+
+		//jQuery.ajaxSetup({ async: async });
+
+		$.post(apiUrl + url, "=" + JSON.stringify(data)).done(successCallback)
+			.fail(function (xhr, textStatus, errorThrown) {
+				alert(textStatus);
+			});
+
+		//jQuery.ajaxSetup({ async: true });
+
+		//return ajaxReturnValue;
+	}
+
 	function hostGame() {
-		return performAjax(false, "host");
+		//return performAjax(false, "host");
+		performAjaxAsync("host");
 	}
 
 	function joinGame(gameCode) {
-		return performAjax(false, "join", { gameCode: gameCode });
+		//return performAjax(false, "join", { gameCode: gameCode });
+		performAjaxAsync("join", { gameCode: gameCode });
 	}
 
 	function checkJoin(gameCode) {
-		return performAjax(false, "checkjoin", { gameCode: gameCode });
+		//return performAjax(false, "checkjoin", { gameCode: gameCode });
+		performAjaxAsync("checkjoin", { gameCode: gameCode });
 	}
 
 	function getField() {
-		return performAjax(false, "getfield");
+		//return performAjax(false, "getfield");
+		performAjaxAsync("getfield");
 	}
 
 	function isMyMarkCross() {
-		return performAjax(false, "ismymarkcross");
+		//return performAjax(false, "ismymarkcross");
+		performAjaxAsync("ismymarkcross");
 	}
 
 	function isMyTurn() {
-		return performAjax(false, "ismyturn");
+		//return performAjax(false, "ismyturn");
+		performAjaxAsync("ismyturn");
 	}
 
 	function getGameResult() {
-		return performAjax(false, "getgameresult");
+		//return performAjax(false, "getgameresult");
+		performAjaxAsync("getgameresult");
 	}
 
 	function makeTurn(x, y, mark, field, dir) {
-		return performAjax(false, "maketurn", {
+		performAjaxAsync("maketurn", {
 			x: x,
 			y: y,
 			mark: mark,
 			field: field,
 			direction: dir
 		});
+		/*
+		return performAjax(false, "maketurn", {
+			x: x,
+			y: y,
+			mark: mark,
+			field: field,
+			direction: dir
+		});*/
 	}
 
 	function didIWin(result) {
@@ -80,7 +118,14 @@
 		return result === 3;
 	}
 
+	function init(callback) {
+		generalCallback = callback;
+		return this;
+	}
+
 	return {
+		init: init,
+
 		hostGame: hostGame,
 		joinGame: joinGame,
 		checkJoin: checkJoin,
