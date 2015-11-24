@@ -5,6 +5,10 @@ using System.Threading;
 using System.Web;
 
 namespace Personal_Website.Projects.Pentago {
+	public enum GameResult {
+		Win, Lose, Tie, Progress
+	}
+
 	public static class GameModel {
 
 		private static String GenerateCode(int length) {
@@ -79,6 +83,12 @@ namespace Personal_Website.Projects.Pentago {
 			return code;
 		}
 
+		public static GameResult GetGameResult() {
+			var context = new PentagoDataContext();
+			var game = context.PentagoGames.First(g => g.GameCode.Equals(HttpContext.Current.Request.Cookies["PentagoCookie"]["Code"]));
+			return new PentagoField(game.GameField).GetGameResult(GetMyMark());
+		}
+
 		public static String MakeTurn(int x, int y, Cell mark, Quadrant field, RotDirection direction) {
 			if (IsValidTurn(x, y, mark)) {
 
@@ -90,7 +100,9 @@ namespace Personal_Website.Projects.Pentago {
 					var newFieldObj = fieldObj.GetField();
 
 					try {
+
 						game.GameField = newFieldObj;
+						game.IsHostTurn = !game.IsHostTurn;
 						context.SubmitChanges();
 					} catch (Exception) {
 						return "error";
@@ -100,9 +112,9 @@ namespace Personal_Website.Projects.Pentago {
 				}
 
 				return "error";
-			} else {
-				return "error";
 			}
+			return "error";
+
 		}
 
 		private static bool IsValidTurn(int x, int y, Cell mark) {
@@ -137,11 +149,15 @@ namespace Personal_Website.Projects.Pentago {
 					g => g.GameCode.Equals(HttpContext.Current.Request.Cookies["PentagoCookie"]["Code"])).GameField;
 		}
 
-		public static bool IsMyMarkCross() {
-			var game = new PentagoDataContext().PentagoGames.First(g => g.GameCode.Equals(HttpContext.Current.Request.Cookies["PentagoCookie"]["Code"]));
+		public static bool IsMyMarkCross(PentagoGame game = null) {
+			game = game ?? new PentagoDataContext().PentagoGames.First(g => g.GameCode.Equals(HttpContext.Current.Request.Cookies["PentagoCookie"]["Code"]));
 			var role = HttpContext.Current.Request.Cookies["PentagoCookie"]["Role"];
 
 			return role.Equals("Host") && game.HostIsCross || role.Equals("Join") && !game.HostIsCross;
+		}
+
+		public static Cell GetMyMark(PentagoGame game = null) {
+			return IsMyMarkCross(game) ? Cell.Cross : Cell.Donut;
 		}
 
 	}

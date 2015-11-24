@@ -70,6 +70,11 @@ namespace Personal_Website.Projects.Pentago {
 				return GameModel.GetField();
 			}
 
+			[Route("getgameresult")]
+			[HttpPost]
+			public GameResult GetGameResult([FromBody] String json) {
+				return GameModel.GetGameResult();
+			}
 
 		}
 

@@ -124,6 +124,87 @@ namespace Personal_Website.Projects.Pentago {
 			return oldElement;
 		}
 
+		public GameResult GetGameResult(Cell playerMark) {
+
+			if (!AnySpaceAvailable()) {
+				return GameResult.Tie;
+			}
+
+			var crossWon = false;
+			var donutWon = false;
+
+			// Collect horizontal
+			for (int i = 0; i < 6; i++) {
+				var list = new LinkedList<Cell>();
+				for (int j = 0; j < 6; j++) {
+					list.AddFirst(_field[i, j]);
+				}
+				FiveMarksInARow(list, ref crossWon, ref donutWon);
+			}
+
+			// Collect horizontal
+			for (int i = 0; i < 6; i++) {
+				var list = new LinkedList<Cell>();
+				for (int j = 0; j < 6; j++) {
+					list.AddFirst(_field[j, i]);
+				}
+				FiveMarksInARow(list, ref crossWon, ref donutWon);
+			}
+
+			// TODO develop diagonal check
+
+			if (crossWon && donutWon) {
+				return GameResult.Tie;
+			}
+			if (!crossWon && !donutWon) {
+				return GameResult.Progress;
+			}
+			if (crossWon && playerMark.Equals(Cell.Cross) || donutWon && playerMark.Equals(Cell.Donut)) {
+				return GameResult.Win;
+			}
+
+			return GameResult.Lose;
+		}
+
+		private void FiveMarksInARow(IEnumerable<Cell> enumerable, ref bool crossWon, ref bool donutWon) {
+			var list = enumerable.ToList();
+			if (list.Count > 4) {
+				var currentCell = list.First();
+				var currentCount = 1;
+
+				foreach (var mark in list) {
+					if (mark.Equals(currentCell)) {
+						currentCount++;
+						if (currentCount == 5) {
+							switch (mark) {
+								case Cell.Cross:
+									crossWon = true;
+									break;
+								case Cell.Donut:
+									donutWon = true;
+									break;
+							}
+							break;
+						}
+					} else {
+						currentCount = 1;
+						currentCell = mark;
+					}
+				}
+			}
+		}
+
+		public bool AnySpaceAvailable() {
+			for (int i = 0; i < 6; i++) {
+				for (int j = 0; j < 6; j++) {
+					if (_field[i, j].Equals(Cell.Nothing)) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
 		public String GetField() {
 			return SerializeField();
 		}

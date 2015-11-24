@@ -46,8 +46,16 @@
 		return performAjax(false, "getfield");
 	}
 
-	function isMyMarkCross(parameters) {
+	function isMyMarkCross() {
 		return performAjax(false, "ismymarkcross");
+	}
+
+	function isMyTurn() {
+		return performAjax(false, "ismyturn");
+	}
+
+	function getGameResult() {
+		return performAjax(false, "getgameresult");
 	}
 
 	function makeTurn(x, y, mark, field, dir) {
@@ -60,13 +68,30 @@
 		});
 	}
 
+	function didIWin(result) {
+		return result === 0;
+	}
+
+	function didILose(result) {
+		return result === 1;
+	}
+
+	function isGameInProgress(result) {
+		return result === 3;
+	}
+
 	return {
 		hostGame: hostGame,
 		joinGame: joinGame,
 		checkJoin: checkJoin,
 		getField: getField,
 		amICross: isMyMarkCross,
-		makeTurn: makeTurn
+		makeTurn: makeTurn,
+		isMyTurn: isMyTurn,
+		gameResult: getGameResult,
+		didIWin: didIWin,
+		didILose: didILose,
+		isGameInProgress: isGameInProgress
 	};
 
 })();
