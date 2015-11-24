@@ -20,5 +20,21 @@ body {
 	background-color: aqua;
 }
 
-.gameCell {
+#mainPanel {
+}
+
+.upperField {
+	margin-bottom: 0px;
+}
+
+#myBody .gameTable {
+	border: none;
+}
+
+td.pentagoCell {
+	vertical-align: middle !important;
+	text-align: center;
+	color: red;
+	font-size: 56pt;
+	font-weight: 500;
 }

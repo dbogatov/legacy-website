@@ -13,7 +13,7 @@
 	<!-- My Styles -->
 	<link rel="stylesheet" href="Style.css" />
 </head>
-<body>
+<body id="myBody">
 	<form id="form1" runat="server">
 
 		<asp:ScriptManager runat="server">
@@ -43,37 +43,39 @@
 
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<div class="panel panel-primary" id="">
+				<div class="panel panel-primary" id="mainPanel">
 					<div class="panel-heading">Pentago</div>
-					<div class="panel-body">
-						Make your choice
+					<div class="panel-body" style="text-align: center;">
+						<h3 id="userLog">Make your choice</h3>
 					</div>
 
-					<table class="table table-bordered" id="gameTable">
-						<thead>
-							<tr>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
-							</tr>
-						</thead>
+					<table class="table" id="gameTable">
 						<tbody id="gameTBody" class="gameCell">
-						</tbody>
-						<tfoot>
 							<tr>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
+								<td style="width: 50%;">
+									<table class="table table-bordered innerField upperField" id="ULeft">
+										<tbody id="ULeftTBody"></tbody>
+									</table>
+								</td>
+								<td style="width: 50%;">
+									<table class="table table-bordered innerField upperField" id="URight">
+										<tbody id="URightTBody"></tbody>
+									</table>
+								</td>
 							</tr>
-
-						</tfoot>
-
+							<tr>
+								<td style="width: 50%; border-top: none;">
+									<table class="table table-bordered innerField bottomField" id="BLeft">
+										<tbody id="BLeftTBody"></tbody>
+									</table>
+								</td>
+								<td style="width: 50%; border-top: none;">
+									<table class="table table-bordered innerField bottomField" id="BRight">
+										<tbody id="BRightTBody"></tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
 					</table>
 
 				</div>
