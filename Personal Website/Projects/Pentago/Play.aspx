@@ -37,6 +37,9 @@
 			</Scripts>
 		</asp:ScriptManager>
 
+		<!-- D3 Engine -->
+		<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
 		<!-- My Script -->
 		<script src="Game.js"></script>
 		<script src="PentagoAPIWrapper.js"></script>
@@ -48,6 +51,8 @@
 					<div class="panel-body" style="text-align: center;">
 						<h3 id="userLog">Make your choice</h3>
 					</div>
+
+					<div id="d3Canvas"></div>
 
 					<table class="table" id="gameTable">
 						<tbody id="gameTBody" class="gameCell">
