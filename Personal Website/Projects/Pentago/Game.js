@@ -1,9 +1,12 @@
 ﻿var d3ViewController = (function () {
 
-	var width = 900;
+	var width;
 
 	function setDimensions() {
-		width = $("#mainPanel").width();
+		var svgWidth = $("#mainPanel").width();
+		var svgHeight = Math.max($(document).height(), $(window).height()) - $("#mainPanel").height() - 20 - 20;
+
+		width = Math.min(svgHeight, svgWidth);
 	}
 
 	function getDimensions() {
@@ -18,13 +21,25 @@
 			height: height,
 			fieldSize: width * (0.5 - 2 * crossBorderFraction),
 			fieldOffset: width * crossBorderFraction,
-			cellSize: width * (0.5 - 2 * crossBorderFraction) * (0.333333 - 2 * crossBorderFraction),
+			cellSize: width * (0.5 - 2 * crossBorderFraction) * ((1 / 3) - 2 * crossBorderFraction),
 			cellOffset: width * (0.5 - 2 * crossBorderFraction) * crossBorderFraction,
 			cellOffsetCorrection: width * cellOffsetCorrection,
 			fieldColor: "blue",
 			cellColor: "red",
-			cellOnHoverColor: "white"
+			cellOnHoverColor: "white",
+			fieldPlaceholderColor: "white",
+			fieldPlaceholderOpacity: 0.5,
+			fieldPlaceholderSelectedOpacity: 0.1,
+			arrowColor: "blue",
+			arrowOnHoverColor: "black"
 		};
+	}
+
+	function unsetHandlers() {
+		d3.selectAll(".pentagoCell")
+			.on("mouseover", null)
+			.on("mouseout", null)
+			.on("click", null);
 	}
 
 	// left: 37, up: 38, right: 39, down: 40,
@@ -32,123 +47,27 @@
 	var keys = { 37: 1, 38: 1, 39: 1, 40: 1 };
 	var allowTurns;
 	var svg;
-	var handler = function () {
-
-		d3.select(this).style("fill", getDimensions().cellColor);
-
-		var x = $(this).attr('id').split('_')[2];
-		var y = $(this).attr('id').split('_')[1];
-		var field;
-
-		if (x < 3) {
-			if (y < 3) {
-				field = 0;
-			} else {
-				field = 3;
-			}
-		} else {
-			if (y < 3) {
-				field = 1;
-			} else {
-				field = 2;
-			}
-		}
-
-
-		gameController.putMark(x, y, field, 0);
+	var command = {
+		x: null,
+		y: null,
+		field: null,
+		dir: null
 	};
 
 	function logToUser(text) {
 		$("#userLog").text(text);
 	}
 
-	function preventDefault(e) {
-		e = e || window.event;
-		if (e.preventDefault)
-			e.preventDefault();
-		e.returnValue = false;
+	function performTurn() {
+		gameController.putMark(command.x, command.y, command.field, command.dir);
+		command = null;
 	}
 
-	function preventDefaultForScrollKeys(e) {
-		if (keys[e.keyCode]) {
-			preventDefault(e);
-			return false;
-		}
-	}
-
-	function disableScroll() {
-		if (window.addEventListener) // older FF
-			window.addEventListener('DOMMouseScroll', preventDefault, false);
-		window.onwheel = preventDefault; // modern standard
-		window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
-		window.ontouchmove = preventDefault; // mobile
-		document.onkeydown = preventDefaultForScrollKeys;
-	}
-
-	function enableScroll() {
-		if (window.removeEventListener)
-			window.removeEventListener('DOMMouseScroll', preventDefault, false);
-		window.onmousewheel = document.onmousewheel = null;
-		window.onwheel = null;
-		window.ontouchmove = null;
-		document.onkeydown = null;
-	}
-
-	function resizeTable() {
-		setDimensions();
-	}
-
-	function setHandlers() {
-
-		var data = getDimensions();
-
-		d3.selectAll("[data-status=empty]")
-			.on("mouseover", function () {
-				d3.select(this).style("fill", data.cellOnHoverColor);
-			})
-			.on("mouseout", function () {
-				d3.select(this).style("fill", data.cellColor);
-			})
-			.on("click", handler);
-	}
-
-	function constructInnerField(isXOffset, isYOffset, name) {
-		var data = getDimensions();
-
-		var idOffsetI = isYOffset ? 0 : 3;
-		var idOffsetJ = isXOffset ? 0 : 3;
-
-		var xOffset = isXOffset ? data.fieldSize + 3 * data.fieldOffset : data.fieldOffset;
-		var yOffset = isYOffset ? data.fieldSize + 3 * data.fieldOffset : data.fieldOffset;
-
-		console.log("Offsets: " + [xOffset, yOffset]);
-		console.log("Cell size and offset: " + [data.cellSize, data.cellOffset]);
-
-		var field = svg.append("g")
-			.attr("id", name);
-
-		field.append("rect")
-			.attr("x", xOffset)
-			.attr("y", yOffset)
-			.attr("width", data.fieldSize)
-			.attr("height", data.fieldSize)
-			.attr("fill", data.fieldColor);
-
-		for (var i = 0; i < 3; i++) {
-			for (var j = 0; j < 3; j++) {
-				field.append("rect")
-					.attr("x", xOffset + data.cellOffset + j * data.cellSize + j * 2 * data.cellOffset)
-					.attr("y", yOffset + data.cellOffset + i * data.cellSize + i * 2 * data.cellOffset)
-					.attr("width", data.cellSize)
-					.attr("height", data.cellSize)
-					.attr("fill", data.cellColor)
-					.attr("class", "pentagoCell")
-					.attr("id", "cell_" + (i + idOffsetI) + "_" + (j + idOffsetJ))
-					.attr("data-status", "empty");;
-			}
-		}
-
-		return field;
+	function cleanUp() {
+		d3.selectAll(".rightArrow").remove();
+		d3.selectAll(".leftArrow").remove();
+		d3.selectAll(".selectedFieldPlaceholder").remove();
+		d3.selectAll(".fieldPlaceholder").remove();
 	}
 
 	function drawCross(cellObj) {
@@ -200,6 +119,256 @@
 			.attr("class", "mark");
 	}
 
+
+	function arraowHandler() {
+		command.dir = $(this).attr('class') === "rightArrow" ? 0 : 1;
+
+		cleanUp();
+		performTurn();
+
+	}
+
+	function arrowOnMouseIn() {
+		var data = getDimensions();
+
+		var arrow = d3.select(this);
+		var arrowClass = $(this).attr('class');
+		d3.selectAll("." + arrowClass).style("fill", data.arrowOnHoverColor);
+	}
+
+	function arrowOnMouseOut() {
+		var data = getDimensions();
+
+		var arrow = d3.select(this);
+		var arrowClass = $(this).attr('class');
+		d3.selectAll("." + arrowClass).style("fill", data.arrowColor);
+	}
+
+	function putArrow(field, startAngle, endAngle, lineData, className) {
+		var placeholderX = parseFloat(field.getAttribute("x"));
+		var placeholderY = parseFloat(field.getAttribute("y"));
+		var placeholderWidth = parseFloat(field.getAttribute("width"));
+		var placeholderHeight = parseFloat(field.getAttribute("height"));
+
+		var data = getDimensions();
+
+		var arc = d3.svg.arc()
+			.innerRadius(placeholderWidth * 0.5 * ((1 / 3) + (2 / 3) * (1 / 3)))
+			.outerRadius(placeholderWidth * 0.5 * ((1 / 3) + (2 / 3) * (2 / 3)))
+			.startAngle(startAngle)
+			.endAngle(endAngle);
+
+		d3.select(field.parentNode).append("path")
+			.attr("d", arc)
+			.attr("transform", "translate(" + (placeholderX + placeholderWidth / 2) + ", " + (placeholderY + placeholderHeight / 2) + ")")
+			.attr("fill", data.arrowColor)
+			.attr("class", className)
+			.on("mouseover", arrowOnMouseIn)
+			.on("mouseout", arrowOnMouseOut)
+			.on("click", arraowHandler);
+
+		var lineFunction = d3.svg.line()
+			.x(function (d) { return d.x; })
+			.y(function (d) { return d.y; })
+			.interpolate("linear");
+
+		d3.select(field.parentNode).append("path")
+			.attr("d", lineFunction(lineData))
+			.attr("fill", data.arrowColor)
+			.attr("class", className)
+			.on("mouseover", arrowOnMouseIn)
+			.on("mouseout", arrowOnMouseOut)
+			.on("click", arraowHandler);
+	}
+
+	function showDirectionSelection(field) {
+
+		var placeholderX = parseFloat(field.getAttribute("x"));
+		var placeholderY = parseFloat(field.getAttribute("y"));
+		var placeholderWidth = parseFloat(field.getAttribute("width"));
+		var placeholderHeight = parseFloat(field.getAttribute("height"));
+
+		var lineData = [
+			{ "x": placeholderX + placeholderWidth * (2 / 3), "y": placeholderY + placeholderHeight * (1 / 2) },
+			{ "x": placeholderX + placeholderWidth, "y": placeholderY + placeholderHeight * (1 / 2) },
+			{ "x": placeholderX + placeholderWidth * (5 / 6), "y": placeholderY + placeholderHeight * (2 / 3) }
+		];
+
+		putArrow(field, 0, Math.PI / 2, lineData, "rightArrow");
+
+		lineData = [
+			{ "x": placeholderX + placeholderWidth * (1 / 3), "y": placeholderY + placeholderHeight * (1 / 2) },
+			{ "x": placeholderX, "y": placeholderY + placeholderHeight * (1 / 2) },
+			{ "x": placeholderX + placeholderWidth * (1 / 6), "y": placeholderY + placeholderHeight * (2 / 3) }
+		];
+
+		putArrow(field, -Math.PI / 2, 0, lineData, "leftArrow");
+
+		logToUser("Finally, pick a rotational direction.");
+	}
+
+	var fieldSelectionHandler = function () {
+		var field = d3.select(this);
+		var data = getDimensions();
+
+		command.field = parseInt($(this).attr('id').split('_')[1], 10);
+
+		field
+			.attr("class", "selectedFieldPlaceholder")
+			.on("mouseover", null)
+			.on("mouseout", null)
+			.on("click", null);
+
+		d3.selectAll(".fieldPlaceholder").remove();
+		field.style("fill-opacity", data.fieldPlaceholderOpacity);
+
+		showDirectionSelection(field[0][0]);
+	}
+
+	function showSelectField() {
+		var fields = d3.selectAll(".field")[0];
+		var data = getDimensions();
+
+		unsetHandlers();
+
+		for (var i = 0; i < fields.length; i++) {
+			var field = fields[i];
+
+			var placeholderX = field.getAttribute("x");
+			var placeholderY = field.getAttribute("y");
+			var placeholderWidth = field.getAttribute("width");
+			var placeholderHeight = field.getAttribute("height");
+
+			d3.select(field.parentNode).append("rect")
+				.attr({
+					x: placeholderX,
+					y: placeholderY,
+					width: placeholderWidth,
+					height: placeholderHeight
+				})
+				.attr("fill", data.fieldPlaceholderColor)
+				.attr("fill-opacity", data.fieldPlaceholderOpacity)
+				.attr("class", "fieldPlaceholder")
+				.attr("id", "fieldPlaceholder_" + i)
+			.on("mouseover", function () {
+				d3.select(this).style("fill-opacity", data.fieldPlaceholderSelectedOpacity);
+			})
+			.on("mouseout", function () {
+				d3.select(this).style("fill-opacity", data.fieldPlaceholderOpacity);
+			})
+			.on("click", fieldSelectionHandler);
+		}
+
+		logToUser("Now, select a field you want to rotate.");
+	}
+
+	var handler = function () {
+
+		d3.select(this).style("fill", getDimensions().cellColor);
+
+		var x = $(this).attr('id').split('_')[2];
+		var y = $(this).attr('id').split('_')[1];
+
+		if (gameController.myMark() === 0) {
+			drawCross(d3.select(this));
+		} else {
+			drawCircle(d3.select(this));
+		}
+
+		command = new Object();
+		command.x = x;
+		command.y = y;
+
+		showSelectField();
+	};
+
+	function preventDefault(e) {
+		e = e || window.event;
+		if (e.preventDefault)
+			e.preventDefault();
+		e.returnValue = false;
+	}
+
+	function preventDefaultForScrollKeys(e) {
+		if (keys[e.keyCode]) {
+			preventDefault(e);
+			return false;
+		}
+	}
+
+	function disableScroll() {
+		if (window.addEventListener) // older FF
+			window.addEventListener('DOMMouseScroll', preventDefault, false);
+		window.onwheel = preventDefault; // modern standard
+		window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+		window.ontouchmove = preventDefault; // mobile
+		document.onkeydown = preventDefaultForScrollKeys;
+	}
+
+	function enableScroll() {
+		if (window.removeEventListener)
+			window.removeEventListener('DOMMouseScroll', preventDefault, false);
+		window.onmousewheel = document.onmousewheel = null;
+		window.onwheel = null;
+		window.ontouchmove = null;
+		document.onkeydown = null;
+	}
+
+	function setHandlers() {
+
+		var data = getDimensions();
+
+		d3.selectAll("[data-status=empty]")
+			.on("mouseover", function () {
+				d3.select(this).style("fill", data.cellOnHoverColor);
+			})
+			.on("mouseout", function () {
+				d3.select(this).style("fill", data.cellColor);
+			})
+			.on("click", handler);
+	}
+
+	function constructInnerField(isXOffset, isYOffset, name) {
+		var data = getDimensions();
+
+		var idOffsetI = isYOffset ? 3 : 0;
+		var idOffsetJ = isXOffset ? 3 : 0;
+
+		var xOffset = isXOffset ? data.fieldSize + 3 * data.fieldOffset : data.fieldOffset;
+		var yOffset = isYOffset ? data.fieldSize + 3 * data.fieldOffset : data.fieldOffset;
+
+		var field = svg.append("g")
+			.attr("id", name);
+
+		field.append("rect")
+			.attr("x", xOffset)
+			.attr("y", yOffset)
+			.attr("rx", data.fieldSize * 0.02)
+			.attr("ry", data.fieldSize * 0.02)
+			.attr("width", data.fieldSize)
+			.attr("height", data.fieldSize)
+			.attr("fill", data.fieldColor)
+			.attr("class", "field");
+
+		for (var i = 0; i < 3; i++) {
+			for (var j = 0; j < 3; j++) {
+				field.append("rect")
+					.attr("x", xOffset + data.cellOffset + j * data.cellSize + j * 2 * data.cellOffset)
+					.attr("y", yOffset + data.cellOffset + i * data.cellSize + i * 2 * data.cellOffset)
+					.attr("rx", data.cellSize * 0.1)
+					.attr("ry", data.cellSize * 0.1)
+					.attr("width", data.cellSize)
+					.attr("height", data.cellSize)
+					.attr("fill", data.cellColor)
+					.attr("class", "pentagoCell")
+					.attr("id", "cell_" + (i + idOffsetI) + "_" + (j + idOffsetJ))
+					.attr("data-status", "empty");
+			}
+		}
+
+		return field;
+	}
+
 	function renderField(field) {
 
 		try {
@@ -210,6 +379,7 @@
 		}
 
 		d3.selectAll(".mark").remove();
+		d3.selectAll(".pentagoCell").attr("data-status", "empty");
 
 		for (var i = 0; i < 6; i++) {
 			for (var j = 0; j < 6; j++) {
@@ -238,7 +408,8 @@
 		svg = d3.select("#d3Canvas")
 			.append("svg")
 			.attr("height", data.height)
-			.attr("width", data.width);
+			.attr("width", data.width)
+			.attr("id", "d3Svg");
 
 		var rects = [];
 		rects.push(constructInnerField(false, false, "ULeft"));
@@ -255,17 +426,21 @@
 		allowTurns = true;
 		console.log("Allow turns.");
 		setHandlers();
-		logToUser("Your turn. Please, select a cell.");
+		logToUser("Your turn. Please, select a cell. Your mark is " + (gameController.myMark() === 0 ? "CROSS" : "CIRCLE" + "."));
 	}
 
 	function disableMakingTurns() {
 		console.log("Restrict turns.");
 		allowTurns = false;
-		d3.selectAll(".pentagoCell")
-			.on("mouseover", null)
-			.on("mouseout", null)
-			.on("click", null);
-		logToUser("Yoour opponents turn. Please, wait.");
+		unsetHandlers();
+		logToUser("Your opponent\'s turn. Please, wait.");
+	}
+
+	function resizeTable() {
+		d3.select("svg").remove();
+		setDimensions();
+		constructTable();
+		gameController.drawInitialField();
 	}
 
 	return {
@@ -307,6 +482,7 @@ var gameController = (function () {
 		}
 		if (pentagoAPIWrapper.didILose(result)) {
 			loseHandler();
+			return;
 		}
 		tieHandler();
 	}
@@ -335,6 +511,8 @@ var gameController = (function () {
 	}
 
 	function waitForTurn() {
+		viewController.restrictTurn();
+
 		waitIntervalHandler = window.setInterval(function () {
 
 			pentagoAPIWrapper.init(function (result) {
@@ -376,13 +554,16 @@ var gameController = (function () {
 
 	}
 
+	function getMyMark() {
+		return mark;
+	}
+
 	function putMark(x, y, field, dir) {
 		if (isMyTurn) {
 
 			pentagoAPIWrapper.init(function (result) {
 				if (viewController.animateField(result, field, dir)) {
 					console.log("just made a turn: " + x + " " + y);
-					viewController.restrictTurn();
 					checkGameResult();
 					waitForTurn();
 				}
@@ -394,7 +575,8 @@ var gameController = (function () {
 	return {
 		putMark: putMark,
 		drawInitialField: drawInitialField,
-		init: initControler
+		init: initControler,
+		myMark: getMyMark
 	};
 
 })();
@@ -402,14 +584,9 @@ var gameController = (function () {
 var globalViewController = d3ViewController;
 
 $(document).ready(function () {
-
-	// D3 Init
-	//d3ViewController.initTable();
-
 	// Initialization
 	globalViewController.initTable();
 	gameController.init(globalViewController);
-
 });
 
 $(window).resize(function () {

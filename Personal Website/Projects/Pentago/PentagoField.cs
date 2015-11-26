@@ -12,7 +12,7 @@ namespace Personal_Website.Projects.Pentago {
 	}
 
 	public enum Quadrant {
-		Uleft, Uright, Bright, Bleft
+		Uleft, Uright, Bleft, Bright
 	}
 
 	public enum RotDirection {

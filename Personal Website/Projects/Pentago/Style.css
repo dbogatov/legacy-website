@@ -38,3 +38,14 @@ td.pentagoCell {
 	font-size: 56pt;
 	font-weight: 500;
 }
+
+#d3Svg {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body {
+	overflow: hidden;
+	padding-top: 20px !important;
+}

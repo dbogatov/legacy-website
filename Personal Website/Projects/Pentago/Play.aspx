@@ -49,12 +49,12 @@
 				<div class="panel panel-primary" id="mainPanel">
 					<div class="panel-heading">Pentago</div>
 					<div class="panel-body" style="text-align: center;">
-						<h3 id="userLog">Make your choice</h3>
+						<h3 id="userLog">Welcome to the game</h3>
 					</div>
 
 					<div id="d3Canvas"></div>
 
-					<table class="table" id="gameTable">
+					<table class="table" id="gameTable" hidden>
 						<tbody id="gameTBody" class="gameCell">
 							<tr>
 								<td style="width: 50%;">
