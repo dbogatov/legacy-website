@@ -10,11 +10,10 @@
 	}
 
 	function getDimensions() {
-		//width = 900;
 		var height = width;
 		var crossBorderFraction = 0.012;
 		var cellOffsetCorrection = 0.0;
-
+		var markStrokeFractionOfCellSize = 0.05;
 
 		return {
 			width: width,
@@ -24,14 +23,17 @@
 			cellSize: width * (0.5 - 2 * crossBorderFraction) * ((1 / 3) - 2 * crossBorderFraction),
 			cellOffset: width * (0.5 - 2 * crossBorderFraction) * crossBorderFraction,
 			cellOffsetCorrection: width * cellOffsetCorrection,
-			fieldColor: "blue",
-			cellColor: "red",
+			fieldColor: "#0B0B61",
+			cellColor: "#380B61",
 			cellOnHoverColor: "white",
 			fieldPlaceholderColor: "white",
 			fieldPlaceholderOpacity: 0.5,
 			fieldPlaceholderSelectedOpacity: 0.1,
-			arrowColor: "blue",
-			arrowOnHoverColor: "black"
+			arrowColor: "#819FF7",
+			arrowOnHoverColor: "black",
+			crossColor: "#FA5858",
+			circleColor: "#F3E2A9",
+			markStroke: width * (0.5 - 2 * crossBorderFraction) * ((1 / 3) - 2 * crossBorderFraction) * markStrokeFractionOfCellSize
 		};
 	}
 
@@ -85,8 +87,8 @@
 				y1: y,
 				y2: y + size
 			})
-			.attr("stroke-width", 5)
-			.attr("stroke", "green")
+			.attr("stroke-width", data.markStroke)
+			.attr("stroke", data.crossColor)
 			.attr("class", "mark");
 
 		d3.select(cellObj.node().parentNode).append("line")
@@ -96,8 +98,8 @@
 				y1: y + size,
 				y2: y
 			})
-			.attr("stroke-width", 5)
-			.attr("stroke", "green")
+			.attr("stroke-width", data.markStroke)
+			.attr("stroke", data.crossColor)
 			.attr("class", "mark");
 
 	}
@@ -114,11 +116,11 @@
 			.attr("r", size)
 			.attr("cx", x)
 			.attr("cy", y)
-			.attr("stroke-width", 5)
-			.attr("stroke", "green")
+			.attr("stroke-width", data.markStroke)
+			.attr("stroke", data.circleColor)
+			.attr("fill", data.cellColor)
 			.attr("class", "mark");
 	}
-
 
 	function arraowHandler() {
 		command.dir = $(this).attr('class') === "rightArrow" ? 0 : 1;
@@ -282,6 +284,14 @@
 		showSelectField();
 	};
 
+	function putMark(x, y, mark) {
+		if (mark === 0) {
+			drawCross(d3.select("#cell_" + y + "_" + x));
+		} else {
+			drawCircle(d3.select("#cell_" + y + "_" + x));
+		}
+	}
+
 	function preventDefault(e) {
 		e = e || window.event;
 		if (e.preventDefault)
@@ -338,7 +348,9 @@
 		var yOffset = isYOffset ? data.fieldSize + 3 * data.fieldOffset : data.fieldOffset;
 
 		var field = svg.append("g")
-			.attr("id", name);
+			.attr("id", name)
+			.attr("data-cx", xOffset + data.fieldSize / 2)
+			.attr("data-cy", yOffset + data.fieldSize / 2);
 
 		field.append("rect")
 			.attr("x", xOffset)
@@ -418,8 +430,51 @@
 		rects.push(constructInnerField(true, true, "BRight"));
 	}
 
+	function resizeTable(field) {
+		d3.select("svg").remove();
+		setDimensions();
+		constructTable();
+		gameController.drawInitialField(field);
+	}
+
+	function fieldEnumToClassName(field) {
+		switch (field) {
+			case 0:
+				return "ULeft";
+			case 1:
+				return "URight";
+			case 2:
+				return "BLeft";
+			case 3:
+				return "BRight";
+			default:
+				return "";
+		}
+	}
+
 	function renderFieldAnimated(newField, rotatedField, direction) {
-		return renderField(newField);
+
+		var field = fieldEnumToClassName(rotatedField);
+
+		if (field.length > 0) {
+			var fieldObj = d3.select("#" + fieldEnumToClassName(rotatedField))[0][0];
+
+			var cx = fieldObj.getAttribute("data-cx");
+			var cy = fieldObj.getAttribute("data-cy");
+			//var huy = "rotate(90 " + cx + " " + cy + ")";
+
+			d3.select("#" + fieldEnumToClassName(rotatedField))
+				.transition()
+				.attr("transform", "rotate(" + (direction === 0 ? "90" : "-90") + " " + (cx) + " " + (cy) + ")")
+				.duration(1500)
+				.each("end", function () {
+					resizeTable(newField);
+				});
+		} else {
+			resizeTable(newField);
+		}
+
+		return true;
 	}
 
 	function allowMakingTurns() {
@@ -436,24 +491,17 @@
 		logToUser("Your opponent\'s turn. Please, wait.");
 	}
 
-	function resizeTable() {
-		d3.select("svg").remove();
-		setDimensions();
-		constructTable();
-		gameController.drawInitialField();
-	}
-
 	return {
 		initTable: constructTable,
 		renderField: renderField,
 		animateField: renderFieldAnimated,
 		allowTurn: allowMakingTurns,
 		restrictTurn: disableMakingTurns,
-		resizeTable: resizeTable
+		resizeTable: resizeTable,
+		putMark: putMark
 	};
 
 })();
-
 
 var gameController = (function () {
 
@@ -502,12 +550,29 @@ var gameController = (function () {
 		console.log("It's my turn, stop waitng.");
 		isMyTurn = true;
 		window.clearInterval(waitIntervalHandler);
-		pentagoAPIWrapper.init(function (result) {
-			viewController.animateField(result);
-			checkGameResult();
-			viewController.allowTurn();
-		}).getField();
 
+		pentagoAPIWrapper.init(function (turnResult) {
+
+			if (turnResult != null) {
+				turnResult = JSON.parse(turnResult);
+				viewController.putMark(turnResult.x, turnResult.y, turnResult.mark);
+
+				pentagoAPIWrapper.init(function (fieldResult) {
+					viewController.animateField(fieldResult, turnResult.field, turnResult.direction);
+					checkGameResult();
+					setTimeout(function () {
+						viewController.allowTurn();
+					}, 2000);
+
+				}).getField();
+			} else {
+				pentagoAPIWrapper.init(function (fieldResult) {
+					viewController.renderField(fieldResult);
+					checkGameResult();
+					viewController.allowTurn();
+				}).getField();
+			}
+		}).getLastTurn();
 	}
 
 	function waitForTurn() {
@@ -527,10 +592,14 @@ var gameController = (function () {
 		}, waitInterval);
 	}
 
-	function drawInitialField() {
-		pentagoAPIWrapper.init(function (result) {
-			viewController.renderField(result);
-		}).getField();
+	function drawInitialField(field) {
+		if (field !== undefined) {
+			viewController.renderField(field);
+		} else {
+			pentagoAPIWrapper.init(function (result) {
+				viewController.renderField(result);
+			}).getField();
+		}
 	}
 
 	function initControler(suppliedViewController) {
@@ -593,182 +662,3 @@ $(window).resize(function () {
 	console.log("resize");
 	globalViewController.resizeTable();
 });
-
-
-
-var tableViewController = (function () {
-
-	// left: 37, up: 38, right: 39, down: 40,
-	// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-	var keys = { 37: 1, 38: 1, 39: 1, 40: 1 };
-	var allowTurns;
-	var handler = function () {
-		var x = $(this).attr('id').split('_')[2];
-		var y = $(this).attr('id').split('_')[1];
-		var field;
-
-		if (x < 3) {
-			if (y < 3) {
-				field = 0;
-			} else {
-				field = 3;
-			}
-		} else {
-			if (y < 3) {
-				field = 1;
-			} else {
-				field = 2;
-			}
-		}
-
-
-		gameController.putMark(x, y, field, 0);
-	};
-
-	function logToUser(text) {
-		$("#userLog").text(text);
-	}
-
-	function preventDefault(e) {
-		e = e || window.event;
-		if (e.preventDefault)
-			e.preventDefault();
-		e.returnValue = false;
-	}
-
-	function preventDefaultForScrollKeys(e) {
-		if (keys[e.keyCode]) {
-			preventDefault(e);
-			return false;
-		}
-	}
-
-	function disableScroll() {
-		if (window.addEventListener) // older FF
-			window.addEventListener('DOMMouseScroll', preventDefault, false);
-		window.onwheel = preventDefault; // modern standard
-		window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
-		window.ontouchmove = preventDefault; // mobile
-		document.onkeydown = preventDefaultForScrollKeys;
-	}
-
-	function enableScroll() {
-		if (window.removeEventListener)
-			window.removeEventListener('DOMMouseScroll', preventDefault, false);
-		window.onmousewheel = document.onmousewheel = null;
-		window.onwheel = null;
-		window.ontouchmove = null;
-		document.onkeydown = null;
-	}
-
-	function resizeTable() {
-		var width = screen.availWidth;
-		var height = screen.availHeight;
-
-		if (width > height) {
-			//$("#mainPanel").height(height - 2 * 50);
-		} else {
-			//$("#mainPanel").width(width);
-		}
-
-		var cellHeight = $(".innerField td").width();
-		$(".pentagoCell").css({ 'height': cellHeight + 'px' });
-		$(".pentagoCell").css({ 'font-size': cellHeight * 45 / 124 + 'pt' });
-	}
-
-	function setHandlers() {
-		for (var i = 0; i < 6; i++) {
-			for (var j = 0; j < 6; j++) {
-				if ($("#cell_" + i + "_" + j).text() === '') {
-					$("#cell_" + i + "_" + j).click(handler);
-					$("#cell_" + i + "_" + j).addClass("clickableCell");
-				}
-			}
-		}
-	}
-
-	function constructInnerField(iStart, iEnd, jStart, jEnd, name) {
-		var html = "";
-
-		for (var i = iStart; i < iEnd; i++) {
-			html += "<tr>";
-			for (var j = jStart; j < jEnd; j++) {
-				html += "<td class='pentagoCell' style='width: 33%;' id='cell_" + i + "_" + j + "'>" + i + " " + j + "</td>";
-			}
-			html += "</tr>";
-		}
-
-		$("#" + name + "TBody").append(html);
-	}
-
-	function constructTable() {
-		constructInnerField(0, 3, 0, 3, "ULeft");
-		constructInnerField(0, 3, 3, 6, "URight");
-		constructInnerField(3, 6, 0, 3, "BLeft");
-		constructInnerField(3, 6, 3, 6, "BRight");
-
-		resizeTable();
-		disableScroll();
-	}
-
-	function renderField(field) {
-
-		try {
-			field = jQuery.parseJSON(field);
-		} catch (err) {
-			alert("There was an error.");
-			return false;
-		}
-
-		for (var i = 0; i < 6; i++) {
-			var mark = '';
-			for (var j = 0; j < 6; j++) {
-				switch (field[i][j]) {
-					case 0:
-						mark = '&#10060;';
-						break;
-					case 1:
-						mark = '&#9711;';
-						break;
-					case 2:
-						mark = '';
-						break;
-					default:
-				}
-
-				$("#cell_" + i + "_" + j).html(mark);
-			}
-		}
-
-		return true;
-	}
-
-	function renderFieldAnimated(newField, rotatedField, direction) {
-		return renderField(newField);
-	}
-
-	function allowMakingTurns() {
-		allowTurns = true;
-		console.log("Allow turns.");
-		setHandlers();
-		logToUser("Your turn. Please, select a cell.");
-	}
-
-	function disableMakingTurns() {
-		console.log("Restrict turns.");
-		allowTurns = false;
-		$(".pentagoCell").off("click", handler);
-		$(".pentagoCell").removeClass("clickableCell");
-		logToUser("Yoour opponents turn. Please, wait.");
-	}
-
-	return {
-		initTable: constructTable,
-		renderField: renderField,
-		animateField: renderFieldAnimated,
-		allowTurn: allowMakingTurns,
-		restrictTurn: disableMakingTurns,
-		resizeTable: resizeTable
-	};
-
-})();

@@ -14,6 +14,7 @@
       <Column Name="HostName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="JoinName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="IsHostTurn" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastTurn" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

@@ -76,6 +76,12 @@ namespace Personal_Website.Projects.Pentago {
 				return GameModel.GetGameResult();
 			}
 
+			[Route("getlastturn")]
+			[HttpPost]
+			public String GetLastTurn([FromBody] String json) {
+				return GameModel.GetLastTurn();
+			}
+
 		}
 
 

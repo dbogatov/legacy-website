@@ -41,50 +41,37 @@
 
 		ajaxReturnValue = null;
 
-		//jQuery.ajaxSetup({ async: async });
-
 		$.post(apiUrl + url, "=" + JSON.stringify(data)).done(successCallback)
 			.fail(function (xhr, textStatus, errorThrown) {
 				alert(textStatus);
 			});
-
-		//jQuery.ajaxSetup({ async: true });
-
-		//return ajaxReturnValue;
 	}
 
 	function hostGame() {
-		//return performAjax(false, "host");
 		performAjaxAsync("host");
 	}
 
 	function joinGame(gameCode) {
-		//return performAjax(false, "join", { gameCode: gameCode });
 		performAjaxAsync("join", { gameCode: gameCode });
 	}
 
 	function checkJoin(gameCode) {
-		//return performAjax(false, "checkjoin", { gameCode: gameCode });
 		performAjaxAsync("checkjoin", { gameCode: gameCode });
 	}
 
 	function getField() {
-		//return performAjax(false, "getfield");
 		performAjaxAsync("getfield");
 	}
 
 	function isMyMarkCross() {
-		//return performAjax(false, "ismymarkcross");
 		performAjaxAsync("ismymarkcross");
 	}
 
 	function isMyTurn() {
-		//return performAjax(false, "ismyturn");
 		performAjaxAsync("ismyturn");
 	}
 
 	function getGameResult() {
-		//return performAjax(false, "getgameresult");
 		performAjaxAsync("getgameresult");
 	}
 
@@ -96,14 +83,10 @@
 			field: field,
 			direction: dir
 		});
-		/*
-		return performAjax(false, "maketurn", {
-			x: x,
-			y: y,
-			mark: mark,
-			field: field,
-			direction: dir
-		});*/
+	}
+
+	function getLastTurn() {
+		performAjaxAsync("getlastturn");
 	}
 
 	function didIWin(result) {
@@ -136,7 +119,8 @@
 		gameResult: getGameResult,
 		didIWin: didIWin,
 		didILose: didILose,
-		isGameInProgress: isGameInProgress
+		isGameInProgress: isGameInProgress,
+		getLastTurn: getLastTurn
 	};
 
 })();

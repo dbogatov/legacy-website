@@ -104,6 +104,8 @@ namespace Personal_Website.Projects.Pentago
 		
 		private bool _IsHostTurn;
 		
+		private string _LastTurn;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -132,6 +134,8 @@ namespace Personal_Website.Projects.Pentago
     partial void OnJoinNameChanged();
     partial void OnIsHostTurnChanging(bool value);
     partial void OnIsHostTurnChanged();
+    partial void OnLastTurnChanging(string value);
+    partial void OnLastTurnChanged();
     #endregion
 		
 		public PentagoGame()
@@ -375,6 +379,26 @@ namespace Personal_Website.Projects.Pentago
 					this._IsHostTurn = value;
 					this.SendPropertyChanged("IsHostTurn");
 					this.OnIsHostTurnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastTurn", DbType="VarChar(MAX)")]
+		public string LastTurn
+		{
+			get
+			{
+				return this._LastTurn;
+			}
+			set
+			{
+				if ((this._LastTurn != value))
+				{
+					this.OnLastTurnChanging(value);
+					this.SendPropertyChanging();
+					this._LastTurn = value;
+					this.SendPropertyChanged("LastTurn");
+					this.OnLastTurnChanged();
 				}
 			}
 		}

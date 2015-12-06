@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace Personal_Website.Projects.Pentago {
 	public enum GameResult {
@@ -90,31 +91,39 @@ namespace Personal_Website.Projects.Pentago {
 		}
 
 		public static String MakeTurn(int x, int y, Cell mark, Quadrant field, RotDirection direction) {
-			if (IsValidTurn(x, y, mark)) {
+			if (!IsValidTurn(x, y, mark)) return "error";
 
-				var context = new PentagoDataContext();
-				var game = context.PentagoGames.First(g => g.GameCode.Equals(HttpContext.Current.Request.Cookies["PentagoCookie"]["Code"]));
+			var context = new PentagoDataContext();
+			var game = context.PentagoGames.First(g => g.GameCode.Equals(HttpContext.Current.Request.Cookies["PentagoCookie"]["Code"]));
 
-				var fieldObj = new PentagoField(game.GameField);
-				if (fieldObj.MakeTurn(x, y, mark, field, direction)) {
-					var newFieldObj = fieldObj.GetField();
+			var fieldObj = new PentagoField(game.GameField);
 
-					try {
+			if (!fieldObj.MakeTurn(x, y, mark, field, direction)) return "error";
 
-						game.GameField = newFieldObj;
-						game.IsHostTurn = !game.IsHostTurn;
-						context.SubmitChanges();
-					} catch (Exception) {
-						return "error";
-					}
+			var newFieldObj = fieldObj.GetField();
 
-					return newFieldObj;
-				}
-
+			try {
+				game.GameField = newFieldObj;
+				game.IsHostTurn = !game.IsHostTurn;
+				game.LastTurn = JsonConvert.SerializeObject(new {
+					x,
+					y,
+					mark,
+					field,
+					direction
+				});
+				context.SubmitChanges();
+			} catch (Exception) {
 				return "error";
 			}
-			return "error";
 
+			return newFieldObj;
+		}
+
+		public static String GetLastTurn() {
+			return
+				new PentagoDataContext().PentagoGames.First(
+					g => g.GameCode.Equals(HttpContext.Current.Request.Cookies["PentagoCookie"]["Code"])).LastTurn;
 		}
 
 		private static bool IsValidTurn(int x, int y, Cell mark) {
