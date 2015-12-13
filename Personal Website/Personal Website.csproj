@@ -212,6 +212,7 @@
     <Content Include="Images\PersonalWebsite.png" />
     <Content Include="Images\FinanceParser.png" />
     <Content Include="Images\MHTC.png" />
+    <Content Include="Images\Pentago.png" />
     <Content Include="Images\WPICalendarEventCreator.png" />
     <Content Include="Includes\Resume.html" />
     <Content Include="Models\SQL\Dictionary.sql" />
