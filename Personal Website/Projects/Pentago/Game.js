@@ -56,7 +56,16 @@
 		dir: null
 	};
 
+	function alertToUser() {
+		var prevColor = $(".gameCanvas").css("background-color");
+		$(".gameCanvas").css("background-color", "red");
+		setTimeout(function () {
+			$(".gameCanvas").css("background-color", prevColor);
+		}, 300);
+	}
+
 	function logToUser(text) {
+		//alertToUser();
 		$("#userLog").text(text);
 	}
 
@@ -252,6 +261,8 @@
 				.attr("fill-opacity", data.fieldPlaceholderOpacity)
 				.attr("class", "fieldPlaceholder")
 				.attr("id", "fieldPlaceholder_" + i)
+				.attr("rx", data.fieldSize * 0.02)
+				.attr("ry", data.fieldSize * 0.02)
 			.on("mouseover", function () {
 				d3.select(this).style("fill-opacity", data.fieldPlaceholderSelectedOpacity);
 			})
@@ -481,14 +492,49 @@
 		allowTurns = true;
 		console.log("Allow turns.");
 		setHandlers();
-		logToUser("Your turn. Please, select a cell. Your mark is " + (gameController.myMark() === 0 ? "CROSS" : "CIRCLE" + "."));
+
+		alertToUser();
+		logToUser("Your turn. Please, select a cell. Your mark is " + (gameController.myMark() === 0 ? "CROSS" : "CIRCLE") + ".");
 	}
 
 	function disableMakingTurns() {
 		console.log("Restrict turns.");
 		allowTurns = false;
 		unsetHandlers();
+
+		alertToUser();
 		logToUser("Your opponent\'s turn. Please, wait.");
+	}
+
+	// 0 - win, 1 - loose, 2 - tie
+	function handleGameEnd(result) {
+
+		var text;
+
+		switch (result) {
+			case 0:
+				text = "Congratulations! You have won!";
+				break;
+			case 1:
+				text = "You have lost...";
+				break;
+			case 2:
+				text = "There is a tie!";
+				break;
+			default:
+				text = "Result is undefined";
+		}
+
+		$("#gameResultSpan").text(text);
+
+		$('#endGameModal').modal({
+			keyboard: false,
+			backdrop: "static"
+		});
+
+		$('#endGameModal').modal("show");
+
+		disableMakingTurns();
 	}
 
 	return {
@@ -498,7 +544,8 @@
 		allowTurn: allowMakingTurns,
 		restrictTurn: disableMakingTurns,
 		resizeTable: resizeTable,
-		putMark: putMark
+		putMark: putMark,
+		endGame: handleGameEnd
 	};
 
 })();
@@ -512,15 +559,15 @@ var gameController = (function () {
 	var viewController;
 
 	function winHandler() {
-		alert("You won!");
+		viewController.endGame(0);
 	}
 
 	function loseHandler() {
-		alert("You lost.");
+		viewController.endGame(1);
 	}
 
 	function tieHandler() {
-		alert("Tie!");
+		viewController.endGame(2);
 	}
 
 	function endGame(result) {
@@ -576,6 +623,7 @@ var gameController = (function () {
 	}
 
 	function waitForTurn() {
+
 		viewController.restrictTurn();
 
 		waitIntervalHandler = window.setInterval(function () {

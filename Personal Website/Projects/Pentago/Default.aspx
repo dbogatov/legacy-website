@@ -49,7 +49,7 @@
 				</div>
 				<ul class="list-group">
 					<li class="list-group-item">
-						<button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#singlePlayerModal">Single Player</button>
+						<button type="button" class="btn btn-block btn-primary disabled" data-toggle="modal" data-target="#singlePlayerModal" disabled>Single Player</button>
 					</li>
 					<li class="list-group-item">
 						<button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#multiplayerModal">Multplayer</button>
@@ -159,7 +159,7 @@
 		</div>
 	</div>
 
-	<!-- Single Player -->
+	<!-- About Player -->
 	<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -168,9 +168,11 @@
 					<h4 class="modal-title" id="aboutModalLabel">About</h4>
 				</div>
 				<div class="modal-body">
+					The author is <a href="http://dbogatov.org/Author/" target="_blank">Dmytro Bogatov</a>.
+					<br />
 					This is a CS4445 B15 Webware project.
 					<br />
-					Dedicated to <a href="https://www.facebook.com/svetlana.barmina.79" target="_blank">Sveta</a>
+					Dedicated to <a href="https://www.facebook.com/svetlana.barmina.79" target="_blank">Sveta</a>.
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

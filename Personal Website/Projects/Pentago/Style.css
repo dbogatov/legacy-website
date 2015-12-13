@@ -20,6 +20,14 @@ body {
 	background-color: aqua;
 }
 
+#userLog {
+	color: rgb(25, 231, 39);
+}
+
+.gameCanvas {
+	background-color: #5e25ff;
+}
+
 #mainPanel {
 }
 

@@ -48,8 +48,7 @@ namespace Personal_Website.Projects.Pentago {
 
 		private void RotateField(Quadrant field, RotDirection direction) {
 			switch (field) {
-				case Quadrant.Uleft:
-					{
+				case Quadrant.Uleft: {
 						if (direction.Equals(RotDirection.Clockwise)) {
 							RotateOnneQuadrantClockwise(0, 0);
 						} else {
@@ -57,8 +56,7 @@ namespace Personal_Website.Projects.Pentago {
 						}
 					}
 					break;
-				case Quadrant.Uright:
-					{
+				case Quadrant.Uright: {
 						if (direction.Equals(RotDirection.Clockwise)) {
 							RotateOnneQuadrantClockwise(0, 3);
 						} else {
@@ -66,8 +64,7 @@ namespace Personal_Website.Projects.Pentago {
 						}
 					}
 					break;
-				case Quadrant.Bright:
-					{
+				case Quadrant.Bright: {
 						if (direction.Equals(RotDirection.Clockwise)) {
 							RotateOnneQuadrantClockwise(3, 3);
 						} else {
@@ -75,8 +72,7 @@ namespace Personal_Website.Projects.Pentago {
 						}
 					}
 					break;
-				case Quadrant.Bleft:
-					{
+				case Quadrant.Bleft: {
 						if (direction.Equals(RotDirection.Clockwise)) {
 							RotateOnneQuadrantClockwise(3, 0);
 						} else {
@@ -132,26 +128,61 @@ namespace Personal_Website.Projects.Pentago {
 
 			var crossWon = false;
 			var donutWon = false;
+			LinkedList<Cell> list;
 
-			// Collect horizontal
+			// Check horizontal
 			for (int i = 0; i < 6; i++) {
-				var list = new LinkedList<Cell>();
+				list = new LinkedList<Cell>();
 				for (int j = 0; j < 6; j++) {
 					list.AddFirst(_field[i, j]);
 				}
 				FiveMarksInARow(list, ref crossWon, ref donutWon);
 			}
 
-			// Collect horizontal
+			// Check vertical
 			for (int i = 0; i < 6; i++) {
-				var list = new LinkedList<Cell>();
+				list = new LinkedList<Cell>();
 				for (int j = 0; j < 6; j++) {
 					list.AddFirst(_field[j, i]);
 				}
 				FiveMarksInARow(list, ref crossWon, ref donutWon);
 			}
 
-			// TODO develop diagonal check
+			list = new LinkedList<Cell>();
+			for (var i = 0; i < 5; i++) {
+				list.AddFirst(_field[4 - i, i]);
+			}
+			FiveMarksInARow(list, ref crossWon, ref donutWon);
+
+			list = new LinkedList<Cell>();
+			for (var i = 0; i < 6; i++) {
+				list.AddFirst(_field[5 - i, i]);
+			}
+			FiveMarksInARow(list, ref crossWon, ref donutWon);
+
+			list = new LinkedList<Cell>();
+			for (var i = 0; i < 5; i++) {
+				list.AddFirst(_field[5 - i, 1 + i]);
+			}
+			FiveMarksInARow(list, ref crossWon, ref donutWon);
+
+			list = new LinkedList<Cell>();
+			for (var i = 0; i < 5; i++) {
+				list.AddFirst(_field[1 + i, i]);
+			}
+			FiveMarksInARow(list, ref crossWon, ref donutWon);
+
+			list = new LinkedList<Cell>();
+			for (var i = 0; i < 6; i++) {
+				list.AddFirst(_field[i, i]);
+			}
+			FiveMarksInARow(list, ref crossWon, ref donutWon);
+
+			list = new LinkedList<Cell>();
+			for (var i = 0; i < 5; i++) {
+				list.AddFirst(_field[i, 1 + i]);
+			}
+			FiveMarksInARow(list, ref crossWon, ref donutWon);
 
 			if (crossWon && donutWon) {
 				return GameResult.Tie;
@@ -170,7 +201,7 @@ namespace Personal_Website.Projects.Pentago {
 			var list = enumerable.ToList();
 			if (list.Count > 4) {
 				var currentCell = list.First();
-				var currentCount = 1;
+				var currentCount = 0;
 
 				foreach (var mark in list) {
 					if (mark.Equals(currentCell)) {

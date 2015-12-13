@@ -13,7 +13,7 @@
 	<!-- My Styles -->
 	<link rel="stylesheet" href="Style.css" />
 </head>
-<body id="myBody">
+<body id="myBody" style="background-color: #4376ff;">
 	<form id="form1" runat="server">
 
 		<asp:ScriptManager runat="server">
@@ -48,41 +48,29 @@
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-primary" id="mainPanel">
 					<div class="panel-heading">Pentago</div>
-					<div class="panel-body" style="text-align: center;">
+					<div class="panel-body gameCanvas" style="text-align: center;">
 						<h3 id="userLog">Welcome to the game</h3>
 					</div>
 
-					<div id="d3Canvas"></div>
+					<div class="gameCanvas" id="d3Canvas"></div>
 
-					<table class="table" id="gameTable" hidden>
-						<tbody id="gameTBody" class="gameCell">
-							<tr>
-								<td style="width: 50%;">
-									<table class="table table-bordered innerField upperField" id="ULeft">
-										<tbody id="ULeftTBody"></tbody>
-									</table>
-								</td>
-								<td style="width: 50%;">
-									<table class="table table-bordered innerField upperField" id="URight">
-										<tbody id="URightTBody"></tbody>
-									</table>
-								</td>
-							</tr>
-							<tr>
-								<td style="width: 50%; border-top: none;">
-									<table class="table table-bordered innerField bottomField" id="BLeft">
-										<tbody id="BLeftTBody"></tbody>
-									</table>
-								</td>
-								<td style="width: 50%; border-top: none;">
-									<table class="table table-bordered innerField bottomField" id="BRight">
-										<tbody id="BRightTBody"></tbody>
-									</table>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+				</div>
+			</div>
+		</div>
 
+		<!-- About Player -->
+		<div class="modal fade" id="endGameModal" tabindex="-1" role="dialog" aria-labelledby="endGameModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="endGameModalLabel">End of the game</h4>
+					</div>
+					<div class="modal-body">
+						<span id="gameResultSpan"></span>
+					</div>
+					<div class="modal-footer">
+						<a id="endGameBtn" class="btn btn-default" href="Default.aspx">Close</a>
+					</div>
 				</div>
 			</div>
 		</div>

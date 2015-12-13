@@ -62,6 +62,15 @@ $(document).ready(function () {
 
 	// Multiplayer
 
+	$("#multiplayerCode").keydown(function (e) {
+		if (e.keyCode === 13) {
+			e.preventDefault();
+			if ($("#multiplayerCode").val().length > 0) {
+				joinGame($("#multiplayerCode").val());
+			}
+		}
+	});
+
 	$('#multiplayerTabs a').click(function (e) {
 		e.preventDefault();
 		$(this).tab('show');
