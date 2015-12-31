@@ -178,10 +178,6 @@
     <Content Include="Admin\Users.aspx" />
     <Content Include="API\ajaxAPI.js" />
     <Content Include="API\FeedbackManager.asmx" />
-    <Content Include="App_Data\aspnet-Personal Website-20150222081252.mdf" />
-    <Content Include="App_Data\aspnet-Personal Website-20150222081252_log.ldf">
-      <DependentUpon>aspnet-Personal Website-20150222081252.mdf</DependentUpon>
-    </Content>
     <Content Include="Author\Author.css" />
     <Content Include="Author\Default.aspx" />
     <Content Include="Author\Compact.aspx" />
@@ -736,6 +732,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
