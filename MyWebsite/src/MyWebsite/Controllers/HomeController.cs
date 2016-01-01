@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using MyWebsite.Models.Repos;
 
@@ -15,7 +16,10 @@ namespace MyWebsite.Controllers {
 
 
 		public IActionResult Index() {
-			var p = _projectsRepo.GetTags();
+
+			var o = (IProjectsRepo)HttpContext.RequestServices.GetService(typeof(IProjectsRepo));
+
+			var p = o.GetTags();
 			var f = p.Count();
 
 			return View();
