@@ -2,7 +2,7 @@
     runString: string;
 
     constructor() {
-        this.runString = "hello from main";
+        this.runString = "hello from main MAC";
     }
 
     run() {
