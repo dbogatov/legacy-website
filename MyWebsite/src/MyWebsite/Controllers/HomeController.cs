@@ -4,23 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
+using MyWebsite.Models.Enitites;
 using MyWebsite.Models.Repos;
 
 namespace MyWebsite.Controllers {
 	public class HomeController : Controller {
-		private readonly IProjectsRepo _projectsRepo;
-
-		public HomeController(IProjectsRepo projectsRepo) {
-			_projectsRepo = projectsRepo;
-		}
-
 
 		public IActionResult Index() {
+			var o = (IAbsRepo<Tag>)HttpContext.RequestServices.GetService(typeof(IAbsRepo<Tag>));
 
-			var o = (IProjectsRepo)HttpContext.RequestServices.GetService(typeof(IProjectsRepo));
-
-			var p = o.GetTags();
+			var p = o.GetItems();
 			var f = p.Count();
+
+			var oe = (IAbsRepo<Project>)HttpContext.RequestServices.GetService(typeof(IAbsRepo<Project>));
+
+			var pe = oe.GetItems();
+			var fe = pe.Count();
 
 			return View();
 		}

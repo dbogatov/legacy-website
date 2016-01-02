@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyWebsite.Models;
+using MyWebsite.Models.Enitites;
 using MyWebsite.Models.Repos;
 using MyWebsite.Services;
 
@@ -45,7 +46,7 @@ namespace MyWebsite {
 				.AddSqlServer()
 				.AddDbContext<ApplicationDbContext>(options =>
 					options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
-				.AddDbContext<ProjectsDbContext>();
+				.AddDbContext<AbsDbContext>();
 
 			services.AddIdentity<ApplicationUser, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>()
@@ -58,8 +59,11 @@ namespace MyWebsite {
 			// Add application services.
 			services.AddTransient<IEmailSender, AuthMessageSender>();
 			services.AddTransient<ISmsSender, AuthMessageSender>();
-			services.AddTransient<IProjectsRepo, ProjectsRepo>();
-			services.AddTransient<ProjectsDbContext, ProjectsDbContext>();
+
+			services.AddTransient<DbContext, AbsDbContext>();
+
+			services.AddTransient<IAbsRepo<Tag>, AbsRepo<Tag>>();
+			services.AddTransient<IAbsRepo<Project>, AbsRepo<Project>>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
