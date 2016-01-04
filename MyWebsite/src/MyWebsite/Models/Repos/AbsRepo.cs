@@ -35,10 +35,8 @@ namespace MyWebsite.Models.Repos {
 		}
 
 		public T GetItem(int itemId) {
-			var type =
-				// ReSharper disable once PossibleNullReferenceException
-				typeof(T).GetProperties()
-					.FirstOrDefault(p => p.GetCustomAttributes(typeof(T), false).Any(a => ((DisplayAttribute)a).Name.Equals("Key"))).Name;
+			// ReSharper disable once PossibleNullReferenceException
+			var type = typeof(T).GetProperties().FirstOrDefault(prop => prop.CustomAttributes.Any(attr => attr.AttributeType.Name.Equals("KeyAttribute"))).Name;
 
 			return GetDbSet().FirstOrDefault(t => (int)t.GetType().GetProperty(type).GetValue(t, null) == itemId);
 		}

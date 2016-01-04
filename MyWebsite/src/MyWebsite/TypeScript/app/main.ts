@@ -6,7 +6,11 @@
     }
 
     run() {
-        alert(this.runString);
+
+		$.get("api/Projects", {}, (data) => {
+			console.log(data);
+		});
+
     }
 }
 export = Main;

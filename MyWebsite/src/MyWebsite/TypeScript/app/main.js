@@ -1,10 +1,12 @@
 define(["require", "exports"], function (require, exports) {
     var Main = (function () {
         function Main() {
-            this.runString = "hello from main";
+            this.runString = "hello from main MAC";
         }
         Main.prototype.run = function () {
-            alert(this.runString);
+            $.get("api/Projects", {}, function (data) {
+                console.log(data);
+            });
         };
         return Main;
     })();

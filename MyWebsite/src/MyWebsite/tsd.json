@@ -7,6 +7,9 @@
 	"installed": {
 		"requirejs/require.d.ts": {
 			"commit": "fe563dff3428bac1260d1794e2c2ecf8f097535a"
+		},
+		"jquery/jquery.d.ts": {
+			"commit": "bdaf2f0eb19edee26248c80bab4947e9b70e4217"
 		}
 	}
 }
