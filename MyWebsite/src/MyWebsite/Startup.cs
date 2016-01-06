@@ -64,6 +64,8 @@ namespace MyWebsite {
 
 			services.AddTransient<IAbsRepo<Tag>, AbsRepo<Tag>>();
 			services.AddTransient<IAbsRepo<Project>, AbsRepo<Project>>();
+			services.AddTransient<IAbsRepo<ProjectTag>, AbsRepo<ProjectTag>>();
+			services.AddTransient<IProjectsRepo, ProjectsRepo>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

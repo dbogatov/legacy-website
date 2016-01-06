@@ -17,5 +17,8 @@ namespace MyWebsite.Models.Enitites {
 		public string Weblink { get; set; }
 		public string SourceLink { get; set; }
 		public string ImgeFilePath { get; set; }
+
+		[NotMapped]
+		public virtual IEnumerable<Tag> Tags { get; set; }
 	}
 }

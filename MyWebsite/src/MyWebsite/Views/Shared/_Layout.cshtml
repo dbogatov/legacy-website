@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] - MyWebsite</title>
+	<title>@ViewData["Title"] - Personal Website</title>
 
 	<environment names="Development">
 		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -34,9 +34,9 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a asp-controller="Home" asp-action="Index">Home</a></li>
-					<li><a asp-controller="Home" asp-action="About">About</a></li>
-					<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+					<li><a asp-controller="Home" asp-action="Index">Projects</a></li>
+					<li><a asp-controller="Home" asp-action="About">Grades</a></li>
+					<li><a asp-controller="Home" asp-action="Contact">Author</a></li>
 				</ul>
 				@await Html.PartialAsync("_LoginPartial")
 			</div>
@@ -46,29 +46,30 @@
 		@RenderBody()
 		<hr />
 		<footer>
-			<p>&copy; 2015 - MyWebsite</p>
+			<p style="text-align:center">&copy; @Html.DisplayTextFor(model => DateTime.Now.Year) - Dmytro Bogatov's Personal Website</p>
 		</footer>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedbackView" style="position: fixed; bottom: 10px; right: 30px;">Feedback</button>
 	</div>
 
 	<environment names="Development">
 		<script src="~/lib/jquery/dist/jquery.js"></script>
 		<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="~/js/site.js" asp-append-version="true"></script>
+		<script src="~/lib/underscore/underscore.js"></script>
+
 		<script data-main="js/config.js" type="text/javascript" src="~/lib/requirejs/require.js"></script>
 	</environment>
 	<environment names="Staging,Production">
 		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
 				asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
 				asp-fallback-test="window.jQuery">
-
 		</script>
 		<script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
 				asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
 				asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-
-
 		</script>
 		<script data-main="js/config.js" type="text/javascript" src="lib/requirejs/require.js"></script>
+		<script src="~/lib/underscore/underscore-min.js"></script>
 	</environment>
 
 	@RenderSection("scripts", required: false)
