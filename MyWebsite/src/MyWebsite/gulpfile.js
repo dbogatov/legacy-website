@@ -7,8 +7,9 @@ var gulp = require("gulp"),
     cssmin = require("gulp-cssmin"),
     uglify = require("gulp-uglify"),
 	ts = require('gulp-typescript'),
-    merge = require('merge'),
-    fs = require("fs");
+	sourcemaps = require('gulp-sourcemaps'),
+	merge = require('merge'),
+	fs = require("fs");
 
 var paths = {
 	webroot: "./wwwroot/"
@@ -23,7 +24,11 @@ paths.concatCssDest = paths.webroot + "css/site.min.css";
 
 paths.npm = "./node_modules/";
 paths.lib = paths.webroot + "/lib/";
+
 paths.tsSource = "./TypeScript/app/**/*.ts";
+paths.tsMaps = "./TypeScript/app/**/*.js.map";
+paths.tsJS = "./TypeScript/app/**/*.js";
+
 paths.tsOutput = paths.webroot + "/js/";
 paths.tsDef = "./TypeScript/definitions/";
 
@@ -78,6 +83,14 @@ gulp.task('ts-compile', function () {
 
 gulp.task('watch', ['ts-compile'], function () {
 	gulp.watch(paths.tsDef, ['ts-compile']);
+});
+
+gulp.task("copy-ts-maps", function () {
+	return merge([
+		gulp.src(paths.tsMaps).pipe(gulp.dest(paths.tsOutput)),
+		gulp.src(paths.tsSource).pipe(gulp.dest(paths.tsOutput)),
+		gulp.src(paths.tsJS).pipe(gulp.dest(paths.tsOutput))
+	]);
 });
 
 gulp.task("copy", function () {
