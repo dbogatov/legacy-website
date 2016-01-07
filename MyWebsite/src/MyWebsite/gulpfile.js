@@ -71,6 +71,25 @@ gulp.task("min:css", function () {
 
 gulp.task("min", ["min:js", "min:css"]);
 
+gulp.task("ts-debug", function () {
+	return merge([
+		gulp
+			.src(paths.tsSource)
+			.pipe(sourcemaps.init())
+			.pipe(ts(tsProject))
+			.pipe(sourcemaps.write("."))
+			.pipe(gulp.dest(paths.tsOutput)),
+		gulp
+			.src(paths.tsSource)
+			.pipe(gulp.dest(paths.tsOutput))
+	]);
+});
+
+gulp.task('ts-gen-defs', function () {
+	gulp.src(paths.tsSource)
+                    .pipe(ts(tsProject)).dts.pipe(gulp.dest(paths.tsDef));
+});
+
 gulp.task('ts-compile', function () {
 	var tsResult = gulp.src(paths.tsSource)
                     .pipe(ts(tsProject));

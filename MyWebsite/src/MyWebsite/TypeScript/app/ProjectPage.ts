@@ -3,31 +3,192 @@
 	private projects: Project[];
 	private tags: Tag[];
 
-	displayProjects(): void {
+	private projectsLoaded = false;
+	private tagsLoaded = false;
+
+	private resizeHandler = () => {
+		$(".fixHeight").each((index, element) => {
+			$(element).height(260 - $(element).parent().children().eq(0).height());
+		});
+
+		$("[href='#']").addClass("disabled");
+	}
+
+	private maySetListeners(): void {
+		if (this.projectsLoaded && this, this.tagsLoaded) {
+			this.setListeners();
+		}
+	}
+
+	private succinct(element, options) {
+
+		var settings = $.extend({
+			size: 240,
+			omission: "...",
+			ignore: true
+		}, options);
+
+		return element.each((index, eachElement) => {
+
+			var textDefault: string,
+				textTruncated: string,
+				elements = $(eachElement),
+				regex = /[!-\/:-@\[-`{-~]$/,
+				init = () => {
+					elements.each(() => {
+						textDefault = $(eachElement).html();
+
+						if (textDefault.length > settings.size) {
+							textTruncated = $.trim(textDefault)
+								.substring(0, settings.size)
+								.split(" ")
+								.slice(0, -1)
+								.join(" ");
+
+							if (settings.ignore) {
+								textTruncated = textTruncated.replace(regex, "");
+							}
+
+							$(eachElement).html(textTruncated + settings.omission);
+						}
+					});
+				};
+			init();
+		});
+	}
+
+	private filterUsingKey(key: string) {
+
+		if (key === "all") {
+			$(".project-thumbnail").fadeIn("slow", null);
+		} else {
+			$(`.project-thumbnail:not(.project-${key})`).fadeOut("slow", null);
+			$(`.project-${key}`).fadeIn("slow", null);
+		}
+	}
+
+	private updateProjects(text: string): void {
+		var atLeastOneShow = false;
+
+		$(".project-thumbnail").each((index, element) => {
+			var flag = false;
+
+			if ($("#titleChbx").is(":checked") && $(element).find(".projectTitle").text().toLowerCase().indexOf(text.toLowerCase()) >= 0) {
+				flag = true;
+			}
+
+			if (!flag && $("#descriptionChbx").is(":checked") && $(element).find(".description").text().toLowerCase().indexOf(text.toLowerCase()) >= 0) {
+				flag = true;
+			}
+
+			if (!flag) {
+				$(element).hide();
+			} else {
+				$(element).show();
+				atLeastOneShow = true;
+			}
+		});
+
+		if (atLeastOneShow) {
+			$("#emptySearchPlaceholder").hide();
+			$("#searchDiv").removeClass("has-error").addClass("has-success");
+		} else {
+			$("#emptySearchPlaceholder").show();
+			$("#searchDiv").removeClass("has-success").addClass("has-error");
+		}
+	}
+
+	private setListeners(): void {
+		// Search events
+		var thisInstance = this;
+
+		$("#searchBar").keyup((event) => {
+			thisInstance.updateProjects($(event.target).val());
+		});
+
+		$("#searchBar").on("paste", () => {
+			setTimeout(() => {
+				thisInstance.updateProjects($("#searchBar").val());
+			}, 200);
+		});
+
+		$("#searchBar").on("cut", () => {
+			setTimeout(() => {
+				thisInstance.updateProjects($("#searchBar").val());
+			}, 200);
+		});
+
+		$("input:checkbox").change(() => {
+			thisInstance.updateProjects($("#searchBar").val());
+		});
+
+		$("#clearSearch").click(() => {
+			$("input:checkbox").prop("checked", true);
+			$("#searchBar").val("");
+			thisInstance.updateProjects("");
+		});
+
+		// Filter code
+
+		$("#myTab a").click((event) => {
+			event.preventDefault();
+			$(event.target).tab("show");
+
+			thisInstance.filterUsingKey($(event.target).attr("href").substr(1));
+
+			$("#searchBar").val("");
+		});
+
+		$(".description").each((index, element) => {
+			if ($(element).text().length > 70) {
+
+				var title = $(element).text();
+
+				thisInstance.succinct($(element), {
+					size: 70
+				}).append(` <a href='#' data-toggle='tooltip' data-placement='top' title='${title}'>view all</a>`);
+			}
+		});
+
+		$(() => {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+
+		$(window).resize(this.resizeHandler);
+		$(".fixHeight").ready(() => { $(window).trigger("resize"); });
+
+		setInterval(() => { $(window).trigger("resize"); }, 300);
+	}
+
+	private displayProjects(): void {
 		$("#projectsDiv").html(this.projects.map(project => project.getHtmlView()).join(""));
 	}
 
-	displayTags(): void {
+	private displayTags(): void {
 		$("#myTab").append(this.tags.map(tag => tag.getHtmlView()).join(""));
 	}
 
-	loadProjects(): void {
+	private loadProjects(): void {
 		$.get("api/Projects", {}, projects => {
 			this.projects = projects.map(project =>
 				new Project().deserialize(project)
 			);
 
 			this.displayProjects();
+			this.projectsLoaded = true;
+			this.maySetListeners();
 		});
 	}
 
-	loadTags(): void {
+	private loadTags(): void {
 		$.get("api/Tags", {}, tags => {
 			this.tags = tags.map(tag =>
 				new Tag().deserialize(tag)
 			);
 
 			this.displayTags();
+			this.tagsLoaded = true;
+			this.maySetListeners();
 		});
 	}
 
@@ -89,7 +250,7 @@ class Project implements ISerializable<Project> {
 
 	getHtmlView(): string {
 		return Project.template({
-			projectType: this.tags.map(tag => `project-${tag}`).join(" "),
+			projectType: this.tags.map(tag => `project-${tag.toLowerCase()}`).join(" "),
 			imageSrc: this.imgeFilePath,
 			title: this.title,
 			date: this.dateCompleted,

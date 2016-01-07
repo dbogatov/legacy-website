@@ -1,14 +1,14 @@
 define(["require", "exports"], function (require, exports) {
-    var Main = (function () {
-        function Main() {
+    var ProjectsPage = (function () {
+        function ProjectsPage() {
         }
-        Main.prototype.displayProjects = function () {
+        ProjectsPage.prototype.displayProjects = function () {
             $("#projectsDiv").html(this.projects.map(function (project) { return project.getHtmlView(); }).join(""));
         };
-        Main.prototype.displayTags = function () {
+        ProjectsPage.prototype.displayTags = function () {
             $("#myTab").append(this.tags.map(function (tag) { return tag.getHtmlView(); }).join(""));
         };
-        Main.prototype.loadProjects = function () {
+        ProjectsPage.prototype.loadProjects = function () {
             var _this = this;
             $.get("api/Projects", {}, function (projects) {
                 _this.projects = projects.map(function (project) {
@@ -17,7 +17,7 @@ define(["require", "exports"], function (require, exports) {
                 _this.displayProjects();
             });
         };
-        Main.prototype.loadTags = function () {
+        ProjectsPage.prototype.loadTags = function () {
             var _this = this;
             $.get("api/Tags", {}, function (tags) {
                 _this.tags = tags.map(function (tag) {
@@ -26,11 +26,11 @@ define(["require", "exports"], function (require, exports) {
                 _this.displayTags();
             });
         };
-        Main.prototype.run = function () {
+        ProjectsPage.prototype.run = function () {
             this.loadProjects();
             this.loadTags();
         };
-        return Main;
+        return ProjectsPage;
     })();
     var Tag = (function () {
         function Tag() {
@@ -45,7 +45,7 @@ define(["require", "exports"], function (require, exports) {
             this.tagName = input.TagName;
             return this;
         };
-        Tag.template = _.template("\n\t\t<li role='presentation'><a href='#\" + <%= tagLink %> + \"'>\" + <%= tagName %> + \"</a></li>\"\n\t");
+        Tag.template = _.template("\n\t\t<li role='presentation'><a href='#<%= tagLink %>'><%= tagName %></a></li>\n\t");
         return Tag;
     })();
     var Project = (function () {
@@ -76,6 +76,6 @@ define(["require", "exports"], function (require, exports) {
         Project.template = _.template("\n\t\t<div class='col-sm-6 col-md-4 project-thumbnail <%= projectType %>' style='padding-top:10px' >\n\t\t\t<div class='thumbnail' style='height: 450px'>\n\t\t\t\t<img src='<%= imageSrc %>' alt='Here should have been an image' style='max-height:255px' class='img-rounded'>\n\t\t\t\t<div class='fixHeight'></div>\n\t\t\t\t<div class='caption'>\n\t\t\t\t\t<h3 class=\"projectTitle\"><%= title %></h3>\n\t\t\t\t\t<h5><%= date %></h5>\n\t\t\t\t\t<p class='description' style='text-align: justify;'><%= description %></p>\n\t\t\t\t\t<p><a href='<%= tryRef %>' target=_blank class='btn btn-primary' role='button'>Try it!</a> <a href='<%= srcRef %>' target=_blank class='btn btn-default' role='button'>View source</a></p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t");
         return Project;
     })();
-    return Main;
+    return ProjectsPage;
 });
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=ProjectPage.js.map

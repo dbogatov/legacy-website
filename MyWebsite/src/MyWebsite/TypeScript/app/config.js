@@ -5,8 +5,8 @@ require.config({
     shim: {}
 });
 // load AMD module main.ts (compiled to main.js)
-require(['main'], function (main) {
-    var app = new main();
+require(['ProjectPage'], function (ProjectPage) {
+    var app = new ProjectPage();
     app.run();
 });
 //# sourceMappingURL=config.js.map
