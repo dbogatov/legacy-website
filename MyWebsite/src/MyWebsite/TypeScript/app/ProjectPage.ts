@@ -253,7 +253,7 @@ class Project implements ISerializable<Project> {
 			projectType: this.tags.map(tag => `project-${tag.toLowerCase()}`).join(" "),
 			imageSrc: this.imgeFilePath,
 			title: this.title,
-			date: this.dateCompleted,
+			date: `${Util.getMonthName(this.dateCompleted.getMonth())}, ${this.dateCompleted.getFullYear()}`,
 			description: this.descriptionText,
 			tryRef: this.weblink,
 			srcRef: this.sourceLink
@@ -264,7 +264,7 @@ class Project implements ISerializable<Project> {
         this.projectId = input.ProjectId;
 		this.title = input.Title;
 		this.descriptionText = input.DescriptionText;
-		this.dateCompleted = input.DateCompleted;
+		this.dateCompleted = new Date(input.DateCompleted);
 		this.weblink = input.Weblink;
 		this.sourceLink = input.SourceLink;
 		this.imgeFilePath = input.ImgeFilePath;
@@ -272,6 +272,15 @@ class Project implements ISerializable<Project> {
 
         return this;
     }
+}
+
+class Util {
+	public static getMonthName(month: number): string {
+		var monthNames = ["January", "February", "March", "April", "May", "June",
+			"July", "August", "September", "October", "November", "December"
+		];
+		return monthNames[month];
+	}
 }
 
 export = ProjectsPage;
