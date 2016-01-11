@@ -16,13 +16,13 @@ namespace MyWebsite.Controllers.API {
 
 		// GET: api/Tags
 		[HttpGet]
-		public IEnumerable<Tag> GetProjects() {
+		public IEnumerable<Tag> GetTags() {
 			return _tags.GetItems().ToList();
 		}
 
 		// GET: api/Tags/5
 		[HttpGet("{id}", Name = "GetTag")]
-		public IActionResult GetProject([FromRoute] int id) {
+		public IActionResult GetTag([FromRoute] int id) {
 
 			var tag = _tags.GetItem(id);
 
