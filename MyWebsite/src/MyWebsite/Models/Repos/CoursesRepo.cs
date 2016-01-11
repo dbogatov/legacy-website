@@ -13,20 +13,10 @@ namespace MyWebsite.Models.Repos {
 
 	public class CoursesRepo : AbsRepo<Course>, ICoursesRepo {
 
-		private readonly IAbsRepo<Requirement> _requirements;
-
-		public CoursesRepo(DbContext db, IAbsRepo<Requirement> requirements) : base(db) {
-
-            _requirements = requirements;
-        }
+        public CoursesRepo(DbContext db) : base(db) {}
 
 		public IEnumerable<Course> GetCoursesWithRequirements() {
-            var courses = base.GetItems().ToList();
-            var requirements = _requirements.GetItems().ToList();
-
-            courses.ForEach(c => c.Requirement = requirements.FirstOrDefault(r => r.ReqId == c.ReqId));
-			
-			return courses.ToList();
+            return base.GetItemsWithInclude<Requirement>(c => c.Requirement);
         }
 	}
 }

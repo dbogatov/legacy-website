@@ -13,107 +13,125 @@ using MyWebsite.Models;
 using MyWebsite.Models.Enitites;
 using MyWebsite.Models.Repos;
 using MyWebsite.Services;
+using Newtonsoft.Json;
 
-namespace MyWebsite {
-	public class Startup {
-		public Startup(IHostingEnvironment env) {
-			// Set up configuration sources.
+namespace MyWebsite
+{
+    public class Startup
+    {
+        public Startup(IHostingEnvironment env)
+        {
+            // Set up configuration sources.
 
-			var builder = new ConfigurationBuilder()
-				.AddJsonFile("appsettings.json")
-				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-			if (env.IsDevelopment()) {
-				// For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-				builder.AddUserSecrets();
+            if (env.IsDevelopment())
+            {
+                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+                builder.AddUserSecrets();
 
-				// This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-				builder.AddApplicationInsightsSettings(developerMode: true);
-			}
+                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
+                builder.AddApplicationInsightsSettings(developerMode: true);
+            }
 
-			builder.AddEnvironmentVariables();
-			Configuration = builder.Build();
-		}
+            builder.AddEnvironmentVariables();
+            Configuration = builder.Build();
+        }
 
-		public IConfigurationRoot Configuration { get; set; }
+        public IConfigurationRoot Configuration { get; set; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services) {
-			// Add framework services.
-			services.AddApplicationInsightsTelemetry(Configuration);
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            // Add framework services.
+            services.AddApplicationInsightsTelemetry(Configuration);
 
-			services.AddEntityFramework()
-				.AddSqlServer()
-				.AddDbContext<ApplicationDbContext>(options =>
-					options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
-				.AddDbContext<AbsDbContext>();
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
+                .AddDbContext<AbsDbContext>();
 
-			services.AddIdentity<ApplicationUser, IdentityRole>()
-				.AddEntityFrameworkStores<ApplicationDbContext>()
-				.AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
-			services.AddMvc();
+            services.AddMvc();
 
-			services.AddInstance<IConfiguration>(Configuration);
+            services.AddInstance<IConfiguration>(Configuration);
 
-			// Add application services.
-			services.AddTransient<IEmailSender, AuthMessageSender>();
-			services.AddTransient<ISmsSender, AuthMessageSender>();
+            // Add application services.
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
 
-			services.AddTransient<DbContext, AbsDbContext>();
+            services.AddTransient<DbContext, AbsDbContext>();
 
-			services.AddTransient<IAbsRepo<Tag>, AbsRepo<Tag>>();
-			services.AddTransient<IAbsRepo<Project>, AbsRepo<Project>>();
-			services.AddTransient<IAbsRepo<ProjectTag>, AbsRepo<ProjectTag>>();
-			services.AddTransient<IProjectsRepo, ProjectsRepo>();
-			services.AddTransient<IAbsRepo<Course>, AbsRepo<Course>>();
-			services.AddTransient<IAbsRepo<Requirement>, AbsRepo<Requirement>>();
-			services.AddTransient<ICoursesRepo, CoursesRepo>();
-			
-		}
+            services.AddTransient<IAbsRepo<Tag>, AbsRepo<Tag>>();
+            services.AddTransient<IAbsRepo<Project>, AbsRepo<Project>>();
+            services.AddTransient<IAbsRepo<ProjectTag>, AbsRepo<ProjectTag>>();
+            services.AddTransient<IProjectsRepo, ProjectsRepo>();
+            services.AddTransient<ICoursesRepo, CoursesRepo>();
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
-			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-			loggerFactory.AddDebug();
+        }
 
-			app.UseApplicationInsightsRequestTelemetry();
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
 
-			if (env.IsDevelopment()) {
-				app.UseBrowserLink();
-				app.UseDeveloperExceptionPage();
-				app.UseDatabaseErrorPage();
-			} else {
-				app.UseExceptionHandler("/Home/Error");
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.Indented,
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            };
 
-				// For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-				try {
-					using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-						.CreateScope()) {
-						serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-							 .Database.Migrate();
-					}
-				} catch { }
-			}
+            app.UseApplicationInsightsRequestTelemetry();
 
-			app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
+            if (env.IsDevelopment())
+            {
+                app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
 
-			app.UseApplicationInsightsExceptionTelemetry();
+                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
+                try
+                {
+                    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                        .CreateScope())
+                    {
+                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                             .Database.Migrate();
+                    }
+                }
+                catch { }
+            }
 
-			app.UseStaticFiles();
+            app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
-			app.UseIdentity();
+            app.UseApplicationInsightsExceptionTelemetry();
 
-			// To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseStaticFiles();
 
-			app.UseMvc(routes => {
-				routes.MapRoute(
-					name: "default",
-					template: "{controller=Home}/{action=Index}/{id?}");
-			});
-		}
+            app.UseIdentity();
 
-		// Entry point for the application.
-		public static void Main(string[] args) => WebApplication.Run<Startup>(args);
-	}
+            // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+
+        // Entry point for the application.
+        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+    }
 }

@@ -19,23 +19,9 @@ namespace MyWebsite.Controllers.API {
 		// GET: api/Courses
 		[HttpGet]
 		public IEnumerable<Course> GetCourses() {
-            System.Console.WriteLine("Get courses");
-            var t = _courses.GetItems().Count();
-			System.Console.WriteLine("Count: " + t);
-			
             return _courses.GetCoursesWithRequirements();
         }
-		/*
-		[HttpGet]
-		[Route("Requirements")]
-		public IEnumerable<Requirement> GetRequirements() {
-            System.Console.WriteLine("Get Requirements");
-            var t = _requirements.GetItems().Count();
-			System.Console.WriteLine("Count: " + t);
-			
-            return _requirements.GetItems();
-        }*/
-
+		
 		// GET: api/Courses/Microeconomics
 		[HttpGet("{title}", Name = "GetCourse")]
 		public IActionResult GetCourse([FromRoute] string title) {

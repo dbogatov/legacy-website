@@ -19,7 +19,6 @@ namespace MyWebsite.Models.Enitites {
 		public string Status { get; set; }
 		public int ReqId { get; set; }
 
-		[NotMapped]
         public Requirement Requirement { get; set; }
 	}
 }

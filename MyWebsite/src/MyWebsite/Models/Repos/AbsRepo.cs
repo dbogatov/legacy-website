@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
@@ -13,7 +14,8 @@ namespace MyWebsite.Models.Repos {
 
 	public interface IAbsRepo<T> where T : AbsEntity {
 		IEnumerable<T> GetItems();
-		T GetItem(int itemId);
+        IEnumerable<T> GetItemsWithInclude<TProperty>(Expression<Func<T, TProperty>> navigationPropertyPath);
+        T GetItem(int itemId);
 		T AddItem(T item);
 		bool DeleteItem(int itemId);
 	}
@@ -33,6 +35,11 @@ namespace MyWebsite.Models.Repos {
 		public IEnumerable<T> GetItems() {
 			return GetDbSet().AsEnumerable();
 		}
+
+		public IEnumerable<T> GetItemsWithInclude<TProperty>(Expression<Func<T, TProperty>> navigationPropertyPath) {
+            //var type = typeof(T).GetProperties().FirstOrDefault(p => p.PropertyType == typeof(TProperty)).Name;
+            return GetDbSet().Include(navigationPropertyPath).AsEnumerable();
+        }
 
 		public T GetItem(int itemId) {
 			// ReSharper disable once PossibleNullReferenceException
