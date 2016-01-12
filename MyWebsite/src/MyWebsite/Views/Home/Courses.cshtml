@@ -5,11 +5,35 @@
 <h2>@ViewData["Title"]</h2>
 
 <div class="row">
-	<div class="col-md-6" id="leftBlock"></div>
-	<div class="col-md-6 id="rightBlock""></div>
+	<div class="col-md-6" id="leftBlock">
+		
+		<h3 >Major Requirements</h3>
+		<hr id="major" />
+		
+	</div>
+		
+	<div class="col-md-6 id="rightBlock"">
+		
+		<h3>Social Requirements</h3>
+		<hr id="social" />
+		
+		<h3 >Humanities Requirements</h3>
+		<hr id="humanitites" />
+		
+		<h3 >PE Requirements</h3>
+		<hr id="pe" />
+		
+		<h3 >IQP Requirements</h3>
+		<hr id="iqp" />
+		
+		<h3 >Other Requirements</h3>
+		<hr id="other" />
+		
+	</div>
 </div>
 
 @section scripts {
+	<script src="/lib/tablesorter/jquery.tablesorter.min.js"></script>
 	<script>
 		var globalModule = "CoursesPage";	
 	</script>
