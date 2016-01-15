@@ -4,7 +4,7 @@ class CoursesPage {
 	private courses: Course[];
 	
 	// Ideally, pulled from DB
-	private requirementsTree = {
+	private static requirementsTree = {
 		major: ["CS Classes + MQP", "Math", "Science"],
 		social: ["Social Sciences"],
 		humanitites: ["Breadth", "Depth", "Seminar"],
@@ -13,8 +13,15 @@ class CoursesPage {
 		other: ["Free Elective"]
 	};
 
+	private static letterToNumber = {
+		A: 4,
+		B: 3,
+		C: 2,
+		NR: 0
+	};
+
 	private static template = _.template(`
-		<h4 class="text-center"><%= reqText %></h4>
+		<h4 class="text-center"><%= reqText %> (GPA: <%= gpa %>)</h4>
 		<table id="gradeTable_<%= reqId %>" class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
@@ -63,8 +70,8 @@ class CoursesPage {
 
 	private getParentRequirement(requirement: string): string {
 		var result: string;
-		for (var parent in this.requirementsTree) {
-			if (this.requirementsTree[parent].indexOf(requirement) > -1) {
+		for (var parent in CoursesPage.requirementsTree) {
+			if (CoursesPage.requirementsTree[parent].indexOf(requirement) > -1) {
 				result = parent;
 				break;
 			}
@@ -94,7 +101,14 @@ class CoursesPage {
 			var courses = <Array<Course>>dictionary[requirement];
 			var htmlId = this.getParentRequirement(requirement);
 
+			var completed = courses.filter((course) => course.status === "Completed");
+			
 			var html = CoursesPage.template({
+				gpa: (completed
+					.map((course) => CoursesPage.letterToNumber[course.gradeLetter])
+					.reduce((accumulator, element) => accumulator + element, 0) /
+					(completed.length > 0 ? completed.length : 1))
+					.toPrecision(3),
 				reqId: courses[0].requirement.replace(/\W/g, ''),
 				reqText: courses[0].requirement,
 				courses: courses.map((course) => course.getHtmlView())
@@ -102,7 +116,7 @@ class CoursesPage {
 
 			$(`#${htmlId}`).after(html);
 		}
-		
+
 		this.sortGrades();
 	}
 
