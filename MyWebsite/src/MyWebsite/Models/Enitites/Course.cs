@@ -21,4 +21,31 @@ namespace MyWebsite.Models.Enitites {
 
         public Requirement Requirement { get; set; }
 	}
+	
+	[Table("DiplomaReqs")]
+	public class Requirement : AbsEntity {
+		[Key]
+		public int ReqId { get; set; }
+		public string ReqName { get; set; }
+		
+		public int parentReqId { get; set; }
+
+		public ParentRequirement ParentRequirement { get; set; }
+
+        [NotMapped]
+		public ICollection<Course> Courses { get; set; }
+	}
+	
+	[Table("DiplomaReqParent")]
+	public class ParentRequirement : AbsEntity {
+		[Key]
+		public int Id { get; set; }
+		public string Title { get; set; }
+		
+		public int DisplayColumn { get; set; }
+		
+		[NotMapped]
+		public ICollection<Requirement> Requirements { get; set; }
+	}
+	
 }

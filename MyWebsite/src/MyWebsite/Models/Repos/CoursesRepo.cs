@@ -13,10 +13,10 @@ namespace MyWebsite.Models.Repos {
 
 	public class CoursesRepo : AbsRepo<Course>, ICoursesRepo {
 
-        public CoursesRepo(DbContext db) : base(db) {}
+        public CoursesRepo(AbsDbContext db) : base(db) {}
 
 		public IEnumerable<Course> GetCoursesWithRequirements() {
-            return base.GetItemsWithInclude<Requirement>(c => c.Requirement);
+            return base.GetItemsWithInclude<ParentRequirement>(c => c.Requirement.ParentRequirement);
         }
 	}
 }

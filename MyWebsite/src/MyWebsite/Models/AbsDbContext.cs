@@ -33,6 +33,7 @@ namespace MyWebsite.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>().HasOne(c => c.Requirement).WithMany().HasForeignKey(c => c.ReqId);
+			modelBuilder.Entity<Requirement>().HasOne(r => r.ParentRequirement).WithMany().HasForeignKey(c => c.parentReqId);
         }
 
     }

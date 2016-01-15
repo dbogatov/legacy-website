@@ -3,16 +3,6 @@ import util = require('Utility');
 class CoursesPage {
 	private courses: Course[];
 	
-	// Ideally, pulled from DB
-	private static requirementsTree = {
-		major: ["CS Classes + MQP", "Math", "Science"],
-		social: ["Social Sciences"],
-		humanitites: ["Breadth", "Depth", "Seminar"],
-		pe: ["Physical Education"],
-		iqp: ["IQP"],
-		other: ["Free Elective"]
-	};
-
 	private static letterToNumber = {
 		A: 4,
 		B: 3,
@@ -20,7 +10,12 @@ class CoursesPage {
 		NR: 0
 	};
 
-	private static template = _.template(`
+	private static parentTemplate = _.template(`
+		<h3 class="majorRequirement"><%= title %> (GPA:  <%= gpa %>)</h3>
+		<hr id="<%= htmlId %>" />
+	`);
+	
+	private static childTemplate = _.template(`
 		<h4 class="text-center"><%= reqText %> (GPA: <%= gpa %>)</h4>
 		<table id="gradeTable_<%= reqId %>" class="table table-striped table-bordered table-hover">
 			<thead>
@@ -68,18 +63,30 @@ class CoursesPage {
 		});
 	}
 
-	private getParentRequirement(requirement: string): string {
-		var result: string;
-		for (var parent in CoursesPage.requirementsTree) {
-			if (CoursesPage.requirementsTree[parent].indexOf(requirement) > -1) {
-				result = parent;
-				break;
-			}
-		}
-
-		return result;
+	private computeGPA(courses: Array<Course>): string {
+		var completed = courses.filter((course) => course.status === "Completed");
+		
+		return (completed
+			.map((course) => CoursesPage.letterToNumber[course.gradeLetter])
+			.reduce((accumulator, element) => accumulator + element, 0) /
+			(completed.length > 0 ? completed.length : 1))
+				.toPrecision(3);
 	}
+	
+	private groupParentRequirements() {
+		var dictionary = {};
 
+		this.courses.forEach((course) => {
+			if (dictionary[course.parentRequirement.title] === undefined) {
+				dictionary[course.parentRequirement.title] = new Array<Course>(course);
+			} else {
+				dictionary[course.parentRequirement.title].push(course);
+			}
+		});
+
+		return dictionary;
+	}
+	
 	private groupCourses() {
 		var dictionary = {};
 
@@ -94,21 +101,34 @@ class CoursesPage {
 		return dictionary;
 	}
 
+	private drawParentRequirements() {
+		var dictionary = this.groupParentRequirements();
+		
+		for (var requirement in dictionary) {
+			var courses = <Array<Course>>dictionary[requirement];
+			var column = courses[0].parentRequirement.column === 1 ? "leftBlock" : "rightBlock";
+			
+			$(`#${column}`).append(CoursesPage.parentTemplate({
+				gpa: this.computeGPA(courses),
+				title: requirement,
+				htmlId: requirement.replace(/\W/g, '')
+			}));
+		}
+	}
+	
 	private displayCourses(): void {
+		this.drawParentRequirements();
+		
 		var dictionary = this.groupCourses();
 
 		for (var requirement in dictionary) {
 			var courses = <Array<Course>>dictionary[requirement];
-			var htmlId = this.getParentRequirement(requirement);
+			var htmlId = courses[0].parentRequirement.title.replace(/\W/g, ''); //this.getParentRequirement(requirement);
 
-			var completed = courses.filter((course) => course.status === "Completed");
 			
-			var html = CoursesPage.template({
-				gpa: (completed
-					.map((course) => CoursesPage.letterToNumber[course.gradeLetter])
-					.reduce((accumulator, element) => accumulator + element, 0) /
-					(completed.length > 0 ? completed.length : 1))
-					.toPrecision(3),
+			
+			var html = CoursesPage.childTemplate({
+				gpa: this.computeGPA(courses),
 				reqId: courses[0].requirement.replace(/\W/g, ''),
 				reqText: courses[0].requirement,
 				courses: courses.map((course) => course.getHtmlView())
@@ -120,6 +140,10 @@ class CoursesPage {
 		this.sortGrades();
 	}
 
+	private displayTotalGPA(): void {
+		$("#totalGPA").html(this.computeGPA(this.courses));
+	}
+	
 	private loadCourses(): void {
 		$.get("/api/Courses", {}, courses => {
 			this.courses = courses.map(course =>
@@ -127,6 +151,7 @@ class CoursesPage {
 			);
 
 			this.displayCourses();
+			this.displayTotalGPA();
 		});
 	}
 
@@ -154,6 +179,10 @@ class Course implements util.Utility.ISerializable<Course>, util.Utility.ITempla
 	gradeLetter: string;
 	status: string;
 	requirement: string;
+	parentRequirement: {
+		title: string,
+		column: number;
+	}
 
 
 	deserialize(input): Course {
@@ -165,6 +194,10 @@ class Course implements util.Utility.ISerializable<Course>, util.Utility.ITempla
 		this.gradeLetter = input.GradeLetter;
 		this.status = input.Status;
 		this.requirement = input.Requirement.ReqName;
+		this.parentRequirement = {
+			title: input.Requirement.ParentRequirement.Title,
+			column: input.Requirement.ParentRequirement.DisplayColumn
+		};
 
 		return this;
 	}

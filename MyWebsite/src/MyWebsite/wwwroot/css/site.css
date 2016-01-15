@@ -46,3 +46,9 @@ textarea {
 	/* inline-block space fix */
 	margin-right: -4px;
 }
+
+/* Courses */
+
+.majorRequirement {
+	padding-top: 20px;
+}
