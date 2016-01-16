@@ -17,6 +17,9 @@
 			  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
 		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 	</environment>
+	
+	@RenderSection("styles", required: false)
+	
 	@Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
@@ -35,7 +38,7 @@
 				<ul class="nav navbar-nav">
 					<li><a asp-controller="Home" asp-action="Index">Projects</a></li>
 					<li><a asp-controller="Home" asp-action="Courses">Courses</a></li>
-					<li><a asp-controller="Home" asp-action="Contact">Author</a></li>
+					<li><a asp-controller="Home" asp-action="Author">Author</a></li>
 				</ul>
 				@await Html.PartialAsync("_LoginPartial")
 			</div>
@@ -69,6 +72,10 @@
 	
 	<script src="/lib/jquery/dist/jquery.js"></script>
 	<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+	<script>
+		var globalModule = "Default";
+	</script>
 
 	@RenderSection("scripts", required: false)
 
