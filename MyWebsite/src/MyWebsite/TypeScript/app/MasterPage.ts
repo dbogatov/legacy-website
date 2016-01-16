@@ -1,10 +1,19 @@
 class MasterPage {
 
 	private setFeedback(): void {
-		
+
 		var errorHandler = () => {
 			$('#responseView').modal();
 			$("#responseText").text("Unfortunatelly, something went wrong... Please, try again later.");
+		};
+
+		var successHandler = () => {
+			$('#responseView').modal();
+			$("#responseText").text("I got your feedback and will be in touch shortly.");
+
+			$("#sender").val("");
+			$("#subject").val("");
+			$("#messageText").val("");
 		};
 
 		$("#sendFeedback").on("click", () => {
@@ -21,7 +30,7 @@ class MasterPage {
 					),
 					(response) => {
 						if (response) {
-							$('#responseView').modal();
+							successHandler();
 						} else {
 							errorHandler();
 						}

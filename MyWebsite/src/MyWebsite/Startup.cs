@@ -63,8 +63,8 @@ namespace MyWebsite
             services.AddInstance<IConfiguration>(Configuration);
 
             // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IEmailSender, DefaultEmailSender>();
+            //services.AddTransient<ISmsSender, AuthMessageSender>();
 
             services.AddTransient<DbContext, AbsDbContext>();
 
