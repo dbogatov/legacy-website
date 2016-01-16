@@ -1,4 +1,6 @@
-﻿class ProjectsPage {
+﻿import util = require('Utility');
+
+class ProjectsPage {
 
 	private projects: Project[];
 	private tags: Tag[];
@@ -193,6 +195,8 @@
 	}
 
     run() {
+		util.Utility.Utility.enableAJAXLoadBar();
+		
 		this.loadProjects();
 		this.loadTags();
     }
@@ -253,7 +257,7 @@ class Project implements ISerializable<Project> {
 			projectType: this.tags.map(tag => `project-${tag.toLowerCase()}`).join(" "),
 			imageSrc: this.imgeFilePath,
 			title: this.title,
-			date: `${Util.getMonthName(this.dateCompleted.getMonth())}, ${this.dateCompleted.getFullYear()}`,
+			date: `${util.Utility.Utility.getMonthName(this.dateCompleted.getMonth())}, ${this.dateCompleted.getFullYear()}`,
 			description: this.descriptionText,
 			tryRef: this.weblink,
 			srcRef: this.sourceLink
@@ -272,15 +276,6 @@ class Project implements ISerializable<Project> {
 
         return this;
     }
-}
-
-class Util {
-	public static getMonthName(month: number): string {
-		var monthNames = ["January", "February", "March", "April", "May", "June",
-			"July", "August", "September", "October", "November", "December"
-		];
-		return monthNames[month];
-	}
 }
 
 export = ProjectsPage;

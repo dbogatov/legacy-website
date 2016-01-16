@@ -123,9 +123,7 @@ class CoursesPage {
 
 		for (var requirement in dictionary) {
 			var courses = <Array<Course>>dictionary[requirement];
-			var htmlId = courses[0].parentRequirement.title.replace(/\W/g, ''); //this.getParentRequirement(requirement);
-
-			
+			var htmlId = courses[0].parentRequirement.title.replace(/\W/g, '');			
 			
 			var html = CoursesPage.childTemplate({
 				gpa: this.computeGPA(courses),
@@ -156,6 +154,7 @@ class CoursesPage {
 	}
 
 	run() {
+		util.Utility.Utility.enableAJAXLoadBar();
 		this.loadCourses();
 	}
 }

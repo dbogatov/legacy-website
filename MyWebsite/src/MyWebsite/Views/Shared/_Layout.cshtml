@@ -20,7 +20,6 @@
 	@Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
-
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -51,6 +50,23 @@
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedbackView" style="position: fixed; bottom: 10px; right: 30px;">Feedback</button>
 	</div>
 
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Loading (wait for page to load)</h4>
+				</div>
+				<div class="modal-body">
+					<div class="progress progress-striped active">
+						<div class="progress-bar" style="width: 100%;">
+							<span class="sr-only">Wait, please</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<script src="/lib/jquery/dist/jquery.js"></script>
 	<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
 

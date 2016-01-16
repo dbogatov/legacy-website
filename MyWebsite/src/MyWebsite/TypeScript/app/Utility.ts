@@ -6,6 +6,28 @@ export module Utility {
 			];
 			return monthNames[month];
 		}
+
+		public static enableAJAXLoadBar(): void {
+			
+			var handler = (event) => {
+				event.stopPropagation();
+				event.preventDefault();
+			};
+			
+			$(document).ajaxStart(() => {
+				document.addEventListener("click", handler, true);
+
+				$('#myModal').modal({
+					keyboard: false
+				});
+				$('#myModal').modal('show');
+			});
+			
+			$(document).ajaxStop(() => {
+				$('#myModal').modal('hide');
+				document.removeEventListener("click", handler, true);
+			});
+		}
 	}
 
 	export interface ISerializable<T> {
