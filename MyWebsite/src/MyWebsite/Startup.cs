@@ -73,6 +73,7 @@ namespace MyWebsite
             services.AddTransient<IAbsRepo<ProjectTag>, AbsRepo<ProjectTag>>();
             services.AddTransient<IProjectsRepo, ProjectsRepo>();
             services.AddTransient<ICoursesRepo, CoursesRepo>();
+			services.AddTransient<IAbsRepo<Feedback>, AbsRepo<Feedback>>();
 
         }
 

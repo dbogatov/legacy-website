@@ -5,17 +5,22 @@ require.config({
     shim: {}
 });
 
-declare var globalModule: string; 
+// load AMD module MasterPage.ts (compiled to MasterPage.js)
+require(['MasterPage'], (MasterPage) => {
+	var app = new MasterPage();
+	app.run();
+});
+
+declare var globalModule: string;
 
 switch (globalModule) {
 	case "ProjectPage":
-		// load AMD module ProjectPage.ts (compiled to ProjectPage.js)
 		require(['ProjectPage'], (ProjectPage) => {
 			var app = new ProjectPage();
 			app.run();
 		});
 		break;
-		
+
 	case "CoursesPage":
 		require(['CoursesPage'], (CoursesPage) => {
 			var app = new CoursesPage();
