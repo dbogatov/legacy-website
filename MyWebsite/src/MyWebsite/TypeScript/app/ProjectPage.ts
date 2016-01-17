@@ -230,7 +230,7 @@ class Tag implements ISerializable<Tag> {
 class Project implements ISerializable<Project> {
 	private static template = _.template(`
 		<div class='col-sm-6 col-md-4 project-thumbnail <%= projectType %>' style='padding-top:10px' >
-			<div class='thumbnail' style='height: 450px'>
+			<div class='thumbnail' style='height: 460px'>
 				<img src='<%= imageSrc %>' alt='Here should have been an image' style='max-height:255px' class='img-rounded'>
 				<div class='fixHeight'></div>
 				<div class='caption'>

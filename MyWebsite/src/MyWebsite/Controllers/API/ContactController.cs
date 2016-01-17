@@ -31,7 +31,7 @@ namespace MyWebsite.Controllers.API {
 					_emailSender.SendEmailAsync(
 						"dbogatov@wpi.edu",
 						"You have been contacted!",
-						@"Name: " + contact.Name + "\nEmail: " + contact.Email + "\nComment: " + contact.Comment + "\nLanguage:" + contact.Language + "\n\nEnd of message.",
+						@"Name: " + contact.Name + "\nEmail: " + contact.Email + "\nComment: " + contact.Comment + "\nLanguage: " + contact.Language + "\n\nEnd of message.",
 						"Contact Manager"
 					);
 				});
