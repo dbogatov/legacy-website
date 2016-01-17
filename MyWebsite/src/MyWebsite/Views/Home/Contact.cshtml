@@ -1,17 +1,74 @@
 ﻿@{
     ViewData["Title"] = "Contact";
 }
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
+<h2>@ViewData["Title"]</h2>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<p class="text-danger">
+	<span id="errorMessage"></span>
+</p>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="row">
+	<div class="col-md-8">
+
+		<form id="contact_form" class="form-horizontal">
+			<h4>Contact developer.</h4>
+			<hr />
+
+			<div class="form-group">
+				<label for="userName" class="col-md-2 control-label">Your name *</label>
+				<div class="col-md-10">
+					<input type="text" class="form-control" placeholder="eq. John Smith" id="userName" required=""/>					
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="email" class="col-md-2 control-label">Your email *</label>
+				<div class="col-md-10">
+					<input type="email" class="form-control" placeholder="eq. admin@dbogatov.org" id="email" required=""/>					
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="comment" class="col-md-2 control-label">Your message *</label>
+				<div class="col-md-10">
+					<textarea rows="5" class="form-control" placeholder="Who are you and why do you contact me. Your answer is appreciated." id="comment" required=""></textarea>					
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="lang" class="col-md-2 control-label">Language</label>
+				<div class="col-md-10">
+					<select id="lang">
+						<option value="eng">English</option>
+						<option value="ukr">Ukrainian</option>
+						<option value="rus">Russian</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-10">
+					<button type="button" class="btn btn-default" id="contactBtn">Contact developer</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<div class="col-md-4">
+		
+		<h4>What's next?
+		</h4>
+		<hr />
+		<div>
+			<p style="text-align:justify">Immediatelly after you send your contact information you will be given access to all information on the website. You will also receive an email with a link allowing you to access the website without sending information again. </p>
+		</div>
+		
+	</div>
+</div>
+
+@section scripts {
+	<script src="/lib/parsleyjs/dist/parsley.min.js"></script>
+	<script>
+		var globalModule = "ContactPage";	
+	</script>
+}

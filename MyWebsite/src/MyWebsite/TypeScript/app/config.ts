@@ -28,6 +28,13 @@ switch (globalModule) {
 		});
 		break;
 
+	case "ContactPage":
+		require(['ContactPage'], (ContactPage) => {
+			var app = new ContactPage();
+			app.run();
+		});
+		break;
+
 	default:
 		break;
 }

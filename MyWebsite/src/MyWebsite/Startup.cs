@@ -64,7 +64,7 @@ namespace MyWebsite
 
             // Add application services.
             services.AddTransient<IEmailSender, DefaultEmailSender>();
-            //services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
 
             services.AddTransient<DbContext, AbsDbContext>();
 
@@ -74,6 +74,7 @@ namespace MyWebsite
             services.AddTransient<IProjectsRepo, ProjectsRepo>();
             services.AddTransient<ICoursesRepo, CoursesRepo>();
 			services.AddTransient<IAbsRepo<Feedback>, AbsRepo<Feedback>>();
+			services.AddTransient<IAbsRepo<Contact>, AbsRepo<Contact>>();
 
         }
 
