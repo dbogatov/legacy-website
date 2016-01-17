@@ -8,28 +8,21 @@ using MyWebsite.Models.Enitites;
 using MyWebsite.Models.Repos;
 
 namespace MyWebsite.Controllers {
-	public class HomeController : Controller {
+	public class ProjectController : Controller {
 
 		public IActionResult Index() {
-			return View();
+
+			return RedirectToActionPermanent("Index", "Home");
 		}
 
-		public IActionResult Courses() {
+		public IActionResult Banker() {
 			return View();
 		}
 		
-		public IActionResult Author() {
+		public IActionResult WPICalendar() {
 			return View();
 		}
-
-		public IActionResult About() {
-			return View();
-		}
-
-		public IActionResult Contact() {
-			return View();
-		}
-
+		
 		public IActionResult Error() {
 			return View();
 		}
