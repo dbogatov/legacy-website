@@ -115,7 +115,7 @@ gulp.task("copy-ts-maps", function () {
 gulp.task("copy", function () {
 	var npm = {
 		"requirejs": "requirejs/require.js"
-	}
+	};
 
 	for (var destinationDir in npm) {
 		gulp.src(paths.npm + npm[destinationDir])

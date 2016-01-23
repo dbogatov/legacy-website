@@ -47,7 +47,6 @@
   "scripts": {
     "prepublish": [
       "npm install",
-	  "npm install gulp-typescript",
       "bower install",
       "gulp clean",
       "gulp min"
