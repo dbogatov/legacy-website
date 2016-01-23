@@ -49,7 +49,8 @@
       "npm install",
       "bower install",
       "gulp clean",
-      "gulp min"
+      "gulp min",
+	  "gulp ts-debug"
     ]
   }
 }
