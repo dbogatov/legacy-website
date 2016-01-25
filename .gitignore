@@ -160,3 +160,6 @@ MyWebsite/src/MyWebsite/wwwroot/js/
 
 # CSS Output
 MyWebsite/src/MyWebsite/wwwroot/css/site.min.css
+
+# node_packages
+**/node_modules/
