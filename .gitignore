@@ -157,6 +157,7 @@ $RECYCLE.BIN/
 
 # TypeScript output
 MyWebsite/src/MyWebsite/wwwroot/js/
+!MyWebsite/src/MyWebsite/wwwroot/js/native
 
 # CSS Output
 MyWebsite/src/MyWebsite/wwwroot/css/site.min.css
