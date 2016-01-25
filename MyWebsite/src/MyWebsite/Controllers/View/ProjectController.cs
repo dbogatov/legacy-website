@@ -11,7 +11,6 @@ namespace MyWebsite.Controllers {
 	public class ProjectController : Controller {
 
 		public IActionResult Index() {
-
 			return RedirectToActionPermanent("Index", "Home");
 		}
 
@@ -22,6 +21,10 @@ namespace MyWebsite.Controllers {
 		public IActionResult WPICalendar() {
 			return View();
 		}
+		
+		public IActionResult Minesweeper() {
+            return View();
+        }
 		
 		public IActionResult Error() {
 			return View();
