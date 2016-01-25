@@ -15,7 +15,7 @@ namespace MyWebsite.Models.Repos {
 		private readonly IAbsRepo<Tag> _tags;
 		private readonly IAbsRepo<ProjectTag> _projTags;
 
-		public ProjectsRepo(DbContext db, IAbsRepo<Tag> tags, IAbsRepo<ProjectTag> projTags) : base(db) {
+		public ProjectsRepo(AbsDbContext db, IAbsRepo<Tag> tags, IAbsRepo<ProjectTag> projTags) : base(db) {
 			_tags = tags;
 			_projTags = projTags;
 		}
