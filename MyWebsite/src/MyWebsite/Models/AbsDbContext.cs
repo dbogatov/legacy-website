@@ -27,6 +27,10 @@ namespace MyWebsite.Models {
 
 		public DbSet<Contact> Contacts { get; set; }
 
+		public DbSet<Leaderboard> Leaderboards { get; set; }
+		public DbSet<Gamestat> Gamestats { get; set; }
+		public DbSet<NickNameId> NickNameIds { get; set; }
+
 		protected override void OnConfiguring(DbContextOptionsBuilder options) {
 			options.UseSqlServer(_configuration["Data:DefaultConnection:ConnectionString"]);  
 		}

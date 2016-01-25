@@ -21,4 +21,20 @@ namespace MyWebsite.Models.Enitites {
 		[NotMapped]
 		public virtual IEnumerable<Tag> Tags { get; set; }
 	}
+	
+	[Table("ProjectTag")]
+	public class ProjectTag : AbsEntity {
+		[Key]
+		public int RelId { get; set; }
+		public int ProjectId { get; set; }
+		public int TagId { get; set; }
+	}
+	
+	[Table("ProjectTag")]
+	public class ProjectTag : AbsEntity {
+		[Key]
+		public int RelId { get; set; }
+		public int ProjectId { get; set; }
+		public int TagId { get; set; }
+	}
 }

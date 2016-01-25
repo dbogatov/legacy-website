@@ -1,22 +1,22 @@
 @{
-	//Layout=String.Empty;
+	Layout=String.Empty;
 	ViewData["Title"] = "Banker Game Assistant";
 }
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
     <title>Minesweeper</title>
-    <link rel="icon" type="image/png" href="Resources/Pictures/mine.jpg" />
-	<link href="CSS Styles/Style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="/images/Minesweeper/mine.jpg" />
+	<link href="/css/minesweeper.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-	<script type="text/javascript" src="scripts/jsAPI.js"></script>
+	<script type="text/javascript" src="/js/native/minesweeper/jsAPI.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-    <script type="text/javascript" src="scripts/minesweeper.js"></script>
-	<script type="text/javascript" src="scripts/solver.js"></script>
-	<script type="text/javascript" src="scripts/modernizr.custom.06116.js"></script>
+    <script type="text/javascript" src="/js/native/minesweeper/minesweeper.js"></script>
+	<script type="text/javascript" src="/js/native/minesweeper/solver.js"></script>
+	<script type="text/javascript" src="/js/native/minesweeper/modernizr.custom.06116.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,latin-ext,cyrillic' rel='stylesheet' type='text/css' />
 	<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css' />
     <noscript>
@@ -24,76 +24,82 @@
     </noscript>
 </head>
 <body>
-	<form id="languageForm" runat="server">
+	<form id="languageForm">
 	<div class="rightBar" >
 		<div class="solverButton">
-			<asp:Label runat="server" ID="lblSolver" meta:resourcekey="lblSolver"/>
+			<label>Solver</label>
 			<div style="width:90%; margin: 10% 0px 0px 5%; border-top:1px solid black;"></div>
 		</div>
-		<asp:Label runat="server" ID="lblRules" meta:resourcekey="lblRules"/>
+		<label>Rules</label>
 		<div style="width:90%; margin: 10% 0px 0px 5%; border-top:1px solid black;"></div>
-		<asp:Label runat="server" ID="lblHelp" meta:resourcekey="lblHelp"/>
+		<label>Help</label>
 		<div id="solverMenu">
-			<asp:Label runat="server" ID="lblGetMove" meta:resourcekey="lblGetMove"/>
-			<input type="checkbox" id="checkBox" /><asp:Label runat="server" ID="lblSolverRun" meta:resourcekey="lblSolverRun"/>
-			<asp:Label runat="server" ID="lblSolverCancel" meta:resourcekey="lblSolverCancel"/>	
+			<label>Get Move</label>
+			<input type="checkbox" id="checkBox" /><label id="lblSolverRun">Run as long as you can</label>
+			<label>Cancel</label>	
 		</div>
 	</div>
 
 	<div id="imgHolder" style="display: none;">
-		<asp:Image runat="server" ID="aspImage"  meta:resourcekey="flagImage" ImageUrl="http://www.hgsitebuilder.com/files/writeable/uploads/hostgator507407/image/american20flag.jpg"/>
+		<img id="aspImage" src="http://www.hgsitebuilder.com/files/writeable/uploads/hostgator507407/image/american20flag.jpg"/>
 	</div>
-	<asp:Label runat="server" ID="lblHelpSrc" meta:resourcekey="lblHelpSrc" style="display: none;"/>
-	<asp:Label runat="server" ID="lblRulesSrc" meta:resourcekey="lblRulesSrc" style="display: none;"/>
-    <asp:Label runat="server" ID="win" meta:resourcekey="lblWin" style="display: none;"/>
-    <asp:Label runat="server" ID="loose" meta:resourcekey="lblLoose" style="display: none;"/>
-	<asp:Label runat="server" ID="lblMineTip" meta:resourcekey="lblMineTip" style="display: none;"/>
-    <div class="tipText size"><asp:Label runat="server" ID="lblTipSize" Text="" meta:resourcekey="lblTipSize" /></div>
+	<label id="lblHelpSrc"  style="display: none;">Help</label>
+	<label id="lblRulesSrc" style="display: none;">Rules</label>
+    <label id="win" style="display: none;"></label>
+    <label id="loose" style="display: none;"></label>
+	<label id="lblMineTip" style="display: none;"></label>
+    <div class="tipText size">
+		<label id="lblTipSize"></label>
+	</div>
 	<div class="tipText mineAmount"></div>
-    <div class="loading"><div class="loadingText"><asp:Label runat="server" ID="lblLoading" Text="" meta:resourcekey="lblLoading" /></div></div>
+    <div class="loading">
+		<div class="loadingText">
+			<label id="lblLoading"></label>
+		</div>
+	</div>
 	<div class="header">
-		<asp:Label runat="server" ID="errorLabel" meta:resourcekey="lblError" style="display: none;"/>
+		<label id="errorLabel" style="display: none;"></label>
 		<div class="leftHeaderContainer">
-			<asp:Button value="uk-ua" ID="ukr_button" runat="server" meta:resourcekey="iptUkrainian" />
+			<button value="uk-ua" id="ukr_button" />
 			<div style="width:90%; margin: 3% 0px 0px 5%; border-top:1px solid black;"></div>
-			<asp:Button value="en-US" ID="eng_button" runat="server" meta:resourcekey="iptEnglish" />
+			<button value="en-US" id="eng_button" />
 		</div>
 		<div style="float: left; height:80%; margin-top: 1%; border-left:1px solid black;"></div>
 		<div class="headerMiddle">
-			<asp:Label runat="server" ID="lblMinesweeper" meta:resourcekey="lblMinesweeper" style="display: block;"/>
-			<input type="button" value="" class="newGameButton" runat="server" meta:resourcekey="iptNewGame" />
+			<label id="lblMinesweeper" style="display: block;">Minesweeper</label>
+			<input type="button" value="New Game" class="newGameButton" />
 			<div style="float: left; height:28%; margin-top: 1%; border-left:1px solid black;"></div>
-			<input type="button" value="" class="leaderBoardButton" runat="server" meta:resourcekey="iptLeaders" />
+			<input type="button" value="Leaderboard" class="leaderBoardButton" />
 		</div>
 		<div style="float: left; height:80%; margin-top: 1%; border-left:1px solid black;"></div>
 		<div class="headerLoading">
 			<div class="headerLoadingBar"></div>
-			<asp:Label runat="server" ID="loading" meta:resourcekey="lblLoadingRun" style="display: block;"/>
-			<asp:Label runat="server" ID="done" meta:resourcekey="lblLoadingStop" style="display: block;"/>
+			<label id="loading" style="display: block;">Loading...</label>
+			<label id="done" style="display: block;">Done</label>
 		</div>
 	</div>
 	<div class="page">
 		<div class="main newGame">
 			<div class="menu">
 				<div class="menuOption small">
-					<asp:Label runat="server" ID="Label1" Text="" meta:resourcekey="lblBeginner" />
+					<label id="Label1">Beginner</label>
 				</div>
 				<div class="menuOption medium">
-					<asp:Label runat="server" ID="Label2" Text="" meta:resourcekey="lblMedium" />
+					<label id="Label2">Medium</label>
 				</div>
 				<div class="menuOption professional">
-					<asp:Label runat="server" ID="Label3" Text="" meta:resourcekey="lblProfessional" />
+					<label id="Label3">Professional</label>
 				</div>
 				<div class="customGame">
-					<asp:Label runat="server" ID="Label4" Text="" meta:resourcekey="lblSpecial" />
+					<label id="Label4">Special</label>
 				</div>
 					<div class="username">
-						<asp:TextBox class='usernameField' runat="server" meta:resourcekey="tfUserName" />
+						<input type="text" class='usernameField' />
 					</div>
 					<div class="customGameOptions">
-						<asp:Label runat="server" ID="Label6" Text="" meta:resourcekey="lblSizeOfField" />: <br><asp:TextBox class='fieldSize X' runat="server" meta:resourcekey="tfSizeX" /> <asp:Label runat="server" Text="" meta:resourcekey="lblBy" /> <input type='text' class='fieldSize Y' /><span class='sizeAlert'>!</span><span class='sizeTip'>&nbsp;&nbsp;?&nbsp;&nbsp;</span><br>
-						<asp:Label runat="server" ID="Label7" Text="" meta:resourcekey="lblNumberOFMines" />: <input type='text' class='mineAmount' /><span class='mineAmountAlert'>!</span><span class='mineAmountTip'>&nbsp;&nbsp;?&nbsp;&nbsp;</span><br>
-						<asp:Label class='startGame' Text="" runat="server" meta:resourcekey="lblStartButton"></asp:Label>
+						<label id="Label6">Field Size:</label>: <br><input type="text" class='fieldSize X' /><label>by</label> <input type='text' class='fieldSize Y' /><span class='sizeAlert'>!</span><span class='sizeTip'>&nbsp;&nbsp;?&nbsp;&nbsp;</span><br>
+						<label id="Label7">Mines number</label>: <input type='text' class='mineAmount' /><span class='mineAmountAlert'>!</span><span class='mineAmountTip'>&nbsp;&nbsp;?&nbsp;&nbsp;</span><br>
+						<label class='startGame'>Start</label>
 					</div>
 			</div>
 		</div>
@@ -104,7 +110,7 @@
 				    
 				</div>
 				<div class="smile">
-					<asp:Label class='restartGame' Text="" runat="server" meta:resourcekey="lblRestartButton"></asp:Label>
+					<label class='restartGame'>Restart</label>
 				</div>
 				<div class="timer">
 				    00:00:00
@@ -120,22 +126,22 @@
 				    <thead>
                         <tr>
                             <td class="leaderHead easy" id="easy">
-                                <asp:Label runat="server" meta:resourcekey="lblLeadEasy"/>
+                                <label>Easy</label>
                             </td>
                             <td class="leaderHead medium" id="medium">
-                                <asp:Label runat="server" meta:resourcekey="lblLeadMedium"/>
+                                <label>Medium</label>
                             </td>
                             <td class="leaderHead professional" id="professional">
-                                <asp:Label runat="server" meta:resourcekey="lblLeadProfessional"/>
+                                <label>Hard</label>
                             </td>
                         </tr>
                         <tr class="columnName">
                             <td> # </td>
                             <td>
-                                <asp:Label runat="server" meta:resourcekey="lblLeadUsername"/>
+                                <label>Name</label>
                             </td>
                             <td>
-                                <asp:Label runat="server" meta:resourcekey="lblLeadTime"/>
+                                <label>Time</label>
                             </td>
                         </tr>
 				    </thead>
@@ -148,51 +154,49 @@
         <div class="main authorsPage">
             <div class="authorsInfo">
 				<div class="dimaInfo">
-					<a href="http://facebook.com/dima4ka007" target="_blank"><img src="Resources/Pictures/Authors/Dmytro.jpg" /></a>
+					<a href="http://facebook.com/dima4ka007" target="_blank"><img src="/images/Minesweeper/Authors/Dmytro.jpg" /></a>
 					<div class="authorName">
-						<asp:Label runat="server" Text="" meta:resourcekey="lblDimaName" />
-						<br /><asp:Label runat="server" Text="" meta:resourcekey="lblDimaSurname" />
+						<label>Dmytro</label>
+						<br /><label>Bogatov</label>
 						<br /><a href="mailto:dbogatov@wpi.edu">dbogatov@wpi.edu</a>
 					</div>
 					<div class="authorDescription">
-						<br /><i><asp:Label runat="server" ID="Label8" Text="" meta:resourcekey="lblBackEnd" /></i>
-						<br /><b><asp:Label runat="server" ID="Label9" Text="" meta:resourcekey="lblProjectLeader" /></b>
-						<br /><asp:Label runat="server" ID="Label23" Text="" meta:resourcekey="lblServerSide" />
+						<br /><i><label id="Label8">Back end</label></i>
+						<br /><b><label id="Label9">Project leader</label></b>
+						<br /><label id="Label23">Server side</label>
 						<ul>
 							<li>
-								<asp:Label runat="server" ID="Label10" Text="" meta:resourcekey="lblGameEngine" /></li>
+								<label id="Label10">Game Engine</label></li>
 							<li>
-								<asp:Label runat="server" ID="Label11" Text="" meta:resourcekey="lblDatabaseManagment" /></li>
+								<label id="Label11">Database Management</label></li>
 							<li>
-								<asp:Label runat="server" ID="Label5" Text="" meta:resourcekey="lblLocalization" /></li>
+								<label id="Label20">Poster</label></li>
 							<li>
-								<asp:Label runat="server" ID="Label20" Text="" meta:resourcekey="lblPoster" /></li>
-							<li>
-								<asp:Label runat="server" ID="Label24" Text="" meta:resourcekey="lblSolver" /> (<asp:HyperLink meta:resourcekey="aSolver" Target="_blank" NavigateUrl="http://robertmassaioli.wordpress.com/2013/01/12/solving-minesweeper-with-matricies/" runat="server">Robert Massaioli</asp:HyperLink>)</li>
+								<label id="Label24">Solver</label> (<a target="_blank" href="http://robertmassaioli.wordpress.com/2013/01/12/solving-minesweeper-with-matricies/">Inspired by Robert Massaioli</a>)</li>
 						</ul>
 					</div>
 				</div>
                 <div class="bogdanInfo">
-					<a href="http://vk.com/omarox" target="_blank"><img src="Resources/Pictures/Authors/Bogdan.jpg" /></a>
+					<a href="http://vk.com/omarox" target="_blank"><img src="/images/Minesweeper/Authors/Bogdan.jpg" /></a>
 					<div class="authorName">
-						<asp:Label runat="server" ID="Label12" Text="" meta:resourcekey="lblBogdanName" />
-						<br /><asp:Label runat="server" ID="Label13" Text="" meta:resourcekey="lblBogdanSurname" />
+						<label id="Label12">Bogdan</label>
+						<br /><label id="Label13">Yarema</label>
 						<br /><a href="mailto:omaroxtv@gmail.com">omaroxtv@gmail.com</a>
 					</div>
 					<div class="authorDescription">
 						<br />
-						<i><asp:Label runat="server" ID="Label14" Text="" meta:resourcekey="lblFrontEnd" /></i>
+						<i><label id="Label14">Front end</label></i>
 						<br />
-						<br /><asp:Label runat="server" ID="Label25" Text="" meta:resourcekey="lblCleintSide" />
+						<br /><label id="Label25">Client side</label>
 						<ul>
 							<li>
-								<asp:Label runat="server" ID="Label26" Text="" meta:resourcekey="lblStyles" /></li>
+								<label id="Label26">Styles</label></li>
 							<li>
-								<asp:Label runat="server" ID="Label27" Text="" meta:resourcekey="lblScripts" /></li>
+								<label id="Label27">Scripts</label></li>
 							<li>
-								<asp:Label runat="server" ID="Label28" Text="" meta:resourcekey="lblHTMLMarkup" /></li>
+								<label id="Label28">HTML Markup</label></li>
 							<li>
-								<asp:Label runat="server" ID="Label29" Text="" meta:resourcekey="lblInterfaceRendering" /></li>
+								<label id="Label29">Interface Rendering</label></li>
 						</ul>
 					</div>
                 </div>
@@ -201,10 +205,10 @@
 		</div>
         <div class="main pdfPage">
 			<div class="poster">
-				<img src="Resources/Pictures/Poster.png" />
+				<img src="/images/Minesweeper/Poster.png" />
 			</div>
-			<asp:HyperLink id="hyperlink1" NavigateUrl="Resources/PDFs/Poster.pdf" runat="server" Target="_blank" meta:resourcekey="aPDF" />
-			<asp:HyperLink id="hyperlink2" NavigateUrl="Resources/Pictures/Poster.png" runat="server" Target="_blank" meta:resourcekey="aPNG" />
+			<a id="hyperlink1" href="/files/Minesweeper/Poster.pdf" target="_blank">PDF</a>
+			<a id="hyperlink2" href="/images/Minesweeper/Poster.png" target="_blank">PNG</a>
 		</div>
 		<div class="main help">
 			<iframe id ="helpFrame"></iframe>
@@ -216,15 +220,15 @@
 	<div class="footer">
 		<div class="info">
             <div class="authors">
-                <asp:Label runat="server" ID="Label15" meta:resourcekey="lblAuthors" />
+                <label id="Label15">Authors</label>
             </div>
             <div style="float: left; height:80%; margin-top: 0px; border-left:1px solid black;"></div>
             <div class="pdfInfo">
-                <asp:Label runat="server" ID="Label19" meta:resourcekey="lblStructure" />
+                <label id="Label19">Structure</label>
             </div>
 		</div>
         <div class="copyright">
-            <asp:Label runat="server" ID="Label18" meta:resourcekey="lblCopyright" />
+            <label id="Label18">© 2014 Dmytro & Bogdan All Rights Reserved</label>
         </div>
 	</div>
 	</form>
