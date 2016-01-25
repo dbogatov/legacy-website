@@ -241,7 +241,7 @@ function openPlaces(places) {
 }
 
 function sendJSON(path, data, answerCallback) {
-	$.post("/api/Minesweeper/" + path, "=" + JSON.stringify(data))
+	$.post("/api/Minesweeper/" + path, "=" + data)
 			.done(answerCallback)
 			.fail(errorAJAX);
 	/*

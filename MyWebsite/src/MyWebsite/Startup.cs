@@ -59,6 +59,11 @@ namespace MyWebsite
 				.AddDefaultTokenProviders();
 
 			services.AddMvc();
+			services.AddCaching();
+			services.AddSession(options => { 
+				options.IdleTimeout = TimeSpan.FromMinutes(30); 
+				options.CookieName = ".MyApplication";
+			});
 
 			services.AddInstance<IConfiguration>(Configuration);
 
@@ -129,8 +134,12 @@ namespace MyWebsite
 			app.UseStaticFiles();
 
 			app.UseIdentity();
+			
+			app.UseSession();
 
 			// To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
+
+			//app.UseInMemorySession(configure: s => s.IdleTimeout = TimeSpan.FromMinutes(30));
 
 			app.UseMvc(routes =>
 			{
