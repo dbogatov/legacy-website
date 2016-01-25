@@ -30,11 +30,10 @@ namespace MyWebsite.Models.Enitites {
 		public int TagId { get; set; }
 	}
 	
-	[Table("ProjectTag")]
-	public class ProjectTag : AbsEntity {
+	[Table("Tags")]
+	public class Tag : AbsEntity {
 		[Key]
-		public int RelId { get; set; }
-		public int ProjectId { get; set; }
 		public int TagId { get; set; }
+		public string TagName { get; set; }
 	}
 }
