@@ -75,6 +75,9 @@ namespace MyWebsite
 			services.AddTransient<ICoursesRepo, CoursesRepo>();
 			services.AddTransient<IAbsRepo<Feedback>, AbsRepo<Feedback>>();
 			services.AddTransient<IAbsRepo<Contact>, AbsRepo<Contact>>();
+			services.AddTransient<IAbsRepo<Leaderboard>, AbsRepo<Leaderboard>>();
+			services.AddTransient<IAbsRepo<Gamestat>, AbsRepo<Gamestat>>();
+			services.AddTransient<IAbsRepo<NickNameId>, AbsRepo<NickNameId>>();
 
 		}
 

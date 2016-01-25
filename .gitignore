@@ -156,7 +156,7 @@ $RECYCLE.BIN/
 .DS_Store
 
 # TypeScript output
-MyWebsite/src/MyWebsite/wwwroot/js/
+MyWebsite/src/MyWebsite/wwwroot/js/*
 !MyWebsite/src/MyWebsite/wwwroot/js/native
 
 # CSS Output
