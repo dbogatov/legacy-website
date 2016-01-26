@@ -48,6 +48,11 @@
 	/// Coordinates of a place
 	/// </summary>
 	public struct Coordinate {
+		public Coordinate(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+
 		public int x;
 		public int y;
 	}
@@ -63,10 +68,10 @@
 			this.action = action;
 		}
 	}
-	
+
 	public struct Leader {
-        public string NickName;
-        public int Duration;
-    }
+		public string NickName;
+		public int Duration;
+	}
 
 }
