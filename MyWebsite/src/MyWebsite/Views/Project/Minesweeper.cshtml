@@ -1,6 +1,6 @@
 @{
 	Layout=String.Empty;
-	ViewData["Title"] = "Banker Game Assistant";
+	ViewData["Title"] = "Minesweeper";
 }
 
 <!DOCTYPE html>
@@ -24,82 +24,84 @@
     </noscript>
 </head>
 <body>
-	<form id="languageForm">
+	<form method="post" action="./" id="languageForm">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="KFnyOVUEU+IqBeZHIS15yKRsZW+72OeKBA7362vRpE15ZZYJRrCIwn3LM4cjrQqqRu9QYg+TswqJJcmreCxtemSIWynNN5xiCUJlMYnXKa0=" />
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="BE937C54" />
+</div>
 	<div class="rightBar" >
 		<div class="solverButton">
-			<label>Solver</label>
+			<span id="lblSolver">Solver</span>
 			<div style="width:90%; margin: 10% 0px 0px 5%; border-top:1px solid black;"></div>
 		</div>
-		<label>Rules</label>
+		<span id="lblRules">Rules</span>
 		<div style="width:90%; margin: 10% 0px 0px 5%; border-top:1px solid black;"></div>
-		<label>Help</label>
+		<span id="lblHelp">Help</span>
 		<div id="solverMenu">
-			<label>Get Move</label>
-			<input type="checkbox" id="checkBox" /><label id="lblSolverRun">Run as long as you can</label>
-			<label>Cancel</label>	
+			<span id="lblGetMove">Get move</span>
+			<input type="checkbox" id="checkBox" /><span id="lblSolverRun">Run as long as you can</span>
+			<span id="lblSolverCancel">Cancel</span>	
 		</div>
 	</div>
 
 	<div id="imgHolder" style="display: none;">
-		<img id="aspImage" src="http://www.hgsitebuilder.com/files/writeable/uploads/hostgator507407/image/american20flag.jpg"/>
+		<img id="aspImage" src="/images/Minesweeper/USFlag.png" />
 	</div>
-	<label id="lblHelpSrc"  style="display: none;">Help</label>
-	<label id="lblRulesSrc" style="display: none;">Rules</label>
-    <label id="win" style="display: none;"></label>
-    <label id="loose" style="display: none;"></label>
-	<label id="lblMineTip" style="display: none;"></label>
-    <div class="tipText size">
-		<label id="lblTipSize"></label>
-	</div>
+	<span id="lblHelpSrc" style="display: none;">/files/Minesweeper/HTMLs/Instructions/Instructions.en-en.html</span>
+	<span id="lblRulesSrc" style="display: none;">/files/Minesweeper/HTMLs/Rules/Rules.en-en.html</span>
+    <span id="win" style="display: none;">Win</span>
+    <span id="loose" style="display: none;">Loose</span>
+	<span id="lblMineTip" style="display: none;">Number from . to . 10%-70% of field</span>
+    <div class="tipText size"><span id="lblTipSize">5 >= number >= 30, width >= height<br>Field heigher than 20 is not recommended</span></div>
 	<div class="tipText mineAmount"></div>
-    <div class="loading">
-		<div class="loadingText">
-			<label id="lblLoading"></label>
-		</div>
-	</div>
+    <div class="loading"><div class="loadingText"><span id="lblLoading">Loading...</span></div></div>
 	<div class="header">
-		<label id="errorLabel" style="display: none;"></label>
+		<span id="errorLabel" style="display: none;">Text.</span>
 		<div class="leftHeaderContainer">
-			<button value="uk-ua" id="ukr_button" />
+			<input type="submit" name="ukr_button" value="" id="ukr_button" value="uk-ua" />
 			<div style="width:90%; margin: 3% 0px 0px 5%; border-top:1px solid black;"></div>
-			<button value="en-US" id="eng_button" />
+			<input type="submit" name="eng_button" value="" id="eng_button" value="en-US" />
 		</div>
 		<div style="float: left; height:80%; margin-top: 1%; border-left:1px solid black;"></div>
 		<div class="headerMiddle">
-			<label id="lblMinesweeper" style="display: block;">Minesweeper</label>
-			<input type="button" value="New Game" class="newGameButton" />
+			<span id="lblMinesweeper" style="display: block;">Minesweeper</span>
+			<input name="ctl06" type="button" class="newGameButton" value="New Game" />
 			<div style="float: left; height:28%; margin-top: 1%; border-left:1px solid black;"></div>
-			<input type="button" value="Leaderboard" class="leaderBoardButton" />
+			<input name="ctl07" type="button" class="leaderBoardButton" value="Leaderboard" />
 		</div>
 		<div style="float: left; height:80%; margin-top: 1%; border-left:1px solid black;"></div>
 		<div class="headerLoading">
 			<div class="headerLoadingBar"></div>
-			<label id="loading" style="display: block;">Loading...</label>
-			<label id="done" style="display: block;">Done</label>
+			<span id="loading" style="display: block;">Loading...</span>
+			<span id="done" style="display: block;">Done.</span>
 		</div>
 	</div>
 	<div class="page">
 		<div class="main newGame">
 			<div class="menu">
 				<div class="menuOption small">
-					<label id="Label1">Beginner</label>
+					<span id="Label1">Beginner</span>
 				</div>
 				<div class="menuOption medium">
-					<label id="Label2">Medium</label>
+					<span id="Label2">Intermediate</span>
 				</div>
 				<div class="menuOption professional">
-					<label id="Label3">Professional</label>
+					<span id="Label3">Expert</span>
 				</div>
 				<div class="customGame">
-					<label id="Label4">Special</label>
+					<span id="Label4">Special</span>
 				</div>
 					<div class="username">
-						<input type="text" class='usernameField' />
+						<input name="ctl08" type="text" class="usernameField" Placeholder="Your Name" />
 					</div>
 					<div class="customGameOptions">
-						<label id="Label6">Field Size:</label>: <br><input type="text" class='fieldSize X' /><label>by</label> <input type='text' class='fieldSize Y' /><span class='sizeAlert'>!</span><span class='sizeTip'>&nbsp;&nbsp;?&nbsp;&nbsp;</span><br>
-						<label id="Label7">Mines number</label>: <input type='text' class='mineAmount' /><span class='mineAmountAlert'>!</span><span class='mineAmountTip'>&nbsp;&nbsp;?&nbsp;&nbsp;</span><br>
-						<label class='startGame'>Start</label>
+						<span id="Label6">Field size</span>: <br><input name="ctl09" type="text" class="fieldSize X" /> <span>by</span> <input type='text' class='fieldSize Y' /><span class='sizeAlert'>!</span><span class='sizeTip'>&nbsp;&nbsp;?&nbsp;&nbsp;</span><br>
+						<span id="Label7">Number of mines</span>: <input type='text' class='mineAmount' /><span class='mineAmountAlert'>!</span><span class='mineAmountTip'>&nbsp;&nbsp;?&nbsp;&nbsp;</span><br>
+						<span class="startGame">Start</span>
 					</div>
 			</div>
 		</div>
@@ -110,7 +112,7 @@
 				    
 				</div>
 				<div class="smile">
-					<label class='restartGame'>Restart</label>
+					<span class="restartGame">Restart</span>
 				</div>
 				<div class="timer">
 				    00:00:00
@@ -126,22 +128,22 @@
 				    <thead>
                         <tr>
                             <td class="leaderHead easy" id="easy">
-                                <label>Easy</label>
+                                <span>easy</span>
                             </td>
                             <td class="leaderHead medium" id="medium">
-                                <label>Medium</label>
+                                <span>medium</span>
                             </td>
                             <td class="leaderHead professional" id="professional">
-                                <label>Hard</label>
+                                <span>professional</span>
                             </td>
                         </tr>
                         <tr class="columnName">
                             <td> # </td>
                             <td>
-                                <label>Name</label>
+                                <span>Username</span>
                             </td>
                             <td>
-                                <label>Time</label>
+                                <span>Time</span>
                             </td>
                         </tr>
 				    </thead>
@@ -156,47 +158,49 @@
 				<div class="dimaInfo">
 					<a href="http://facebook.com/dima4ka007" target="_blank"><img src="/images/Minesweeper/Authors/Dmytro.jpg" /></a>
 					<div class="authorName">
-						<label>Dmytro</label>
-						<br /><label>Bogatov</label>
+						<span>Dmytro</span>
+						<br /><span>Bogatov</span>
 						<br /><a href="mailto:dbogatov@wpi.edu">dbogatov@wpi.edu</a>
 					</div>
 					<div class="authorDescription">
-						<br /><i><label id="Label8">Back end</label></i>
-						<br /><b><label id="Label9">Project leader</label></b>
-						<br /><label id="Label23">Server side</label>
+						<br /><i><span id="Label8">Back-end developer</span></i>
+						<br /><b><span id="Label9">Project leader</span></b>
+						<br /><span id="Label23">Server side:</span>
 						<ul>
 							<li>
-								<label id="Label10">Game Engine</label></li>
+								<span id="Label10">Game Engine</span></li>
 							<li>
-								<label id="Label11">Database Management</label></li>
+								<span id="Label11">Database Managment</span></li>
 							<li>
-								<label id="Label20">Poster</label></li>
+								<span id="Label5">Localization</span></li>
 							<li>
-								<label id="Label24">Solver</label> (<a target="_blank" href="http://robertmassaioli.wordpress.com/2013/01/12/solving-minesweeper-with-matricies/">Inspired by Robert Massaioli</a>)</li>
+								<span id="Label20">Poster</span></li>
+							<li>
+								<span id="Label24">Solver</span> (<a href="http://robertmassaioli.wordpress.com/2013/01/12/solving-minesweeper-with-matricies/" target="_blank">inspired by Robert Massaioli</a>)</li>
 						</ul>
 					</div>
 				</div>
                 <div class="bogdanInfo">
 					<a href="http://vk.com/omarox" target="_blank"><img src="/images/Minesweeper/Authors/Bogdan.jpg" /></a>
 					<div class="authorName">
-						<label id="Label12">Bogdan</label>
-						<br /><label id="Label13">Yarema</label>
+						<span id="Label12">Bogdan</span>
+						<br /><span id="Label13">Yarema</span>
 						<br /><a href="mailto:omaroxtv@gmail.com">omaroxtv@gmail.com</a>
 					</div>
 					<div class="authorDescription">
 						<br />
-						<i><label id="Label14">Front end</label></i>
+						<i><span id="Label14">Front-end developer</span></i>
 						<br />
-						<br /><label id="Label25">Client side</label>
+						<br /><span id="Label25">Client Side:</span>
 						<ul>
 							<li>
-								<label id="Label26">Styles</label></li>
+								<span id="Label26">Styles</span></li>
 							<li>
-								<label id="Label27">Scripts</label></li>
+								<span id="Label27">Scripts</span></li>
 							<li>
-								<label id="Label28">HTML Markup</label></li>
+								<span id="Label28">HTML Markup</span></li>
 							<li>
-								<label id="Label29">Interface Rendering</label></li>
+								<span id="Label29">Interface Rendering</span></li>
 						</ul>
 					</div>
                 </div>
@@ -207,8 +211,8 @@
 			<div class="poster">
 				<img src="/images/Minesweeper/Poster.png" />
 			</div>
-			<a id="hyperlink1" href="/files/Minesweeper/Poster.pdf" target="_blank">PDF</a>
-			<a id="hyperlink2" href="/images/Minesweeper/Poster.png" target="_blank">PNG</a>
+			<a id="hyperlink1" href="/files/Minesweeper/Poster.pdf" target="_blank">Download PDF</a>
+			<a id="hyperlink2" href="/images/Minesweeper/Poster.png" target="_blank">Download PNG</a>
 		</div>
 		<div class="main help">
 			<iframe id ="helpFrame"></iframe>
@@ -220,15 +224,15 @@
 	<div class="footer">
 		<div class="info">
             <div class="authors">
-                <label id="Label15">Authors</label>
+                <span id="Label15">Authors</span>
             </div>
             <div style="float: left; height:80%; margin-top: 0px; border-left:1px solid black;"></div>
             <div class="pdfInfo">
-                <label id="Label19">Structure</label>
+                <span id="Label19">Structure</span>
             </div>
 		</div>
         <div class="copyright">
-            <label id="Label18">© 2014 Dmytro & Bogdan All Rights Reserved</label>
+            <span id="Label18">© 2014 Dmytro & Bogdan All Rights Reserved</span>
         </div>
 	</div>
 	</form>

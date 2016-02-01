@@ -10,7 +10,6 @@ namespace MyWebsite.Controllers.API {
 	[Route("api/Courses")]
 	public class CoursesController : Controller {
 		private readonly ICoursesRepo _courses;
-		//private readonly IAbsRepo<Requirement> _requirements;
 
 		public CoursesController(ICoursesRepo courses) {
 			_courses = courses;

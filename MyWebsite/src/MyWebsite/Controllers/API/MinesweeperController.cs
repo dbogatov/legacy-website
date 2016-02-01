@@ -12,13 +12,13 @@ using MyWebsite.Models.Minesweeper;
 using Microsoft.AspNet.Http.Features;
 using System;
 using System.Threading;
-using System.Web.Http;
+
 
 namespace MyWebsite.Controllers.API {
 
 	[Produces("application/json")]
 	[Route("api/Minesweeper")]
-	public class MinesweeperController : ApiController {
+	public class MinesweeperController : Controller {
 
 		private readonly ISession session;
 		private readonly IReadableStringCollection cookies;
@@ -36,10 +36,39 @@ namespace MyWebsite.Controllers.API {
 			//Utility.services = services;
 		}
 
+		[Route("testCookie")]
+		[HttpGet]
+		public string TestCookie() {
+
+            string testCookie = cookies["UserID"];
+			
+			if (string.IsNullOrWhiteSpace(testCookie))
+            {
+				//responseCookies.Append("Test", "654");
+                return "was not set";
+            } else {
+                return "Was set: " + testCookie;
+            }
+		}
+		
+		[Route("testSession")]
+		[HttpGet]
+		public string TestSession() {
+
+            string testRes = session.GetString("Test");
+
+            if (testRes == null)
+            {
+				session.SetString("Test", "999");
+                return "was not set";
+            } else {
+                return "Was set: " + testRes;
+            }
+		}
+
 		[Route("getNickName")]
 		[HttpPost]
 		public string GetNickName() {
-
 			return string.IsNullOrWhiteSpace(cookies["UserID"]) ? Utility.getNickname(Convert.ToInt32(cookies["UserID"])) : "";
 		}
 
@@ -104,9 +133,11 @@ namespace MyWebsite.Controllers.API {
 				var userId = Utility.generateUserID();
 				responseCookies.Append("UserID", userId);
 
-				// add new record to DB
-				//new Thread(delegate () {
-				Utility.addNickNameID(Convert.ToInt32(userId), userName);
+                Console.WriteLine("Cookie was set");
+
+                // add new record to DB
+                //new Thread(delegate () {
+                Utility.addNickNameID(Convert.ToInt32(userId), userName);
 				//}).Start();
 			} else if (this.GetNickName() != userName) {  // if user wishes to change his nickname, let him do it
 				int userIDtemp = Convert.ToInt32(cookies["UserID"]);
