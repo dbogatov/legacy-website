@@ -10,6 +10,12 @@
 			"taskName": "ts-debug",
 			"args": [],
 			"isBuildCommand": true
+		},
+		{
+			"taskName": "watch",
+			"isBuildCommand": true,
+			"showOutput": "always",
+			"isWatching": true
 		}
 	]
 }

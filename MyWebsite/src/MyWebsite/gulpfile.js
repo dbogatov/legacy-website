@@ -7,6 +7,7 @@ var gulp = require("gulp"),
     cssmin = require("gulp-cssmin"),
     uglify = require("gulp-uglify"),
 	ts = require('gulp-typescript'),
+	shell = require('gulp-shell'),
 	sourcemaps = require('gulp-sourcemaps'),
 	merge = require('merge'),
 	fs = require("fs");
@@ -17,7 +18,7 @@ var paths = {
 
 paths.js = paths.webroot + "js/**/*.js";
 paths.minJs = paths.webroot + "js/**/*.min.js";
-paths.css = paths.webroot + "css/**/*.css";
+paths.css = paths.webroot + "css/*.css";
 paths.minCss = paths.webroot + "css/**/*.min.css";
 paths.concatJsDest = paths.webroot + "js/site.min.js";
 paths.concatCssDest = paths.webroot + "css/site.min.css";
@@ -100,9 +101,11 @@ gulp.task('ts-compile', function () {
 	]);
 });
 
-gulp.task('watch', ['ts-compile'], function () {
+gulp.task('watch-ts', ['ts-compile'], function () {
 	gulp.watch(paths.tsDef, ['ts-compile']);
 });
+
+gulp.task('watch', shell.task(['dnx-watch web']))
 
 gulp.task("copy-ts-maps", function () {
 	return merge([
