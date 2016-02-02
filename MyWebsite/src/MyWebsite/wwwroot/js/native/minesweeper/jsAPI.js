@@ -14,11 +14,11 @@
 function runSolver(field) {
 	sendJSON(
         "runSolver",
-        JSON.stringify(
+        //JSON.stringify(
             {
             	"json": field
-            }
-        ),
+            },
+        //),
         parseSolverResponse
         );
 }

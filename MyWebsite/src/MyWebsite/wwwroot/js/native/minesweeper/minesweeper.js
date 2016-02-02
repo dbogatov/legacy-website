@@ -618,11 +618,11 @@ function leaderChoose(e) {
 function getLeaderBoard(mode) {
 	sendJSON(
         "getLeaderBoard",
-        JSON.stringify(
+        //JSON.stringify(
                 {
                 	"mode": mode
-                }
-            ),
+                },
+        //    ),
         parseLeaders,
         errorAJAX
         );
