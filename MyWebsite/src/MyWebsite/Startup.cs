@@ -72,8 +72,9 @@ namespace MyWebsite
 			services.AddTransient<ISmsSender, AuthMessageSender>();
 
 			services.AddTransient<DbContext, AbsDbContext>();
+            services.AddTransient<AbsDbContext, AbsDbContext>();
 
-			services.AddTransient<IAbsRepo<Tag>, AbsRepo<Tag>>();
+            services.AddTransient<IAbsRepo<Tag>, AbsRepo<Tag>>();
 			services.AddTransient<IAbsRepo<Project>, AbsRepo<Project>>();
 			services.AddTransient<IAbsRepo<ProjectTag>, AbsRepo<ProjectTag>>();
 			services.AddTransient<IProjectsRepo, ProjectsRepo>();

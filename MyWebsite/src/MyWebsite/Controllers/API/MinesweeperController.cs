@@ -12,235 +12,268 @@ using MyWebsite.Models.Minesweeper;
 using Microsoft.AspNet.Http.Features;
 using System;
 using System.Threading;
+using MyWebsite.Models;
 
+namespace MyWebsite.Controllers.API
+{
 
-namespace MyWebsite.Controllers.API {
+    [Produces("application/json")]
+    [Route("api/Minesweeper")]
+    public class MinesweeperController : Controller
+    {
 
-	[Produces("application/json")]
-	[Route("api/Minesweeper")]
-	public class MinesweeperController : Controller {
+        private readonly ISession session;
+        private readonly IReadableStringCollection cookies;
+        private readonly IResponseCookies responseCookies;
 
-		private readonly ISession session;
-		private readonly IReadableStringCollection cookies;
-		private readonly IResponseCookies responseCookies;
+        private readonly AbsDbContext context;
 
-		public MinesweeperController(IHttpContextAccessor http, IAbsRepo<Leaderboard> leaderboards, IAbsRepo<Gamestat> gamestats, IAbsRepo<NickNameId> nicknames) {
-			Field.httpContext = http;
-			SolverLauncher.httpContext = http;
-			session = http.HttpContext.Session;
-			cookies = http.HttpContext.Request.Cookies;
-			responseCookies = http.HttpContext.Response.Cookies;
-			Utility.gameStats = gamestats;
-			Utility.leaderboards = leaderboards;
-			Utility.nicknames = nicknames;
-			//Utility.services = services;
-		}
+        public MinesweeperController(IHttpContextAccessor http, AbsDbContext context)
+        {
+            Field.httpContext = http;
+            SolverLauncher.httpContext = http;
+            session = http.HttpContext.Session;
+            cookies = http.HttpContext.Request.Cookies;
+            responseCookies = http.HttpContext.Response.Cookies;
+            Models.Minesweeper.Utility.context = context;
 
-		[Route("testCookie")]
-		[HttpGet]
-		public string TestCookie() {
+            this.context = context;
+        }
+
+        [Route("testCookie")]
+        [HttpGet]
+        public string TestCookie()
+        {
+            return string.Join(",", context.Leaderboards.Where(l => l.Mode == 1).OrderBy(l => l.Duration).Select(l => l.Duration));
 
             string testCookie = cookies["UserID"];
-			
-			if (string.IsNullOrWhiteSpace(testCookie))
+
+            if (string.IsNullOrWhiteSpace(testCookie))
             {
-				//responseCookies.Append("Test", "654");
+                //responseCookies.Append("Test", "654");
                 return "was not set";
-            } else {
+            }
+            else
+            {
                 return "Was set: " + testCookie;
             }
-		}
-		
-		[Route("testSession")]
-		[HttpGet]
-		public string TestSession() {
+        }
+
+        [Route("testSession")]
+        [HttpGet]
+        public string TestSession()
+        {
 
             string testRes = session.GetString("Test");
 
             if (testRes == null)
             {
-				session.SetString("Test", "999");
+                session.SetString("Test", "999");
                 return "was not set";
-            } else {
+            }
+            else
+            {
                 return "Was set: " + testRes;
             }
-		}
+        }
 
-		[Route("getNickName")]
-		[HttpPost]
-		public string GetNickName() {
-			return string.IsNullOrWhiteSpace(cookies["UserID"]) ? Utility.getNickname(Convert.ToInt32(cookies["UserID"])) : "";
-		}
+        [Route("getNickName")]
+        [HttpPost]
+        public string GetNickName()
+        {
+            return !string.IsNullOrWhiteSpace(cookies["UserID"]) ? Models.Minesweeper.Utility.getNickname(Convert.ToInt32(cookies["UserID"])) : "";
+        }
 
-		[Route("openPlace")]
-		[HttpPost]
-		public string OpenPlace(OpenPlaceWrapper wrapper) {
-			var x = wrapper.X;
-			var y = wrapper.Y;
+        [Route("openPlace")]
+        [HttpPost]
+        public string OpenPlace(OpenPlaceWrapper wrapper)
+        {
+            var x = wrapper.X;
+            var y = wrapper.Y;
 
-			// if this is a first shot, generate field
-			if (session.GetObjectFromJson<Place[][]>("Field") == null) {
-				session.SetObjectAsJson("Field", Field.initField(x, y, session.GetObjectFromJson<Parameters>("Parameters")));
-			}
-			/*
+            // if this is a first shot, generate field
+            if (session.GetObjectFromJson<Place[][]>("Field") == null)
+            {
+                session.SetObjectAsJson("Field", Field.initField(x, y, session.GetObjectFromJson<Parameters>("Parameters")));
+            }
+            /*
 			if (HttpContext.Current.Session["Field"] == null ) {
 				HttpContext.Current.Session["Field"] = Field.initField(x, y, (Parameters)HttpContext.Current.Session["Parameters"]);			
 			}*/
 
-			// get list of changes, serialize it to JSON string and return it
-			var changes = Field.openPlace(x, y);
+            // get list of changes, serialize it to JSON string and return it
+            var changes = Field.openPlace(x, y);
 
-			var result = JsonConvert.SerializeObject(changes);
+            var result = JsonConvert.SerializeObject(changes);
 
-			System.Diagnostics.Debug.Write(result + "\n");
+            System.Diagnostics.Debug.Write(result + "\n");
 
-			return result;
-		}
+            return result;
+        }
 
-		[Route("openPlaces")]
-		[HttpPost]
-		public string OpenPlaces(OpenPlacesWrapper coordinates) {
-			var places = coordinates.Places.Select(w => new Coordinate(w.X, w.Y)).ToArray();
+        [Route("openPlaces")]
+        [HttpPost]
+        public string OpenPlaces(OpenPlacesWrapper coordinates)
+        {
+            var places = coordinates.Places.Select(w => new Coordinate(w.X, w.Y)).ToArray();
 
-			var changes = Field.openPlaces(places);
+            var changes = Field.openPlaces(places);
 
-			var result = JsonConvert.SerializeObject(changes);
+            var result = JsonConvert.SerializeObject(changes);
 
-			return result;
-		}
+            return result;
+        }
 
-		[Route("startGame")]
-		[HttpPost]
-		public bool StartGame(StartGameWrapper wrapper) {
+        [Route("startGame")]
+        [HttpPost]
+        public bool StartGame(StartGameWrapper wrapper)
+        {
 
-			var width = wrapper.Width;
-			var height = wrapper.Height;
-			var minesNumber = wrapper.MinesNumber;
-			var mode = wrapper.Mode;
-			var userName = wrapper.UserName;
-			Console.WriteLine("Username is: " + userName);
+            var width = wrapper.Width;
+            var height = wrapper.Height;
+            var minesNumber = wrapper.MinesNumber;
+            var mode = wrapper.Mode;
+            var userName = wrapper.UserName;
+            Console.WriteLine("Username is: " + userName);
 
-			session.Clear(); // clear SESSION array
+            session.Clear(); // clear SESSION array
 
-			session.SetObjectAsJson("Parameters", new Parameters(width, height, minesNumber, mode)); // save parameters for the game
-			session.SetBoolean("lost", false); // is game lost
-			session.SetBoolean("won", false); // is game won
-			session.SetInt32("placesDiscovered", 0); // number of discovered places
-			session.SetBoolean("solverUsed", false); // true, if solver was used in the game
+            session.SetObjectAsJson("Parameters", new Parameters(width, height, minesNumber, mode)); // save parameters for the game
+            session.SetBoolean("lost", false); // is game lost
+            session.SetBoolean("won", false); // is game won
+            session.SetInt32("placesDiscovered", 0); // number of discovered places
+            session.SetBoolean("solverUsed", false); // true, if solver was used in the game
 
-			// if person plays for the first time, generate new ID and cookie for him
-			if (string.IsNullOrWhiteSpace(cookies["UserID"])) {
-				var userId = Utility.generateUserID();
-				responseCookies.Append("UserID", userId);
+            // if person plays for the first time, generate new ID and cookie for him
+            if (string.IsNullOrWhiteSpace(cookies["UserID"]))
+            {
+                var userId = Models.Minesweeper.Utility.generateUserID();
+                responseCookies.Append("UserID", userId);
 
                 Console.WriteLine("Cookie was set");
 
                 // add new record to DB
                 //new Thread(delegate () {
-                Utility.addNickNameID(Convert.ToInt32(userId), userName);
-				//}).Start();
-			} else if (this.GetNickName() != userName) {  // if user wishes to change his nickname, let him do it
-				int userIDtemp = Convert.ToInt32(cookies["UserID"]);
+                Models.Minesweeper.Utility.addNickNameID(Convert.ToInt32(userId), userName);
+                //}).Start();
+            }
+            else if (this.GetNickName() != userName)
+            {  // if user wishes to change his nickname, let him do it
+                int userIDtemp = Convert.ToInt32(cookies["UserID"]);
 
-				new Thread(delegate () {
-					Utility.updateNickNameID(userIDtemp, userName);
-				}).Start();
-			}
+                //new Thread(delegate ()
+                //{
+                    Models.Minesweeper.Utility.updateNickNameID(userIDtemp, userName);
+                //}).Start();
+            }
 
-			// remember ID in the SESSION
-			int userID = Convert.ToInt32(cookies["UserID"]);
-			session.SetInt32("UserID", userID);
+            // remember ID in the SESSION
+            int userID = Convert.ToInt32(cookies["UserID"]);
+            session.SetInt32("UserID", userID);
 
-			// add a record about the try
-			//new Thread(delegate () {
-			Utility.addTryID(userID);
-			//}).Start();
+            // add a record about the try
+            //new Thread(delegate () {
+            Models.Minesweeper.Utility.addTryID(userID);
+            //}).Start();
 
-			return true;
-		}
+            return true;
+        }
 
-		[Route("isWon")]
-		[HttpPost]
-		public bool IsWon() {
-			var result = session.GetBoolean("won").HasValue ? session.GetBoolean("won").Value : false;
-			return result;
-		}
+        [Route("isWon")]
+        [HttpPost]
+        public bool IsWon()
+        {
+            var result = session.GetBoolean("won").HasValue ? session.GetBoolean("won").Value : false;
+            return result;
+        }
 
-		[Route("isLost")]
-		[HttpPost]
-		public bool IsLost() {
-			var result = session.GetBoolean("lost").HasValue ? session.GetBoolean("lost").Value : false;
-			return result;
-		}
+        [Route("isLost")]
+        [HttpPost]
+        public bool IsLost()
+        {
+            var result = session.GetBoolean("lost").HasValue ? session.GetBoolean("lost").Value : false;
+            return result;
+        }
 
-		[Route("isGameRunning")]
-		[HttpPost]
-		public bool IsGameRunning() {
-			byte[] val;
-			return session.TryGetValue("Parameters", out val);
-		}
+        [Route("isGameRunning")]
+        [HttpPost]
+        public bool IsGameRunning()
+        {
+            byte[] val;
+            return session.TryGetValue("Parameters", out val);
+        }
 
-		[Route("getAllMines")]
-		[HttpPost]
-		public string GetAllMines() {
+        [Route("getAllMines")]
+        [HttpPost]
+        public string GetAllMines()
+        {
 
-			var changes = Field.getAllMines();
+            var changes = Field.getAllMines();
 
-			var result = JsonConvert.SerializeObject(changes);
+            var result = JsonConvert.SerializeObject(changes);
 
-			return result;
-		}
+            return result;
+        }
 
-		[Route("getLeaderBoard")]
-		[HttpPost]
-		public string GetLeaderBoard(GetLeaderBoardWrapper wrapper) {
-			var mode = wrapper.Mode;
+        [Route("getLeaderBoard")]
+        [HttpPost]
+        public string GetLeaderBoard(GetLeaderBoardWrapper wrapper)
+        {
+            var mode = wrapper.Mode;
 
-			var leaders = Utility.getLeaderBoard(mode);
+            var leaders = Models.Minesweeper.Utility.getLeaderBoard(mode);
 
-			var result = JsonConvert.SerializeObject(leaders);
+            Console.WriteLine("COUNT LB: " + leaders.Count());
 
-			return result;
-		}
+            var result = JsonConvert.SerializeObject(leaders);
 
-		[Route("runSolver")]
-		[HttpPost]
-		public string RunSolver(RunSolverWrapper wrapper) {
+            return result;
+        }
 
-			session.SetBoolean("solverUsed", true);
+        [Route("runSolver")]
+        [HttpPost]
+        public string RunSolver(RunSolverWrapper wrapper)
+        {
 
-			var solved = Field.runSolver(wrapper.Json);
+            session.SetBoolean("solverUsed", true);
 
-			var result = JsonConvert.SerializeObject(solved);
+            var solved = Field.runSolver(wrapper.Json);
 
-			return result;
-		}
-	}
+            var result = JsonConvert.SerializeObject(solved);
 
-	public class StartGameWrapper {
-		public int Width { get; set; }
-		public int Height { get; set; }
-		public int Mode { get; set; }
-		public int MinesNumber { get; set; }
-		public string UserName { get; set; }
-	}
+            return result;
+        }
+    }
 
-	public class OpenPlaceWrapper {
-		public int X { get; set; }
-		public int Y { get; set; }
-	}
+    public class StartGameWrapper
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int Mode { get; set; }
+        public int MinesNumber { get; set; }
+        public string UserName { get; set; }
+    }
 
-	public class GetLeaderBoardWrapper {
-		public int Mode { get; set; }
-	}
+    public class OpenPlaceWrapper
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
 
-	public class RunSolverWrapper {
-		public string Json { get; set; }
-	}
+    public class GetLeaderBoardWrapper
+    {
+        public int Mode { get; set; }
+    }
 
-	public class OpenPlacesWrapper {
-		public IEnumerable<OpenPlaceWrapper> Places { get; set; }
-	}
+    public class RunSolverWrapper
+    {
+        public string Json { get; set; }
+    }
+
+    public class OpenPlacesWrapper
+    {
+        public IEnumerable<OpenPlaceWrapper> Places { get; set; }
+    }
 
 
 

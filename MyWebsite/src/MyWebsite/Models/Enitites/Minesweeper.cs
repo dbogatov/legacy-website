@@ -11,10 +11,12 @@ namespace MyWebsite.Models.Enitites {
     public class Leaderboard : AbsEntity {
         [Key]
 		public int UserId { get; set; }
-		public Nullable<int> Mode { get; set; }		
-		public Nullable<DateTime> DateStart { get; set; }
-		public Nullable<DateTime> DateEnd { get; set; }
-		public Nullable<int> Duration { get; set; }
+		public int Mode { get; set; }		
+		public DateTime DateStart { get; set; }
+		public DateTime DateEnd { get; set; }
+		public int Duration { get; set; }
+		
+		public NickNameId NickNameId { get; set; }
     }
 	
 	[Table("GameStats")]

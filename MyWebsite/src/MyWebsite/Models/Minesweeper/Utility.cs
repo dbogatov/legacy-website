@@ -13,17 +13,15 @@ namespace MyWebsite.Models.Minesweeper {
 	/// </summary>
 	public static class Utility {
 
-		public static IAbsRepo<Leaderboard> leaderboards { get; set; }
-		public static IAbsRepo<Gamestat> gameStats { get; set; }
-		public static IAbsRepo<NickNameId> nicknames { get; set; }
+		public static AbsDbContext context { get; set; }
 
-		//public static IServiceProvider services;
+        //public static IServiceProvider services;
 
-		/// <summary>
-		/// Generates a random ID
-		/// </summary>
-		/// <returns>A string from number - ID</returns>
-		public static string generateUserID() {
+        /// <summary>
+        /// Generates a random ID
+        /// </summary>
+        /// <returns>A string from number - ID</returns>
+        public static string generateUserID() {
 			Random rnd = new Random();
 			return rnd.Next(2000000).ToString();
 		}
@@ -38,11 +36,12 @@ namespace MyWebsite.Models.Minesweeper {
 			//nicknames = (IAbsRepo<NickNameId>)services.GetService(typeof(IAbsRepo<NickNameId>));
 
 			try {
-
-				return nicknames.GetItem(userID).UserNickName;
-				//return new DataDataContext().getNickname(userID).ToList<getNicknameResult>().First().UserNickName;	
-			} catch (Exception e) {
-				return "";
+                Console.WriteLine("Trying to get nicknmae for " + userID);
+                return context.NickNameIds.FirstOrDefault(nni => nni.UserId == userID).UserNickName; //nicknames.GetItem(userID).UserNickName;
+                                                             //return new DataDataContext().getNickname(userID).ToList<getNicknameResult>().First().UserNickName;	
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+                return "";
 			}
 
 		}
@@ -56,13 +55,13 @@ namespace MyWebsite.Models.Minesweeper {
 		public static bool addNickNameID(int userID, string nickName) {
 
 			try {
-				nicknames.AddItem(new NickNameId {
+                context.NickNameIds.Add(new NickNameId {
 					UserId = userID,
 					UserNickName = nickName
 				});
-				//new DataDataContext().addNickNameID(userID, nickName);
-				return true;
+                return context.SaveChanges() > 0;
 			} catch (Exception e) {
+				Console.WriteLine(e.ToString());
 				return false;
 			}
 
@@ -79,12 +78,11 @@ namespace MyWebsite.Models.Minesweeper {
 			//nicknames = (IAbsRepo<NickNameId>)services.GetService(typeof(IAbsRepo<NickNameId>));
 
 			try {
-				return nicknames.UpdateItem(userID, new NickNameId {
-					UserId = userID,
-					UserNickName = nickName
-				}) != null;
-				//new DataDataContext().updateNickNameID(userID, nickName);
-			} catch (Exception e) {
+                Console.WriteLine("UPD NN");
+                context.NickNameIds.FirstOrDefault(nni => nni.UserId == userID).UserNickName = nickName;
+                return context.SaveChanges() > 0;
+            } catch (Exception e) {
+				Console.WriteLine(e.ToString());
 				return false;
 			}
 
@@ -100,20 +98,22 @@ namespace MyWebsite.Models.Minesweeper {
 			//gameStats = (IAbsRepo<Gamestat>)services.GetService(typeof(IAbsRepo<Gamestat>));
 
 			try {
-				var stat = gameStats.GetItem(userID);
-				if (stat != null) {
-					stat.GamesPlayed++;
-					gameStats.UpdateItem(userID, stat);
-				} else {
-					gameStats.AddItem(new Gamestat {
+				if (context.Gamestats.Any(gs => gs.UserId == userID))
+				{
+                    context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).GamesPlayed++;
+                }
+				else
+				{
+                    context.Gamestats.Add(new Gamestat {
 						UserId = userID,
 						GamesPlayed = 1,
 						GamesWon = 0,
 						DateStart = DateTime.Now
 					});
-				}
-				return true;
+                }
+                return context.SaveChanges() > 0;
 			} catch (Exception e) {
+				Console.WriteLine(e.ToString());
 				return false;
 			}
 
@@ -130,12 +130,15 @@ namespace MyWebsite.Models.Minesweeper {
 			//nicknames = (IAbsRepo<NickNameId>)services.GetService(typeof(IAbsRepo<NickNameId>));
 
 			try {
-				return leaderboards.GetDbSet().Where(l => l.Mode == mode).OrderBy(l => l.Duration).Select(l => new Leader {
-					NickName = nicknames.GetDbSet().FirstOrDefault(g => g.UserId == l.UserId).UserNickName,
-					Duration = l.Duration.Value
-				});
+                Console.WriteLine("GET LB for mode " + mode);
+                return context.Leaderboards.Where(l => l.Mode == mode).OrderBy(l => l.Duration).ToList().Select(l => new Leader
+                {
+                    NickName = l.NickNameId.UserNickName,
+                    Duration = l.Duration
+            });
 				//return new DataDataContext().getLeaderBoard(mode).ToList<getLeaderBoardResult>();
-			} catch (Exception) {
+			} catch (Exception e) {
+				Console.WriteLine(e.ToString());
 				return new List<Leader>();
 			}
 		}
@@ -152,28 +155,34 @@ namespace MyWebsite.Models.Minesweeper {
 			//gameStats = (IAbsRepo<Gamestat>)services.GetService(typeof(IAbsRepo<Gamestat>));
 
 			try {
+				
+				
+				
 				var now = DateTime.Now;
-				var start = gameStats.GetItem(userID).DateStart;
-				var leaderboard = leaderboards.GetItems().FirstOrDefault(l => l.UserId == userID && l.Mode == mode);
-				if (leaderboard != null) {
-					var duration = (now - start).Value.TotalMilliseconds;
-					if (leaderboard.Duration > duration) {
-						leaderboard.Duration = Convert.ToInt32(duration);
-						leaderboards.GetDbSet().Remove(leaderboards.GetDbSet().FirstOrDefault(l => l.UserId == userID && l.Mode == mode));
-						leaderboards.AddItem(leaderboard);
-					}
-				} else {
-					leaderboards.AddItem(new Leaderboard {
+                var start = context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).DateStart.Value; //gameStats.GetItem(userID).DateStart;
+				if (context.Leaderboards.Any(l => l.UserId == userID && l.Mode == mode))
+				{
+					var duration = (now - start).TotalMilliseconds;
+                    var leader = context.Leaderboards.FirstOrDefault(l => l.UserId == userID && l.Mode == mode);
+					if (leader.Duration > duration) {
+						leader.Duration = Convert.ToInt32(duration);
+                        leader.DateStart = start;
+                        leader.DateEnd = now;
+                    }
+                }
+				else
+				{
+                    context.Leaderboards.Add(new Leaderboard {
 						UserId = userID,
 						DateStart = start,
 						DateEnd = now,
-						Duration = Convert.ToInt32((now - start).Value.TotalMilliseconds),
+						Duration = Convert.ToInt32((now - start).TotalMilliseconds),
 						Mode = mode
 					});
-				}
-
-				return true;
+                }
+                return context.SaveChanges() > 0;
 			} catch (Exception e) {
+				Console.WriteLine(e.ToString());
 				return false;
 			}
 		}
