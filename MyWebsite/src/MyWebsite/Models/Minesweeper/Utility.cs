@@ -95,14 +95,14 @@ namespace MyWebsite.Models.Minesweeper {
 				if (context.Gamestats.Any(gs => gs.UserId == userID)) {
 					context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).GamesPlayed++;
 				} else {
-					Console.WriteLine("Before " + DateTime.Now);
+					//Console.WriteLine("Before " + DateTime.Now);
 					context.Gamestats.Add(new Gamestat {
 						UserId = userID,
 						GamesPlayed = 1,
-						GamesWon = 0
-						//DateStart = null
+						GamesWon = 0,
+						DateStart = DateTime.Now
 					});
-					Console.WriteLine("After");
+					//Console.WriteLine("After");
 				}
 				return context.SaveChanges() > 0;
 			} catch (Exception e) {
