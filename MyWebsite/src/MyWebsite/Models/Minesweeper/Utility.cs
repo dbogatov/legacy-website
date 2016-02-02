@@ -12,11 +12,6 @@ namespace MyWebsite.Models.Minesweeper {
 	/// Utility class is mainly created for working with DB
 	/// </summary>
 	public static class Utility {
-
-		public static AbsDbContext context { get; set; }
-
-		//public static IServiceProvider services;
-
 		/// <summary>
 		/// Generates a random ID
 		/// </summary>
@@ -33,10 +28,12 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <returns>User's ID, or empty string, if error or ID is not valid.</returns>
 		public static string getNickname(int userID) {
 
+			var context = new AbsDbContext();
+
 			try {
 				Console.WriteLine("Trying to get nicknmae for " + userID);
-				return context.NickNameIds.FirstOrDefault(nni => nni.UserId == userID).UserNickName; //nicknames.GetItem(userID).UserNickName;
-																									 //return new DataDataContext().getNickname(userID).ToList<getNicknameResult>().First().UserNickName;	
+				var nn = context.NickNameIds.FirstOrDefault(nni => nni.UserId == userID).UserNickName; //nicknames.GetItem(userID).UserNickName;
+				return nn; //return new DataDataContext().getNickname(userID).ToList<getNicknameResult>().First().UserNickName;	
 			} catch (Exception e) {
 				Console.WriteLine(e.ToString());
 				return "";
@@ -51,6 +48,8 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <param name="nickName">User's nickname</param>
 		/// <returns>True, if there is no exception thrown.</returns>
 		public static bool addNickNameID(int userID, string nickName) {
+
+			var context = new AbsDbContext();
 
 			try {
 				context.NickNameIds.Add(new NickNameId {
@@ -73,6 +72,8 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <returns>True, if there is no exception thrown.</returns>
 		public static bool updateNickNameID(int userID, string nickName) {
 
+			var context = new AbsDbContext();
+
 			try {
 				Console.WriteLine("UPD NN");
 				context.NickNameIds.FirstOrDefault(nni => nni.UserId == userID).UserNickName = nickName;
@@ -90,6 +91,8 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <param name="userID">User's ID</param>
 		/// <returns>True, if there is no exception thrown.</returns>
 		public static bool addTryID(int userID) {
+
+			var context = new AbsDbContext();
 
 			try {
 				if (context.Gamestats.Any(gs => gs.UserId == userID)) {
@@ -116,6 +119,9 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <param name="mode">game mode</param>
 		/// <returns>A sorted list of leaders.</returns>
 		public static IEnumerable<Leader> getLeaderBoard(int mode) {
+
+			var context = new AbsDbContext();
+
 			try {
 				return context.Leaderboards.Include(l => l.NickNameId).Where(l => l.Mode == mode).OrderBy(l => l.Duration).ToList().Select(l => new Leader {
 					NickName = l.NickNameId.UserNickName,
@@ -134,6 +140,8 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <param name="mode">game mode</param>
 		/// <returns>True, if there is no exception thrown.</returns>
 		public static bool addAchievment(int userID, int mode) {
+
+			var context = new AbsDbContext();
 
 			try {
 				var now = DateTime.Now;

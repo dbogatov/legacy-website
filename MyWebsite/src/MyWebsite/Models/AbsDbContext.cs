@@ -10,18 +10,21 @@ namespace MyWebsite.Models {
 	public class AbsDbContext : DbContext {
 		private readonly IConfiguration _configuration;
 
+		public static string connectionString;
+
 		public AbsDbContext(IConfiguration configuration) {
 			_configuration = configuration;
 		}
 
+		public AbsDbContext() { }
+
 		public DbSet<Tag> Tags { get; set; }
 		public DbSet<Project> Projects { get; set; }
 		public DbSet<ProjectTag> ProjectTags { get; set; }
-		
+
 
 		public DbSet<Course> Courses { get; set; }
 		public DbSet<Requirement> Requirement { get; set; }
-
 
 		public DbSet<Feedback> Feedbacks { get; set; }
 
@@ -32,14 +35,15 @@ namespace MyWebsite.Models {
 		public DbSet<NickNameId> NickNameIds { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options) {
-			options.UseSqlServer(_configuration["Data:DefaultConnection:ConnectionString"]);  
+			options.UseSqlServer(AbsDbContext.connectionString);
+			//options.UseSqlServer(_configuration["Data:DefaultConnection:ConnectionString"]);
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			modelBuilder.Entity<Course>().HasOne(c => c.Requirement).WithMany().HasForeignKey(c => c.ReqId);
 			modelBuilder.Entity<Requirement>().HasOne(r => r.ParentRequirement).WithMany().HasForeignKey(c => c.parentReqId);
-            modelBuilder.Entity<Leaderboard>().HasOne(l => l.NickNameId).WithMany().HasForeignKey(l => l.UserId);
-        }
+			modelBuilder.Entity<Leaderboard>().HasOne(l => l.NickNameId).WithMany().HasForeignKey(l => l.UserId);
+		}
 
 	}
 }
