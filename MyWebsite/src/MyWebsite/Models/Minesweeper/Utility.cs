@@ -31,9 +31,7 @@ namespace MyWebsite.Models.Minesweeper {
 			var context = new AbsDbContext();
 
 			try {
-				Console.WriteLine("Trying to get nicknmae for " + userID);
-				var nn = context.NickNameIds.FirstOrDefault(nni => nni.UserId == userID).UserNickName; //nicknames.GetItem(userID).UserNickName;
-				return nn; //return new DataDataContext().getNickname(userID).ToList<getNicknameResult>().First().UserNickName;	
+				return context.NickNameIds.FirstOrDefault(nni => nni.UserId == userID).UserNickName;
 			} catch (Exception e) {
 				Console.WriteLine(e.ToString());
 				return "";
@@ -75,7 +73,6 @@ namespace MyWebsite.Models.Minesweeper {
 			var context = new AbsDbContext();
 
 			try {
-				Console.WriteLine("UPD NN");
 				context.NickNameIds.FirstOrDefault(nni => nni.UserId == userID).UserNickName = nickName;
 				return context.SaveChanges() > 0;
 			} catch (Exception e) {
@@ -98,14 +95,14 @@ namespace MyWebsite.Models.Minesweeper {
 				if (context.Gamestats.Any(gs => gs.UserId == userID)) {
 					context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).GamesPlayed++;
 				} else {
-					//Console.WriteLine("Before");
+					Console.WriteLine("Before " + DateTime.Now);
 					context.Gamestats.Add(new Gamestat {
 						UserId = userID,
 						GamesPlayed = 1,
 						GamesWon = 0,
 						DateStart = DateTime.Now
 					});
-					//Console.WriteLine("After");
+					Console.WriteLine("After");
 				}
 				return context.SaveChanges() > 0;
 			} catch (Exception e) {
@@ -148,7 +145,7 @@ namespace MyWebsite.Models.Minesweeper {
 
 			try {
 				var now = DateTime.Now;
-				var start = context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).DateStart; //gameStats.GetItem(userID).DateStart;
+				var start = context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).DateStart;
 				if (context.Leaderboards.Any(l => l.UserId == userID && l.Mode == mode)) {
 					var duration = (now - start).TotalMilliseconds;
 					var leader = context.Leaderboards.FirstOrDefault(l => l.UserId == userID && l.Mode == mode);
