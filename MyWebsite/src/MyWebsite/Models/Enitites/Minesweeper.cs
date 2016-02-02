@@ -23,9 +23,9 @@ namespace MyWebsite.Models.Enitites {
     public class Gamestat : AbsEntity {
         [Key]
 		public int UserId { get; set; }
-		public Nullable<int> GamesPlayed { get; set; }
-		public Nullable<int> GamesWon { get; set; }		
-		public Nullable<DateTime> DateStart { get; set; }
+		public int GamesPlayed { get; set; }
+		public int GamesWon { get; set; }		
+		public DateTime DateStart { get; set; }
     }
 	
 	[Table("NickNameID")]

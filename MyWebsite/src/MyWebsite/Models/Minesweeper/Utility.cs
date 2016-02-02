@@ -98,15 +98,18 @@ namespace MyWebsite.Models.Minesweeper {
 				if (context.Gamestats.Any(gs => gs.UserId == userID)) {
 					context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).GamesPlayed++;
 				} else {
-					context.Gamestats.Add(new Gamestat {
+                    Console.WriteLine("Before");
+					var now = DateTime.Now;
+                    context.Gamestats.Add(new Gamestat {
 						UserId = userID,
 						GamesPlayed = 1,
-						GamesWon = 0,
-						DateStart = DateTime.Now
+						GamesWon = 0
 					});
-				}
+                    Console.WriteLine("After");
+                }
 				return context.SaveChanges() > 0;
 			} catch (Exception e) {
+				Console.WriteLine("Except");
 				Console.WriteLine(e.ToString());
 				return false;
 			}
@@ -145,7 +148,7 @@ namespace MyWebsite.Models.Minesweeper {
 
 			try {
 				var now = DateTime.Now;
-				var start = context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).DateStart.Value; //gameStats.GetItem(userID).DateStart;
+				var start = context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).DateStart; //gameStats.GetItem(userID).DateStart;
 				if (context.Leaderboards.Any(l => l.UserId == userID && l.Mode == mode)) {
 					var duration = (now - start).TotalMilliseconds;
 					var leader = context.Leaderboards.FirstOrDefault(l => l.UserId == userID && l.Mode == mode);
