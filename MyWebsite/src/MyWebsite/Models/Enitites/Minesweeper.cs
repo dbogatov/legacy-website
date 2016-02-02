@@ -26,7 +26,7 @@ namespace MyWebsite.Models.Enitites {
 		public int UserId { get; set; }
 		public int GamesPlayed { get; set; }
 		public int GamesWon { get; set; }
-		public DateTime DateStart { get; set; }
+		public Nullable<DateTime> DateStart { get; set; }
 	}
 
 	[Table("NickNameID")]

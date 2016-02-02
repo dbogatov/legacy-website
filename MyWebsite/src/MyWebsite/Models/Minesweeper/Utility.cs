@@ -99,8 +99,8 @@ namespace MyWebsite.Models.Minesweeper {
 					context.Gamestats.Add(new Gamestat {
 						UserId = userID,
 						GamesPlayed = 1,
-						GamesWon = 0,
-						DateStart = DateTime.Now
+						GamesWon = 0
+						//DateStart = null
 					});
 					Console.WriteLine("After");
 				}
@@ -145,7 +145,7 @@ namespace MyWebsite.Models.Minesweeper {
 
 			try {
 				var now = DateTime.Now;
-				var start = context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).DateStart;
+				var start = context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).DateStart.Value;
 				if (context.Leaderboards.Any(l => l.UserId == userID && l.Mode == mode)) {
 					var duration = (now - start).TotalMilliseconds;
 					var leader = context.Leaderboards.FirstOrDefault(l => l.UserId == userID && l.Mode == mode);
