@@ -223,8 +223,6 @@ namespace MyWebsite.Controllers.API
 
             var leaders = Models.Minesweeper.Utility.getLeaderBoard(mode);
 
-            Console.WriteLine("COUNT LB: " + leaders.Count());
-
             var result = JsonConvert.SerializeObject(leaders);
 
             return result;

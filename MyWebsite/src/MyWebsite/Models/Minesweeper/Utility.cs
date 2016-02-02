@@ -33,8 +33,6 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <returns>User's ID, or empty string, if error or ID is not valid.</returns>
 		public static string getNickname(int userID) {
 
-			//nicknames = (IAbsRepo<NickNameId>)services.GetService(typeof(IAbsRepo<NickNameId>));
-
 			try {
 				Console.WriteLine("Trying to get nicknmae for " + userID);
 				return context.NickNameIds.FirstOrDefault(nni => nni.UserId == userID).UserNickName; //nicknames.GetItem(userID).UserNickName;
@@ -75,8 +73,6 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <returns>True, if there is no exception thrown.</returns>
 		public static bool updateNickNameID(int userID, string nickName) {
 
-			//nicknames = (IAbsRepo<NickNameId>)services.GetService(typeof(IAbsRepo<NickNameId>));
-
 			try {
 				Console.WriteLine("UPD NN");
 				context.NickNameIds.FirstOrDefault(nni => nni.UserId == userID).UserNickName = nickName;
@@ -94,8 +90,6 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <param name="userID">User's ID</param>
 		/// <returns>True, if there is no exception thrown.</returns>
 		public static bool addTryID(int userID) {
-
-			//gameStats = (IAbsRepo<Gamestat>)services.GetService(typeof(IAbsRepo<Gamestat>));
 
 			try {
 				if (context.Gamestats.Any(gs => gs.UserId == userID)) {
@@ -122,19 +116,11 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <param name="mode">game mode</param>
 		/// <returns>A sorted list of leaders.</returns>
 		public static IEnumerable<Leader> getLeaderBoard(int mode) {
-
-			//leaderboards = (IAbsRepo<Leaderboard>)services.GetService(typeof(IAbsRepo<Leaderboard>));
-			//nicknames = (IAbsRepo<NickNameId>)services.GetService(typeof(IAbsRepo<NickNameId>));
-
 			try {
-				Console.WriteLine("GET LB for mode " + mode);
-				var t = context.Leaderboards.Include(l => l.NickNameId).Where(l => l.Mode == mode).OrderBy(l => l.Duration).ToList();
-
-				return t.Select(l => new Leader {
+				return context.Leaderboards.Include(l => l.NickNameId).Where(l => l.Mode == mode).OrderBy(l => l.Duration).ToList().Select(l => new Leader {
 					NickName = l.NickNameId.UserNickName,
 					Duration = l.Duration
 				});
-				//return new DataDataContext().getLeaderBoard(mode).ToList<getLeaderBoardResult>();
 			} catch (Exception e) {
 				Console.WriteLine(e.ToString());
 				return new List<Leader>();
@@ -149,13 +135,7 @@ namespace MyWebsite.Models.Minesweeper {
 		/// <returns>True, if there is no exception thrown.</returns>
 		public static bool addAchievment(int userID, int mode) {
 
-			//leaderboards = (IAbsRepo<Leaderboard>)services.GetService(typeof(IAbsRepo<Leaderboard>));
-			//gameStats = (IAbsRepo<Gamestat>)services.GetService(typeof(IAbsRepo<Gamestat>));
-
 			try {
-
-
-
 				var now = DateTime.Now;
 				var start = context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).DateStart.Value; //gameStats.GetItem(userID).DateStart;
 				if (context.Leaderboards.Any(l => l.UserId == userID && l.Mode == mode)) {
