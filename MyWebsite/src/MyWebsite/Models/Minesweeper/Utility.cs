@@ -94,13 +94,15 @@ namespace MyWebsite.Models.Minesweeper {
 			try {
 				if (context.Gamestats.Any(gs => gs.UserId == userID)) {
 					context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).GamesPlayed++;
-				} else {
-					//Console.WriteLine("Before " + DateTime.Now);
-					context.Gamestats.Add(new Gamestat {
-						UserId = userID,
-						GamesPlayed = 1,
-						GamesWon = 0,
-						DateStart = DateTime.Now
+                    context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).MSStart = DateTime.UtcNow.Ticks;
+                } else {
+                    //Console.WriteLine("Before " + DateTime.Now);
+                    context.Gamestats.Add(new Gamestat
+                    {
+                        UserId = userID,
+                        GamesPlayed = 1,
+                        GamesWon = 0,
+                        MSStart = DateTime.UtcNow.Ticks
 					});
 					//Console.WriteLine("After");
 				}
@@ -144,22 +146,22 @@ namespace MyWebsite.Models.Minesweeper {
 			var context = new AbsDbContext();
 
 			try {
-				var now = DateTime.Now;
-				var start = context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).DateStart.Value;
+				var now = DateTime.UtcNow.Ticks;
+				var start = context.Gamestats.FirstOrDefault(gs => gs.UserId == userID).MSStart;
 				if (context.Leaderboards.Any(l => l.UserId == userID && l.Mode == mode)) {
-					var duration = (now - start).TotalMilliseconds;
+                    //Console.WriteLine("Leader is here");
+                    var duration = new TimeSpan(now - start).TotalMilliseconds;
 					var leader = context.Leaderboards.FirstOrDefault(l => l.UserId == userID && l.Mode == mode);
-					if (leader.Duration > duration) {
+                    //Console.WriteLine($"{leader.Duration} : {duration}");
+                    if (leader.Duration > duration) {
+						//Console.WriteLine("Modify Leader: " + leader.UserId);
 						leader.Duration = Convert.ToInt32(duration);
-						leader.DateStart = start;
-						leader.DateEnd = now;
 					}
 				} else {
-					context.Leaderboards.Add(new Leaderboard {
+                    //Console.WriteLine("Add Leader: " + userID);
+                    context.Leaderboards.Add(new Leaderboard {
 						UserId = userID,
-						DateStart = start,
-						DateEnd = now,
-						Duration = Convert.ToInt32((now - start).TotalMilliseconds),
+						Duration = Convert.ToInt32(new TimeSpan(now - start).TotalMilliseconds),
 						Mode = mode
 					});
 				}

@@ -13,8 +13,6 @@ namespace MyWebsite.Models.Enitites {
 		[Key]
 		public int UserId { get; set; }
 		public int Mode { get; set; }
-		public DateTime DateStart { get; set; }
-		public DateTime DateEnd { get; set; }
 		public int Duration { get; set; }
 
 		public NickNameId NickNameId { get; set; }
@@ -26,8 +24,8 @@ namespace MyWebsite.Models.Enitites {
 		public int UserId { get; set; }
 		public int GamesPlayed { get; set; }
 		public int GamesWon { get; set; }
-		public Nullable<DateTime> DateStart { get; set; }
-	}
+		public long MSStart { get; set; }
+    }
 
 	[Table("NickNameID")]
 	public class NickNameId : AbsEntity {
