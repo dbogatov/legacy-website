@@ -14497,7 +14497,7 @@
           "runtimes/unix/lib/dotnet5.4/System.Net.Http.dll": {}
         }
       },
-      "runtime.osx.10.10.System.Net.NameResolution/4.0.0-beta-23516": {
+      "runtime.osx.10.10.System.Net.NameResolution/4.0.0-beta-23409": {
         "type": "package",
         "dependencies": {
           "System.Collections": "4.0.0",
@@ -14508,7 +14508,7 @@
           "System.Runtime": "4.0.20",
           "System.Runtime.Extensions": "4.0.10",
           "System.Runtime.InteropServices": "4.0.20",
-          "System.Security.Principal.Windows": "4.0.0-beta-23516",
+          "System.Security.Principal.Windows": "4.0.0-beta-23409",
           "System.Threading": "4.0.0",
           "System.Threading.Tasks": "4.0.0"
         },
@@ -14516,7 +14516,7 @@
           "ref/dotnet/_._": {}
         },
         "runtime": {
-          "runtimes/unix/lib/dnxcore50/System.Net.NameResolution.dll": {}
+          "lib/dnxcore50/System.Net.NameResolution.dll": {}
         }
       },
       "runtime.osx.10.10.System.Net.NetworkInformation/4.1.0-beta-23516": {
@@ -20737,16 +20737,16 @@
         "runtimes/unix/lib/dotnet5.4/System.Net.Http.dll"
       ]
     },
-    "runtime.osx.10.10.System.Net.NameResolution/4.0.0-beta-23516": {
+    "runtime.osx.10.10.System.Net.NameResolution/4.0.0-beta-23409": {
       "type": "package",
       "serviceable": true,
-      "sha512": "VyGEVOtt+/XiQl1W2eyQ7jJidCg/f8MBj7p49YFQK68/jgjmuYFnm4k9EGOhRvg3uEvMSoCTFWLjWOz+MBBH6w==",
+      "sha512": "NuSx3y3YxBfvVqrx5DSIRsvWVAOMFNdpBefIaxH4WrTG3sVhEm3HCj6ZAPtankPbXhw8jBv1bdwSnH9v0X+hzg==",
       "files": [
+        "lib/dnxcore50/System.Net.NameResolution.dll",
         "ref/dotnet/_._",
-        "runtime.osx.10.10.System.Net.NameResolution.4.0.0-beta-23516.nupkg",
-        "runtime.osx.10.10.System.Net.NameResolution.4.0.0-beta-23516.nupkg.sha512",
-        "runtime.osx.10.10.System.Net.NameResolution.nuspec",
-        "runtimes/unix/lib/dnxcore50/System.Net.NameResolution.dll"
+        "runtime.osx.10.10.System.Net.NameResolution.4.0.0-beta-23409.nupkg",
+        "runtime.osx.10.10.System.Net.NameResolution.4.0.0-beta-23409.nupkg.sha512",
+        "runtime.osx.10.10.System.Net.NameResolution.nuspec"
       ]
     },
     "runtime.osx.10.10.System.Net.NetworkInformation/4.1.0-beta-23516": {

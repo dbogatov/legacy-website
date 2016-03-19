@@ -26,6 +26,10 @@ namespace MyWebsite.Controllers {
             return View();
         }
 		
+		public IActionResult Mandelbrot() {
+            return View();
+        }
+		
 		public IActionResult Error() {
 			return View();
 		}
