@@ -271,8 +271,6 @@ input {
 	border-bottom: 1px solid black;
 }
 
-.menuChosen {}
-
 .menuOption,
 .customGame {
 	cursor: pointer;
@@ -388,7 +386,6 @@ input {
 	margin: 0px auto;
 	display: inline-block;
 	display: inline-block;
-	float: none;
 	cursor: pointer;
 }
 
@@ -529,8 +526,6 @@ input {
 	border-left: 1px solid black;
 	border-right: 1px solid black;
 }
-
-.columnName * {}
 
 .authorsPage,
 .help,
