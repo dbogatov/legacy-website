@@ -36,21 +36,6 @@ namespace MyWebsite.Controllers.API {
 			this.context = context;
 		}
 
-		[Route("testCookie")]
-		[HttpGet]
-		public string TestCookie() {
-			return string.Join(",", context.Leaderboards.Where(l => l.Mode == 1).OrderBy(l => l.Duration).Select(l => l.Duration));
-
-			string testCookie = cookies["UserID"];
-
-			if (string.IsNullOrWhiteSpace(testCookie)) {
-				//responseCookies.Append("Test", "654");
-				return "was not set";
-			} else {
-				return "Was set: " + testCookie;
-			}
-		}
-
 		[Route("testSession")]
 		[HttpGet]
 		public string TestSession() {

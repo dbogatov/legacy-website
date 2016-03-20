@@ -23,7 +23,7 @@ namespace MyWebsite.Models.Mandelbrot {
 		public IEnumerable<IEnumerable<int>> computeMatrix() {
 			Random random = new Random();
 			
-            return Enumerable.Repeat(Enumerable.Repeat(random.Next(100), 15), 15);
+            return Enumerable.Repeat(Enumerable.Repeat(random.Next(100), 10), 10);
         }
 	}
 	
