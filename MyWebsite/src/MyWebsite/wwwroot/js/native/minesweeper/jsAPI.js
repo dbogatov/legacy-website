@@ -2,25 +2,25 @@
 	sendJSON(
         "openPlace",
         //JSON.stringify(
-                {
-                	x: x,
-                	y: y
-                },
+		{
+			x: x,
+			y: y
+		},
         //    ),
         parseAnswer
-        );
+	);
 }
 
 function runSolver(field) {
 	sendJSON(
         "runSolver",
         //JSON.stringify(
-            {
-            	"json": field
-            },
+		{
+			"json": field
+		},
         //),
         parseSolverResponse
-        );
+	);
 }
 
 function parseSolverResponse(msg) {
@@ -76,7 +76,7 @@ function getName() {
         "getNickName",
         "{}",
         alertAnswer
-        );
+	);
 }
 
 function getAllMines() {
@@ -88,7 +88,7 @@ function getAllMines() {
         "getAllMines",
         "{}",
         parseMines
-        );
+	);
 }
 
 function checkForResult() {
@@ -96,12 +96,12 @@ function checkForResult() {
         "isWon",
         "{}",
         alertIfTrue
-        );
+	);
 	sendJSON(
         "isLost",
         "{}",
         alertIfTrue
-        );
+	);
 }
 
 function win() {
@@ -109,7 +109,7 @@ function win() {
         "win",
         "{}",
         alertAnswer
-        );
+	);
 }
 
 function isGameRunning() {
@@ -117,7 +117,7 @@ function isGameRunning() {
         "isGameRunning",
         "{}",
         alertAnswer
-        );
+	);
 }
 
 function parseMines(msg) {
@@ -201,11 +201,11 @@ function startGame() {
 	sendJSON(
         "startGame",
         {
-        	width: $('#fieldWidth').val(),
-        	height: $('#fieldHeight').val(),
-        	minesNumber: $('#minesNumber').val(),
-        	userName: $('#userName').val(),
-        	mode: $("#mode").val()
+			width: $('#fieldWidth').val(),
+			height: $('#fieldHeight').val(),
+			minesNumber: $('#minesNumber').val(),
+			userName: $('#userName').val(),
+			mode: $("#mode").val()
         },
         alertAnswer
 	);
@@ -235,8 +235,8 @@ function openPlaces(places) {
 		{
 			places: places
 		},
-            parseAnswer
-        );
+		parseAnswer
+	);
 }
 
 function sendJSON(path, data, answerCallback) {
@@ -253,13 +253,13 @@ function sendJSON(path, data, answerCallback) {
 		*/
 
 	$.post("/api/Minesweeper/" + path, data)
-			.done(function (result) {
-				var data = {
-					d: result
-				};
-				answerCallback(data);
-			})
-			.fail(errorAJAX);
+		.done(function(result) {
+			var data = {
+				d: result
+			};
+			answerCallback(data);
+		})
+		.fail(errorAJAX);
 
 
 	/*

@@ -1,10 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using MyWebsite.Models.Enitites;
-using MyWebsite.Models.Repos;
-using MyWebsite.Services;
 using Newtonsoft.Json;
 using Microsoft.AspNet.Http;
 
@@ -13,10 +8,12 @@ using Microsoft.AspNet.Http.Features;
 using System;
 using System.Threading;
 using MyWebsite.Models;
+using MyWebsite.ViewModels.Projects.Minesweeper;
 
-namespace MyWebsite.Controllers.API {
+namespace MyWebsite.Controllers.API
+{
 
-	[Produces("application/json")]
+    [Produces("application/json")]
 	[Route("api/Minesweeper")]
 	public class MinesweeperController : Controller {
 
@@ -24,9 +21,9 @@ namespace MyWebsite.Controllers.API {
 		private readonly IReadableStringCollection cookies;
 		private readonly IResponseCookies responseCookies;
 
-		private readonly AbsDbContext context;
+		private readonly DataContext context;
 
-		public MinesweeperController(IHttpContextAccessor http, AbsDbContext context) {
+		public MinesweeperController(IHttpContextAccessor http, DataContext context) {
 			Field.session = http.HttpContext.Session;
 			SolverLauncher.httpContext = http;
 			session = http.HttpContext.Session;
@@ -66,10 +63,6 @@ namespace MyWebsite.Controllers.API {
 			if (session.GetObjectFromJson<Place[][]>("Field") == null) {
 				session.SetObjectAsJson("Field", Field.initField(x, y, session.GetObjectFromJson<Parameters>("Parameters")));
 			}
-			/*
-			if (HttpContext.Current.Session["Field"] == null ) {
-				HttpContext.Current.Session["Field"] = Field.initField(x, y, (Parameters)HttpContext.Current.Session["Parameters"]);			
-			}*/
 
 			// get list of changes, serialize it to JSON string and return it
 			var changes = Field.openPlace(x, y);
@@ -134,7 +127,6 @@ namespace MyWebsite.Controllers.API {
 			}
 
 			// remember ID in the SESSION
-			//int userID = Convert.ToInt32(userId);
 			if (string.IsNullOrWhiteSpace(userId)) {
 				userId = cookies["UserID"];
 			}
@@ -205,32 +197,4 @@ namespace MyWebsite.Controllers.API {
 			return result;
 		}
 	}
-
-	public class StartGameWrapper {
-		public int Width { get; set; }
-		public int Height { get; set; }
-		public int Mode { get; set; }
-		public int MinesNumber { get; set; }
-		public string UserName { get; set; }
-	}
-
-	public class OpenPlaceWrapper {
-		public int X { get; set; }
-		public int Y { get; set; }
-	}
-
-	public class GetLeaderBoardWrapper {
-		public int Mode { get; set; }
-	}
-
-	public class RunSolverWrapper {
-		public string Json { get; set; }
-	}
-
-	public class OpenPlacesWrapper {
-		public IEnumerable<OpenPlaceWrapper> Places { get; set; }
-	}
-
-
-
 }

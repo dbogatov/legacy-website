@@ -80,10 +80,10 @@ function solver() {
 var solverHolder = 0;
 
 //adding event listeners to new game page
-$(document).ready(function () {
+$(document).ready(function() {
 	window.history.pushState({}, '', '');
 
-	$('#lblGetMove').click(function () {
+	$('#lblGetMove').click(function() {
 		if (timerContainer) {
 			if ($('#checkBox').prop('checked'))
 				if (!solverHolder)
@@ -97,13 +97,13 @@ $(document).ready(function () {
 		}
 	})
 
-	$('#lblSolver').click(function () {
+	$('#lblSolver').click(function() {
 		$('.rightBar>*').slideUp('slow');
 		$('.solverButton').slideDown('slow');
 		$('#solverMenu').slideDown('slow');
 	});
 
-	$('#lblSolverCancel').click(function () {
+	$('#lblSolverCancel').click(function() {
 		$('.solverButton').slideUp('slow');
 		$('.rightBar>*').slideDown('slow');
 		$('#solverMenu').slideUp('slow');
@@ -118,9 +118,9 @@ $(document).ready(function () {
 		return;
 	}
 	//field size tip
-	$('.sizeTip').hover(function () {
+	$('.sizeTip').hover(function() {
 		$('.tipText.size').fadeIn('slow');
-	}, function () {
+	}, function() {
 		$('.tipText.size').fadeOut('slow');
 	});
 
@@ -129,19 +129,19 @@ $(document).ready(function () {
         "{}",
         usernamePreload,
         errorAJAX
-        );
+	);
 
 	//mine amount tip
-	$('.mineAmountTip').hover(function () {
+	$('.mineAmountTip').hover(function() {
 		var text = $('#lblMineTip').html().split('.');
 		$('.tipText.mineAmount').html(text[0] + Math.round($('.fieldSize.X').val() * $('.fieldSize.Y').val() * 0.1) + text[1] + Math.round($('.fieldSize.X').val() * $('.fieldSize.Y').val() * 0.7) + '<br>' + text[2]);
 		$('.tipText.mineAmount').fadeIn('slow');
-	}, function () {
+	}, function() {
 		$('.tipText.mineAmount').fadeOut('slow');
 	});
 
 	//checks numbers that are user inputs into option fields
-	$('.fieldSize, .mineAmount').on('change', function (e) {
+	$('.fieldSize, .mineAmount').on('change', function(e) {
 		//basic styles if everything is correct
 		$('.fieldSize, .mineAmount').css({ 'color': 'black' });
 		$('.sizeAlert, .mineAmountAlert').css({ 'opacity': 0 });
@@ -164,13 +164,13 @@ $(document).ready(function () {
 	});
 
 	//check if user does not try to enter non number
-	$('.fieldSize, .mineAmount').on('keydown', function (e) {
+	$('.fieldSize, .mineAmount').on('keydown', function(e) {
 		var code = e.keyCode || e.which;
 		if (((code < 48) || (code > 57)) && (code != 127) && (code != 8) && (code != 9) && (code != 37) && (code != 39) && !((code > 95) && (code < 106)))
 			return false;
 	});
 
-	$('.fieldSize, .mineAmount').on('keyup', function () {
+	$('.fieldSize, .mineAmount').on('keyup', function() {
 		//change chosen option into custom game
 		mode = 4;
 		$('.customGame').height('15%');
@@ -211,7 +211,7 @@ $(document).ready(function () {
 	});
 
 	//functions for clicking menu option
-	$('.customGame, .menuOption').on('click', function () {
+	$('.customGame, .menuOption').on('click', function() {
 		//block annoying clicking
 		if (!$(':animated').html()) {
 			//if something is already chosen
@@ -240,7 +240,7 @@ $(document).ready(function () {
 
 	//--------------------filling option fields with basic values--------------------
 	//for small field
-	$('.menuOption.small').on('click', function () {
+	$('.menuOption.small').on('click', function() {
 		if (flag) {
 			$('.fieldSize').val(9);
 			$('.mineAmount').val(10);
@@ -249,7 +249,7 @@ $(document).ready(function () {
 	});
 
 	//for medium field
-	$('.menuOption.medium').on('click', function () {
+	$('.menuOption.medium').on('click', function() {
 		if (flag) {
 			$('.fieldSize').val(16);
 			$('.mineAmount').val(40);
@@ -258,7 +258,7 @@ $(document).ready(function () {
 	});
 
 	//for professional field
-	$('.menuOption.professional').on('click', function () {
+	$('.menuOption.professional').on('click', function() {
 		if (flag) {
 			$('.fieldSize.X').val(30);
 			$('.fieldSize.Y').val(16);
@@ -274,8 +274,8 @@ $(document).ready(function () {
 });
 
 //event listener for start game button
-$(document).ready(function () {
-	$('.startGame').on('click', function () {
+$(document).ready(function() {
+	$('.startGame').on('click', function() {
 		username = $('.usernameField').val();
 		// username validation
 		if (($('.usernameField').val() == '') || (username.indexOf('<') + 1) || (username.indexOf('>') + 1))
@@ -306,7 +306,7 @@ $(document).ready(function () {
 */
 
 //choosing page to show
-$(document).ready(function () {
+$(document).ready(function() {
 	flag = 0;
 	if ($('.newGame').css('display') == 'none') {
 		$('.main').slideUp('fast');
@@ -321,7 +321,7 @@ $(document).ready(function () {
 		$('.customGame, .menuOption').slideDown('fast');
 	}
 	$('.newGameButton').on('click', newGameCustomization);
-	$('.restartGame').on('click', function () {
+	$('.restartGame').on('click', function() {
 		clearInterval(timerContainer);
 		fieldConstructor();
 	});
@@ -366,21 +366,21 @@ function fieldConstructor() {
 	$('.flagLeft').html($('#imgHolder').html() + ':' + flags);
 	$('.field').css({ 'display': 'none' })
 	sendJSON(
-                "startGame",
-                //JSON.stringify(
-                {
-                	width: sizeX,
-                	height: sizeY,
-                	minesNumber: mines,
-                	userName: username,
-                	mode: mode
-                },
-            //),
-		function () {
+		"startGame",
+		//JSON.stringify(
+		{
+			width: sizeX,
+			height: sizeY,
+			minesNumber: mines,
+			userName: username,
+			mode: mode
+		},
+		//),
+		function() {
 			$('.field').css({ 'display': 'block' });
 		},
-            errorAJAX
-        );
+		errorAJAX
+	);
 
 	//formula to count field cell size
 	cellSize = Math.round(Math.min((0.51 * ($(window).height()) - (sizeY * 2) - 4) / sizeY, (0.7 * $(window).width() - (sizeX * 2) - 4) / sizeX));
@@ -406,7 +406,7 @@ function fieldConstructor() {
 	$('.fieldCell').css({ 'height': cellSize, 'width': cellSize, 'font-size': cellSize * 0.9 });
 
 	//click on cell
-	$('.fieldCell').on('click', function (e) {
+	$('.fieldCell').on('click', function(e) {
 		if ($(this).html() == '') {
 			if (!cellOpened) {
 				stop = false;
@@ -450,7 +450,7 @@ function fieldConstructor() {
 		//    }
 	});
 
-	$('.fieldCell').on('dblclick', function (e) {
+	$('.fieldCell').on('dblclick', function(e) {
 		if ($(this).html() > '0' && $(this).html() <= '9') {
 			var coord = $(this).attr('id');
 			coord = coord.split('-');
@@ -472,10 +472,10 @@ function fieldConstructor() {
 				else
 					if ((coord[0] > -1) && (coord[1] > -1) && (coord[0] < sizeX) && (coord[1] < sizeY) && ($("#" + coord[0] + '-' + coord[1]).html() == '')) {
 						places.push(
-                        {
-                        	x: coord[0],
-                        	y: coord[1]
-                        });
+							{
+								x: coord[0],
+								y: coord[1]
+							});
 						//cellOpened++;
 					}
 			}
@@ -487,7 +487,7 @@ function fieldConstructor() {
 	});
 
 	//right click on cell
-	$('.fieldCell').on('contextmenu', function (ev) {
+	$('.fieldCell').on('contextmenu', function(ev) {
 		ev.preventDefault();
 		if ($(this).html() == '') {
 			$(this).html($('#imgHolder').html());
@@ -511,13 +511,13 @@ function fieldConstructor() {
 		return false;
 	});
 
-	$('.fieldCell').on('mousedown', function () {
+	$('.fieldCell').on('mousedown', function() {
 		return false;
 	});
 
-	$('.fieldCell').hover(function () {
+	$('.fieldCell').hover(function() {
 		$(this).css({ 'border-color': 'black' });
-	}, function () {
+	}, function() {
 		$(this).css({ 'border-color': 'darkgrey' });
 	});
 }
@@ -538,7 +538,7 @@ function timerStart() {
 	second = 0;
 
 	clearInterval(timerContainer);
-	timerContainer = setInterval(function () {
+	timerContainer = setInterval(function() {
 		++timer;
 		hour = Math.floor(timer / 3600);
 		minute = Math.floor((timer - hour * 3600) / 60);
@@ -564,34 +564,34 @@ function revealField() {
 */
 
 //leader board open
-$(document).ready(function () {
-	$('.leaderBoardButton').on('click', function () {
+$(document).ready(function() {
+	$('.leaderBoardButton').on('click', function() {
 		$('.main').fadeOut('slow');
 		$('.leaderBoard').fadeIn('slow');
 		leaderChoose('easy');
 		$('.leaderBoard table tbody').height($('.sheet').height() * 0.7);
 	});
-	$('.newGameButton').on('click', function () {
+	$('.newGameButton').on('click', function() {
 		$('.leaderBoard, .main').fadeOut('slow');
 		$('.main.newGame').fadeIn('slow');
 	});
-	$('.authors').on('click', function () {
+	$('.authors').on('click', function() {
 		$('.main').fadeOut('slow');
 		$('.leaderBoard').fadeOut('slow');
 		$('.authorsPage').fadeIn('slow');
 	});
-	$('.pdfInfo').on('click', function () {
+	$('.pdfInfo').on('click', function() {
 		$('.main').fadeOut('slow');
 		$('.leaderBoard').fadeOut('slow');
 		$('.pdfPage').fadeIn('slow');
 	});
-	$('#lblHelp').on('click', function () {
+	$('#lblHelp').on('click', function() {
 		$('.main').fadeOut('slow');
 		$('.leaderBoard').fadeOut('slow');
 		$('.help').fadeIn('slow');
 		$('#helpFrame').attr('src', $('#lblHelpSrc').html());
 	});
-	$('#lblRules').on('click', function () {
+	$('#lblRules').on('click', function() {
 		$('.main').fadeOut('slow');
 		$('.leaderBoard').fadeOut('slow');
 		$('.rules').fadeIn('slow');
@@ -619,13 +619,13 @@ function getLeaderBoard(mode) {
 	sendJSON(
         "getLeaderBoard",
         //JSON.stringify(
-                {
-                	"mode": mode
-                },
+		{
+			"mode": mode
+		},
         //    ),
         parseLeaders,
         errorAJAX
-        );
+	);
 }
 
 function parseLeaders(msg) {
@@ -641,7 +641,7 @@ function parseLeaders(msg) {
 	$('.leaderBoard table tr td:first-child').width('15%');
 	$('.leaderHead').css({ 'background-color': '#3333FF', 'color': '#CCFF00', 'width': '30%' });
 	$('.leaderHead.' + difficulty).css({ 'background-color': '#CCFF00', 'color': '#3333FF', 'width': '40%' });
-	$('.leaderHead').on('click', function () {
+	$('.leaderHead').on('click', function() {
 		leaderChoose($(this).attr('id'));
 	});
 	$('.leaderBoard table tbody').height($('.sheet').height() * 0.7);
@@ -659,13 +659,13 @@ function preCacheImages() {
         '/images/Minesweeper/start_button.gif',
         '/images/Minesweeper/mine.jpg',
 	];
-	$.each(imgSrcArray, function () {
+	$.each(imgSrcArray, function() {
 		var img = new Image();
 		img.src = this;
 	});
 };
 
-$(document).ready(function () {
+$(document).ready(function() {
 	preCacheImages();
 });
 
@@ -684,11 +684,11 @@ $(document).ready(function () {
 
 
 
-; (function ($) {
-	$.fn.fixMe = function () {
-		return this.each(function () {
+; (function($) {
+	$.fn.fixMe = function() {
+		return this.each(function() {
 			var $this = $(this),
-               $t_fixed;
+				$t_fixed;
 			function init() {
 				$this.wrap('<div class="container" />');
 				$t_fixed = $this.clone();
@@ -696,14 +696,14 @@ $(document).ready(function () {
 				resizeFixed();
 			}
 			function resizeFixed() {
-				$t_fixed.find("th").each(function (index) {
+				$t_fixed.find("th").each(function(index) {
 					$(this).css("width", $this.find("th").eq(index).outerWidth() + "px");
 				});
 			}
 			function scrollFixed() {
 				var offset = $(this).scrollTop(),
-                tableOffsetTop = $this.offset().top,
-                tableOffsetBottom = tableOffsetTop + $this.height() - $this.find("thead").height();
+					tableOffsetTop = $this.offset().top,
+					tableOffsetBottom = tableOffsetTop + $this.height() - $this.find("thead").height();
 				if (offset < tableOffsetTop || offset > tableOffsetBottom)
 					$t_fixed.hide();
 				else if (offset >= tableOffsetTop && offset <= tableOffsetBottom && $t_fixed.is(":hidden"))
@@ -716,9 +716,9 @@ $(document).ready(function () {
 	};
 })(jQuery);
 
-$(document).ready(function () {
+$(document).ready(function() {
 	$("table").fixMe();
-	$(".up").click(function () {
+	$(".up").click(function() {
 		$('html, body').animate({
 			scrollTop: 0
 		}, 2000);
@@ -727,11 +727,11 @@ $(document).ready(function () {
 
 var loadingHandler;
 
-$(document).ajaxStart(function () {
+$(document).ajaxStart(function() {
 	$('#loading').fadeIn('fast');
 	$('#loading').css({ 'display': 'block' });
 	$('#done').css({ 'display': 'none' });
-	loadingHandler = setInterval(function () {
+	loadingHandler = setInterval(function() {
 		if ($('.headerLoadingBar').width() < $('.headerLoading').width()) {
 			$('.headerLoadingBar').width(($('.headerLoadingBar').width() / $('.headerLoading').width() + 0.01) * 100 + 1 + '%');
 		}
@@ -741,7 +741,7 @@ $(document).ajaxStart(function () {
 	$('.loading').fadeIn('fast');
 });
 
-$(document).ajaxStop(function () {
+$(document).ajaxStop(function() {
 	$('.headerLoadingText').fadeOut('slow');
 	clearInterval(loadingHandler);
 	$('.headerLoadingBar').width('0px');

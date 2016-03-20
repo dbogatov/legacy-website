@@ -1,27 +1,25 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using MyWebsite.Models;
 using MyWebsite.Models.Enitites;
-using MyWebsite.Models.Repos;
 using MyWebsite.Services;
-using Newtonsoft.Json;
 
-namespace MyWebsite.Controllers.API {
+namespace MyWebsite.Controllers.API
+{
 
-	[Produces("application/json")]
+    [Produces("application/json")]
 	[Route("api/Contact")]
 	public class ContactController : Controller {
-		private readonly IAbsRepo<Contact> _contacts;
 		private readonly IEmailSender _emailSender;
+        private readonly DataContext _context;
+        private readonly ICryptoService _crypto;
 
-		public ContactController(IAbsRepo<Contact> contacts, IEmailSender emailSender) {
-			_contacts = contacts;
-			_emailSender = emailSender;
-		}
+        public ContactController(DataContext context, IEmailSender emailSender, ICryptoService crypto) {
+            _context = context;
+            _emailSender = emailSender;
+            _crypto = crypto;
+        }
 
 		// POST api/contact
 		[HttpPost]
@@ -36,10 +34,11 @@ namespace MyWebsite.Controllers.API {
 					);
 				});
                 contact.RegTime = DateTime.Now;
-                contact.Hash = Utility.GetMd5Hash(contact.Email);
+                contact.Hash = _crypto.CalculateHash(contact.Email);
 
-                _contacts.AddItem(contact);	
-			} catch (System.Exception) {
+                _context.Contacts.Add(contact);
+                _context.SaveChanges();
+            } catch (System.Exception) {
 				return false;
 			}
 
