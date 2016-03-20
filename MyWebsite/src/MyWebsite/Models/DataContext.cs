@@ -33,10 +33,11 @@ namespace MyWebsite.Models
 		public DbSet<Gamestat> Gamestats { get; set; }
 		public DbSet<NickNameId> NickNameIds { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder options)
+		public DbSet<PentagoGame> PentagoGames { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
 		{
 			options.UseSqlServer(DataContext.connectionString);
-			//options.UseSqlServer(_configuration["Data:DefaultConnection:ConnectionString"]);
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -35,6 +35,18 @@ namespace MyWebsite.Controllers
 			return View();
 		}
 
+		[Route("Project/Pentago/Game")]
+		public IActionResult PentagoGame()
+		{
+			return View("Pentago/Game");
+		}
+
+		[Route("Project/Pentago")]
+		public IActionResult PentagoSetup()
+		{
+			return View("Pentago/Setup");
+		}
+
 		public IActionResult Error()
 		{
 			return View();

@@ -1,0 +1,61 @@
+@{
+	Layout=String.Empty;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Play Pentago</title>
+
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+
+		<!-- My Styles -->
+		<link rel="stylesheet" href="/css/projects/pentago/pentago.css" />
+	</head>
+	<body>		
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-primary" id="mainPanel">
+					<div class="panel-heading">Pentago</div>
+					<div class="panel-body gameCanvas" style="text-align: center;">
+						<h3 id="userLog">Welcome to the game</h3>
+					</div>
+
+					<div class="gameCanvas" id="d3Canvas"></div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- About Player -->
+		<div class="modal fade" id="endGameModal" tabindex="-1" role="dialog" aria-labelledby="endGameModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="endGameModalLabel">End of the game</h4>
+					</div>
+					<div class="modal-body">
+						<span id="gameResultSpan"></span>
+					</div>
+					<div class="modal-footer">
+						<a asp-controller="Project" asp-action="PentagoSetup" id="endGameBtn" class="btn btn-default">Close</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="/lib/jquery/dist/jquery.js"></script>
+		<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+		<!-- D3 Engine -->
+		<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		
+		<!-- My Script -->
+		<script src="/js/native/pentago/game.js"></script>
+		<script src="/js/native/pentago/apiWrapper.js"></script>
+		
+	</body>
+</html>
