@@ -40,7 +40,9 @@
 					<li><a asp-controller="Home" asp-action="Courses">Courses</a></li>
 					<li><a asp-controller="Home" asp-action="Author">Author</a></li>
 				</ul>
-				@await Html.PartialAsync("_LoginPartial")
+				<ul class="nav navbar-nav navbar-right">
+					<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -92,14 +94,10 @@
 	<script src="/lib/jquery/dist/jquery.js"></script>
 	<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
 
-	<script>
-		var globalModule = "Default";
-	</script>
-
-	@RenderSection("scripts", required: false)
-
 	<script src="/lib/underscore/underscore-min.js"></script>
 	<script data-main="/js/config.js" type="text/javascript" src="/lib/requirejs/require.js"></script>
+
+	@RenderSection("scripts", required: false)
 
 </body>
 </html>

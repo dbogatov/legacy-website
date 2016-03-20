@@ -16,7 +16,13 @@
 
 @section scripts {
 	<script src="/lib/tablesorter/jquery.tablesorter.min.js"></script>
+	
 	<script>
-		var globalModule = "CoursesPage";	
+		
+		require(["CoursesPage"], function (CoursesPage) {
+			var app = new CoursesPage();
+			app.run();
+		});
+		
 	</script>
 }

@@ -67,8 +67,14 @@
 </div>
 
 @section scripts {
+	
 	<script src="/lib/parsleyjs/dist/parsley.min.js"></script>
+	
 	<script>
-		var globalModule = "ContactPage";	
+		require(["ContactPage"], function (ContactPage) {
+			var app = new ContactPage();
+			app.run();
+		});
 	</script>
+	
 }

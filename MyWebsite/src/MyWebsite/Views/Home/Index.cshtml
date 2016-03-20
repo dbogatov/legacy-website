@@ -53,6 +53,11 @@
 
 @section scripts {
 	<script>
-		var globalModule = "ProjectPage";	
+		
+		require(["ProjectPage"], function (ProjectPage) {
+			var app = new ProjectPage();
+			app.run();
+		});
+				
 	</script>
 }
