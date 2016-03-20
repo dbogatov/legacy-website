@@ -1,0 +1,57 @@
+@{
+	ViewData["Title"] = "Google Finance Parser";
+}
+
+
+<h2>Welcome to Google Option Chain Parser</h2>
+<h4>Here you may instantly get a bid and ask prices of the option for a given symbol and strike price.</h4>
+
+<div class="row">
+
+	<div class="col-md-5">
+		<div class="form-inline">
+			<div class="form-group" style="padding-top: 15px;">
+				<label for="symbol">Symbol</label>
+				<input type="text" class="form-control symbol" id="symbol" placeholder="eq. JNJ"></input>
+			</div>
+			<div class="form-group" style="padding-top: 15px;">
+				<label for="myStrike">Strike</label>
+				<input type="text" class="form-control strike" id="strike" placeholder="eq. 97.5"></input>
+			</div>
+		</div>
+
+		<div style="margin-top:30px">
+			<button class="btn btn-primary col-md-4 btn-block" id="getPricesBtn">Get prices!</button>
+			<button class="btn btn-info col-md-4 btn-block" id="exampleBtn">Example</button>			
+		</div>
+			
+	</div>
+
+	<div class="col-md-7">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Symbol</th>
+					<th>Strike</th>
+					<th>Bid</th>
+					<th>Ask</th>
+				</tr>
+			</thead>
+			<tbody id="resultingTable">
+
+			</tbody>
+		</table>
+	</div>
+
+</div>	
+
+@section scripts {
+	<script>
+		
+		require(["GoogleFinanceParser"], function (GoogleFinanceParser) {
+			var app = new GoogleFinanceParser();
+			app.run();
+		});
+		
+	</script>
+}

@@ -25,6 +25,11 @@ namespace MyWebsite.Controllers
 			return View();
 		}
 
+		public IActionResult GoogleFinanceParser()
+		{
+			return View();
+		}
+
 		public IActionResult Mandelbrot()
 		{
 			return View();
