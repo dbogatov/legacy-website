@@ -194,16 +194,16 @@ class ProjectsPage {
 		});
 	}
 
-    run() {
+	run() {
 		util.Utility.Utility.enableAJAXLoadBar();
-		
+
 		this.loadProjects();
 		this.loadTags();
-    }
+	}
 }
 
 interface ISerializable<T> {
-    deserialize(input: Object): T;
+	deserialize(input: Object): T;
 }
 
 class Tag implements ISerializable<Tag> {
@@ -265,7 +265,7 @@ class Project implements ISerializable<Project> {
 	}
 
 	deserialize(input): Project {
-        this.projectId = input.ProjectId;
+		this.projectId = input.ProjectId;
 		this.title = input.Title;
 		this.descriptionText = input.DescriptionText;
 		this.dateCompleted = new Date(input.DateCompleted);
@@ -274,8 +274,8 @@ class Project implements ISerializable<Project> {
 		this.imgeFilePath = input.ImgeFilePath;
 		this.tags = input.Tags.map(tag => tag.TagName);
 
-        return this;
-    }
+		return this;
+	}
 }
 
 export = ProjectsPage;

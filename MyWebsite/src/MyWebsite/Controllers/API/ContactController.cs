@@ -8,23 +8,23 @@ using MyWebsite.Services;
 namespace MyWebsite.Controllers.API
 {
 
-    [Produces("application/json")]
+	[Produces("application/json")]
 	[Route("api/Contact")]
 	public class ContactController : Controller {
 		private readonly IEmailSender _emailSender;
-        private readonly DataContext _context;
-        private readonly ICryptoService _crypto;
+		private readonly DataContext _context;
+		private readonly ICryptoService _crypto;
 
-        public ContactController(DataContext context, IEmailSender emailSender, ICryptoService crypto) {
-            _context = context;
-            _emailSender = emailSender;
-            _crypto = crypto;
-        }
+		public ContactController(DataContext context, IEmailSender emailSender, ICryptoService crypto) {
+			_context = context;
+			_emailSender = emailSender;
+			_crypto = crypto;
+		}
 
 		// POST api/contact
 		[HttpPost]
 		public bool Post(Contact contact) {
-            try {
+			try {
 				Task.Run(() => {
 					_emailSender.SendEmailAsync(
 						"dbogatov@wpi.edu",
@@ -33,12 +33,12 @@ namespace MyWebsite.Controllers.API
 						"Contact Manager"
 					);
 				});
-                contact.RegTime = DateTime.Now;
-                contact.Hash = _crypto.CalculateHash(contact.Email);
+				contact.RegTime = DateTime.Now;
+				contact.Hash = _crypto.CalculateHash(contact.Email);
 
-                _context.Contacts.Add(contact);
-                _context.SaveChanges();
-            } catch (System.Exception) {
+				_context.Contacts.Add(contact);
+				_context.SaveChanges();
+			} catch (System.Exception) {
 				return false;
 			}
 

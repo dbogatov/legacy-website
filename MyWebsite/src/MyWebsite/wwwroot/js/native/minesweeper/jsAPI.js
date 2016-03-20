@@ -1,25 +1,25 @@
 ﻿function openPlace(x, y) {
 	sendJSON(
-        "openPlace",
-        //JSON.stringify(
+		"openPlace",
+		//JSON.stringify(
 		{
 			x: x,
 			y: y
 		},
-        //    ),
-        parseAnswer
+		//    ),
+		parseAnswer
 	);
 }
 
 function runSolver(field) {
 	sendJSON(
-        "runSolver",
-        //JSON.stringify(
+		"runSolver",
+		//JSON.stringify(
 		{
 			"json": field
 		},
-        //),
-        parseSolverResponse
+		//),
+		parseSolverResponse
 	);
 }
 
@@ -73,9 +73,9 @@ function parseSolverResponse(msg) {
 
 function getName() {
 	sendJSON(
-        "getNickName",
-        "{}",
-        alertAnswer
+		"getNickName",
+		"{}",
+		alertAnswer
 	);
 }
 
@@ -85,38 +85,38 @@ function getAllMines() {
 	else
 		$('.result').html($('#loose').html());
 	sendJSON(
-        "getAllMines",
-        "{}",
-        parseMines
+		"getAllMines",
+		"{}",
+		parseMines
 	);
 }
 
 function checkForResult() {
 	sendJSON(
-        "isWon",
-        "{}",
-        alertIfTrue
+		"isWon",
+		"{}",
+		alertIfTrue
 	);
 	sendJSON(
-        "isLost",
-        "{}",
-        alertIfTrue
+		"isLost",
+		"{}",
+		alertIfTrue
 	);
 }
 
 function win() {
 	sendJSON(
-        "win",
-        "{}",
-        alertAnswer
+		"win",
+		"{}",
+		alertAnswer
 	);
 }
 
 function isGameRunning() {
 	sendJSON(
-        "isGameRunning",
-        "{}",
-        alertAnswer
+		"isGameRunning",
+		"{}",
+		alertAnswer
 	);
 }
 
@@ -199,15 +199,15 @@ function alertIfTrue(msg) {
 
 function startGame() {
 	sendJSON(
-        "startGame",
-        {
+		"startGame",
+		{
 			width: $('#fieldWidth').val(),
 			height: $('#fieldHeight').val(),
 			minesNumber: $('#minesNumber').val(),
 			userName: $('#userName').val(),
 			mode: $("#mode").val()
-        },
-        alertAnswer
+		},
+		alertAnswer
 	);
 }
 
@@ -226,12 +226,12 @@ function startGame() {
 // 
 function openPlaces(places) {
 	sendJSON(
-        "openPlaces",
-        /*JSON.stringify(
-                {
-                	"places": places
-                }
-           )*/
+		"openPlaces",
+		/*JSON.stringify(
+				{
+					"places": places
+				}
+		   )*/
 		{
 			places: places
 		},
@@ -263,15 +263,15 @@ function sendJSON(path, data, answerCallback) {
 
 
 	/*
-    $.ajax({
-        type: "POST",
-        url: "Default.aspx/"+path,
-        data: data,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        error: errorAJAX,
-        success: answerCallback
-    });*/
+	$.ajax({
+		type: "POST",
+		url: "Default.aspx/"+path,
+		data: data,
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		error: errorAJAX,
+		success: answerCallback
+	});*/
 }
 
 function errorAJAX(xhr, ajaxOptions, thrownError) {

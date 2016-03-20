@@ -10,77 +10,77 @@ using Newtonsoft.Json;
 
 namespace MyWebsite
 {
-    public class Startup
-    {
-        public Startup(IHostingEnvironment env)
-        {
-            // Set up configuration sources.
+	public class Startup
+	{
+		public Startup(IHostingEnvironment env)
+		{
+			// Set up configuration sources.
 
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+			var builder = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json")
+				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            if (env.IsDevelopment())
-            {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
+			if (env.IsDevelopment())
+			{
+				// For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+				builder.AddUserSecrets();
 
-                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                builder.AddApplicationInsightsSettings(developerMode: true);
-            }
+				// This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
+				builder.AddApplicationInsightsSettings(developerMode: true);
+			}
 
-            builder.AddEnvironmentVariables();
-            Configuration = builder.Build();
-        }
+			builder.AddEnvironmentVariables();
+			Configuration = builder.Build();
+		}
 
-        public IConfigurationRoot Configuration { get; set; }
+		public IConfigurationRoot Configuration { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            // Add framework services.
-            services.AddApplicationInsightsTelemetry(Configuration);
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
+		{
+			// Add framework services.
+			services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<DataContext>();
+			services.AddEntityFramework()
+				.AddSqlServer()
+				.AddDbContext<DataContext>();
 
-            DataContext.connectionString = Configuration["Data:DefaultConnection:ConnectionString"];
+			DataContext.connectionString = Configuration["Data:DefaultConnection:ConnectionString"];
 
-            services.AddMvc();
-            services.AddCaching();
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
-                options.CookieName = ".MyApplication";
-            });
+			services.AddMvc();
+			services.AddCaching();
+			services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(30);
+				options.CookieName = ".MyApplication";
+			});
 
-            services.AddInstance<IConfiguration>(Configuration);
+			services.AddInstance<IConfiguration>(Configuration);
 
-            // Add application services.
-            services.AddTransient<IEmailSender, DefaultEmailSender>();
-            services.AddTransient<DataContext, DataContext>();
-            services.AddTransient<ICryptoService, CryptoService>();
-        }
+			// Add application services.
+			services.AddTransient<IEmailSender, DefaultEmailSender>();
+			services.AddTransient<DataContext, DataContext>();
+			services.AddTransient<ICryptoService, CryptoService>();
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+		{
+			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+			loggerFactory.AddDebug();
 
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                Formatting = Newtonsoft.Json.Formatting.Indented,
-                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            };
+			JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+			{
+				Formatting = Newtonsoft.Json.Formatting.Indented,
+				ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+			};
 
-            app.UseApplicationInsightsRequestTelemetry();
+			app.UseApplicationInsightsRequestTelemetry();
 
-            app.UseBrowserLink();
-            app.UseDeveloperExceptionPage();
-            app.UseDatabaseErrorPage();
-            /*
+			app.UseBrowserLink();
+			app.UseDeveloperExceptionPage();
+			app.UseDatabaseErrorPage();
+			/*
 						if (env.IsDevelopment())
 						{
 							app.UseBrowserLink();
@@ -104,27 +104,27 @@ namespace MyWebsite
 							catch { }
 						}
 			*/
-            app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
+			app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
-            app.UseApplicationInsightsExceptionTelemetry();
+			app.UseApplicationInsightsExceptionTelemetry();
 
-            app.UseStaticFiles();
+			app.UseStaticFiles();
 
-            app.UseSession();
+			app.UseSession();
 
-            // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
+			// To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
-            //app.UseInMemorySession(configure: s => s.IdleTimeout = TimeSpan.FromMinutes(30));
+			//app.UseInMemorySession(configure: s => s.IdleTimeout = TimeSpan.FromMinutes(30));
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-        }
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}/{id?}");
+			});
+		}
 
-        // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
-    }
+		// Entry point for the application.
+		public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+	}
 }

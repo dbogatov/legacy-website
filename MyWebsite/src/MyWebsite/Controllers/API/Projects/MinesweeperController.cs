@@ -13,7 +13,7 @@ using MyWebsite.ViewModels.Projects.Minesweeper;
 namespace MyWebsite.Controllers.API
 {
 
-    [Produces("application/json")]
+	[Produces("application/json")]
 	[Route("api/Minesweeper")]
 	public class MinesweeperController : Controller {
 

@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+	padding-top: 50px;
+	padding-bottom: 20px;
 }
 
 
@@ -10,8 +10,8 @@
 /* Set some basic padding to keep content from hitting the edges */
 
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 
@@ -20,46 +20,46 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+	max-width: 280px;
 }
 
 
 /* Carousel */
 
 .carousel-caption {
-    z-index: 10 !important;
+	z-index: 10 !important;
 }
 
 .carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+	font-size: 20px;
+	line-height: 1.4;
 }
 
 @media (min-width: 768px) {
-    .carousel-caption {
-        z-index: 10 !important;
-    }
+	.carousel-caption {
+		z-index: 10 !important;
+	}
 }
 
 
 /* centered columns styles */
 
 .row-centered {
-    text-align: center;
+	text-align: center;
 }
 
 .col-centered {
-    display: inline-block;
-    float: none;
-    /* reset the text-align */
-    text-align: left;
-    /* inline-block space fix */
-    margin-right: -4px;
+	display: inline-block;
+	float: none;
+	/* reset the text-align */
+	text-align: left;
+	/* inline-block space fix */
+	margin-right: -4px;
 }
 
 
 /* Courses */
 
 .majorRequirement {
-    padding-top: 20px;
+	padding-top: 20px;
 }

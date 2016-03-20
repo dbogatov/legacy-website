@@ -2,7 +2,7 @@ import util = require('Utility');
 
 class CoursesPage {
 	private courses: Course[];
-	
+
 	private static letterToNumber = {
 		A: 4,
 		B: 3,
@@ -14,7 +14,7 @@ class CoursesPage {
 		<h3 class="majorRequirement"><%= title %> (GPA:  <%= gpa %>)</h3>
 		<hr id="<%= htmlId %>" />
 	`);
-	
+
 	private static childTemplate = _.template(`
 		<h4 class="text-center"><%= reqText %> (GPA: <%= gpa %>)</h4>
 		<table id="gradeTable_<%= reqId %>" class="table table-striped table-bordered table-hover">
@@ -61,14 +61,14 @@ class CoursesPage {
 
 	private computeGPA(courses: Array<Course>): string {
 		var completed = courses.filter((course) => course.status === "Completed");
-		
+
 		return (completed
 			.map((course) => CoursesPage.letterToNumber[course.gradeLetter])
 			.reduce((accumulator, element) => accumulator + element, 0) /
 			(completed.length > 0 ? completed.length : 1))
-				.toPrecision(3);
+			.toPrecision(3);
 	}
-	
+
 	private groupParentRequirements() {
 		var dictionary = {};
 
@@ -82,7 +82,7 @@ class CoursesPage {
 
 		return dictionary;
 	}
-	
+
 	private groupCourses() {
 		var dictionary = {};
 
@@ -99,11 +99,11 @@ class CoursesPage {
 
 	private drawParentRequirements() {
 		var dictionary = this.groupParentRequirements();
-		
+
 		for (var requirement in dictionary) {
 			var courses = <Array<Course>>dictionary[requirement];
 			var column = courses[0].parentRequirement.column === 1 ? "leftBlock" : "rightBlock";
-			
+
 			$(`#${column}`).append(CoursesPage.parentTemplate({
 				gpa: this.computeGPA(courses),
 				title: requirement,
@@ -111,16 +111,16 @@ class CoursesPage {
 			}));
 		}
 	}
-	
+
 	private displayCourses(): void {
 		this.drawParentRequirements();
-		
+
 		var dictionary = this.groupCourses();
 
 		for (var requirement in dictionary) {
 			var courses = <Array<Course>>dictionary[requirement];
-			var htmlId = courses[0].parentRequirement.title.replace(/\W/g, '');			
-			
+			var htmlId = courses[0].parentRequirement.title.replace(/\W/g, '');
+
 			var html = CoursesPage.childTemplate({
 				gpa: this.computeGPA(courses),
 				reqId: courses[0].requirement.replace(/\W/g, ''),
@@ -137,7 +137,7 @@ class CoursesPage {
 	private displayTotalGPA(): void {
 		$("#totalGPA").html(this.computeGPA(this.courses));
 	}
-	
+
 	private loadCourses(): void {
 		$.get("/api/Courses", {}, courses => {
 			this.courses = courses.map(course =>

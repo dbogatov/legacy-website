@@ -8,9 +8,8 @@
 declare var angular: any;
 
 angular.module('starter', ['ionic'])
+	.run(function($ionicPlatform) {
+		$ionicPlatform.ready(function() {
 
-.run(function($ionicPlatform) {
-	$ionicPlatform.ready(function() {
- 
+		});
 	});
-});

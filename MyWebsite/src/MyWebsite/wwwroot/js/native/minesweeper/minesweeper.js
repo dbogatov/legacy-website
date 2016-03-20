@@ -125,10 +125,10 @@ $(document).ready(function() {
 	});
 
 	sendJSON(
-        "getNickName",
-        "{}",
-        usernamePreload,
-        errorAJAX
+		"getNickName",
+		"{}",
+		usernamePreload,
+		errorAJAX
 	);
 
 	//mine amount tip
@@ -617,14 +617,14 @@ function leaderChoose(e) {
 
 function getLeaderBoard(mode) {
 	sendJSON(
-        "getLeaderBoard",
-        //JSON.stringify(
+		"getLeaderBoard",
+		//JSON.stringify(
 		{
 			"mode": mode
 		},
-        //    ),
-        parseLeaders,
-        errorAJAX
+		//    ),
+		parseLeaders,
+		errorAJAX
 	);
 }
 
@@ -654,10 +654,10 @@ function parseLeaders(msg) {
 
 function preCacheImages() {
 	var imgSrcArray = [
-        '/images/Minesweeper/flag.jpg',
-        '/images/Minesweeper/refresh.png',
-        '/images/Minesweeper/start_button.gif',
-        '/images/Minesweeper/mine.jpg',
+		'/images/Minesweeper/flag.jpg',
+		'/images/Minesweeper/refresh.png',
+		'/images/Minesweeper/start_button.gif',
+		'/images/Minesweeper/mine.jpg',
 	];
 	$.each(imgSrcArray, function() {
 		var img = new Image();

@@ -8,12 +8,12 @@ export module Utility {
 		}
 
 		public static enableAJAXLoadBar(): void {
-			
+
 			var handler = (event) => {
 				event.stopPropagation();
 				event.preventDefault();
 			};
-			
+
 			$(document).ajaxStart(() => {
 				document.addEventListener("click", handler, true);
 
@@ -22,7 +22,7 @@ export module Utility {
 				});
 				$('#myModal').modal('show');
 			});
-			
+
 			$(document).ajaxStop(() => {
 				$('#myModal').modal('hide');
 				document.removeEventListener("click", handler, true);
@@ -33,7 +33,7 @@ export module Utility {
 	export interface ISerializable<T> {
 		deserialize(input: Object): T;
 	}
-	
+
 	export interface ITemplatable {
 		getHtmlView(): string;
 	}

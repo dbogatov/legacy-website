@@ -2,10 +2,10 @@
 "use strict";
 
 var gulp = require("gulp"),
-    rimraf = require("rimraf"),
-    concat = require("gulp-concat"),
-    cssmin = require("gulp-cssmin"),
-    uglify = require("gulp-uglify"),
+	rimraf = require("rimraf"),
+	concat = require("gulp-concat"),
+	cssmin = require("gulp-cssmin"),
+	uglify = require("gulp-uglify"),
 	ts = require('gulp-typescript'),
 	shell = require('gulp-shell'),
 	sourcemaps = require('gulp-sourcemaps'),
@@ -58,16 +58,16 @@ var tsProject = ts.createProject({
 
 gulp.task("min:js", function () {
 	return gulp.src([paths.js, "!" + paths.minJs], { base: "." })
-        .pipe(concat(paths.concatJsDest))
-        .pipe(uglify())
-        .pipe(gulp.dest("."));
+		.pipe(concat(paths.concatJsDest))
+		.pipe(uglify())
+		.pipe(gulp.dest("."));
 });
 
 gulp.task("min:css", function () {
 	return gulp.src([paths.css, "!" + paths.minCss])
-        .pipe(concat(paths.concatCssDest))
-        .pipe(cssmin())
-        .pipe(gulp.dest("."));
+		.pipe(concat(paths.concatCssDest))
+		.pipe(cssmin())
+		.pipe(gulp.dest("."));
 });
 
 gulp.task("min", ["min:js", "min:css"]);
@@ -88,5 +88,5 @@ gulp.task("ts-debug", function () {
 
 gulp.task('ts-gen-defs', function () {
 	gulp.src(paths.tsSource)
-                    .pipe(ts(tsProject)).dts.pipe(gulp.dest(paths.tsDef));
+					.pipe(ts(tsProject)).dts.pipe(gulp.dest(paths.tsDef));
 });

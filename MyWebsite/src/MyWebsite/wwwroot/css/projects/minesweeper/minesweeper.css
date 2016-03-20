@@ -1,187 +1,187 @@
 body {
-    margin: 0px;
-    background: -webkit-linear-gradient(#3333FF, #CCFF00);
-    /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#3333FF, #CCFF00);
-    /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#3333FF, #CCFF00);
-    /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#3333FF, #CCFF00);
-    /* Standard syntax */
-    overflow: hidden;
-    font-family: 'Roboto';
-    font-weight: 300px;
+	margin: 0px;
+	background: -webkit-linear-gradient(#3333FF, #CCFF00);
+	/* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#3333FF, #CCFF00);
+	/* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#3333FF, #CCFF00);
+	/* For Firefox 3.6 to 15 */
+	background: linear-gradient(#3333FF, #CCFF00);
+	/* Standard syntax */
+	overflow: hidden;
+	font-family: 'Roboto';
+	font-weight: 300px;
 }
 
 .header {
-    height: 15%;
-    width: 70%;
-    margin: 0px 15% 0px 15%;
-    text-align: center;
-    background-color: transparent;
-    border-radius: 0px 0px 25px 25px;
-    font-size: 150%;
-    cursor: default;
-    border: 1px solid black;
+	height: 15%;
+	width: 70%;
+	margin: 0px 15% 0px 15%;
+	text-align: center;
+	background-color: transparent;
+	border-radius: 0px 0px 25px 25px;
+	font-size: 150%;
+	cursor: default;
+	border: 1px solid black;
 }
 
 #ukr_button {
-    background: url("/images/Minesweeper/ua-lang.gif");
+	background: url("/images/Minesweeper/ua-lang.gif");
 }
 
 #eng_button {
-    background: url("/images/Minesweeper/us-lang.gif");
+	background: url("/images/Minesweeper/us-lang.gif");
 }
 
 #ukr_button,
 #eng_button {
-    margin: 2% auto 0px auto;
-    width: 50%;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    height: 20%;
-    border: 0px;
-    border-radius: 5px;
+	margin: 2% auto 0px auto;
+	width: 50%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	height: 20%;
+	border: 0px;
+	border-radius: 5px;
 }
 
 .headerLoading,
 .header .leftHeaderContainer {
-    float: left;
-    width: 20%;
-    height: 100%;
+	float: left;
+	width: 20%;
+	height: 100%;
 }
 
 .headerMiddle {
-    float: left;
-    width: 59%;
-    height: 100%;
+	float: left;
+	width: 59%;
+	height: 100%;
 }
 
 .headerMiddle input {
-    float: left;
-    display: block;
-    border: 0px;
-    background-color: transparent;
+	float: left;
+	display: block;
+	border: 0px;
+	background-color: transparent;
 }
 
 .headerMiddle input:hover {
-    color: white;
+	color: white;
 }
 
 .headerLoading {
-    position: absolute;
-    top: 5%;
-    left: 72%;
-    width: 11.5%;
-    height: 5%;
-    border: 1px solid black;
+	position: absolute;
+	top: 5%;
+	left: 72%;
+	width: 11.5%;
+	height: 5%;
+	border: 1px solid black;
 }
 
 .menu input {
-    border: 0px;
-    border-bottom: 1px solid black;
-    border-radius: 0px;
+	border: 0px;
+	border-bottom: 1px solid black;
+	border-radius: 0px;
 }
 
 input {
-    background: transparent;
+	background: transparent;
 }
 
 #loading {
-    margin-top: -10%;
-    left: auto;
-    right: auto;
-    display: none;
-    font: 1.2em normal Arial, sans-serif;
+	margin-top: -10%;
+	left: auto;
+	right: auto;
+	display: none;
+	font: 1.2em normal Arial, sans-serif;
 }
 
 #done {
-    margin-top: -10%;
-    left: auto;
-    right: auto;
-    display: none;
-    font: 1.2em normal Arial, sans-serif;
+	margin-top: -10%;
+	left: auto;
+	right: auto;
+	display: none;
+	font: 1.2em normal Arial, sans-serif;
 }
 
 .headerLoadingBar {
-    width: 0px;
-    height: 100%;
-    background-color: green;
+	width: 0px;
+	height: 100%;
+	background-color: green;
 }
 
 .headerLoadingText {
-    opacity: 0;
-    height: 10%;
-    width: 10%;
+	opacity: 0;
+	height: 10%;
+	width: 10%;
 }
 
 .leaderBoardButton {
-    margin: 2% 13% 0px 8%;
-    width: 27%;
+	margin: 2% 13% 0px 8%;
+	width: 27%;
 }
 
 .newGameButton {
-    margin: 2% 8% 0px 13%;
-    width: 27%;
+	margin: 2% 8% 0px 13%;
+	width: 27%;
 }
 
 .loading {
-    display: none;
-    opacity: 0;
-    background-color: white;
-    text-align: center;
-    position: absolute;
-    width: 70%;
-    height: 70%;
-    top: 20%;
-    left: 15%;
-    z-index: 99999;
+	display: none;
+	opacity: 0;
+	background-color: white;
+	text-align: center;
+	position: absolute;
+	width: 70%;
+	height: 70%;
+	top: 20%;
+	left: 15%;
+	z-index: 99999;
 }
 
 .loadingText {
-    display: block;
-    margin-top: 20%;
+	display: block;
+	margin-top: 20%;
 }
 
 .header #lblMinesweeper {
-    margin: 0px auto 0px auto;
-    padding-top: 0px;
-    height: 30%;
-    font-size: inherit;
-    color: #CCFF00;
-    display: block;
-    width: 95%;
-    height: auto;
-    border-bottom: 1px solid black;
+	margin: 0px auto 0px auto;
+	padding-top: 0px;
+	height: 30%;
+	font-size: inherit;
+	color: #CCFF00;
+	display: block;
+	width: 95%;
+	height: auto;
+	border-bottom: 1px solid black;
 }
 
 #languageForm {
-    height: 100%;
-    width: 100%;
+	height: 100%;
+	width: 100%;
 }
 
 .leftHeaderContainer * {
-    display: block;
+	display: block;
 }
 
 .rightBar {
-    font-size: 30%;
-    height: 40%;
-    width: 15%;
-    margin: 15% 0px 0px 85%;
-    position: absolute;
-    text-align: center;
-    background-color: transparent;
-    border-radius: 25px 0px 0px 25px;
-    font-size: 150%;
-    cursor: default;
-    border: 1px solid black;
+	font-size: 30%;
+	height: 40%;
+	width: 15%;
+	margin: 15% 0px 0px 85%;
+	position: absolute;
+	text-align: center;
+	background-color: transparent;
+	border-radius: 25px 0px 0px 25px;
+	font-size: 150%;
+	cursor: default;
+	border: 1px solid black;
 }
 
 .rightBar span {
-    display: block;
-    margin-left: 0px;
-    text-align: center;
+	display: block;
+	margin-left: 0px;
+	text-align: center;
 }
 
 #lblGetMove:hover,
@@ -189,345 +189,345 @@ input {
 #lblSolver:hover,
 #lblHelp:hover,
 #lblRules:hover {
-    color: white;
+	color: white;
 }
 
 #checkBox {
-    float: left;
+	float: left;
 }
 
 #lblSolverRun {
-    font-size: 40%;
-    height: auto;
+	font-size: 40%;
+	height: auto;
 }
 
 #solverMenu {
-    display: none;
+	display: none;
 }
 
 #lblGetMove,
 #lblSolverCancel {
-    border-radius: 10px;
-    border: 1px solid black;
-    margin: 0px auto;
-    width: 80%;
+	border-radius: 10px;
+	border: 1px solid black;
+	margin: 0px auto;
+	width: 80%;
 }
 
 .page {
-    margin: 0px 15% 0px 15%;
-    width: 70%;
-    height: 65%;
-    opacity: 1;
+	margin: 0px 15% 0px 15%;
+	width: 70%;
+	height: 65%;
+	opacity: 1;
 }
 
 .main {
-    width: 100%;
-    height: 100%;
-    display: none;
+	width: 100%;
+	height: 100%;
+	display: none;
 }
 
 .leaderBoard {
-    background-color: #FFFFFF;
-    border-radius: 25px;
-    width: 65%;
-    height: 66%;
-    position: absolute;
-    margin: 0px;
-    top: 20%;
-    left: 15%;
-    display: none;
-    z-index: 9999999;
+	background-color: #FFFFFF;
+	border-radius: 25px;
+	width: 65%;
+	height: 66%;
+	position: absolute;
+	margin: 0px;
+	top: 20%;
+	left: 15%;
+	display: none;
+	z-index: 9999999;
 }
 
 .leaderClose {
-    position: absolute;
-    top: 10%;
-    left: 80%;
+	position: absolute;
+	top: 10%;
+	left: 80%;
 }
 
 .menu {
-    margin: 0px 15% 0px 15%;
-    border-radius: 25px;
-    width: 70%;
-    height: 100%;
-    overflow: hidden;
-    border: 1px solid black;
+	margin: 0px 15% 0px 15%;
+	border-radius: 25px;
+	width: 70%;
+	height: 100%;
+	overflow: hidden;
+	border: 1px solid black;
 }
 
 .menuOption,
 .customGame,
 .username,
 .customGameOptions {
-    width: 100%;
-    height: 25%;
-    background-color: transparent;
-    text-align: center;
-    border-bottom: 1px solid black;
+	width: 100%;
+	height: 25%;
+	background-color: transparent;
+	text-align: center;
+	border-bottom: 1px solid black;
 }
 
 .menuOption:hover,
 .customGame:hover {
-    color: white;
-    border-bottom: 1px solid black;
+	color: white;
+	border-bottom: 1px solid black;
 }
 
 .menuChosen {}
 
 .menuOption,
 .customGame {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .menuOption span,
 .customGame span {
-    vertical-align: middle;
-    text-align: center;
-    margin: 0px auto 0px auto;
+	vertical-align: middle;
+	text-align: center;
+	margin: 0px auto 0px auto;
 }
 
 .customGame {
-    z-index: 9999;
+	z-index: 9999;
 }
 
 .customGameOptions {
-    height: 80%;
+	height: 80%;
 }
 
 .startGame {
-    height: auto;
-    width: 30%;
-    border-radius: 10px;
-    border: 1px solid black;
-    margin: 3% auto;
-    display: inline-block;
+	height: auto;
+	width: 30%;
+	border-radius: 10px;
+	border: 1px solid black;
+	margin: 3% auto;
+	display: inline-block;
 }
 
 .startGame:hover {
-    color: white;
+	color: white;
 }
 
 input {
-    width: 13%;
-    border-radius: 15px;
-    border: 2px outset buttonface;
-    padding-left: 3%;
-    font-size: inherit;
-    text-align: center;
-    padding: 0px;
+	width: 13%;
+	border-radius: 15px;
+	border: 2px outset buttonface;
+	padding-left: 3%;
+	font-size: inherit;
+	text-align: center;
+	padding: 0px;
 }
 
 .header input {
-    padding: 2.5px;
+	padding: 2.5px;
 }
 
 .username input {
-    width: 50%;
+	width: 50%;
 }
 
 .sizeAlert,
 .mineAmountAlert {
-    color: red;
-    opacity: 0;
+	color: red;
+	opacity: 0;
 }
 
 .sizeTip,
 .mineAmountTip {
-    background-color: transparent;
-    border: 1px solid black;
+	background-color: transparent;
+	border: 1px solid black;
 }
 
 .sizeTip:hover,
 .mineAmountTip:hover {
-    background: #FFFFFF;
+	background: #FFFFFF;
 }
 
 .tipText {
-    display: none;
-    background-color: #FFFFFF;
-    position: absolute;
-    left: 65%;
-    top: 50%;
-    border-radius: 15px;
-    font-size: 50%;
-    padding: 1%;
+	display: none;
+	background-color: #FFFFFF;
+	position: absolute;
+	left: 65%;
+	top: 50%;
+	border-radius: 15px;
+	font-size: 50%;
+	padding: 1%;
 }
 
 .gameMenu {
-    width: 100%;
-    height: 9%;
+	width: 100%;
+	height: 9%;
 }
 
 .gameMenu * {
-    float: left;
-    width: 33%;
-    text-align: center;
+	float: left;
+	width: 33%;
+	text-align: center;
 }
 
 .flagLeft {
-    height: 100%;
+	height: 100%;
 }
 
 .smile {
-    height: 100%;
+	height: 100%;
 }
 
 .timer {
-    border-radius: 15px;
-    color: red;
-    background-color: black;
-    font-family: 'Oswald';
-    width: 17%;
-    margin-left: 10%;
+	border-radius: 15px;
+	color: red;
+	background-color: black;
+	font-family: 'Oswald';
+	width: 17%;
+	margin-left: 10%;
 }
 
 .restartGame {
-    height: auto;
-    width: auto;
-    border-radius: 10px;
-    border: 1px solid black;
-    margin: 0px auto;
-    display: inline-block;
-    display: inline-block;
-    float: none;
-    cursor: pointer;
+	height: auto;
+	width: auto;
+	border-radius: 10px;
+	border: 1px solid black;
+	margin: 0px auto;
+	display: inline-block;
+	display: inline-block;
+	float: none;
+	cursor: pointer;
 }
 
 .restartGame:hover {
-    color: white;
+	color: white;
 }
 
 .field {
-    height: 85%;
-    margin: 3% auto 0px auto;
-    display: none;
-    font: 1.2em normal Arial, sans-serif;
+	height: 85%;
+	margin: 3% auto 0px auto;
+	display: none;
+	font: 1.2em normal Arial, sans-serif;
 }
 
 .field table {
-    border: 1px solid black;
-    border-spacing: 1px;
-    margin: 0px auto;
+	border: 1px solid black;
+	border-spacing: 1px;
+	margin: 0px auto;
 }
 
 .fieldCell {
-    color: white;
-    border: 1px solid darkgrey;
-    background-color: lightgrey;
-    text-align: center;
-    display: block;
-    float: left;
-    padding: 0px;
-    cursor: pointer;
-    transition-duration: 0.4s;
-    overflow: hidden;
+	color: white;
+	border: 1px solid darkgrey;
+	background-color: lightgrey;
+	text-align: center;
+	display: block;
+	float: left;
+	padding: 0px;
+	cursor: pointer;
+	transition-duration: 0.4s;
+	overflow: hidden;
 }
 
 .fieldCell img {
-    width: 100%;
-    height: 100%;
-    border: 0px;
+	width: 100%;
+	height: 100%;
+	border: 0px;
 }
 
 #aspImage {
-    height: 100%;
-    width: auto;
-    border: 1px solid black;
+	height: 100%;
+	width: auto;
+	border: 1px solid black;
 }
 
 .gameMenu #aspImage {
-    margin-left: 20%;
+	margin-left: 20%;
 }
 
 .result {
-    height: 0%;
-    width: auto;
-    margin-top: -1.5%;
-    text-align: center;
+	height: 0%;
+	width: auto;
+	margin-top: -1.5%;
+	text-align: center;
 }
 
 .sheet {
-    position: relative;
-    margin: 5% auto 0px auto;
-    width: 80%;
-    height: 80%;
-    overflow: hidden;
-    border-bottom: 0px;
+	position: relative;
+	margin: 5% auto 0px auto;
+	width: 80%;
+	height: 80%;
+	overflow: hidden;
+	border-bottom: 0px;
 }
 
 .sheet table {
-    width: 100%;
+	width: 100%;
 }
 
 .sheet tr {
-    width: 100%;
+	width: 100%;
 }
 
 .leaderBoard tbody {
-    overflow-y: scroll;
-    height: 6.3%;
-    overflow-x: hidden;
-    background-color: #CCFF00;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+	overflow-y: scroll;
+	height: 6.3%;
+	overflow-x: hidden;
+	background-color: #CCFF00;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
 }
 
 .leaderBoard thead,
 .leaderBoard tbody {
-    display: block;
-    width: 100%;
+	display: block;
+	width: 100%;
 }
 
 .sheet table {
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    table-layout: fixed;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	table-layout: fixed;
 }
 
 .sheet table .leaderHead {
-    width: 33.33%;
-    transition-duration: 0.7s;
-    cursor: default;
-    border: 0px;
+	width: 33.33%;
+	transition-duration: 0.7s;
+	cursor: default;
+	border: 0px;
 }
 
 .leaderHead {
-    border-radius: 15px 15px 0px 0px;
+	border-radius: 15px 15px 0px 0px;
 }
 
 .leaderBoard span {
-    height: auto;
+	height: auto;
 }
 
 .sheet table tr {
-    display: table;
+	display: table;
 }
 
 .sheet table .leaderPosition {
-    width: 10%;
+	width: 10%;
 }
 
 .sheet table .leaderUsername {
-    width: 80%;
+	width: 80%;
 }
 
 .sheet table .leaderTime {
-    width: 10%;
+	width: 10%;
 }
 
 .sheet table td {
-    height: 8.1%;
-    width: 33.33%;
-    border-bottom: 1px solid black;
+	height: 8.1%;
+	width: 33.33%;
+	border-bottom: 1px solid black;
 }
 
 .columnName {
-    color: #3333FF;
-    margin-top: 1%;
-    background-color: #CCFF00;
-    border-top: 1px solid black;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+	color: #3333FF;
+	margin-top: 1%;
+	background-color: #CCFF00;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
 }
 
 .columnName * {}
@@ -535,172 +535,172 @@ input {
 .authorsPage,
 .help,
 .rules {
-    background-color: #FFFFFF;
-    border-radius: 25px;
-    width: 65%;
-    height: 66%;
-    position: absolute;
-    margin: 0px;
-    top: 20%;
-    left: 15%;
-    display: none;
-    z-index: 9999999;
+	background-color: #FFFFFF;
+	border-radius: 25px;
+	width: 65%;
+	height: 66%;
+	position: absolute;
+	margin: 0px;
+	top: 20%;
+	left: 15%;
+	display: none;
+	z-index: 9999999;
 }
 
 .authorsInfo {
-    width: 90%;
-    margin: 5% auto;
-    height: 90%;
-    font-size: 60%;
+	width: 90%;
+	margin: 5% auto;
+	height: 90%;
+	font-size: 60%;
 }
 
 .dimaInfo,
 .bogdanInfo {
-    float: left;
-    width: 45%;
-    margin: 0px 2%;
-    height: 100%;
+	float: left;
+	width: 45%;
+	margin: 0px 2%;
+	height: 100%;
 }
 
 .dimaInfo img,
 .bogdanInfo img {
-    height: 23%;
-    width: auto;
-    border-radius: 20px;
-    border: 1px solid black;
-    float: left;
+	height: 23%;
+	width: auto;
+	border-radius: 20px;
+	border: 1px solid black;
+	float: left;
 }
 
 .authorName {
-    font-size: 120%;
-    margin-top: 0px;
-    width: 50%;
-    margin-left: 35%;
+	font-size: 120%;
+	margin-top: 0px;
+	width: 50%;
+	margin-left: 35%;
 }
 
 .authorDescription {
-    margin-top: 5%;
+	margin-top: 5%;
 }
 
 .authorDescription li {
-    list-style: disc;
+	list-style: disc;
 }
 
 .authorDescription ul {
-    font-size: 80%;
+	font-size: 80%;
 }
 
 #rulesFrame,
 #helpFrame {
-    width: 90%;
-    height: 80%;
-    margin: 5%;
-    border: 0px;
+	width: 90%;
+	height: 80%;
+	margin: 5%;
+	border: 0px;
 }
 
 .pdfPage {
-    background-color: #FFFFFF;
-    border-radius: 25px;
-    width: 65%;
-    height: 66%;
-    position: absolute;
-    margin: 0px;
-    top: 20%;
-    left: 15%;
-    display: none;
-    z-index: 9999999;
+	background-color: #FFFFFF;
+	border-radius: 25px;
+	width: 65%;
+	height: 66%;
+	position: absolute;
+	margin: 0px;
+	top: 20%;
+	left: 15%;
+	display: none;
+	z-index: 9999999;
 }
 
 .poster {
-    width: 90%;
-    height: 80%;
-    margin: 5% 5% 0px 5%;
-    overflow-y: scroll;
+	width: 90%;
+	height: 80%;
+	margin: 5% 5% 0px 5%;
+	overflow-y: scroll;
 }
 
 .pdfPage img {
-    width: 100%;
-    height: auto;
+	width: 100%;
+	height: auto;
 }
 
 .pdfPage a {
-    width: 40%;
-    margin: 1% 5%;
-    font-size: 50%;
-    text-align: center;
-    display: block;
-    float: left;
+	width: 40%;
+	margin: 1% 5%;
+	font-size: 50%;
+	text-align: center;
+	display: block;
+	float: left;
 }
 
 .footer {
-    height: 9.6%;
-    width: 70%;
-    margin: 0px 15% 0px 15%;
-    text-align: center;
-    background-color: transparent;
-    border: 1px solid black;
-    border-radius: 25px 25px 0px 0px;
-    cursor: default;
+	height: 9.6%;
+	width: 70%;
+	margin: 0px 15% 0px 15%;
+	text-align: center;
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 25px 25px 0px 0px;
+	cursor: default;
 }
 
 .info {
-    width: 70%;
-    margin: 1% auto;
-    height: 50%;
-    border-bottom: 1px solid black;
+	width: 70%;
+	margin: 1% auto;
+	height: 50%;
+	border-bottom: 1px solid black;
 }
 
 .authors {
-    float: left;
-    height: auto;
-    margin-left: 20%;
-    margin-right: 20%;
+	float: left;
+	height: auto;
+	margin-left: 20%;
+	margin-right: 20%;
 }
 
 .pdfInfo {
-    float: left;
-    margin-left: 20%;
-    height: auto;
+	float: left;
+	margin-left: 20%;
+	height: auto;
 }
 
 .info *:hover {
-    color: white;
+	color: white;
 }
 
 .copyright {
-    height: auto;
-    text-align: center;
+	height: auto;
+	text-align: center;
 }
 
 .container {
-    width: 90%;
-    margin: auto;
+	width: 90%;
+	margin: auto;
 }
 
 .leaderBoard table {
-    border-collapse: collapse;
-    width: 100%;
+	border-collapse: collapse;
+	width: 100%;
 }
 
 .leaderBoard table th,
 .leaderBoard table td {
-    text-align: center;
-    padding: 5px 0;
+	text-align: center;
+	padding: 5px 0;
 }
 
 .leaderBoard table tbody tr:hover {
-    background: #BDC3C7;
-    color: #FFFFFF;
+	background: #BDC3C7;
+	color: #FFFFFF;
 }
 
 .leaderBoard table tbody {
-    height: 70%;
+	height: 70%;
 }
 
 .fixed {
-    top: 0;
-    position: fixed;
-    width: auto;
-    display: none;
-    border: none;
+	top: 0;
+	position: fixed;
+	width: auto;
+	display: none;
+	border: none;
 }
