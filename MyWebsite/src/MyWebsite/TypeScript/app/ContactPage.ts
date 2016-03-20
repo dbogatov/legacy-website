@@ -1,6 +1,6 @@
 class ContactPage {
 
-	private form = (<any>$("#contact_form")).parsley();
+	private form = (<any>$("#contact_form"));
 
 	private setupForm(): void {
 
@@ -10,33 +10,29 @@ class ContactPage {
 		};
 
 		$("#contactBtn").click(() => {
-			this.form.validate();
-		});
 
-		this.form
-			.on("form:success", () => {
-				$.post(
-					"/api/contact",
-					{
-						name: $("#userName").val(),
-						email: $("#email").val(),
-						comment: $("#comment").val(),
-						language: $("#lang").val()
-					},
-					(response) => {
-						if (response) {
-							$('#responseView').modal();
-							$("#responseText").text("Thank you! I have got your mesage!");
-							$("#responseCloseBtn").html("Go home");
-							$("#responseCloseBtn").click(() => {
-								location.href = "/";
-							});
-						} else {
-							errorHandler();
-						}
+			$.post(
+				"/api/contact",
+				{
+					name: $("#userName").val(),
+					email: $("#email").val(),
+					comment: $("#comment").val(),
+					language: $("#lang").val()
+				},
+				(response) => {
+					if (response) {
+						$('#responseView').modal();
+						$("#responseText").text("Thank you! I have got your mesage!");
+						$("#responseCloseBtn").html("Go home");
+						$("#responseCloseBtn").click(() => {
+							location.href = "/";
+						});
+					} else {
+						errorHandler();
 					}
-				).fail(errorHandler);
-			});
+				}
+			).fail(errorHandler);
+		});
 	}
 
 	run(): void {

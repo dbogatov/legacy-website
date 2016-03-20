@@ -30,7 +30,8 @@
     "Microsoft.Extensions.Caching.Memory": "1.0.0-*",
     "Npm.js": "2.13.1",
     "MailKit": "1.3.0-beta5",
-    "NetTelegramBotApi": "3.7.50926"
+    "NetTelegramBotApi": "3.7.50926",
+    "EntityFramework.InMemory": "7.0.0-rc1-final"
   },
   "commands": {
     "web": "Microsoft.AspNet.Server.Kestrel",

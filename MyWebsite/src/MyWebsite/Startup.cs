@@ -64,7 +64,7 @@ namespace MyWebsite
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
 		{
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
@@ -80,30 +80,7 @@ namespace MyWebsite
 			app.UseBrowserLink();
 			app.UseDeveloperExceptionPage();
 			app.UseDatabaseErrorPage();
-			/*
-						if (env.IsDevelopment())
-						{
-							app.UseBrowserLink();
-							app.UseDeveloperExceptionPage();
-							app.UseDatabaseErrorPage();
-						}
-						else
-						{
-							app.UseExceptionHandler("/Home/Error");
 
-							// For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-							try
-							{
-								using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-									.CreateScope())
-								{
-									serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-										 .Database.Migrate();
-								}
-							}
-							catch { }
-						}
-			*/
 			app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
 			app.UseApplicationInsightsExceptionTelemetry();
@@ -112,16 +89,18 @@ namespace MyWebsite
 
 			app.UseSession();
 
-			// To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
-
-			//app.UseInMemorySession(configure: s => s.IdleTimeout = TimeSpan.FromMinutes(30));
-
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+			
+			using(var context = serviceProvider.GetService<DataContext>())
+			{
+				context.Database.EnsureCreated();
+				context.EnsureSeedData();
+			}
 		}
 
 		// Entry point for the application.

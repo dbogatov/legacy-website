@@ -5,8 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWebsite.Models.Enitites
 {
-
-	[Table("Projects")]
 	public class Project
 	{
 		[Key]
@@ -22,7 +20,6 @@ namespace MyWebsite.Models.Enitites
 		public virtual IEnumerable<Tag> Tags { get; set; }
 	}
 
-	[Table("ProjectTag")]
 	public class ProjectTag
 	{
 		[Key]
@@ -31,7 +28,6 @@ namespace MyWebsite.Models.Enitites
 		public int TagId { get; set; }
 	}
 
-	[Table("Tags")]
 	public class Tag
 	{
 		[Key]

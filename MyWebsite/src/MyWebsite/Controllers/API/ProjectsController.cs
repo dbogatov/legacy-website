@@ -46,7 +46,7 @@ namespace MyWebsite.Controllers.API
 						).AsEnumerable()
 				};
 
-			return result.ToList();
+			return result.OrderByDescending(p => p.DateCompleted).ToList();
 		}
 
 		// GET: api/Projects/5

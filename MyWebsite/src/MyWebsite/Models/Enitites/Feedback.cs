@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWebsite.Models.Enitites
 {
-	[Table("Feedback")]
 	public class Feedback
 	{
 		[Key]

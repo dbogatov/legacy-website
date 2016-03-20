@@ -148,11 +148,18 @@ namespace MyWebsite.Models.Minesweeper
 
 			try
 			{
-				return context.Leaderboards.Include(l => l.NickNameId).Where(l => l.Mode == mode).OrderBy(l => l.Duration).ToList().Select(l => new Leader
-				{
-					NickName = l.NickNameId.UserNickName,
-					Duration = l.Duration
-				});
+				return
+					context
+						.Leaderboards
+						.Include(l => l.NickNameId)
+						.Where(l => l.Mode == mode)
+						.OrderBy(l => l.Duration)
+						.ToList()
+						.Select(l => new Leader
+						{
+							NickName = l.NickNameId.UserNickName,
+							Duration = l.Duration
+						});
 			}
 			catch (Exception e)
 			{
@@ -169,7 +176,9 @@ namespace MyWebsite.Models.Minesweeper
 		/// <returns>True, if there is no exception thrown.</returns>
 		public static bool addAchievment(int userID, int mode)
 		{
-
+			// Not working
+			return true;
+			/*
 			var context = new DataContext();
 
 			try
@@ -205,6 +214,7 @@ namespace MyWebsite.Models.Minesweeper
 				Console.WriteLine(e.ToString());
 				return false;
 			}
+			*/
 		}
 
 		public static List<Move> runSolver(string field)
