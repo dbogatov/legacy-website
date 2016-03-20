@@ -90,38 +90,3 @@ gulp.task('ts-gen-defs', function () {
 	gulp.src(paths.tsSource)
                     .pipe(ts(tsProject)).dts.pipe(gulp.dest(paths.tsDef));
 });
-
-gulp.task('ts-compile', function () {
-	var tsResult = gulp.src(paths.tsSource)
-                    .pipe(ts(tsProject));
-
-	return merge([
-        tsResult.dts.pipe(gulp.dest(paths.tsDef)),
-        tsResult.js.pipe(gulp.dest(paths.tsOutput))
-	]);
-});
-
-gulp.task('watch-ts', ['ts-compile'], function () {
-	gulp.watch(paths.tsDef, ['ts-compile']);
-});
-
-gulp.task('watch', shell.task(['dnx-watch web']))
-
-gulp.task("copy-ts-maps", function () {
-	return merge([
-		gulp.src(paths.tsMaps).pipe(gulp.dest(paths.tsOutput)),
-		gulp.src(paths.tsSource).pipe(gulp.dest(paths.tsOutput)),
-		gulp.src(paths.tsJS).pipe(gulp.dest(paths.tsOutput))
-	]);
-});
-
-gulp.task("copy", function () {
-	var npm = {
-		"requirejs": "requirejs/require.js"
-	};
-
-	for (var destinationDir in npm) {
-		gulp.src(paths.npm + npm[destinationDir])
-          .pipe(gulp.dest(paths.lib + destinationDir));
-	}
-});

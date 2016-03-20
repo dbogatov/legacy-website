@@ -46,16 +46,12 @@ class CoursesPage {
 				switch ($(node).text()) {
 					case "A":
 						return "C";
-						break;
 					case "B":
 						return "D";
-						break;
 					case "C":
 						return "A";
-						break;
 					case "D":
 						return "B";
-						break;
 					default:
 						return $(node).text();
 				}
@@ -215,7 +211,7 @@ class Course implements util.Utility.ISerializable<Course>, util.Utility.ITempla
 				color = "warning";
 				break;
 			default:
-				color: "danger";
+				color = "danger";
 		}
 
 		return Course.template({
