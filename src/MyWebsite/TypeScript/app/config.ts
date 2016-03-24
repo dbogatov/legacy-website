@@ -1,6 +1,6 @@
 ﻿/// <reference path="../extdefinitions/tsd.d.ts" />
 require.config({
-	baseUrl: '/js',
+	baseUrl: '/ts',
 	paths: {},
 	shim: {}
 });

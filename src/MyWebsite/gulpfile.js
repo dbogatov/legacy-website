@@ -30,7 +30,7 @@ paths.tsSource = "./TypeScript/app/**/*.ts";
 paths.tsMaps = "./TypeScript/app/**/*.js.map";
 paths.tsJS = "./TypeScript/app/**/*.js";
 
-paths.tsOutput = paths.webroot + "/js/";
+paths.tsOutput = paths.webroot + "/ts/";
 paths.tsDef = "./TypeScript/definitions/";
 
 eval("var project = " + fs.readFileSync("./project.json"));
@@ -43,7 +43,11 @@ gulp.task("clean:css", function (cb) {
 	rimraf(paths.concatCssDest, cb);
 });
 
-gulp.task("clean", ["clean:js", "clean:css"]);
+gulp.task("clean:ts", function (cb) {
+	rimraf(paths.tsOutput, cb);
+});
+
+gulp.task("clean", ["clean:js", "clean:css", "clean:ts"]);
 
 var tsProject = ts.createProject({
 	declarationFiles: true,
@@ -83,6 +87,9 @@ gulp.task("ts-debug", function () {
 });
 
 gulp.task('ts-gen-defs', function () {
-	gulp.src(paths.tsSource)
-					.pipe(ts(tsProject)).dts.pipe(gulp.dest(paths.tsDef));
+	gulp
+		.src(paths.tsSource)
+		.pipe(ts(tsProject))
+		.dts
+		.pipe(gulp.dest(paths.tsDef));
 });

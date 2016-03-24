@@ -1,3 +1,17 @@
+@font-face {
+	font-family: 'Oswald';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Oswald Regular'), local('Oswald-Regular'), url(/css/projects/minesweeper/Oswald.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 300;
+	src: local('Roboto Light'), local('Roboto-Light'), url(/css/projects/minesweeper/Roboto.woff) format('woff');
+}
+
 body {
 	margin: 0px;
 	background: -webkit-linear-gradient(#3333FF, #CCFF00);
