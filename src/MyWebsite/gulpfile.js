@@ -44,7 +44,7 @@ gulp.task("clean:css", function (cb) {
 });
 
 gulp.task("clean:ts", function (cb) {
-	rimraf(paths.tsOutput, cb);
+	rimraf(paths.tsOutput + "*", cb);
 });
 
 gulp.task("clean", ["clean:js", "clean:css", "clean:ts"]);
