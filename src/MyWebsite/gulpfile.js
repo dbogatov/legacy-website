@@ -43,11 +43,7 @@ gulp.task("clean:css", function (cb) {
 	rimraf(paths.concatCssDest, cb);
 });
 
-gulp.task("clean:ts", function (cb) {
-	rimraf(paths.tsOutput + "*", cb);
-});
-
-gulp.task("clean", ["clean:js", "clean:css", "clean:ts"]);
+gulp.task("clean", ["clean:js", "clean:css"]);
 
 var tsProject = ts.createProject({
 	declarationFiles: true,
