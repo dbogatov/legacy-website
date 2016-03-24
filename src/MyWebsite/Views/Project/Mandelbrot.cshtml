@@ -7,29 +7,114 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-		<title></title>
+		<title>Mandelbrot</title>
 
 		<link href="/lib/ionic/css/ionic.css" rel="stylesheet">
 		<link href="/css/projects/mandelbrot/mandelbrot.css" rel="stylesheet">
-
-		<!-- IF using Sass (run gulp sass first), then remove the CSS include above
-		<link href="css/ionic.app.css" rel="stylesheet">
-		-->
-
+		
 		<!-- ionic/angularjs js -->
 		<script src="/lib/ionic/js/ionic.bundle.js"></script>
 
+		<script src="/lib/jquery/dist/jquery.js"></script>
+
 		<!-- your app's js -->
-		<script src="/js/Mandelbrot.js"></script>
+		<script src="/ts/Mandelbrot.js"></script>
 	</head>
 
-	<body ng-app="starter">
+	<body ng-app="starter" ng-controller="MainCtrl">
 		<ion-pane>
 			<ion-header-bar class="bar-stable">
-				<h1 class="title">Ionic Blank Starter</h1>
+				<h1 class="title">HU 3910 - Mandelbrot</h1>
+				<button class="button button-clear button-positive" ng-click="openModal()">
+					<i class="icon ion-gear-a"></i>
+				</button>
 			</ion-header-bar>
-			<ion-content class="has-header">
+			<ion-content id="ionicContent" class="has-header" scroll="false">
+				
+				<table style="width: 100%; text-align: center;">
+					<tbody>
+						<tr style="height: 50px;">
+							<td class="moveControl" colspan="3">Up</td>	
+						</tr>
+						<tr id="contentTR">
+							<td style="width: 50px;" class="moveControl">Left</td>	
+							<td id="contentCell">CONTENT</td>
+							<td style="width: 50px;" class="moveControl">Left</td>
+						</tr>
+						<tr style="height: 50px;">
+							<td colspan="3" class="moveControl">Down</td>	
+						</tr>
+					</tbody>	
+				</table>
 			</ion-content>
 		</ion-pane>
+		
+		<script id="settings-modal.html" type="text/ng-template">
+			<ion-modal-view>
+				<ion-header-bar>
+					<button class="button button-clear button-assertive" ng-click="closeModal()">
+						Cancel
+					</button>
+					<h1 class="title">Render Settings</h1>
+					<button class="button button-clear button-positive" ng-click="closeModal()">
+						Apply
+					</button>
+				</ion-header-bar>
+				<ion-content>
+					<div class="list">
+						<div class="item item-divider">
+							Light settings
+						</div>
+						
+						<label class="item item-input item-stacked-label">
+							<span class="input-label">Color</span>
+							
+							<div class="range range-assertive" style="width: 100%;">
+								<i class="icon ion-paintbrush assertive"></i>
+								<input type="range" name="volume" min="0" max="100" value="33">
+								<span>68</span>
+							</div>
+							<div class="range range-balanced" style="width: 100%;">
+								<i class="icon ion-paintbrush balanced"></i>
+								<input type="range" name="volume" min="0" max="100" value="33">
+								<span>68</span>
+							</div>
+							<div class="range range-positive" style="width: 100%;">
+								<i class="icon ion-paintbrush positive"></i>
+								<input type="range" name="volume" min="0" max="100" value="33">
+								<span>68</span>
+							</div>
+						</label>
+						
+						<div class="item item-divider">
+							Heavy settings
+						</div>
+						
+						<label class="item item-input item-stacked-label">
+							<span class="input-label">Iterations (higer - slower, more precise)</span>
+							<div class="range range-positive" style="width: 100%;">
+								<i class="icon ion-load-a"></i>
+								<input type="range" name="volume" min="0" max="100" value="33">
+								<span>68</span>
+							</div>
+						</label>
+						
+						<label class="item item-input item-stacked-label">
+							<span class="input-label">Gamma</span>
+							<div class="range range-royal" style="width: 100%;">
+								<i class="icon ion-ios-sunny"></i>
+								<input type="range" name="volume" min="0" max="100" value="33">
+								<span>0.68</span>
+							</div>
+						</label>
+					</div>
+					
+				</ion-content>
+				<ion-footer-bar class="bar bar-footer bar-balanced">
+					<p class="title">"Apply" will not recompute image from scratch<p>
+				</ion-footer-bar>
+			</ion-modal-view>
+		</script>
+		
 	</body>
 </html>

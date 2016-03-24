@@ -1,0 +1,16 @@
+td {
+    vertical-align: middle;
+}
+
+#contentCell {
+	border: 2px solid blue;
+}
+
+.moveControl {
+	background-color: lightblue;
+	opacity: 0.5;
+}
+
+.moveControl:hover { 
+    opacity: 1.0;
+}
