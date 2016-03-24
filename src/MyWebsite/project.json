@@ -53,6 +53,7 @@
     "prepublish": [
       "npm install",
       "bower install --allow-root",
+	  "gulp clean",
       "gulp min",
       "gulp ts-debug"
     ]
