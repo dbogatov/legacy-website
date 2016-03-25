@@ -10,14 +10,29 @@ namespace MyWebsite.Controllers.API.Projects
 	[Route("api/Projects/Mandelbrot")]
 	public class MandelbrotController : Controller
 	{
-
 		// GET: api/Projects/Mandelbrot
 		[HttpGet]
-		public IEnumerable<IEnumerable<int>> GetMandelbrot(MandelbrotViewModel model)
+		public MandelbrotModel GetNew(MandelbrotModel model)
 		{
-			Mandelbrot mandelbrot = new Mandelbrot(model);
+            Mandelbrot instance = Mandelbrot.GetNew(model.centerX, model.centerY, model.width, model.height, model.log2scale);
+            if (instance == null) return null;
 
-			return mandelbrot.computeMatrix();
+            return new MandelbrotModel
+            {
+                id = instance.id,
+                centerX = instance.centerX,
+                centerY = instance.centerY,
+                width = instance.width,
+                height = instance.height,
+                log2scale = instance.log2scale
+            };
 		}
-	}
+
+        // GET: api/Projects/Mandelbrot
+        [HttpGet]
+        public string GetData(MandelbrotModel model)
+        {
+            return Mandelbrot.GetData(model.id);
+        }
+    }
 }
