@@ -10,8 +10,9 @@ namespace MyWebsite.Controllers.API.Projects
 	[Route("api/Projects/Mandelbrot")]
 	public class MandelbrotController : Controller
 	{
-		// GET: api/Projects/Mandelbrot
+		// GET: api/Projects/Mandelbrot/GetNew
 		[HttpGet]
+		[Route("GetNew")]
 		public MandelbrotModel GetNew(MandelbrotModel model)
 		{
             Mandelbrot instance = Mandelbrot.GetNew(model.centerX, model.centerY, model.width, model.height, model.log2scale);
@@ -28,8 +29,9 @@ namespace MyWebsite.Controllers.API.Projects
             };
 		}
 
-        // GET: api/Projects/Mandelbrot
+        // GET: api/Projects/Mandelbrot/GetData
         [HttpGet]
+		[Route("GetData")]
         public string GetData(MandelbrotModel model)
         {
             return Mandelbrot.GetData(model.id);
