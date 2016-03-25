@@ -22,10 +22,7 @@ angular.module('starter', ['ionic'])
     $scope.$on('$destroy', function () {
         $scope.modal.remove();
     });
-    $scope.$on('modal.hidden', function () {
-    });
-    $scope.$on('modal.removed', function () {
-    });
+    new Settings($scope);
 });
 var Mandelbrot = (function () {
     function Mandelbrot() {
@@ -34,8 +31,52 @@ var Mandelbrot = (function () {
     Mandelbrot.prototype.setup = function () {
         $(window).resize(resizeHandler);
         $(window).trigger("resize");
+        $("#redColorRange").change(function () {
+            alert("H");
+        });
     };
     return Mandelbrot;
+}());
+var Settings = (function () {
+    function Settings($scope) {
+        this.colorElement = "colorsItem";
+        this.currentColor = {
+            redColor: 255,
+            greenColor: 255,
+            blueColor: 255
+        };
+        $scope.data = {
+            redColor: 255,
+            greenColor: 255,
+            blueColor: 255,
+            iterations: 1024,
+            gamma: 50
+        };
+        this.$scope = $scope;
+        var _this = this;
+        $scope.setRangeLabel = function (rangeName) {
+            var value = _this.$scope.data[rangeName];
+            $("#" + rangeName + "RangeLabel").text(value);
+            switch (rangeName) {
+                case "redColor":
+                case "greenColor":
+                case "blueColor":
+                    _this.currentColor[rangeName] = value;
+                    _this.setColor();
+                    break;
+                default:
+                    break;
+            }
+        };
+    }
+    Settings.prototype.setColor = function () {
+        $("#" + this.colorElement)
+            .css("background-color", "rgba("
+            + this.currentColor.redColor + ","
+            + this.currentColor.greenColor + ","
+            + this.currentColor.blueColor + ",1)");
+    };
+    return Settings;
 }());
 var resizeHandler = function () {
     $("#contentTR").height($("#ionicContent").height() - 100);

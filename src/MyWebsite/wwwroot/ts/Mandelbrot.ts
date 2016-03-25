@@ -32,14 +32,8 @@ angular.module('starter', ['ionic'])
 		$scope.$on('$destroy', function() {
 			$scope.modal.remove();
 		});
-		// Execute action on hide modal
-		$scope.$on('modal.hidden', function() {
-			// Execute action
-		});
-		// Execute action on remove modal
-		$scope.$on('modal.removed', function() {
-			// Execute action
-		});
+
+		new Settings($scope);
 	});
 
 /**
@@ -53,10 +47,69 @@ class Mandelbrot {
 	private setup(): void {
 		$(window).resize(resizeHandler);
 		$(window).trigger("resize");
+
+		$("#redColorRange").change(() => {
+			alert("H");
+		});
 	}
+}
+
+/**
+ * Settings
+ */
+class Settings {
+
+	private $scope: any;
+	private colorElement: string = "colorsItem";
+	private currentColor = {
+		redColor: 255,
+		greenColor: 255,
+		blueColor: 255
+	}
+
+	
+	constructor($scope : any) {
+
+		$scope.data = {
+			redColor: 255,
+			greenColor: 255,
+			blueColor: 255,
+			iterations: 1024,
+			gamma: 50
+		}
+
+		this.$scope = $scope;		
+
+		let _this = this;
+
+		$scope.setRangeLabel = function(rangeName) {
+			let value = _this.$scope.data[rangeName];
+			$("#" + rangeName + "RangeLabel").text(value);
+
+			switch (rangeName) {
+				case "redColor":
+				case "greenColor":
+				case "blueColor":
+					_this.currentColor[rangeName] = value;
+					_this.setColor();
+					break;
+				default:
+					break;
+			}
+		}		
+	}
+
+	private setColor() : void {
+		$("#" + this.colorElement)
+			.css(
+			"background-color",
+			"rgba("
+			+ this.currentColor.redColor + ","
+			+ this.currentColor.greenColor + ","
+			+ this.currentColor.blueColor + ",1)");
+	}	
 }
 
 let resizeHandler = () => {
 	$("#contentTR").height($("#ionicContent").height() - 100);
 };
-	
