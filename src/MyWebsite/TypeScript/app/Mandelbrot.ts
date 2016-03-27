@@ -45,8 +45,22 @@ class Mandelbrot {
 
 	private isLoaded: boolean = true;
 
-	private intervalDescriptor: number;	
-	
+	private intervalDescriptor: number;
+
+	private canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
+
+	private static mapAbcToNum = [
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0, 0,
+		0, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22,
+		21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 0, 0, 0, 63, 0,
+		0, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
+		52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 0, 0, 0, 0, 0
+	];
+
+
 	constructor() {
 		this.setup();
 		this.getNewFractal();
@@ -55,6 +69,13 @@ class Mandelbrot {
 	private setup(): void {
 		$(window).resize(resizeHandler);
 		$(window).trigger("resize");
+
+		// Make canvas visually fill the positioned parent
+		this.canvas.style.width = "100%";
+		this.canvas.style.height = "100%";
+		// ...then set the internal size to match
+		this.canvas.width = this.canvas.offsetWidth;
+		this.canvas.height = this.canvas.offsetHeight;
 	}
 
 	private getNewFractal() {
@@ -62,11 +83,11 @@ class Mandelbrot {
 		this.fractalData = null;
 		this.fractalModel = null;
 		clearInterval(this.intervalDescriptor);
-		
+
 		$.get(this.apiUrl + "GetNew", new ViewModel(), model => {
 			this.fractalModel = model;
 
-			this.intervalDescriptor = setInterval(() => { 
+			this.intervalDescriptor = setInterval(() => {
 				this.reloadFractal()
 			}, 2000);
 		});
@@ -87,31 +108,35 @@ class Mandelbrot {
 					clearInterval(this.intervalDescriptor);
 				}
 			}
-		});	
+		});
 	}
 
 	private redrawFractal() {
-		console.log(this.fractalData);
+
+		let ctx: CanvasRenderingContext2D = this.canvas.getContext("2d");
+		let imgData: ImageData = ctx.createImageData(this.fractalModel.width, this.fractalModel.height);
+
+		for (var i = 0; i < imgData.data.length; i += 4) {
+			imgData.data[i + 0] = 255;
+			imgData.data[i + 1] = 0;
+			imgData.data[i + 2] = 0;
+			imgData.data[i + 3] = 255;
+		}
+
+		ctx.putImageData(imgData, 0, 0);
 	}
 
 	private parseData(data: string): number[] {
-		const mapAbcToNum =
-			[
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0, 0,
-				0, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22,
-				21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 0, 0, 0, 63, 0,
-				0, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
-				52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 0, 0, 0, 0, 0
-			]
+		let map = Mandelbrot.mapAbcToNum;
+
 		let result: number[] = new Array<number>(data.length / 2);
 		for (var i = 0; i < result.length; i++) {
-			result[i] = (mapAbcToNum[data.charCodeAt(i << 1) & 127] << 6) |
-				mapAbcToNum[data.charCodeAt((i << 1) | 1) & 127];
+			result[i] =
+				(map[data.charCodeAt(i << 1) & 127] << 6) |
+				map[data.charCodeAt((i << 1) | 1) & 127];
 		}
 		return result;
+
 	}
 }
 
