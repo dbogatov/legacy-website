@@ -174,7 +174,8 @@ namespace MyWebsite.Models.Mandelbrot
 
             this.incomplete = n;
             this.iterations = 0;
-			this.maxDoneOnStep = 10; 
+			this.maxDoneOnStep = 0;
+			this.lastIteration = 0;
 
             lastAccessTime = DateTime.UtcNow;
         }
@@ -216,17 +217,16 @@ namespace MyWebsite.Models.Mandelbrot
                     layers.Add(new LayerData(iterations, doneOnStep));
                     incomplete = n;
                 }
-            } while (
-				incomplete > 0
-				&& iterations - lastIteration < maxDoneOnStep
-				&& !stop);
+				if (stop) break;
+				if (lastIteration > 0 && iterations - lastIteration > maxDoneOnStep) break;
+            } while (incomplete > 0);
 
             working = false;
         }
 
         private string display()
         {
-            if ((DateTime.UtcNow - lastAccessTime).TotalSeconds < 2) return null;
+            if (layers.Count == 0 || (DateTime.UtcNow - lastAccessTime).TotalSeconds < 2) return null;
 
             int ready = layers.Count;
             double[] Ls = new double[ready];
