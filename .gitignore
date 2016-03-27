@@ -164,3 +164,7 @@ src/MyWebsite/wwwroot/js/site.min.js
 
 # node_packages
 **/node_modules/
+
+# Lock file
+# src/MyWensite/project.lock.json
+src/MyWebsite/project.lock.json
