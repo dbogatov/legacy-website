@@ -62,8 +62,8 @@ class Settings {
 		greenColor: 255,
 		blueColor: 255
 	}
-	
-	constructor($scope : any) {
+
+	constructor($scope: any) {
 
 		$scope.data = {
 			redColor: 255,
@@ -73,7 +73,7 @@ class Settings {
 			gamma: 50
 		}
 
-		this.$scope = $scope;		
+		this.$scope = $scope;
 
 		let _this = this;
 
@@ -91,10 +91,10 @@ class Settings {
 				default:
 					break;
 			}
-		}		
+		}
 	}
 
-	private setColor() : void {
+	private setColor(): void {
 		$("#" + this.colorElement)
 			.css(
 			"background-color",
@@ -102,7 +102,27 @@ class Settings {
 			+ this.currentColor.redColor + ","
 			+ this.currentColor.greenColor + ","
 			+ this.currentColor.blueColor + ",1)");
-	}	
+	}
+
+	private parseData(data: string): number[] {
+		const mapAbcToNum =
+			[
+				 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				 1,  2,  3,  4,  5,  6,  7,  8,  9, 10,  0,  0,  0,  0,  0,  0,
+				 0, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22,
+				21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11,  0,  0,  0, 63,  0,
+				 0, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
+				52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62,  0,  0,  0,  0,  0
+			]
+		let result: number[] = new Array<number>(data.length / 2);
+		for (var i = 0; i < result.length; i++) {
+			result[i] = (mapAbcToNum[data.charCodeAt(i << 1) & 127] << 6) |
+				mapAbcToNum[data.charCodeAt((i << 1) | 1) & 127];
+		}
+		return result;
+	}
 }
 
 let resizeHandler = () => {
