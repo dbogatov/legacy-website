@@ -37,12 +37,16 @@ angular.module('starter', ['ionic'])
  */
 class Mandelbrot {
 
-	private apiUrl: string = "api/Projects/Mandelbrot/";
+	private apiUrl: string = "/api/Projects/Mandelbrot/";
 
-	private fractalId: number = undefined;
+	private fractalModel: ViewModel;
 
 	private fractalData: number[];
 
+	private isLoaded: boolean = true;
+
+	private intervalDescriptor: number;	
+	
 	constructor() {
 		this.setup();
 		this.getNewFractal();
@@ -54,17 +58,36 @@ class Mandelbrot {
 	}
 
 	private getNewFractal() {
+		this.isLoaded = false;
+		this.fractalData = null;
+		this.fractalModel = null;
+		clearInterval(this.intervalDescriptor);
+		
 		$.get(this.apiUrl + "GetNew", new ViewModel(), model => {
-			this.fractalId = model.id;
+			this.fractalModel = model;
 
-			this.reloadFractal();
+			this.intervalDescriptor = setInterval(() => { 
+				this.reloadFractal()
+			}, 2000);
 		});
 	}
 
 	private reloadFractal() {
-		$.get(this.apiUrl + "GetData", { id: this.fractalId }, rawData => {
-			this.fractalData = this.parseData(rawData);
+		$.get(this.apiUrl + "GetData", { id: this.fractalModel.id }, rawData => {
+			if (rawData != null) {
+				this.fractalData = this.parseData(rawData);
+				this.redrawFractal();
+			}
 		});
+
+		$.get(this.apiUrl + "IsDone", { id: this.fractalModel.id }, response => {
+			if (response != null) {
+				this.isLoaded = response;
+				if (this.isLoaded) {
+					clearInterval(this.intervalDescriptor);
+				}
+			}
+		});	
 	}
 
 	private redrawFractal() {
@@ -156,6 +179,7 @@ class ViewModel {
 	public width: number;
 	public height: number;
 	public scale: number;
+	public id: number;
 
 	constructor();
 	constructor(
@@ -163,13 +187,15 @@ class ViewModel {
 		centerY?: number,
 		width?: number,
 		height?: number,
-		scale?: number
+		scale?: number,
+		id?: number
 	) {
 		this.centerX = centerX || 500;
 		this.centerY = centerY || 500;
 		this.width = width || 500;
 		this.height = height || 500;
 		this.scale = scale || 2;
+		this.id = id;
 	}
 }
 
