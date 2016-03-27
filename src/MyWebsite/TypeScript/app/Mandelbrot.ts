@@ -178,7 +178,7 @@ class ViewModel {
 	public centerY: number;
 	public width: number;
 	public height: number;
-	public scale: number;
+	public log2scale: number;
 	public id: number;
 
 	constructor();
@@ -190,11 +190,11 @@ class ViewModel {
 		scale?: number,
 		id?: number
 	) {
-		this.centerX = centerX || 500;
-		this.centerY = centerY || 500;
+		this.centerX = centerX || 0;
+		this.centerY = centerY || 0;
 		this.width = width || 500;
 		this.height = height || 500;
-		this.scale = scale || 2;
+		this.log2scale = scale || 7;
 		this.id = id;
 	}
 }
