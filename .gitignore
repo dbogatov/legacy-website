@@ -156,11 +156,11 @@ $RECYCLE.BIN/
 .DS_Store
 
 # TypeScript output
-MyWebsite/src/MyWebsite/wwwroot/ts/*
+src/MyWebsite/wwwroot/ts/*
 
 # CSS Output
-MyWebsite/src/MyWebsite/wwwroot/css/site.min.css
-MyWebsite/src/MyWebsite/wwwroot/js/site.min.js
+src/MyWebsite/wwwroot/css/site.min.css
+src/MyWebsite/wwwroot/js/site.min.js
 
 # node_packages
 **/node_modules/
