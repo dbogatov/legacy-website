@@ -15,7 +15,7 @@ namespace MyWebsite.Controllers.API.Projects
 		[Route("GetNew")]
 		public MandelbrotModel GetNew(MandelbrotModel model)
 		{
-            Mandelbrot instance = Mandelbrot.GetNew(model.centerX, model.centerY, model.width, model.height, model.log2scale);
+            Mandelbrot instance = Mandelbrot.GetNew(model.id, model.centerX, model.centerY, model.width, model.height, model.log2scale);
             if (instance == null) return null;
 
             return new MandelbrotModel
@@ -32,9 +32,9 @@ namespace MyWebsite.Controllers.API.Projects
         // GET: api/Projects/Mandelbrot/GetData
         [HttpGet]
 		[Route("GetData")]
-        public string GetData(MandelbrotModel model)
+        public string GetData(int id)
         {
-            return Mandelbrot.GetData(model.id);
+            return Mandelbrot.GetData(id);
         }
     }
 }

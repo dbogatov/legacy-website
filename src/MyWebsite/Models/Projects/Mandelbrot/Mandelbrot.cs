@@ -49,16 +49,33 @@ namespace MyWebsite.Models.Mandelbrot
             (new Thread(monitor)).Start();
         }
 
-        public static Mandelbrot GetNew(double centerX, double centerY, int width, int height, byte log2scale)
+        public static Mandelbrot GetNew(int oldId, double centerX, double centerY, int width, int height, byte log2scale)
         {
-            if (all.Count > 11) return null;
+            if (oldId != 0)
+            {
+                Mandelbrot oldOne;
+                if (all.TryGetValue(oldId, out oldOne))
+                {
+                    oldOne.stop = true;
+                    all.Remove(oldId);
+                }
+                else return null;
+            }
+            else
+            {
+                if (all.Count > 11) return null;
 
-            int active = 0;
-            foreach (Mandelbrot instance in all.Values)
-                if (instance.working) active += 1;
-            if (active > 1) return null;
+                int active = 0;
+                foreach (Mandelbrot instance in all.Values)
+                    if (instance.working) active += 1;
+                if (active > 1) return null;
+            }
 
-            Mandelbrot newOne = new Mandelbrot(centerX, centerY, width, height, log2scale);
+            int newId;
+            do newId = rnd.Next(1, int.MaxValue);
+            while (all.ContainsKey(newId));
+
+            Mandelbrot newOne = new Mandelbrot(newId, centerX, centerY, width, height, log2scale);
             all.Add(newOne.id, newOne);
 
             (new Thread(newOne.calculate)).Start();
@@ -122,12 +139,9 @@ namespace MyWebsite.Models.Mandelbrot
         readonly PixelData[] pixels;
         readonly List<LayerData> layers;
 
-        private Mandelbrot(double centerX, double centerY, int width, int height, byte log2scale)
+        private Mandelbrot(int id, double centerX, double centerY, int width, int height, byte log2scale)
         {
-            byte[] idBytes = new byte[4];
-            do rnd.NextBytes(idBytes);
-            while ((this.id = BitConverter.ToInt32(idBytes, 0)) == 0);
-
+            this.id = id;
             this.width = width - (width % 2);
             this.height = height - (height % 2);
             this.log2scale = log2scale;
