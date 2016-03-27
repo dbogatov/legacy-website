@@ -86,13 +86,22 @@ namespace MyWebsite.Models.Mandelbrot
         public static string GetData(int id)
         {
             Mandelbrot instance;
-            if (all.TryGetValue(id, out instance) && !instance.drawing)
+            if (all.TryGetValue(id, out instance))
             {
-                return new string(instance.display());
+				return instance.display();
+            }
+            return null;
+		}
+
+        public static bool? IsDone(int id)
+        {
+            Mandelbrot instance;
+            if (all.TryGetValue(id, out instance))
+            {
+                return !instance.working;
             }
             return null;
         }
-
 
         private static readonly byte[] mapAbcToNum = new byte[128]
         {
@@ -119,12 +128,12 @@ namespace MyWebsite.Models.Mandelbrot
         private DateTime lastAccessTime;
 
         private bool working;
-        private bool drawing;
-
         private bool stop;
 
         private int incomplete;
         private int iterations;
+		private int maxDoneOnStep;
+		private int lastIteration;
 
         public readonly int id;
 
@@ -163,8 +172,9 @@ namespace MyWebsite.Models.Mandelbrot
                 }
             }
 
-            incomplete = n;
-            iterations = 0;
+            this.incomplete = n;
+            this.iterations = 0;
+			this.maxDoneOnStep = 10; 
 
             lastAccessTime = DateTime.UtcNow;
         }
@@ -199,18 +209,24 @@ namespace MyWebsite.Models.Mandelbrot
                 iterations += 1;
                 if (n < incomplete)
                 {
+					lastIteration = iterations;
                     int doneOnStep = incomplete - n;
+					if (doneOnStep > maxDoneOnStep)
+						maxDoneOnStep = doneOnStep;
                     layers.Add(new LayerData(iterations, doneOnStep));
                     incomplete = n;
                 }
-            } while (incomplete > 0 && !stop);
+            } while (
+				incomplete > 0
+				&& iterations - lastIteration < maxDoneOnStep
+				&& !stop);
 
             working = false;
         }
 
-        private char[] display()
+        private string display()
         {
-            drawing = true;
+            if ((DateTime.UtcNow - lastAccessTime).TotalSeconds < 2) return null;
 
             int ready = layers.Count;
             double[] Ls = new double[ready];
@@ -236,9 +252,9 @@ namespace MyWebsite.Models.Mandelbrot
                 }
             }
 
-            drawing = false;
+            lastAccessTime = DateTime.UtcNow;
 
-            return result;
+            return new string(result);
         }
     }
 
