@@ -96,8 +96,7 @@ class Mandelbrot {
 	private reloadFractal() {
 		$.get(this.apiUrl + "GetData", { id: this.fractalModel.id }, rawData => {
 			if (rawData != null) {
-				this.fractalData = this.parseData(rawData);
-				this.redrawFractal();
+				this.redrawFractal(rawData);
 			}
 		});
 
@@ -111,32 +110,27 @@ class Mandelbrot {
 		});
 	}
 
-	private redrawFractal() {
+	private redrawFractal(data: string) {
+
+		let map = Mandelbrot.mapAbcToNum;
 
 		let ctx: CanvasRenderingContext2D = this.canvas.getContext("2d");
 		let imgData: ImageData = ctx.createImageData(this.fractalModel.width, this.fractalModel.height);
 
-		for (var i = 0; i < imgData.data.length; i += 4) {
-			imgData.data[i + 0] = 255;
-			imgData.data[i + 1] = 0;
-			imgData.data[i + 2] = 0;
-			imgData.data[i + 3] = 255;
-		}
+		let points = imgData.data.length / 4;
 
-		ctx.putImageData(imgData, 0, 0);
-	}
-
-	private parseData(data: string): number[] {
-		let map = Mandelbrot.mapAbcToNum;
-
-		let result: number[] = new Array<number>(data.length / 2);
-		for (var i = 0; i < result.length; i++) {
-			result[i] =
+		for (var i = 0; i < points; i++) {
+			var value =
 				(map[data.charCodeAt(i << 1) & 127] << 6) |
 				map[data.charCodeAt((i << 1) | 1) & 127];
-		}
-		return result;
+			
+			imgData.data[(i << 2)] = Math.floor(value >> 4);
+			imgData.data[(i << 2) | 1] = Math.floor(value >> 4);
+			imgData.data[(i << 2) | 2] = Math.floor(value >> 4);
+			imgData.data[(i << 2) | 3] = 255;
 
+		}
+		ctx.putImageData(imgData, 0, 0);
 	}
 }
 
