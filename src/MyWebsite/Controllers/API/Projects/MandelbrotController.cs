@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.AspNet.Mvc;
 using MyWebsite.Models.Mandelbrot;
 using MyWebsite.ViewModels.Mandelbrot;
@@ -35,6 +34,14 @@ namespace MyWebsite.Controllers.API.Projects
         public string GetData(int id)
         {
             return Mandelbrot.GetData(id);
+        }
+
+        // GET: api/Projects/Mandelbrot/IsDone
+        [HttpGet]
+		[Route("IsDone")]
+        public bool? IsDone(int id)
+        {
+            return Mandelbrot.IsDone(id);
         }
     }
 }
