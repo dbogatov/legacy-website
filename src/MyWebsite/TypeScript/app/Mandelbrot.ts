@@ -84,8 +84,10 @@ class Mandelbrot {
 		this.fractalModel = null;
 		clearInterval(this.intervalDescriptor);
 
-		$.get(this.apiUrl + "GetNew", new ViewModel(), model => {
-			this.fractalModel = model;
+		$.get(this.apiUrl + "GetNew", new ViewModel(this.canvas), model => {
+			
+			this.fractalModel = new ViewModel(this.canvas)
+			this.fractalModel.initWithModel(model);
 
 			this.intervalDescriptor = setInterval(() => {
 				this.reloadFractal()
@@ -200,21 +202,25 @@ class ViewModel {
 	public log2scale: number;
 	public id: number;
 
-	constructor();
-	constructor(
-		centerX?: number,
-		centerY?: number,
-		width?: number,
-		height?: number,
-		scale?: number,
-		id?: number
-	) {
-		this.centerX = centerX || 0;
-		this.centerY = centerY || 0;
-		this.width = width || 500;
-		this.height = height || 500;
-		this.log2scale = scale || 7;
-		this.id = id;
+	constructor(canvas: HTMLCanvasElement)  {
+		this.centerX = -0.7794494628906250;
+		this.centerY = -0.1276645660400390;
+		this.width = canvas.width;
+		this.height = canvas.height;
+		this.log2scale = 19;
+	}
+
+	public initWithModel(model: any): void {
+		if (model == null) {
+			return;
+		}
+		
+		this.centerX = model.centerX;
+		this.centerY = model.centerY;
+		this.width = model.width;
+		this.height = model.height;
+		this.log2scale = model.log2scale;
+		this.id = model.id;
 	}
 }
 
