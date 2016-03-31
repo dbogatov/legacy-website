@@ -63,7 +63,7 @@ class Mandelbrot {
 
 	constructor() {
 		this.setup();
-		this.getNewFractal();
+		//this.getNewFractal();
 	}
 
 	private setup(): void {

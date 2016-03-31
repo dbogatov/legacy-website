@@ -45,8 +45,7 @@ namespace MyWebsite
 				.AddSqlServer()
 				.AddDbContext<DataContext>();
 
-			DataContext.connectionString = Configuration["DataAccessPostgreSqlProvider:AnothCS"]; 
-			//Configuration["Data:DefaultConnection:ConnectionString"];
+			DataContext.connectionString = Configuration["DataAccessPostgreSqlProvider:ConnectionString"]; 
 
 			services.AddMvc();
 			services.AddCaching();

@@ -40,8 +40,6 @@ namespace MyWebsite.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            
-            //options.UseSqlServer(DataContext.connectionString);
             //options.UseInMemoryDatabase();
             options.UseNpgsql(DataContext.connectionString);
         }
@@ -51,6 +49,9 @@ namespace MyWebsite.Models
             modelBuilder.Entity<Course>().HasOne(c => c.Requirement).WithMany().HasForeignKey(c => c.ReqId);
             modelBuilder.Entity<Requirement>().HasOne(r => r.ParentRequirement).WithMany().HasForeignKey(c => c.ParentReqId);
             modelBuilder.Entity<Leaderboard>().HasOne(l => l.NickNameId).WithMany().HasForeignKey(l => l.UserId);
+			
+			modelBuilder.HasDefaultSchema("dbogatov");
+        	base.OnModelCreating(modelBuilder);
         }
 
         public void EnsureSeedData()
