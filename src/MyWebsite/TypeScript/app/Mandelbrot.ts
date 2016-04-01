@@ -5,7 +5,7 @@
 angular.module('starter', ['ionic'])
 	.run(function($ionicPlatform) {
 		$ionicPlatform.ready(function() {
-			new Mandelbrot();
+
 		});
 	})
 	.controller('MainCtrl', function($scope, $ionicModal) {
@@ -28,6 +28,8 @@ angular.module('starter', ['ionic'])
 		$scope.$on('$destroy', function() {
 			$scope.modal.remove();
 		});
+
+		new Mandelbrot($scope);
 
 		new Settings($scope);
 	});
@@ -60,10 +62,13 @@ class Mandelbrot {
 		52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 0, 0, 0, 0, 0
 	];
 
+	private _scope: any;
 
-	constructor() {
+	constructor($scope: any) {
+		this._scope = $scope;
+
 		this.setup();
-		//this.getNewFractal();
+		this.getNewFractal();
 	}
 
 	private setup(): void {
@@ -76,6 +81,26 @@ class Mandelbrot {
 		// ...then set the internal size to match
 		this.canvas.width = this.canvas.offsetWidth;
 		this.canvas.height = this.canvas.offsetHeight;
+
+		this._scope.exportImage = () => {
+			if (confirm("Do you want to download the current fractal as PNG image?")) {
+
+				this.isLoaded = true;
+
+				var dt = this.canvas.toDataURL('image/png');
+				// Change MIME type to trick the browser to downlaod the file instead of displaying it
+				dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
+
+				// In addition to <a>'s "download" attribute, you can define HTTP-style headers
+				dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=Canvas.png');
+
+				var link: HTMLAnchorElement = document.createElement("a");
+				link.href = dt;
+				link.download = "Mandelbrot.png";
+
+				link.click();
+			}
+		}
 	}
 
 	private getNewFractal() {
@@ -85,7 +110,7 @@ class Mandelbrot {
 		clearInterval(this.intervalDescriptor);
 
 		$.get(this.apiUrl + "GetNew", new ViewModel(this.canvas), model => {
-			
+
 			this.fractalModel = new ViewModel(this.canvas)
 			this.fractalModel.initWithModel(model);
 
@@ -104,7 +129,9 @@ class Mandelbrot {
 
 		$.get(this.apiUrl + "IsDone", { id: this.fractalModel.id }, response => {
 			if (response != null) {
-				this.isLoaded = response;
+				if (!response) {
+					this.isLoaded = false;
+				}
 				if (this.isLoaded) {
 					clearInterval(this.intervalDescriptor);
 				}
@@ -125,7 +152,7 @@ class Mandelbrot {
 			var value =
 				(map[data.charCodeAt(i << 1) & 127] << 6) |
 				map[data.charCodeAt((i << 1) | 1) & 127];
-			
+
 			imgData.data[(i << 2)] = Math.floor(value >> 4);
 			imgData.data[(i << 2) | 1] = Math.floor(value >> 4);
 			imgData.data[(i << 2) | 2] = Math.floor(value >> 4);
@@ -202,7 +229,7 @@ class ViewModel {
 	public log2scale: number;
 	public id: number;
 
-	constructor(canvas: HTMLCanvasElement)  {
+	constructor(canvas: HTMLCanvasElement) {
 		this.centerX = -0.7794494628906250;
 		this.centerY = -0.1276645660400390;
 		this.width = canvas.width;
@@ -214,7 +241,7 @@ class ViewModel {
 		if (model == null) {
 			return;
 		}
-		
+
 		this.centerX = model.centerX;
 		this.centerY = model.centerY;
 		this.width = model.width;
@@ -228,3 +255,7 @@ let resizeHandler = () => {
 	$("#contentTR").height($("#ionicContent").height() - 100);
 };
 
+// For some reason, TS does not know about this property
+interface HTMLAnchorElement {
+    download: string;
+}

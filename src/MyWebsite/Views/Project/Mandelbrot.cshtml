@@ -24,10 +24,13 @@
 	<body ng-app="starter" ng-controller="MainCtrl">
 		<ion-pane>
 			<ion-header-bar class="bar-stable">
-				<h1 class="title">HU 3910 - Mandelbrot</h1>
 				<button class="button button-clear button-positive" ng-click="openModal()">
 					<i class="icon ion-gear-a"></i>
 				</button>
+				<h1 class="title">HU 3910 - Mandelbrot</h1>
+				<a class="button button-clear button-positive" ng-click="exportImage()" download="Ьфтвудикще.png" href="#">
+					<i class="icon ion-ios-upload-outline"></i>
+				</a>
 			</ion-header-bar>
 			<ion-content id="ionicContent" class="has-header" scroll="false">
 				
