@@ -34,24 +34,48 @@
 			</ion-header-bar>
 			<ion-content id="ionicContent" class="has-header" scroll="false">
 				
-				<table style="width: 100%; text-align: center;">
+				<canvas id="myCanvas" width="200" height="100" style="position: absolute;">
+					Your browser does not support the canvas element.
+				</canvas>
+				
+				<table style="width: 100%; text-align: center; position: absolute; font-size: 50px;">
 					<tbody>
 						<tr style="height: 50px;">
-							<td class="moveControl" colspan="3">Up</td>	
+							<td class="moveControl" colspan="3" ng-click="move( 'up' )">
+								<i class="icon ion-arrow-up-b positive"></i>
+							</td>	
 						</tr>
 						<tr id="contentTR">
-							<td style="width: 50px;" class="moveControl">Left</td>	
-							<td id="contentCell">
-								<canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;">
-									Your browser does not support the canvas element.
-								</canvas>						
+							<td style="width: 50px;" class="moveControl" ng-click="move( 'left' )">
+								<i class="icon ion-arrow-left-b positive"></i>	
+							</td>	
+							<td id="contentCell" style="vertical-align: top;">
+								
+								<div style="position: relative;">
+									<div id="zoomPanel">
+										<a class="assertive" ng-click="zoom( 'out' )">
+											<i class="icon ion-minus"></i>
+										</a>
+										<span style="margin-left: 10px; margin-right: 10px;">
+											Zoom
+										</span>
+										<a class="assertive" ng-click="zoom( 'in' )">
+											<i class="icon ion-plus"></i>
+										</a>
+									</div>
+								</div>
+								
 							</td>
-							<td style="width: 50px;" class="moveControl">Left</td>
+							<td style="width: 50px;" class="moveControl" ng-click="move( 'right' )">
+								<i class="icon ion-arrow-right-b positive"></i>
+							</td>
 						</tr>
 						<tr style="height: 50px;">
-							<td colspan="3" class="moveControl">Down</td>	
+							<td colspan="3" class="moveControl" ng-click="move( 'down' )">
+								<i class="icon ion-arrow-down-b positive"></i>	
+							</td>	
 						</tr>
-					</tbody>	
+					</tbody>
 				</table>
 			</ion-content>
 		</ion-pane>

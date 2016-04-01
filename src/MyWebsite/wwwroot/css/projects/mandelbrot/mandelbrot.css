@@ -7,14 +7,27 @@ td {
 }
 
 #contentCell {
-	border: 2px solid blue;
+	border: 1px solid white;
 }
 
 .moveControl {
-	background-color: lightblue;
-	opacity: 0.5;
+	background-color: rgba(125, 142, 146, 0.4);
 }
 
 .moveControl:hover { 
-    opacity: 1.0;
+    background-color: rgba(125, 142, 146, 0.7);
+}
+
+#zoomPanel {
+	position: absolute;
+	width: 180px;
+	height: 40px;
+	left: 15px;
+	top: 15px;
+	background-color: rgba(125, 142, 146, 0.95);
+	border-radius: 15px;
+	font-size: 30px;
+	
+	text-align: center;
+	line-height: 40px;
 }

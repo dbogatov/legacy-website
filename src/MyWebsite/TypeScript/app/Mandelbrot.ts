@@ -101,6 +101,14 @@ class Mandelbrot {
 				link.click();
 			}
 		}
+
+		this._scope.zoom = (direction: string) => {
+			alert("Zoom " + direction);
+		}
+
+		this._scope.move = (direction: string) => {
+			alert("Move " + direction);
+		}
 	}
 
 	private getNewFractal() {
