@@ -94,7 +94,7 @@
 				<ion-content>
 					<div class="list">
 						<div class="item item-divider">
-							Light settings
+							Color settings
 						</div>
 						
 						<div class="item" id="colorsItem" style="height: 50px;"></div>
@@ -117,28 +117,6 @@
 								<i class="icon ion-paintbrush positive"></i>
 								<input id="blueColorRange" type="range" min="0" max="255" ng-model="data.blueColor" ng-change="setRangeLabel( 'blueColor' )">
 								<span id="blueColorRangeLabel">255</span>
-							</div>
-						</label>
-						
-						<div class="item item-divider">
-							Heavy settings
-						</div>
-						
-						<label class="item item-input item-stacked-label">
-							<span class="input-label">Iterations (higer - slower, more precise)</span>
-							<div class="range range-positive" style="width: 100%;">
-								<i class="icon ion-load-a"></i>
-								<input id="iterationsRange" type="range" min="50" max="4096" ng-model="data.iterations" ng-change="setRangeLabel( 'iterations' )">
-								<span id="iterationsRangeLabel">1024</span>
-							</div>
-						</label>
-						
-						<label class="item item-input item-stacked-label">
-							<span class="input-label">Gamma (%)</span>
-							<div class="range range-royal" style="width: 100%;">
-								<i class="icon ion-ios-sunny"></i>
-								<input id="gammaRange" type="range" min="10" max="100" ng-model="data.gamma" ng-change="setRangeLabel( 'gamma' )">
-								<span id="gammaRangeLabel">50</span>
 							</div>
 						</label>
 					</div>
