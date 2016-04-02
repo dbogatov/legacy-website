@@ -125,28 +125,33 @@ namespace MyWebsite.Models.Mandelbrot
 
         private static Random rnd = new Random();
 
+        public readonly int id;
+        public readonly int width;
+        public readonly int height;
+        public readonly double centerX;
+        public readonly double centerY;
+        public readonly byte log2scale;
+
+        private readonly int total;
+        private readonly double[] xValues;
+        private readonly double[] yValues;
+        private readonly double[] xArray;
+        private readonly double[] yArray;
+        private readonly ushort[] result;
+        private readonly uint[] iterations;
+        private readonly uint[] pointsDone;
+
+        private uint totalDone;
+        private uint maxDoneOnStep;
+        private uint iteration;
+        private uint lastIteration;
+        private ushort layer;
+        private ushort nextLayer;
+
         private DateTime lastAccessTime;
 
         private bool working;
         private bool stop;
-
-        private int incomplete;
-        private int iterations;
-		private int maxDoneOnStep;
-		private int lastIteration;
-
-        public readonly int id;
-
-        public readonly byte log2scale;
-
-        public readonly int width;
-        public readonly int height;
-
-        public readonly double centerX;
-        public readonly double centerY;
-
-        readonly PixelData[] pixels;
-        readonly List<LayerData> layers;
 
         private Mandelbrot(int id, double centerX, double centerY, int width, int height, byte log2scale)
         {
@@ -158,24 +163,41 @@ namespace MyWebsite.Models.Mandelbrot
             this.centerX = centerX - (centerX % delta);
             this.centerY = centerY - (centerY % delta);
 
-            this.layers = new List<LayerData>();
-            this.pixels = new PixelData[this.width * this.height];
+            this.total = this.width * this.height;
 
-            int n = 0;
+            this.xValues = new double[this.width];
+            this.yValues = new double[this.height];
+            this.xArray = new double[this.total];
+            this.yArray = new double[this.total];
+            this.result = new ushort[this.total];
+            this.iterations = new uint[65536];
+            this.pointsDone = new uint[65536];
+
+            for (int xi = 0; xi < this.width; xi++)
+                xValues[xi] = this.centerX + delta * (xi - this.width / 2);
+
+            for (int yi = 0; yi < this.height; yi++)
+                yValues[yi] = this.centerY + delta * (yi - this.height / 2);
+
+            int pi = 0;
             for (int yi = 0; yi < this.height; yi++)
             {
-                double y = this.centerY + delta * (yi - this.height / 2);
                 for (int xi = 0; xi < this.width; xi++)
                 {
-                    double x = this.centerX + delta * (xi - this.width / 2);
-                    pixels[n++] = new PixelData(x, y, xi, yi);
+                    xArray[pi] = xValues[xi];
+                    yArray[pi] = yValues[yi];
+                    pi++;
                 }
             }
 
-            this.incomplete = n;
-            this.iterations = 0;
-			this.maxDoneOnStep = 0;
+            this.totalDone = 0;
+            this.maxDoneOnStep = 0;
+
+            this.iteration = 0;
 			this.lastIteration = 0;
+
+            this.layer = 0;
+            this.nextLayer = 1;
 
             lastAccessTime = DateTime.UtcNow;
         }
@@ -184,100 +206,85 @@ namespace MyWebsite.Models.Mandelbrot
         {
             working = true;
 
-            int n = incomplete;
-
-            do
+            while (totalDone < total)
             {
-                for (int i = 0; i < n;)
+                int pi = 0;
+                uint doneOnStep = 0;
+                for (int yi = 0; yi < this.height; yi++)
                 {
-                    double xx = pixels[i].x * pixels[i].x;
-                    double yy = pixels[i].y * pixels[i].y;
-                    if (xx + yy > 4)
+                    for (int xi = 0; xi < this.width; xi++)
                     {
-                        n -= 1;
-                        PixelData done = pixels[i];
-                        pixels[i] = pixels[n];
-                        pixels[n] = done;
-                    }
-                    else
-                    {
-                        double xy = pixels[i].x * pixels[i].y;
-                        pixels[i].x = xx - yy + pixels[i].x0;
-                        pixels[i].y = 2 * xy + pixels[i].y0;
-                        i += 1;
+                        if (result[pi] == 0)
+                        {
+                            double x = xArray[pi];
+                            double y = yArray[pi];
+                            double xx = x * x;
+                            double yy = y * y;
+                            if (xx + yy > 4)
+                            {
+                                doneOnStep += 1;
+                                result[pi] = nextLayer;
+                            }
+                            else
+                            {
+                                xArray[pi] = xx - yy + xValues[xi];
+                                yArray[pi] = 2 * x * y + yValues[yi];
+                            }
+                        }
+                        pi += 1;
                     }
                 }
-                iterations += 1;
-                if (n < incomplete)
+                iteration += 1;
+
+                if (doneOnStep > 0)
                 {
-					lastIteration = iterations;
-                    int doneOnStep = incomplete - n;
-					if (doneOnStep > maxDoneOnStep)
-						maxDoneOnStep = doneOnStep;
-                    layers.Add(new LayerData(iterations, doneOnStep));
-                    incomplete = n;
+                    if (maxDoneOnStep < doneOnStep)
+                        maxDoneOnStep = doneOnStep;
+                    lastIteration = iteration;
+
+                    iterations[nextLayer] = iteration;
+                    pointsDone[nextLayer] = doneOnStep;
+                    layer = nextLayer;
+                    nextLayer += 1;
+                    totalDone += doneOnStep;
                 }
-				if (stop) break;
-				if (lastIteration > 0 && iterations - lastIteration > maxDoneOnStep) break;
-            } while (incomplete > 0);
+                if (stop) break;
+				if (lastIteration > 0 && iteration - lastIteration > maxDoneOnStep) break;
+            }
 
             working = false;
         }
 
         private string display()
         {
-            if (layers.Count == 0 || (DateTime.UtcNow - lastAccessTime).TotalSeconds < 2) return null;
+            if (layer == 0 || (DateTime.UtcNow - lastAccessTime).TotalSeconds < 2) return null;
 
-            int ready = layers.Count;
+            int ready = layer;
             double[] Ls = new double[ready];
 
-            double sum = Ls[0] = Math.Pow(layers[0].pN, 0.75);
+            double sum = Ls[0] = Math.Pow(pointsDone[0], 0.75);
             for (int li = 1; li < ready; li++)
-                sum = Ls[li] = sum + Math.Pow(layers[li].pN, 0.75) / (double)(layers[li].iN - layers[li - 1].iN);
+                sum = Ls[li] = sum + Math.Pow(pointsDone[li], 0.75) / (double)(iterations[li] - iterations[li - 1]);
 
-            int pi = pixels.Length - 1;
-            char[] result = new char[width * height * 2];
-
-            for (int li = 0; li < ready; li++)
+            char[] chars = new char[ready * 2];
+            for (int li = 1; li < ready; li++)
             {
                 int L = 4095 - (int)Math.Floor(4096 * (1 - Ls[li] / sum));
-                char low = mapNumToAbc[L & 63];
-                char high = mapNumToAbc[(L >> 6) & 63];
+                chars[li << 1] = mapNumToAbc[L & 63];
+                chars[(li << 1) | 1] = mapNumToAbc[(L >> 6) & 63];
+            }
 
-                for (int j = pi - layers[li].pN; pi > j; pi--)
-                {
-                    int index = 2 * (pixels[pi].xi + pixels[pi].yi * width);
-                    result[index] = high;
-                    result[index + 1] = low;
-                }
+            char[] data = new char[total * 2];
+            for (int pi = 0; pi < total; pi++)
+            {
+                int li = result[pi];
+                data[pi << 1] = chars[li << 1];
+                data[(pi << 1) | 1] = chars[(li << 1) | 1];
             }
 
             lastAccessTime = DateTime.UtcNow;
 
-            return new string(result);
-        }
-    }
-
-    class LayerData
-    {
-        public int iN, pN;
-        public LayerData(int iN, int pN)
-        {
-            this.iN = iN;
-            this.pN = pN;
-        }
-    }
-
-    class PixelData
-    {
-        public double x0, y0, x, y;
-        public int xi, yi;
-        public PixelData(double x0, double y0, int sX, int sY)
-        {
-            this.x0 = this.x = x0;
-            this.y0 = this.y = y0;
-            this.xi = sX;
-            this.yi = sY;
+            return new string(data);
         }
     }
 }
