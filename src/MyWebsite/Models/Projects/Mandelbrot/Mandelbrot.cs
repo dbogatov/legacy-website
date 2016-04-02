@@ -137,7 +137,7 @@ namespace MyWebsite.Models.Mandelbrot
         private readonly double[] yValues;
         private readonly double[] xArray;
         private readonly double[] yArray;
-        private readonly ushort[] result;
+        private readonly ushort[] layers;
         private readonly uint[] iterations;
         private readonly uint[] pointsDone;
 
@@ -145,8 +145,7 @@ namespace MyWebsite.Models.Mandelbrot
         private uint maxDoneOnStep;
         private uint iteration;
         private uint lastIteration;
-        private ushort layer;
-        private ushort nextLayer;
+        private int layer;
 
         private DateTime lastAccessTime;
 
@@ -169,7 +168,7 @@ namespace MyWebsite.Models.Mandelbrot
             this.yValues = new double[this.height];
             this.xArray = new double[this.total];
             this.yArray = new double[this.total];
-            this.result = new ushort[this.total];
+            this.layers = new ushort[this.total];
             this.iterations = new uint[65536];
             this.pointsDone = new uint[65536];
 
@@ -197,7 +196,6 @@ namespace MyWebsite.Models.Mandelbrot
 			this.lastIteration = 0;
 
             this.layer = 0;
-            this.nextLayer = 1;
 
             lastAccessTime = DateTime.UtcNow;
         }
@@ -206,15 +204,17 @@ namespace MyWebsite.Models.Mandelbrot
         {
             working = true;
 
-            while (totalDone < total)
+            while (totalDone < total && layer < 65535)
             {
-                int pi = 0;
                 uint doneOnStep = 0;
+                ushort nextLayer = (ushort)(layer + 1);
+
+                int pi = 0;
                 for (int yi = 0; yi < this.height; yi++)
                 {
                     for (int xi = 0; xi < this.width; xi++)
                     {
-                        if (result[pi] == 0)
+                        if (layers[pi] == 0)
                         {
                             double x = xArray[pi];
                             double y = yArray[pi];
@@ -223,7 +223,7 @@ namespace MyWebsite.Models.Mandelbrot
                             if (xx + yy > 4)
                             {
                                 doneOnStep += 1;
-                                result[pi] = nextLayer;
+                                layers[pi] = nextLayer;
                             }
                             else
                             {
@@ -242,14 +242,18 @@ namespace MyWebsite.Models.Mandelbrot
                         maxDoneOnStep = doneOnStep;
                     lastIteration = iteration;
 
-                    iterations[nextLayer] = iteration;
-                    pointsDone[nextLayer] = doneOnStep;
-                    layer = nextLayer;
-                    nextLayer += 1;
                     totalDone += doneOnStep;
+                    layer += 1;
+
+                    iterations[layer] = iteration;
+                    pointsDone[layer] = doneOnStep;
                 }
+                else if (lastIteration > 0)
+                {
+                    if (iteration - lastIteration > maxDoneOnStep) break;
+                }
+
                 if (stop) break;
-				if (lastIteration > 0 && iteration - lastIteration > maxDoneOnStep) break;
             }
 
             working = false;
@@ -259,32 +263,35 @@ namespace MyWebsite.Models.Mandelbrot
         {
             if (layer == 0 || (DateTime.UtcNow - lastAccessTime).TotalSeconds < 2) return null;
 
-            int ready = layer;
-            double[] Ls = new double[ready];
+            int ready = layer + 1;
+            double[] Ls = new double[ready + 1];
 
-            double sum = Ls[0] = Math.Pow(pointsDone[0], 0.75);
+            double sum = Ls[0] = 0;
             for (int li = 1; li < ready; li++)
                 sum = Ls[li] = sum + Math.Pow(pointsDone[li], 0.75) / (double)(iterations[li] - iterations[li - 1]);
 
-            char[] chars = new char[ready * 2];
+            char[] low = new char[ready + 1];
+            char[] high = new char[ready + 1];
+            low[0] = high[0] = low[ready] = high[ready] = mapNumToAbc[0];
+
             for (int li = 1; li < ready; li++)
             {
                 int L = 4095 - (int)Math.Floor(4096 * (1 - Ls[li] / sum));
-                chars[li << 1] = mapNumToAbc[L & 63];
-                chars[(li << 1) | 1] = mapNumToAbc[(L >> 6) & 63];
+                low[li] = mapNumToAbc[L & 63];
+                high[li] = mapNumToAbc[(L >> 6) & 63];
             }
 
-            char[] data = new char[total * 2];
+            char[] result = new char[total * 2];
             for (int pi = 0; pi < total; pi++)
             {
-                int li = result[pi];
-                data[pi << 1] = chars[li << 1];
-                data[(pi << 1) | 1] = chars[(li << 1) | 1];
+                int li = layers[pi];
+                result[pi << 1] = high[li];
+                result[(pi << 1) | 1] = low[li];
             }
 
             lastAccessTime = DateTime.UtcNow;
 
-            return new string(data);
+            return new string(result);
         }
     }
 }
