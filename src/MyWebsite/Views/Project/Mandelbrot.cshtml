@@ -83,11 +83,11 @@
 		<script id="settings-modal.html" type="text/ng-template">
 			<ion-modal-view>
 				<ion-header-bar>
-					<button class="button button-clear button-assertive" ng-click="closeModal()">
+					<button class="button button-clear button-assertive" ng-click="closeModal(false)">
 						Cancel
 					</button>
 					<h1 class="title">Render Settings</h1>
-					<button class="button button-clear button-positive" ng-click="closeModal()">
+					<button class="button button-clear button-positive" ng-click="closeModal(true)">
 						Apply
 					</button>
 				</ion-header-bar>
@@ -95,6 +95,14 @@
 					<div class="list">
 						<div class="item item-divider">
 							Color settings
+						</div>
+						
+						<div class="item">
+							<div class="button-bar">
+								<a id="choose0ColorBtn" class="button" ng-click="setTab(0)"></a>
+								<a id="choose1ColorBtn" class="button" ng-click="setTab(1)"></a>
+								<a id="choose2ColorBtn" class="button" ng-click="setTab(2)"></a>
+							</div>
 						</div>
 						
 						<div class="item" id="colorsItem" style="height: 50px;"></div>
@@ -106,17 +114,17 @@
 							<div class="range range-assertive" style="width: 100%;">
 								<i class="icon ion-paintbrush assertive"></i>
 								<input id="redColorRange" type="range" min="0" max="255" ng-model="data.redColor" ng-change="setRangeLabel( 'redColor' )">
-								<span id="redColorRangeLabel">255</span>
+								<span id="redColorRangeLabel" ng-bind="data.redColor">255</span>
 							</div>
 							<div class="range range-balanced" style="width: 100%;">
 								<i class="icon ion-paintbrush balanced"></i>
 								<input id="greenColorRange" type="range" min="0" max="255" ng-model="data.greenColor" ng-change="setRangeLabel( 'greenColor' )">
-								<span id="greenColorRangeLabel">255</span>
+								<span id="greenColorRangeLabel" ng-bind="data.greenColor">255</span>
 							</div>
 							<div class="range range-positive" style="width: 100%;">
 								<i class="icon ion-paintbrush positive"></i>
 								<input id="blueColorRange" type="range" min="0" max="255" ng-model="data.blueColor" ng-change="setRangeLabel( 'blueColor' )">
-								<span id="blueColorRangeLabel">255</span>
+								<span id="blueColorRangeLabel" ng-bind="data.blueColor">255</span>
 							</div>
 						</label>
 					</div>

@@ -2,6 +2,9 @@
 
 // Ionic Starter App
 
+var globalMandelbrot: Mandelbrot;
+var globalSettings: Settings;
+
 angular.module('starter', ['ionic'])
 	.run(function($ionicPlatform) {
 		$ionicPlatform.ready(function() {
@@ -19,9 +22,11 @@ angular.module('starter', ['ionic'])
 			$scope.modal = modal;
 		});
 		$scope.openModal = function() {
+			globalSettings.willOpen();
 			$scope.modal.show();
 		};
-		$scope.closeModal = function() {
+		$scope.closeModal = function(shouldSave) {
+			globalSettings.willClose(shouldSave);
 			$scope.modal.hide();
 		};
 		//Cleanup the modal when we're done with it!
@@ -29,15 +34,17 @@ angular.module('starter', ['ionic'])
 			$scope.modal.remove();
 		});
 
-		new Mandelbrot($scope);
+		globalMandelbrot = new Mandelbrot($scope);
 
-		new Settings($scope);
+		globalSettings = new Settings($scope);
 	});
 
 /**
  * Mandelbrot
  */
 class Mandelbrot {
+
+	public colors: [Color] = [new Color(), new Color(), new Color()];
 
 	private apiUrl: string = "/api/Projects/Mandelbrot/";
 
@@ -68,7 +75,7 @@ class Mandelbrot {
 		this._scope = $scope;
 
 		this.setup();
-		this.getNewFractal();
+		//this.getNewFractal();
 	}
 
 	private setup(): void {
@@ -178,20 +185,19 @@ class Settings {
 
 	private $scope: any;
 	private colorElement: string = "colorsItem";
-	private currentColor = {
-		redColor: 255,
-		greenColor: 255,
-		blueColor: 255
-	}
+
+	private currentColor: Color = new Color();
+	private currentTab: ColorTab = ColorTab.First;
+
+	private oldColors: [Color] = [new Color(), new Color(), new Color()];
+	private colors: [Color] = [new Color(), new Color(), new Color()];
 
 	constructor($scope: any) {
 
 		$scope.data = {
 			redColor: 255,
 			greenColor: 255,
-			blueColor: 255,
-			iterations: 1024,
-			gamma: 50
+			blueColor: 255
 		}
 
 		this.$scope = $scope;
@@ -200,29 +206,109 @@ class Settings {
 
 		$scope.setRangeLabel = function(rangeName) {
 			let value = _this.$scope.data[rangeName];
-			$("#" + rangeName + "RangeLabel").text(value);
 
-			switch (rangeName) {
-				case "redColor":
-				case "greenColor":
-				case "blueColor":
-					_this.currentColor[rangeName] = value;
-					_this.setColor();
-					break;
-				default:
-					break;
+			_this.currentColor.setValue(rangeName, parseInt(value));
+			_this.colorChangeHandler();
+
+			_this.save();
+		};
+
+		$scope.setTab = function(newTab) {
+			_this.currentTab = parseInt(newTab);
+			_this.reloadColor();
+		};
+	}
+
+	public willOpen(): void {
+		for (var index = 0; index < this.colors.length; index++) {
+			this.oldColors[index] = new Color().initWithColor(this.colors[index]);
+		}
+	}
+
+	public willClose(shouldSave: boolean): void {
+		if (shouldSave) {
+			for (var index = 0; index < this.colors.length; index++) {
+				globalMandelbrot[index] = new Color().initWithColor(this.colors[index]);
+			}
+		} else {
+			for (var index = 0; index < this.colors.length; index++) {
+				this.colors[index] = new Color().initWithColor(this.oldColors[index]);
+				this.currentTab = index;
+				this.reloadColor();
 			}
 		}
 	}
 
-	private setColor(): void {
-		$("#" + this.colorElement)
-			.css(
-			"background-color",
-			"rgba("
-			+ this.currentColor.redColor + ","
-			+ this.currentColor.greenColor + ","
-			+ this.currentColor.blueColor + ",1)");
+	private colorChangeHandler(): void {
+		$("#" + this.colorElement).css("background-color", this.currentColor.exportAsRGBA());
+		$(`#choose${this.currentTab}ColorBtn`).css("background-color", this.currentColor.exportAsRGBA());
+	}
+
+	private reloadColor(): void {
+		this.$scope.data.redColor = this.colors[this.currentTab].red;
+		this.$scope.data.greenColor = this.colors[this.currentTab].green;
+		this.$scope.data.blueColor = this.colors[this.currentTab].blue;
+
+		this.currentColor = this.colors[this.currentTab];
+		this.colorChangeHandler();
+	}
+
+	private save(): void {
+		this.colors[this.currentTab] = this.currentColor;
+	}
+
+}
+
+enum ColorTab {
+	First = 0,
+	Second = 1,
+	Third = 2
+}
+
+/**
+ * Color
+ */
+class Color {
+	public red: number = 255.0;
+	public green: number = 255.0;
+	public blue: number = 255.0;
+
+	public initWithColor(color: Color): Color {
+		this.red = color.red;
+		this.green = color.green;
+		this.blue = color.blue;
+
+		return this;
+	}
+
+	public initWithColors(red: number, green: number, blue: number): Color {
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+
+		return this;
+	}
+
+	public exportAsRGBA(alpha: number = 1.0): string {
+		return `rgba(${this.red},${this.green},${this.blue},${alpha})`;
+	}
+
+	public exportAsHex(): string {
+		return `#${this.red.toString(16)}${this.green.toString(16)}${this.blue.toString(16)}`;
+	}
+
+	public setValue(color: string, value: number): void {
+		switch (color) {
+			case "redColor":
+				this.red = value;
+				break;
+			case "greenColor":
+				this.green = value;
+				break;
+			case "blueColor":
+				this.blue = value;
+				break;
+		}
 	}
 }
 

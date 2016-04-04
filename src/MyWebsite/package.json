@@ -11,6 +11,9 @@
     "merge": "^1.2.0",
     "requirejs": "^2.1.18",
     "rimraf": "2.2.8",
-	"gulp-shell": "^0.5.2"
+    "gulp-shell": "^0.5.2"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1"
   }
 }
