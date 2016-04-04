@@ -264,15 +264,18 @@ namespace MyWebsite.Models.Mandelbrot
             if (layer == 0 || (DateTime.UtcNow - lastAccessTime).TotalSeconds < 2) return null;
 
             int ready = layer + 1;
-            double[] Ls = new double[ready + 1];
+            double[] Ls = new double[ready];
 
             double sum = Ls[0] = 0;
             for (int li = 1; li < ready; li++)
                 sum = Ls[li] = sum + Math.Pow(pointsDone[li], 0.75) / (double)(iterations[li] - iterations[li - 1]);
 
-            char[] low = new char[ready + 1];
-            char[] high = new char[ready + 1];
-            low[0] = high[0] = low[ready] = high[ready] = mapNumToAbc[0];
+            char[] low = new char[65536];
+            char[] high = new char[65536];
+
+            low[0] = high[0] = mapNumToAbc[0];
+            for (int li = ready; li < 65536; li++)
+                low[li] = high[li] = mapNumToAbc[0];
 
             for (int li = 1; li < ready; li++)
             {
