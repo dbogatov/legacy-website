@@ -75,7 +75,7 @@ class Mandelbrot {
 		this._scope = $scope;
 
 		this.setup();
-		//this.getNewFractal();
+		this.getNewFractal();
 	}
 
 	private setup(): void {
