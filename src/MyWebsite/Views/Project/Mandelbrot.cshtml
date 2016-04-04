@@ -99,13 +99,13 @@
 						
 						<div class="item">
 							<div class="button-bar">
-								<a id="choose0ColorBtn" class="button" ng-click="setTab(0)"></a>
-								<a id="choose1ColorBtn" class="button" ng-click="setTab(1)"></a>
-								<a id="choose2ColorBtn" class="button" ng-click="setTab(2)"></a>
+								<a id="choose0ColorBtn" class="button" ng-style="style.color0BtnStyle" ng-click="setTab(0)"></a>
+								<a id="choose1ColorBtn" class="button" ng-style="style.color1BtnStyle" ng-click="setTab(1)"></a>
+								<a id="choose2ColorBtn" class="button" ng-style="style.color2BtnStyle" ng-click="setTab(2)"></a>
 							</div>
 						</div>
 						
-						<div class="item" id="colorsItem" style="height: 50px;"></div>
+						<div class="item" id="colorsItem" ng-style="style.colorItemStyle"></div>
 						
 						<label id="" class="item item-input item-stacked-label">
 							

@@ -37,6 +37,11 @@ angular.module('starter', ['ionic'])
 		globalMandelbrot = new Mandelbrot($scope);
 
 		globalSettings = new Settings($scope);
+		globalSettings.loadSettings([
+			new Color().initWithColors(64, 64, 64),
+			new Color().initWithColors(128, 128, 128),
+			new Color().initWithColors(192, 192, 192)
+		]);
 	});
 
 /**
@@ -75,7 +80,7 @@ class Mandelbrot {
 		this._scope = $scope;
 
 		this.setup();
-		this.getNewFractal();
+		//this.getNewFractal();
 	}
 
 	private setup(): void {
@@ -198,7 +203,17 @@ class Settings {
 			redColor: 255,
 			greenColor: 255,
 			blueColor: 255
-		}
+		};
+
+		$scope.style = {
+			colorItemStyle: {
+				"height": "50px"
+			}
+		};
+
+		for (var index = 0; index < this.colors.length; index++) {
+			$scope.style[`color${index}BtnStyle`] = {};
+		}		
 
 		this.$scope = $scope;
 
@@ -239,9 +254,18 @@ class Settings {
 		}
 	}
 
+	public loadSettings(colors: [Color]): void {
+		for (var index = 0; index < colors.length; index++) {
+			this.colors[index] = new Color().initWithColor(colors[index]);
+			this.currentTab = index;
+			this.reloadColor();
+			globalMandelbrot[index] = new Color().initWithColor(colors[index]);
+		}
+	}
+
 	private colorChangeHandler(): void {
-		$("#" + this.colorElement).css("background-color", this.currentColor.exportAsRGBA());
-		$(`#choose${this.currentTab}ColorBtn`).css("background-color", this.currentColor.exportAsRGBA());
+		this.$scope.style.colorItemStyle["background-color"] = this.currentColor.exportAsRGBA();
+		this.$scope.style[`color${this.currentTab}BtnStyle`]["background-color"] = this.currentColor.exportAsRGBA();
 	}
 
 	private reloadColor(): void {
