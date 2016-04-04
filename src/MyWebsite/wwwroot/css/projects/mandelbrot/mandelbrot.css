@@ -1,5 +1,17 @@
 body {
-  cursor: url('/images/Mandelbrot/finger.png'), auto;
+    cursor: url('/images/Mandelbrot/finger.png'), auto;
+}
+
+#ionicContent {
+	background-color: black;
+	/*
+    background-image: -moz-linear-gradient(45deg, #000 25%, transparent 25%), -moz-linear-gradient(-45deg, #000 25%, transparent 25%), -moz-linear-gradient(45deg, transparent 75%, #000 75%), -moz-linear-gradient(-45deg, transparent 75%, #000 75%);
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, #000), color-stop(.25, transparent)), -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, #000), color-stop(.25, transparent)), -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.75, transparent), color-stop(.75, #000)), -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.75, transparent), color-stop(.75, #000));
+    -moz-background-size: 100px 100px;
+    background-size: 100px 100px;
+    -webkit-background-size: 100px 101px;
+    background-position: 0 0, 50px 0, 50px -50px, 0px 50px;
+	*/
 }
 
 td {
@@ -7,27 +19,26 @@ td {
 }
 
 #contentCell {
-	border: 1px solid white;
+    border: 1px solid white;
 }
 
 .moveControl {
-	background-color: rgba(125, 142, 146, 0.4);
+    background-color: rgba(125, 142, 146, 0.4);
 }
 
-.moveControl:hover { 
+.moveControl:hover {
     background-color: rgba(125, 142, 146, 0.7);
 }
 
 #zoomPanel {
-	position: absolute;
-	width: 180px;
-	height: 40px;
-	left: 15px;
-	top: 15px;
-	background-color: rgba(125, 142, 146, 0.95);
-	border-radius: 15px;
-	font-size: 30px;
-	
-	text-align: center;
-	line-height: 40px;
+    position: absolute;
+    width: 180px;
+    height: 40px;
+    left: 15px;
+    top: 15px;
+    background-color: rgba(125, 142, 146, 0.95);
+    border-radius: 15px;
+    font-size: 30px;
+    text-align: center;
+    line-height: 40px;
 }

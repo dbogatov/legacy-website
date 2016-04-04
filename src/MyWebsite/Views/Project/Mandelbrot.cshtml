@@ -13,9 +13,11 @@
 		<link href="/css/projects/mandelbrot/mandelbrot.css" rel="stylesheet">
 		
 		<!-- ionic/angularjs js -->
-		<script src="/lib/ionic/js/ionic.bundle.js"></script>
+		<script src="/lib/ionic/js/ionic.bundle.min.js"></script>
 
-		<script src="/lib/jquery/dist/jquery.js"></script>
+		<script src="/lib/jquery/dist/jquery.min.js"></script>
+		<script src="/lib/jquery-ui/jquery-ui.min.js"></script>
+		<script src="/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 
 		<!-- your app's js -->
 		<script src="/ts/Mandelbrot.js"></script>
@@ -38,7 +40,7 @@
 					Your browser does not support the canvas element.
 				</canvas>
 				
-				<table style="width: 100%; text-align: center; position: absolute; font-size: 50px;">
+				<table style="width: 100%; text-align: center; position: absolute; font-size: 50px; visibility: hidden;">
 					<tbody>
 						<tr style="height: 50px;">
 							<td class="moveControl" colspan="3" ng-click="move( 'up' )">

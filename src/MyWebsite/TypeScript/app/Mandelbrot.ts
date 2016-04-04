@@ -62,6 +62,9 @@ class Mandelbrot {
 	private intervalDescriptor: number;
 
 	private canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
+	private jCanvas: JQuery = $("#myCanvas");
+	
+	private canvasOriginalPosition: JQueryCoordinates;
 
 	private static mapAbcToNum = [
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -80,7 +83,7 @@ class Mandelbrot {
 		this._scope = $scope;
 
 		this.setup();
-		//this.getNewFractal();
+		this.getNewFractal();
 	}
 
 	private setup(): void {
@@ -93,6 +96,17 @@ class Mandelbrot {
 		// ...then set the internal size to match
 		this.canvas.width = this.canvas.offsetWidth;
 		this.canvas.height = this.canvas.offsetHeight;
+
+		this.canvasOriginalPosition = this.jCanvas.position();
+
+		(<any>this.jCanvas).draggable({
+			stop: (event, ui) => {
+				this.viewMoved(
+					ui.position.top - ui.originalPosition.top,
+					ui.position.left - ui.originalPosition.left
+				);
+			}
+		});
 
 		this._scope.exportImage = () => {
 			if (confirm("Do you want to download the current fractal as PNG image?")) {
@@ -121,6 +135,22 @@ class Mandelbrot {
 		this._scope.move = (direction: string) => {
 			alert("Move " + direction);
 		}
+	}
+
+	private viewMoved(offsetTop: number, offsetLeft: number): void {
+		console.log(`True offsets: 
+			top: ${offsetTop},
+			left: ${offsetLeft}`
+		);
+		this.putCanvasBack();
+	}
+
+	private putCanvasBack() {
+		this.jCanvas.css({ 
+			top: this.canvasOriginalPosition.top,
+			left: this.canvasOriginalPosition.left, 
+			position: "absolute"
+		});
 	}
 
 	private getNewFractal() {
@@ -168,6 +198,9 @@ class Mandelbrot {
 
 		let points = imgData.data.length / 4;
 
+		// For Lisiy
+		// this.colors ...
+
 		for (var i = 0; i < points; i++) {
 			var value =
 				(map[data.charCodeAt(i << 1) & 127] << 6) |
@@ -213,7 +246,7 @@ class Settings {
 
 		for (var index = 0; index < this.colors.length; index++) {
 			$scope.style[`color${index}BtnStyle`] = {};
-		}		
+		}
 
 		this.$scope = $scope;
 
