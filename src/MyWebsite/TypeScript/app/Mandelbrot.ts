@@ -38,9 +38,9 @@ angular.module('starter', ['ionic'])
 
 		globalSettings = new Settings($scope);
 		globalSettings.loadSettings([
-			new Color().initWithColors(64, 64, 64),
-			new Color().initWithColors(128, 128, 128),
-			new Color().initWithColors(192, 192, 192)
+			new Color(64, 64, 64),
+			new Color(128, 128, 128),
+			new Color(192, 192, 192)
 		]);
 	});
 
@@ -49,7 +49,7 @@ angular.module('starter', ['ionic'])
  */
 class Mandelbrot {
 
-	public colors: [Color] = [new Color(), new Color(), new Color()];
+	public colors: [Color] = [Color.white(), Color.white(), Color.white()];
 
 	private palleteR: Uint8Array = new Uint8Array(4096);
 	private palleteG: Uint8Array = new Uint8Array(4096);
@@ -202,8 +202,7 @@ class Mandelbrot {
 
 		let points = imgData.data.length / 4;
 
-		// For Lisiy
-		// this.colors ...
+		this.UpdatePallete();
 
 		for (var i = 0; i < points; i++) {
 			var value =
@@ -221,6 +220,17 @@ class Mandelbrot {
 
 	private UpdatePallete() {
 
+		let ci = 0;
+		let theColor: Color = Color.black();
+		let theColors: Color[] = [Color.black(), this.colors[0], this.colors[1], this.colors[2], Color.white()];
+        for (var i = 0; i < 4096; i++) {
+			let brightness = i / 16;
+			while (brightness > theColors[ci + 1].getBrightness()) ci += 1;
+			theColor.update(theColors[ci], brightness, theColors[ci + 1]);
+			this.palleteR[i] = Math.floor(theColor.red);
+			this.palleteG[i] = Math.floor(theColor.green);
+			this.palleteB[i] = Math.floor(theColor.blue);
+		}
 	}
 }
 
@@ -232,11 +242,11 @@ class Settings {
 	private $scope: any;
 	private colorElement: string = "colorsItem";
 
-	private currentColor: Color = new Color();
+	private currentColor: Color = Color.white();
 	private currentTab: ColorTab = ColorTab.First;
 
-	private oldColors: [Color] = [new Color(), new Color(), new Color()];
-	private colors: [Color] = [new Color(), new Color(), new Color()];
+	private oldColors: [Color] = [Color.white(), Color.white(), Color.white()];
+	private colors: [Color] = [Color.white(), Color.white(), Color.white()];
 
 	constructor($scope: any) {
 
@@ -277,18 +287,18 @@ class Settings {
 
 	public willOpen(): void {
 		for (var index = 0; index < this.colors.length; index++) {
-			this.oldColors[index] = new Color().initWithColor(this.colors[index]);
+			this.oldColors[index] = Color.clone(this.colors[index]);
 		}
 	}
 
 	public willClose(shouldSave: boolean): void {
 		if (shouldSave) {
 			for (var index = 0; index < this.colors.length; index++) {
-				globalMandelbrot[index] = new Color().initWithColor(this.colors[index]);
+				globalMandelbrot[index] = Color.clone(this.colors[index]);
 			}
 		} else {
 			for (var index = 0; index < this.colors.length; index++) {
-				this.colors[index] = new Color().initWithColor(this.oldColors[index]);
+				this.colors[index] = Color.clone(this.oldColors[index]);
 				this.currentTab = index;
 				this.reloadColor();
 			}
@@ -297,10 +307,10 @@ class Settings {
 
 	public loadSettings(colors: [Color]): void {
 		for (var index = 0; index < colors.length; index++) {
-			this.colors[index] = new Color().initWithColor(colors[index]);
+			this.colors[index] = Color.clone(colors[index]);
 			this.currentTab = index;
 			this.reloadColor();
-			globalMandelbrot[index] = new Color().initWithColor(colors[index]);
+			globalMandelbrot[index] = Color.clone(colors[index]);
 		}
 	}
 
@@ -338,20 +348,34 @@ class Color {
 	public green: number = 255.0;
 	public blue: number = 255.0;
 
-	public initWithColor(color: Color): Color {
-		this.red = color.red;
-		this.green = color.green;
-		this.blue = color.blue;
-
-		return this;
-	}
-
-	public initWithColors(red: number, green: number, blue: number): Color {
+	public constructor(red: number, green: number, blue: number) {
 		this.red = red;
 		this.green = green;
 		this.blue = blue;
+	}
 
-		return this;
+	public static clone(color: Color): Color {
+		return new Color(color.red, color.green, color.blue);
+	}
+
+	public static black(): Color {
+		return new Color(0, 0, 0);
+	}
+
+	public static white(): Color {
+		return new Color(255, 255, 255);
+	}
+
+	public setRGB(red: number, green: number, blue: number) {
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+	}
+
+	public setColor(color: Color) {
+		this.red = color.red;
+		this.green = color.green;
+		this.blue = color.blue;
 	}
 
 	public exportAsRGBA(alpha: number = 1.0): string {
@@ -375,9 +399,9 @@ class Color {
 				break;
 		}
 	}
-	
-    public initWithBrightness(prev: Color, curr: number, next: Color) {
-		
+
+    public update(prev: Color, curr: number, next: Color) {
+
 		let prevBright = prev.getBrightness();
 		let nextBright = next.getBrightness();
 
