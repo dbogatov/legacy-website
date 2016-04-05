@@ -49,10 +49,7 @@ angular.module('starter', ['ionic'])
  */
 class Mandelbrot {
 
-<<<<<<< HEAD
-	public colors: [Color] = [Color.white(), Color.white(), Color.white()];
-=======
-	private _colors: Color[] = [new Color(), new Color(), new Color()];
+	private _colors: Color[] = [Color.white(), Color.white(), Color.white()];
 	
 	public get colors() : Color[] {
 		return this._colors;
@@ -64,9 +61,6 @@ class Mandelbrot {
 		);
 	}
 		
-	 
->>>>>>> 8b912560152cb503068d92c71db0d4cfedc8d021
-
 	private palleteR: Uint8Array = new Uint8Array(4096);
 	private palleteG: Uint8Array = new Uint8Array(4096);
 	private palleteB: Uint8Array = new Uint8Array(4096);
@@ -218,12 +212,7 @@ class Mandelbrot {
 
 		let points = imgData.data.length / 4;
 
-<<<<<<< HEAD
 		this.UpdatePallete();
-=======
-		// For Lisiy
-		// this.colors ...		
->>>>>>> 8b912560152cb503068d92c71db0d4cfedc8d021
 
 		for (var i = 0; i < points; i++) {
 			var value =
@@ -316,11 +305,7 @@ class Settings {
 		if (shouldSave) {
 			var tmpColors = new Array<Color>(3);
 			for (var index = 0; index < this.colors.length; index++) {
-<<<<<<< HEAD
-				globalMandelbrot[index] = Color.clone(this.colors[index]);
-=======
-				tmpColors[index] = new Color().initWithColor(this.colors[index]);
->>>>>>> 8b912560152cb503068d92c71db0d4cfedc8d021
+				tmpColors[index] = Color.clone(this.colors[index]);
 			}
 			globalMandelbrot.colors = tmpColors;
 		} else {
