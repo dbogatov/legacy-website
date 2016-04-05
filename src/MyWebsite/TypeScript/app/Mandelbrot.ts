@@ -51,6 +51,10 @@ class Mandelbrot {
 
 	public colors: [Color] = [new Color(), new Color(), new Color()];
 
+	private palleteR: Uint8Array = new Uint8Array(4096);
+	private palleteG: Uint8Array = new Uint8Array(4096);
+	private palleteB: Uint8Array = new Uint8Array(4096);
+
 	private apiUrl: string = "/api/Projects/Mandelbrot/";
 
 	private fractalModel: ViewModel;
@@ -63,7 +67,7 @@ class Mandelbrot {
 
 	private canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
 	private jCanvas: JQuery = $("#myCanvas");
-	
+
 	private canvasOriginalPosition: JQueryCoordinates;
 
 	private static mapAbcToNum = [
@@ -146,9 +150,9 @@ class Mandelbrot {
 	}
 
 	private putCanvasBack() {
-		this.jCanvas.css({ 
+		this.jCanvas.css({
 			top: this.canvasOriginalPosition.top,
-			left: this.canvasOriginalPosition.left, 
+			left: this.canvasOriginalPosition.left,
 			position: "absolute"
 		});
 	}
@@ -206,13 +210,17 @@ class Mandelbrot {
 				(map[data.charCodeAt(i << 1) & 127] << 6) |
 				map[data.charCodeAt((i << 1) | 1) & 127];
 
-			imgData.data[(i << 2)] = Math.floor(value >> 4);
-			imgData.data[(i << 2) | 1] = Math.floor(value >> 4);
-			imgData.data[(i << 2) | 2] = Math.floor(value >> 4);
+			imgData.data[(i << 2)] = this.palleteR[value];
+			imgData.data[(i << 2) | 1] = this.palleteG[value];
+			imgData.data[(i << 2) | 2] = this.palleteB[value];
 			imgData.data[(i << 2) | 3] = 255;
 
 		}
 		ctx.putImageData(imgData, 0, 0);
+	}
+
+	private UpdatePallete() {
+
 	}
 }
 
@@ -366,6 +374,27 @@ class Color {
 				this.blue = value;
 				break;
 		}
+	}
+	
+    public initWithBrightness(prev: Color, curr: number, next: Color) {
+		
+		let prevBright = prev.getBrightness();
+		let nextBright = next.getBrightness();
+
+		if (prevBright == nextBright) {
+			this.red = (prev.red + next.red) / 2;
+			this.green = (prev.green + next.green) / 2;
+			this.blue = (prev.blue + next.blue) / 2;
+		} else {
+			let scale = (curr - prevBright) / (nextBright - prevBright);
+			this.red = prev.red + (next.red - prev.red) * scale;
+			this.green = prev.green + (next.green - prev.green) * scale;
+			this.blue = prev.blue + (next.blue - prev.blue) * scale;
+		}
+	}
+
+	public getBrightness(): number {
+		return 0.299 * this.red + 0.587 * this.green + 0.114 * this.blue;
 	}
 }
 
