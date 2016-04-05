@@ -17,14 +17,14 @@ namespace MyWebsite.Models.Mandelbrot
                 {
                     if (item.Value.working)
                     {
-                        if ((DateTime.UtcNow - item.Value.lastAccessTime).TotalMinutes > 1)
+                        if ((DateTime.UtcNow - item.Value.lastAccessTime).TotalSeconds > 7)
                         {
                             item.Value.stop = true;
                         }
                     }
                     else
                     {
-                        if ((DateTime.UtcNow - item.Value.lastAccessTime).TotalMinutes > 11)
+                        if ((DateTime.UtcNow - item.Value.lastAccessTime).TotalSeconds > 15)
                         {
                             toRemove.Add(item.Key);
                         }
@@ -39,7 +39,7 @@ namespace MyWebsite.Models.Mandelbrot
                     }
                 }
 
-                Thread.Sleep(30000);
+                Thread.Sleep(1000);
             }
         }
 
@@ -63,7 +63,7 @@ namespace MyWebsite.Models.Mandelbrot
             }
             else
             {
-                if (all.Count > 11) return null;
+                if (all.Count > 0) return null;
 
                 int active = 0;
                 foreach (Mandelbrot instance in all.Values)
