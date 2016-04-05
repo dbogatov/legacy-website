@@ -50,8 +50,8 @@ angular.module('starter', ['ionic'])
 class Mandelbrot {
 
 	private _colors: Color[] = [Color.white(), Color.white(), Color.white()];
-	
-	public get colors() : Color[] {
+
+	public get colors(): Color[] {
 		return this._colors;
 	}
 
@@ -60,7 +60,7 @@ class Mandelbrot {
 			(a, b) => a.getBrightness() - b.getBrightness()
 		);
 	}
-		
+
 	private palleteR: Uint8Array = new Uint8Array(4096);
 	private palleteG: Uint8Array = new Uint8Array(4096);
 	private palleteB: Uint8Array = new Uint8Array(4096);
@@ -212,7 +212,7 @@ class Mandelbrot {
 
 		let points = imgData.data.length / 4;
 
-		this.UpdatePallete();
+		this.updatePallete();
 
 		for (var i = 0; i < points; i++) {
 			var value =
@@ -228,15 +228,26 @@ class Mandelbrot {
 		ctx.putImageData(imgData, 0, 0);
 	}
 
-	private UpdatePallete() {
+	private updatePallete() {
 
 		let ci = 0;
 		let theColor: Color = Color.black();
-		let theColors: Color[] = [Color.black(), this.colors[0], this.colors[1], this.colors[2], Color.white()];
-        for (var i = 0; i < 4096; i++) {
+		let theColors: Color[] = [
+			Color.black(),
+			this.colors[0],
+			this.colors[1],
+			this.colors[2],
+			Color.white()
+		];
+
+		for (var i = 0; i < 4096; i++) {
 			let brightness = i / 16;
-			while (brightness > theColors[ci + 1].getBrightness()) ci += 1;
+
+			while (brightness > theColors[ci + 1].getBrightness())
+				ci += 1;
+
 			theColor.update(theColors[ci], brightness, theColors[ci + 1]);
+
 			this.palleteR[i] = Math.floor(theColor.red);
 			this.palleteG[i] = Math.floor(theColor.green);
 			this.palleteB[i] = Math.floor(theColor.blue);
@@ -375,7 +386,7 @@ class Color {
 	}
 
 	public static white(): Color {
-		return new Color(255, 255, 255);
+		return new Color(256, 256, 256);
 	}
 
 	public setRGB(red: number, green: number, blue: number) {
