@@ -53,7 +53,8 @@ var tsProject = ts.createProject({
 	declarationFiles: true,
 	noExternalResolve: false,
 	module: 'AMD',
-	removeComments: true
+	removeComments: true,
+	target: "ES5"
 });
 
 gulp.task("min:js", function () {

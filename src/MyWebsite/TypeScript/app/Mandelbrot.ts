@@ -49,7 +49,19 @@ angular.module('starter', ['ionic'])
  */
 class Mandelbrot {
 
-	public colors: [Color] = [new Color(), new Color(), new Color()];
+	private _colors: Color[] = [new Color(), new Color(), new Color()];
+	
+	public get colors() : Color[] {
+		return this._colors;
+	}
+
+	public set colors(v: Color[]) {
+		this._colors = v.sort(
+			(a, b) => a.getBrightness() - b.getBrightness()
+		);
+	}
+		
+	 
 
 	private palleteR: Uint8Array = new Uint8Array(4096);
 	private palleteG: Uint8Array = new Uint8Array(4096);
@@ -203,7 +215,7 @@ class Mandelbrot {
 		let points = imgData.data.length / 4;
 
 		// For Lisiy
-		// this.colors ...
+		// this.colors ...		
 
 		for (var i = 0; i < points; i++) {
 			var value =
@@ -283,9 +295,11 @@ class Settings {
 
 	public willClose(shouldSave: boolean): void {
 		if (shouldSave) {
+			var tmpColors = new Array<Color>(3);
 			for (var index = 0; index < this.colors.length; index++) {
-				globalMandelbrot[index] = new Color().initWithColor(this.colors[index]);
+				tmpColors[index] = new Color().initWithColor(this.colors[index]);
 			}
+			globalMandelbrot.colors = tmpColors;
 		} else {
 			for (var index = 0; index < this.colors.length; index++) {
 				this.colors[index] = new Color().initWithColor(this.oldColors[index]);
