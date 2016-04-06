@@ -2,6 +2,8 @@
 
 set -u
 
+: <<'END'
+
 # CD to proper directory
 
 SOURCE="${BASH_SOURCE[0]}"
@@ -12,25 +14,29 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
+END
+
+DIR="/root/my-website/src/MyWebsite"
 cd $DIR
 
-# printf "Current dir "$DIR"\n"
+printf "Current dir "$DIR"\n"
 
 # Now in good dir
 
 WEBSITEPATH="/var/aspnet/mywebsite"
 SUPERVISORJOB="mywebsite"
 
-# Git
-# printf "Git fetch/reset/pull\n"
 git fetch --all --quiet
-git reset --quiet --hard origin/master
-git pull --quiet
 
 RESLOG=$(git log HEAD..origin/master --oneline)
 if [[ "${RESLOG}" != "" ]] ; then
 
     printf "Deploy start\n"
+
+    # Git
+    printf "Git fetch/reset/pull\n"
+    git reset --quiet --hard origin/master
+    git pull --quiet
 
     # Supervisor stops site
     printf "Stop website\n"
