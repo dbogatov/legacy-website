@@ -3,8 +3,6 @@
 set -u
 set -e
 
-: <<'END'
-
 # CD to proper directory
 
 SOURCE="${BASH_SOURCE[0]}"
@@ -15,9 +13,6 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
-END
-
-DIR="/root/my-website/src/MyWebsite"
 cd $DIR
 
 printf "Current dir "$DIR"\n"
@@ -29,8 +24,8 @@ SUPERVISORJOB="mywebsite"
 
 git fetch --all --quiet
 
-RESLOG=$(git log HEAD..origin/master --oneline)
-if [[ "${RESLOG}" != "" ]] ; then
+#RESLOG=$(git log HEAD..origin/master --oneline)
+#if [[ "${RESLOG}" != "" ]] ; then
 
     printf "Deploy start\n"
 
@@ -71,7 +66,7 @@ if [[ "${RESLOG}" != "" ]] ; then
 
     printf "Deploy done.\n"
 
-fi
+#fi
 
 # else
     
