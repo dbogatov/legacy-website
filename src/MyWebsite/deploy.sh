@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -u
 
 # CD to proper directory
