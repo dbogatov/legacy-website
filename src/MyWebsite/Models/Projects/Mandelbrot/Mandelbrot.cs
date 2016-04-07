@@ -100,7 +100,7 @@ namespace MyWebsite.Models.Mandelbrot
             {
                 return !instance.working;
             }
-            return null;
+            return true;
         }
 
         private static readonly byte[] mapAbcToNum = new byte[128]

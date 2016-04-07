@@ -49,6 +49,8 @@ angular.module('starter', ['ionic'])
  */
 class Mandelbrot {
 
+	private currentData: string;
+
 	private _colors: Color[] = [Color.white(), Color.white(), Color.white()];
 
 	public get colors(): Color[] {
@@ -59,6 +61,10 @@ class Mandelbrot {
 		this._colors = v.sort(
 			(a, b) => a.getBrightness() - b.getBrightness()
 		);
+
+		if (this.isLoaded) {
+			this.redrawFractal(this.currentData);
+		}		
 	}
 
 	private palleteR: Uint8Array = new Uint8Array(4096);
@@ -187,14 +193,15 @@ class Mandelbrot {
 	private reloadFractal() {
 		$.get(this.apiUrl + "GetData", { id: this.fractalModel.id }, rawData => {
 			if (rawData != null) {
+				this.currentData = rawData;
 				this.redrawFractal(rawData);
 			}
 		});
 
 		$.get(this.apiUrl + "IsDone", { id: this.fractalModel.id }, response => {
 			if (response != null) {
-				if (!response) {
-					this.isLoaded = false;
+				if (response) {
+					this.isLoaded = true;
 				}
 				if (this.isLoaded) {
 					clearInterval(this.intervalDescriptor);
