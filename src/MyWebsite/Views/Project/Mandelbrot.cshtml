@@ -109,7 +109,7 @@
 						
 						<div class="item" id="colorsItem" ng-style="style.colorItemStyle"></div>
 						
-						<label id="" class="item item-input item-stacked-label">
+						<label class="item item-input item-stacked-label">
 							
 							<span class="input-label">Color</span>
 							
@@ -129,11 +129,33 @@
 								<span id="blueColorRangeLabel" ng-bind="data.blueColor">255</span>
 							</div>
 						</label>
+						
+						<label class="item item-input item-stacked-label">
+							
+							<span class="input-label">Brightness *</span>
+							
+							<div class="range range-calm" style="width: 100%;">
+								<i class="icon ion-ios-sunny-outline calm"></i>
+								<input disabled id="brightnessRange" type="range" min="0" max="100" ng-model="data.brightness">
+								<span id="brightnessRangeLabel" ng-bind="data.brightness">100</span><span> %</span>
+							</div>
+							
+						</label>
+						
+						<label class="item item-text-wrap">
+							* In order to generate beautiful image, you need to 
+							set your colors to brightness 25%, 50% and 75%. With
+							two default colors (balck and white), your colors 
+							would lie perfectly on the image. Pallete will 
+							change gradually in the direction of increasing
+							brightness.
+						</label>
+						
 					</div>
 					
 				</ion-content>
-				<ion-footer-bar class="bar bar-footer bar-balanced">
-					<p class="title">"Apply" will not recompute image from scratch<p>
+				<ion-footer-bar ng-class="class.footer">
+					<p class="title" ng-bind="data.message"><p>
 				</ion-footer-bar>
 			</ion-modal-view>
 		</script>

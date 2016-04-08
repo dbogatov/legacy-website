@@ -64,7 +64,7 @@ class Mandelbrot {
 
 		if (this.isLoaded) {
 			this.redrawFractal(this.currentData);
-		}		
+		}
 	}
 
 	private palleteR: Uint8Array = new Uint8Array(4096);
@@ -281,13 +281,19 @@ class Settings {
 		$scope.data = {
 			redColor: 255,
 			greenColor: 255,
-			blueColor: 255
+			blueColor: 255,
+			brightness: 100,
+			message: "The brightness is within the good range"
 		};
 
 		$scope.style = {
 			colorItemStyle: {
 				"height": "50px"
 			}
+		};
+
+		$scope.class = {
+			footer: ["bar", "bar-footer", "bar-balanced"]
 		};
 
 		for (var index = 0; index < this.colors.length; index++) {
@@ -347,6 +353,28 @@ class Settings {
 	private colorChangeHandler(): void {
 		this.$scope.style.colorItemStyle["background-color"] = this.currentColor.exportAsRGBA();
 		this.$scope.style[`color${this.currentTab}BtnStyle`]["background-color"] = this.currentColor.exportAsRGBA();
+
+		let brightness = Math.round(this.currentColor.getBrightness() * (100 / 255));
+		this.$scope.data.brightness = brightness;
+
+		let setClass = (_class: any, _value : string) => {
+			_class.pop("bar-balanced");
+			_class.pop("bar-assertive");
+			_class.push(`bar-${_value}`);
+		};
+		let acceptedError = 2;
+		
+		if (brightness < (25 * (this.currentTab + 1) - acceptedError)) {
+			setClass(this.$scope.class.footer, "assertive");
+			this.$scope.data.message = `The brightness is too low (need around ${25 * (this.currentTab + 1)}%)`;
+		} else if (brightness > (25 * (this.currentTab + 1) + acceptedError)) {
+			setClass(this.$scope.class.footer, "assertive");
+			this.$scope.data.message = `The brightness is too high (need around ${25 * (this.currentTab + 1)}%)`;
+		} else {
+			setClass(this.$scope.class.footer, "balanced");
+			this.$scope.data.message = "The brightness is within the good range";
+		}
+
 	}
 
 	private reloadColor(): void {
@@ -360,7 +388,7 @@ class Settings {
 
 	private save(): void {
 		this.colors[this.currentTab] = this.currentColor;
-	}
+	}	
 
 }
 
