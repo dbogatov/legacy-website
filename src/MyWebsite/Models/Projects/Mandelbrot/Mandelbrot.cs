@@ -59,17 +59,14 @@ namespace MyWebsite.Models.Mandelbrot
                     oldOne.stop = true;
                     all.Remove(oldId);
                 }
-                else return null;
             }
-            else
-            {
-                if (all.Count > 0) return null;
 
-                int active = 0;
-                foreach (Mandelbrot instance in all.Values)
-                    if (instance.working) active += 1;
-                if (active > 1) return null;
-            }
+            if (all.Count > 0) return null;
+
+            int active = 0;
+            foreach (Mandelbrot instance in all.Values)
+                if (instance.working) active += 1;
+            if (active > 1) return null;
 
             int newId;
             do newId = rnd.Next(1, int.MaxValue);
@@ -88,18 +85,18 @@ namespace MyWebsite.Models.Mandelbrot
             Mandelbrot instance;
             if (all.TryGetValue(id, out instance))
             {
-				return instance.display();
+                return instance.display();
             }
             return null;
-		}
+        }
 
         public static uint? IsDone(int id)
         {
             Mandelbrot instance;
             if (all.TryGetValue(id, out instance))
             {
-				if (instance.working)
-				{
+                if (instance.working)
+                {
                     return instance.lastIteration;
                 }
                 return null;
@@ -197,7 +194,7 @@ namespace MyWebsite.Models.Mandelbrot
             this.maxDoneOnStep = 0;
 
             this.iteration = 0;
-			this.lastIteration = 0;
+            this.lastIteration = 0;
 
             this.layer = 0;
 
@@ -254,7 +251,7 @@ namespace MyWebsite.Models.Mandelbrot
                 }
                 else if (lastIteration > 0)
                 {
-                    if (iteration - lastIteration > 5 /*maxDoneOnStep*/) break;
+                    if (iteration - lastIteration > 10 /*maxDoneOnStep*/) break;
                 }
 
                 if (stop) break;

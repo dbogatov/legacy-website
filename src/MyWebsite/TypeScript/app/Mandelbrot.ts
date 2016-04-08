@@ -94,6 +94,8 @@ class Mandelbrot {
 	private canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
 	private jCanvas: JQuery = $("#myCanvas");
 
+	private interactionsEnabled: boolean = true;	
+
 	private canvasOriginalPosition: JQueryCoordinates;
 
 	private static mapAbcToNum = [
@@ -131,12 +133,31 @@ class Mandelbrot {
 
 		(<any>this.jCanvas).draggable({
 			stop: (event, ui) => {
+				if (!this.interactionsEnabled) {
+					return false;
+				}
+				
+				this.interactionsEnabled = false;
 				this.viewMoved(
 					ui.position.top - ui.originalPosition.top,
 					ui.position.left - ui.originalPosition.left
 				);
 			}
 		});
+
+		this.canvas.addEventListener('mousewheel', event => {
+			if (!this.interactionsEnabled) {
+				return false;
+			}
+			
+			this.interactionsEnabled = false;
+			this.viewZoomed(
+				event.wheelDelta > 0,
+				event.clientY - this.canvas.offsetTop,
+				event.clientX - this.canvas.offsetLeft
+			);
+			return false;
+		}, false);
 
 		this.fractalModel = new ViewModel(this.canvas.width, this.canvas.height);
 
@@ -185,11 +206,16 @@ class Mandelbrot {
 		this._scope.isLoaded = true;
 	}
 
+	private viewZoomed(directionIn: boolean, offsetTop: number, offsetLeft: number): void {
+		//alert(`Zoomed ${directionIn ? "in" : "out"}. Offsets: ${offsetTop}, ${offsetLeft}`);
+
+		this.fractalModel.setNewCenter(offsetTop, offsetLeft);
+		this.fractalModel.zoom(directionIn);
+
+		this.getNewFractal();
+	}
+
 	private viewMoved(offsetTop: number, offsetLeft: number): void {
-		console.log(`True offsets: 
-			top: ${offsetTop},
-			left: ${offsetLeft}`
-		);
 		this.fractalModel.displace(offsetTop, offsetLeft);
 		this.getNewFractal();
 	}
@@ -200,6 +226,8 @@ class Mandelbrot {
 			left: this.canvasOriginalPosition.left,
 			position: "absolute"
 		});
+		
+		this.interactionsEnabled = true;
 	}
 
 	private getNewFractal() {
@@ -569,12 +597,24 @@ class ViewModel {
 		return newModel;
 	}
 
+
+	public setNewCenter(topOffset: number, leftOffset: number): void {
+		this.displace(
+			(this.height / 2) - topOffset,
+			(this.width / 2) - leftOffset
+		);
+	}
+
 	public displace(topOffset: number, leftOffset: number): void {
 
 		let factor = 1 << this.log2scale;
 
 		this.centerX -= leftOffset / factor;
 		this.centerY -= topOffset / factor;
+	}
+
+	public zoom(directionIn: boolean): void {
+		this.log2scale += (directionIn ? +1 : -1);
 	}
 
 	public exportToUrl(): string {
