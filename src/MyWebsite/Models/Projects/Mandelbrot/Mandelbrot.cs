@@ -93,14 +93,18 @@ namespace MyWebsite.Models.Mandelbrot
             return null;
 		}
 
-        public static bool? IsDone(int id)
+        public static uint? IsDone(int id)
         {
             Mandelbrot instance;
             if (all.TryGetValue(id, out instance))
             {
-                return !instance.working;
+				if (instance.working)
+				{
+                    return instance.lastIteration;
+                }
+                return null;
             }
-            return true;
+            return null;
         }
 
         private static readonly byte[] mapAbcToNum = new byte[128]
@@ -250,7 +254,7 @@ namespace MyWebsite.Models.Mandelbrot
                 }
                 else if (lastIteration > 0)
                 {
-                    if (iteration - lastIteration > maxDoneOnStep) break;
+                    if (iteration - lastIteration > 5 /*maxDoneOnStep*/) break;
                 }
 
                 if (stop) break;

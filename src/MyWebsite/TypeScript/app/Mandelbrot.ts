@@ -51,12 +51,9 @@ class Mandelbrot {
 
 	private currentData: string;
 
-	private _colors: Color[] = [Color.white(), Color.white(), Color.white()];
-
 	public get colors(): Color[] {
 		return this._colors;
 	}
-
 	public set colors(v: Color[]) {
 		this._colors = v.sort(
 			(a, b) => a.getBrightness() - b.getBrightness()
@@ -66,6 +63,7 @@ class Mandelbrot {
 			this.redrawFractal(this.currentData);
 		}
 	}
+	private _colors: Color[] = [Color.white(), Color.white(), Color.white()];
 
 	private palleteR: Uint8Array = new Uint8Array(4096);
 	private palleteG: Uint8Array = new Uint8Array(4096);
@@ -77,7 +75,19 @@ class Mandelbrot {
 
 	private fractalData: number[];
 
-	private isLoaded: boolean = true;
+	public get isLoaded(): boolean {
+		return this._isLoaded;
+	}
+	public set isLoaded(v: boolean) {
+		this._isLoaded = v;
+		this._scope.isLoaded = v;
+		if (v) {
+			clearInterval(this.intervalDescriptor);
+			this._scope.state = "HU 3910 - Mandelbrot";
+		}
+		this._scope.$apply();
+	}
+	private _isLoaded: boolean = true;
 
 	private intervalDescriptor: number;
 
@@ -146,15 +156,22 @@ class Mandelbrot {
 
 				link.click();
 			}
-		}
+		};
+
+		this._scope.stopGeneration = () => {
+			this.isLoaded = true;	
+		};
 
 		this._scope.zoom = (direction: string) => {
 			alert("Zoom " + direction);
-		}
+		};
 
 		this._scope.move = (direction: string) => {
 			alert("Move " + direction);
-		}
+		};
+
+		this._scope.state = "HU 3910 - Mandelbrot";
+		this._scope.isLoaded = true;
 	}
 
 	private viewMoved(offsetTop: number, offsetLeft: number): void {
@@ -191,6 +208,10 @@ class Mandelbrot {
 	}
 
 	private reloadFractal() {
+		if (this.isLoaded) {
+			return
+		}
+		
 		$.get(this.apiUrl + "GetData", { id: this.fractalModel.id }, rawData => {
 			if (rawData != null) {
 				this.currentData = rawData;
@@ -199,13 +220,13 @@ class Mandelbrot {
 		});
 
 		$.get(this.apiUrl + "IsDone", { id: this.fractalModel.id }, response => {
-			if (response != null) {
-				if (response) {
-					this.isLoaded = true;
-				}
-				if (this.isLoaded) {
-					clearInterval(this.intervalDescriptor);
-				}
+			if (response == null) {
+				this.isLoaded = true;
+			}
+
+			if (!this.isLoaded) {
+				this._scope.state = `Loading... Iteration ${response}`; // response
+				this._scope.$apply();
 			}
 		});
 	}
@@ -268,7 +289,6 @@ class Mandelbrot {
 class Settings {
 
 	private $scope: any;
-	private colorElement: string = "colorsItem";
 
 	private currentColor: Color = Color.white();
 	private currentTab: ColorTab = ColorTab.First;
@@ -357,13 +377,13 @@ class Settings {
 		let brightness = Math.round(this.currentColor.getBrightness() * (100 / 255));
 		this.$scope.data.brightness = brightness;
 
-		let setClass = (_class: any, _value : string) => {
+		let setClass = (_class: any, _value: string) => {
 			_class.pop("bar-balanced");
 			_class.pop("bar-assertive");
 			_class.push(`bar-${_value}`);
 		};
 		let acceptedError = 2;
-		
+
 		if (brightness < (25 * (this.currentTab + 1) - acceptedError)) {
 			setClass(this.$scope.class.footer, "assertive");
 			this.$scope.data.message = `The brightness is too low (need around ${25 * (this.currentTab + 1)}%)`;
@@ -388,7 +408,7 @@ class Settings {
 
 	private save(): void {
 		this.colors[this.currentTab] = this.currentColor;
-	}	
+	}
 
 }
 

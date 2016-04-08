@@ -39,7 +39,7 @@ namespace MyWebsite.Controllers.API.Projects
         // GET: api/Projects/Mandelbrot/IsDone
         [HttpGet]
 		[Route("IsDone")]
-        public bool? IsDone(int id)
+        public uint? IsDone(int id)
         {
             return Mandelbrot.IsDone(id);
         }
