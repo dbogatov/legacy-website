@@ -38,9 +38,9 @@ angular.module('starter', ['ionic'])
 
 		globalSettings = new Settings($scope);
 		globalSettings.loadSettings([
-			new Color(64, 64, 64),
-			new Color(128, 128, 128),
-			new Color(192, 192, 192)
+			urlParser("color0") != "" ? Color.fromHex(`#${urlParser("color0")}`) : new Color(64, 64, 64),
+			urlParser("color1") != "" ? Color.fromHex(`#${urlParser("color1")}`) : new Color(128, 128, 128),
+			urlParser("color2") != "" ? Color.fromHex(`#${urlParser("color2")}`) : new Color(192, 192, 192)
 		]);
 	});
 
@@ -159,7 +159,16 @@ class Mandelbrot {
 		};
 
 		this._scope.stopGeneration = () => {
-			this.isLoaded = true;	
+			this.isLoaded = true;
+		};
+
+		this._scope.generateLink = () => {
+			var link = `${window.location.href.split('?')[0]}?${this.fractalModel.exportToUrl()}`;
+			for (var index = 0; index < this.colors.length; index++) {
+				link += `&color${index}=${this.colors[index].exportAsHex()}`;
+			}
+
+			window.prompt("Copy to clipboard: Ctrl+C, Enter", link);
 		};
 
 		this._scope.zoom = (direction: string) => {
@@ -197,6 +206,13 @@ class Mandelbrot {
 		clearInterval(this.intervalDescriptor);
 
 		$.get(this.apiUrl + "GetNew", new ViewModel(this.canvas), model => {
+			if (model == null) {
+				this.isLoaded = true;
+				this._scope.state = "Server busy. Reload the page.";
+				this._scope.$apply();
+				alert("There is another fractal generating for a different user. System allows only one generation at a time. Please, reload the page after a while.");
+				return;
+			}
 
 			this.fractalModel = new ViewModel(this.canvas)
 			this.fractalModel.initWithModel(model);
@@ -211,7 +227,7 @@ class Mandelbrot {
 		if (this.isLoaded) {
 			return
 		}
-		
+
 		$.get(this.apiUrl + "GetData", { id: this.fractalModel.id }, rawData => {
 			if (rawData != null) {
 				this.currentData = rawData;
@@ -347,11 +363,14 @@ class Settings {
 
 	public willClose(shouldSave: boolean): void {
 		if (shouldSave) {
+
 			var tmpColors = new Array<Color>(3);
 			for (var index = 0; index < this.colors.length; index++) {
 				tmpColors[index] = Color.clone(this.colors[index]);
 			}
 			globalMandelbrot.colors = tmpColors;
+
+
 		} else {
 			for (var index = 0; index < this.colors.length; index++) {
 				this.colors[index] = Color.clone(this.oldColors[index]);
@@ -362,12 +381,15 @@ class Settings {
 	}
 
 	public loadSettings(colors: [Color]): void {
+
+		var tmpColors = new Array<Color>(3);
 		for (var index = 0; index < colors.length; index++) {
+			tmpColors[index] = Color.clone(colors[index]);
 			this.colors[index] = Color.clone(colors[index]);
 			this.currentTab = index;
 			this.reloadColor();
-			globalMandelbrot[index] = Color.clone(colors[index]);
 		}
+		globalMandelbrot.colors = tmpColors;
 	}
 
 	private colorChangeHandler(): void {
@@ -432,6 +454,11 @@ class Color {
 		this.blue = blue;
 	}
 
+	public static fromHex(hex: string): Color {
+		let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		return new Color(parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16));
+	}
+
 	public static clone(color: Color): Color {
 		return new Color(color.red, color.green, color.blue);
 	}
@@ -460,8 +487,8 @@ class Color {
 		return `rgba(${this.red},${this.green},${this.blue},${alpha})`;
 	}
 
-	public exportAsHex(): string {
-		return `#${this.red.toString(16)}${this.green.toString(16)}${this.blue.toString(16)}`;
+	public exportAsHex(includeHash: boolean = false): string {
+		return `${includeHash ? "#" : ""}${this.red.toString(16)}${this.green.toString(16)}${this.blue.toString(16)}`;
 	}
 
 	public setValue(color: string, value: number): void {
@@ -512,11 +539,11 @@ class ViewModel {
 	public id: number;
 
 	constructor(canvas: HTMLCanvasElement) {
-		this.centerX = -0.7794494628906250;
-		this.centerY = -0.1276645660400390;
+		this.centerX = urlParser("centerX") !== "" ? parseFloat(urlParser("centerX")) : -0.7794494628906250;
+		this.centerY = urlParser("centerY") !== "" ? parseFloat(urlParser("centerY")) : -0.1276645660400390;
 		this.width = canvas.width;
 		this.height = canvas.height;
-		this.log2scale = 19;
+		this.log2scale = urlParser("log2scale") !== "" ? parseInt(urlParser("log2scale")) : 19;
 	}
 
 	public initWithModel(model: any): void {
@@ -531,10 +558,20 @@ class ViewModel {
 		this.log2scale = model.log2scale;
 		this.id = model.id;
 	}
+
+	public exportToUrl(): string {
+		return `centerX=${this.centerX}&centerY=${this.centerY}&log2scale=${this.log2scale}`;
+	}
 }
 
 let resizeHandler = () => {
 	$("#contentTR").height($("#ionicContent").height() - 100);
+};
+
+let urlParser = (name) => {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+	return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
 // For some reason, TS does not know about this property

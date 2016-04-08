@@ -26,18 +26,22 @@
 	<body ng-app="starter" ng-controller="MainCtrl">
 		<ion-pane>
 			<ion-header-bar class="bar-stable">
-				<button class="button button-clear button-positive" ng-click="openModal()">
-					<i class="icon ion-gear-a"></i>
-				</button>
-				<h1 class="title" ng-bind="state">
-					HU 3910 - Mandelbrot
-				</h1>
-				
 				<a ng-if="isLoaded" class="button button-clear button-positive" ng-click="exportImage()" download="Mandelbrot.png" href="#">
 					<i class="icon ion-ios-upload-outline"></i>
 				</a>
 				<button ng-if="!isLoaded" class="button button-clear button-assertive" ng-click="stopGeneration()" >
 					Stop
+				</button>
+				<button class="button button-clear button-positive" ng-click="generateLink()">
+					<i class="icon ion-link"></i>
+				</button>
+				
+				<h1 class="title" ng-bind="state">
+					HU 3910 - Mandelbrot
+				</h1>
+				
+				<button class="button button-clear button-positive" ng-click="openModal()">
+					<i class="icon ion-gear-a"></i>
 				</button>
 			</ion-header-bar>
 			<ion-content id="ionicContent" class="has-header" scroll="false">
