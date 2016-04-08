@@ -488,7 +488,12 @@ class Color {
 	}
 
 	public exportAsHex(includeHash: boolean = false): string {
-		return `${includeHash ? "#" : ""}${this.red.toString(16)}${this.green.toString(16)}${this.blue.toString(16)}`;
+		let r: string = (this.red > 0 ? this.red.toString(16) : "00");
+		let g: string = (this.green > 0 ? this.green.toString(16) : "00");
+		let b: string = (this.blue > 0 ? this.blue.toString(16) : "00");
+		let h: string = (includeHash ? "#" : "");
+		
+		return `${h}${r}${g}${b}`;
 	}
 
 	public setValue(color: string, value: number): void {
