@@ -138,6 +138,8 @@ class Mandelbrot {
 			}
 		});
 
+		this.fractalModel = new ViewModel(this.canvas.width, this.canvas.height);
+
 		this._scope.exportImage = () => {
 			if (confirm("Do you want to download the current fractal as PNG image?")) {
 
@@ -188,7 +190,8 @@ class Mandelbrot {
 			top: ${offsetTop},
 			left: ${offsetLeft}`
 		);
-		this.putCanvasBack();
+		this.fractalModel.displace(offsetTop, offsetLeft);
+		this.getNewFractal();
 	}
 
 	private putCanvasBack() {
@@ -202,10 +205,9 @@ class Mandelbrot {
 	private getNewFractal() {
 		this.isLoaded = false;
 		this.fractalData = null;
-		this.fractalModel = null;
 		clearInterval(this.intervalDescriptor);
 
-		$.get(this.apiUrl + "GetNew", new ViewModel(this.canvas), model => {
+		$.get(this.apiUrl + "GetNew", this.fractalModel, model => {
 			if (model == null) {
 				this.isLoaded = true;
 				this._scope.state = "Server busy. Reload the page.";
@@ -214,8 +216,7 @@ class Mandelbrot {
 				return;
 			}
 
-			this.fractalModel = new ViewModel(this.canvas)
-			this.fractalModel.initWithModel(model);
+			this.fractalModel = ViewModel.clone(model);
 
 			this.intervalDescriptor = setInterval(() => {
 				this.reloadFractal()
@@ -230,6 +231,7 @@ class Mandelbrot {
 
 		$.get(this.apiUrl + "GetData", { id: this.fractalModel.id }, rawData => {
 			if (rawData != null) {
+				this.putCanvasBack();
 				this.currentData = rawData;
 				this.redrawFractal(rawData);
 			}
@@ -543,25 +545,36 @@ class ViewModel {
 	public log2scale: number;
 	public id: number;
 
-	constructor(canvas: HTMLCanvasElement) {
+	constructor(width: number, height : number) {
 		this.centerX = urlParser("centerX") !== "" ? parseFloat(urlParser("centerX")) : -0.7794494628906250;
 		this.centerY = urlParser("centerY") !== "" ? parseFloat(urlParser("centerY")) : -0.1276645660400390;
-		this.width = canvas.width;
-		this.height = canvas.height;
-		this.log2scale = urlParser("log2scale") !== "" ? parseInt(urlParser("log2scale")) : 19;
+		this.width = width;
+		this.height = height;
+		this.log2scale = urlParser("log2scale") !== "" ? parseInt(urlParser("log2scale")) : 19;		
 	}
 
-	public initWithModel(model: any): void {
+	public static clone(model: ViewModel): ViewModel {
 		if (model == null) {
-			return;
+			return null;
 		}
 
-		this.centerX = model.centerX;
-		this.centerY = model.centerY;
-		this.width = model.width;
-		this.height = model.height;
-		this.log2scale = model.log2scale;
-		this.id = model.id;
+		let newModel = new ViewModel(model.width, model.height);
+
+		newModel.centerX = model.centerX;
+		newModel.centerY = model.centerY;
+
+		newModel.log2scale = model.log2scale;
+		newModel.id = model.id;
+
+		return newModel;		
+	}
+
+	public displace(topOffset: number, leftOffset: number): void {
+
+		let factor = 1 << this.log2scale;		
+
+		this.centerX -= leftOffset / factor;
+		this.centerY -= topOffset / factor;
 	}
 
 	public exportToUrl(): string {
