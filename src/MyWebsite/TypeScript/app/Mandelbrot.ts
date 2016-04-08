@@ -207,7 +207,7 @@ class Mandelbrot {
 		this.fractalData = null;
 		clearInterval(this.intervalDescriptor);
 
-		$.get(this.apiUrl + "GetNew", this.fractalModel, model => {
+		$.get(this.apiUrl + "GetNew", this.fractalModel.exportForRequest(), model => {
 			if (model == null) {
 				this.isLoaded = true;
 				this._scope.state = "Server busy. Reload the page.";
@@ -490,11 +490,11 @@ class Color {
 	}
 
 	public exportAsHex(includeHash: boolean = false): string {
-		let r: string = (this.red > 0 ? this.red.toString(16) : "00");
-		let g: string = (this.green > 0 ? this.green.toString(16) : "00");
-		let b: string = (this.blue > 0 ? this.blue.toString(16) : "00");
+		let r: string = ("00" + (+this.red).toString(16)).substr(-2);
+		let g: string = ("00" + (+this.green).toString(16)).substr(-2);
+		let b: string = ("00" + (+this.blue).toString(16)).substr(-2);
 		let h: string = (includeHash ? "#" : "");
-		
+
 		return `${h}${r}${g}${b}`;
 	}
 
@@ -545,12 +545,12 @@ class ViewModel {
 	public log2scale: number;
 	public id: number;
 
-	constructor(width: number, height : number) {
+	constructor(width: number, height: number) {
 		this.centerX = urlParser("centerX") !== "" ? parseFloat(urlParser("centerX")) : -0.7794494628906250;
 		this.centerY = urlParser("centerY") !== "" ? parseFloat(urlParser("centerY")) : -0.1276645660400390;
 		this.width = width;
 		this.height = height;
-		this.log2scale = urlParser("log2scale") !== "" ? parseInt(urlParser("log2scale")) : 19;		
+		this.log2scale = urlParser("log2scale") !== "" ? parseInt(urlParser("log2scale")) : 19;
 	}
 
 	public static clone(model: ViewModel): ViewModel {
@@ -566,12 +566,12 @@ class ViewModel {
 		newModel.log2scale = model.log2scale;
 		newModel.id = model.id;
 
-		return newModel;		
+		return newModel;
 	}
 
 	public displace(topOffset: number, leftOffset: number): void {
 
-		let factor = 1 << this.log2scale;		
+		let factor = 1 << this.log2scale;
 
 		this.centerX -= leftOffset / factor;
 		this.centerY -= topOffset / factor;
@@ -579,6 +579,17 @@ class ViewModel {
 
 	public exportToUrl(): string {
 		return `centerX=${this.centerX}&centerY=${this.centerY}&log2scale=${this.log2scale}`;
+	}
+
+	public exportForRequest() {
+		return {
+			centerX: this.centerX,
+			centerY: this.centerY,
+			width: this.width,
+			height: this.height,
+			log2scale: this.log2scale,
+			id: this.id
+		};
 	}
 }
 
