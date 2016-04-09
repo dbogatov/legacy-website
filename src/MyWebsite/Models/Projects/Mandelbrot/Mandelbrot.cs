@@ -261,7 +261,7 @@ namespace MyWebsite.Models.Mandelbrot
                 }
                 else if (lastIteration > 0)
                 {
-                    if (iteration - lastIteration > 10 /*maxDoneOnStep*/) break;
+                    if (iteration - lastIteration > Math.Pow(maxDoneOnStep, 0.25)) break;
                 }
 
                 if (stop) break;
