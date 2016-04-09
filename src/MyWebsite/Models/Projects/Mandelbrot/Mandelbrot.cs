@@ -51,22 +51,23 @@ namespace MyWebsite.Models.Mandelbrot
 
         public static Mandelbrot GetNew(int oldId, double centerX, double centerY, int width, int height, byte log2scale)
         {
-            if (oldId != 0)
+            if (all.Count > 0)
             {
-                Mandelbrot oldOne;
-                if (all.TryGetValue(oldId, out oldOne))
+                if (oldId != 0)
                 {
-                    oldOne.stop = true;
-                    all.Remove(oldId);
+                    Mandelbrot oldOne;
+                    if (all.TryGetValue(oldId, out oldOne))
+                    {
+                        oldOne.stop = true;
+                        all.Remove(oldId);
+                    }
+                    else return null;
                 }
+                else return null;
             }
 
-            if (all.Count > 0) return null;
+            if (width < 2 || height < 2 || width * height > (1 << 21)) return null;
 
-            int active = 0;
-            foreach (Mandelbrot instance in all.Values)
-                if (instance.working) active += 1;
-            if (active > 1) return null;
 
             int newId;
             do newId = rnd.Next(1, int.MaxValue);
@@ -78,6 +79,14 @@ namespace MyWebsite.Models.Mandelbrot
             (new Thread(newOne.calculate)).Start();
 
             return newOne;
+        }
+
+        private static int getNumberOfActive()
+        {
+            int active = 0;
+            foreach (Mandelbrot instance in all.Values)
+                if (instance.working) active += 1;
+            return active;
         }
 
         public static string GetData(int id)
@@ -155,6 +164,7 @@ namespace MyWebsite.Models.Mandelbrot
 
         private Mandelbrot(int id, double centerX, double centerY, int width, int height, byte log2scale)
         {
+
             this.id = id;
             this.width = width - (width % 2);
             this.height = height - (height % 2);
