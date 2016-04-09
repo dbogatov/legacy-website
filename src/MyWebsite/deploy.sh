@@ -46,19 +46,20 @@ git fetch --all --quiet
 
     # Restore packages
     printf "Restoring NUGET packages\n"
-    dnu restore
+    $RUNTIME"/dnu" restore
 
     # Publish
     printf "Publishing\n"
 
     # know bug: dnu tarcks elapsed time which does not work with bash
     set +e
-    dnu publish --out $WEBSITEPATH/
+    $RUNTIME"/dnu" publish --out $WEBSITEPATH/
     set -e
 
     # Fix runtime
     printf "Fixing runtime\n"
-    perl -pi -e 's/"dnx"/"'$RUNTIME'\/dnx"/g' $WEBSITEPATH/approot/web
+    #perl -pi -e 's/"dnx"/"'$RUNTIME'\/dnx"/g' $WEBSITEPATH/approot/web
+    rpl "dnx" $RUNTIME"/dnx" $WEBSITEPATH/approot/web
 
     # Supervisor uns website
     printf "Run website\n"
