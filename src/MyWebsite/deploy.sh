@@ -26,15 +26,15 @@ printf "Current dir "$DIR"\n"
 
 git fetch --all --quiet
 
-#RESLOG=$(git log HEAD..origin/master --oneline)
-#if [[ "${RESLOG}" != "" ]] ; then
+RESLOG=$(git log HEAD..origin/master --oneline)
+if [[ "${RESLOG}" != "" ]] ; then
 
     printf "Deploy start\n"
 
     # Git
     printf "Git fetch/reset/pull\n"
-#    git reset --quiet --hard origin/master
-#    git pull --quiet
+    git reset --quiet --hard origin/master
+    git pull --quiet
 
     # Supervisor stops site
     printf "Stop website\n"
@@ -69,7 +69,7 @@ git fetch --all --quiet
 
     printf "Deploy done.\n"
 
-#fi
+fi
 
 # else
     
