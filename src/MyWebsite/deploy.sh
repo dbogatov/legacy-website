@@ -65,7 +65,7 @@ if [[ "${RESLOG}" != "" ]] ; then
     printf "Run website\n"
     supervisorctl start $SUPERVISORJOB
     
-    # /root/text.sh send --text="Deploy for mywebsite complete." --phones=15086677440
+    /root/text.sh send --text="Deploy for mywebsite complete." --phones=15086677440
 
     printf "Deploy done.\n"
 
