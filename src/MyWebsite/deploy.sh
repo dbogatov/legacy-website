@@ -59,7 +59,7 @@ if [[ "${RESLOG}" != "" ]] ; then
     # Fix runtime
     printf "Fixing runtime\n"
     #perl -pi -e 's/"dnx"/"'$RUNTIME'\/dnx"/g' $WEBSITEPATH/approot/web
-    rpl "dnx" $RUNTIME"/dnx" $WEBSITEPATH/approot/web
+    /usr/bin/rpl "dnx" $RUNTIME"/dnx" $WEBSITEPATH/approot/web
 
     # Supervisor uns website
     printf "Run website\n"
