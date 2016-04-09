@@ -20,7 +20,7 @@ DIR=$4
 
 cd $DIR
 
-printf "Current dir "$DIR"\n"
+# printf "Current dir "$DIR"\n"
 
 # Now in good dir
 
