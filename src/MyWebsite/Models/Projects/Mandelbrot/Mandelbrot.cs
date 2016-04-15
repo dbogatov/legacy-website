@@ -6,13 +6,19 @@ namespace MyWebsite.Models.Mandelbrot
 {
     public class Mandelbrot
     {
-        private static SortedList<int, Mandelbrot> all;
+        private const int MAX_INSTANCES_NUM = 1;
+        private static bool monitoring = false;
+        private static SortedList<int, Mandelbrot> all = new SortedList<int, Mandelbrot>();
+
         private static void monitor()
         {
-            while (all != null)
-            {
-                List<int> toRemove = new List<int>();
+            monitoring = true;
 
+            while (all.Count > 0)
+            {
+                Thread.Sleep(1000);
+
+                List<int> toRemove = new List<int>();
                 foreach (KeyValuePair<int, Mandelbrot> item in all)
                 {
                     if (item.Value.working)
@@ -38,45 +44,45 @@ namespace MyWebsite.Models.Mandelbrot
                         all.Remove(keyId);
                     }
                 }
-
-                Thread.Sleep(1000);
             }
-        }
 
-        static Mandelbrot()
-        {
-            all = new SortedList<int, Mandelbrot>();
-            (new Thread(monitor)).Start();
+            monitoring = false;
         }
 
         public static Mandelbrot GetNew(int oldId, double centerX, double centerY, int width, int height, byte log2scale)
         {
-            if (all.Count > 0)
+            int newId = 0;
+
+            if (oldId != 0)
             {
-                if (oldId != 0)
+                Mandelbrot oldOne;
+                if (all.TryGetValue(oldId, out oldOne))
                 {
-                    Mandelbrot oldOne;
-                    if (all.TryGetValue(oldId, out oldOne))
-                    {
-                        oldOne.stop = true;
-                        all.Remove(oldId);
-                    }
-                    else return null;
+                    oldOne.stop = true;
+                    all.Remove(oldId);
+                    newId = oldId;
+                }
+            }
+
+            if (newId == 0)
+            {
+                if (all.Count < MAX_INSTANCES_NUM)
+                {
+                    do newId = rnd.Next(1, int.MaxValue);
+                    while (all.ContainsKey(newId));
                 }
                 else return null;
             }
 
             if (width < 2 || height < 2 || width * height > (1 << 21)) return null;
 
-
-            int newId;
-            do newId = rnd.Next(1, int.MaxValue);
-            while (all.ContainsKey(newId));
-
             Mandelbrot newOne = new Mandelbrot(newId, centerX, centerY, width, height, log2scale);
-            all.Add(newOne.id, newOne);
+
+            all.Add(newId, newOne);
 
             (new Thread(newOne.calculate)).Start();
+
+            if (!monitoring) (new Thread(monitor)).Start();
 
             return newOne;
         }
