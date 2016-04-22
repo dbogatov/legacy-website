@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Cors;
 using Microsoft.AspNet.Mvc;
 using MyWebsite.Models;
 using MyWebsite.Models.Enitites;
@@ -48,6 +49,7 @@ namespace MyWebsite.Controllers.API
 		// POST: api/VisaSupportEmail
 		[HttpPost]
 		[Route("VisaSupportEmail")]
+		[EnableCors("AllowSpecificOrigin")] 
 		public bool VisaSupportEmail(VisaSupportEmailViewModel model) 
 		{
 			try
