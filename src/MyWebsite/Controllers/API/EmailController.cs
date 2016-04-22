@@ -57,7 +57,11 @@ namespace MyWebsite.Controllers.API
                 Task.Run(() =>
                 {
                     _emailSender.SendEmailAsync(
-                        new List<string> { "dbogatov@wpi.edu" },
+                        new List<string> { 
+							"dima4ka007@gmail.com",
+							"smirnova.jn22@gmail.com",
+							"milya-i@mail.ru"
+						},
                         $"Contact added from {new Uri(model.Source).Host.ToLower()}",
                         model.ToString(),
                         "Notificator"
