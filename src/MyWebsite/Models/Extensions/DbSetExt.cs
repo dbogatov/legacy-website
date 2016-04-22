@@ -1,4 +1,3 @@
-
 using Microsoft.Data.Entity;
 
 public static class DbSetExtensions

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using MyWebsite.Models;
@@ -29,7 +30,7 @@ namespace MyWebsite.Controllers.API
 				Task.Run(() =>
 				{
 					_emailSender.SendEmailAsync(
-						"dbogatov@wpi.edu",
+						new List<string> { "dbogatov@wpi.edu" },
 						feedback.Subject,
 						@"FEEDBACK: " + feedback.Subject + "\n\nURL: " + feedback.Url + "\n\nFrom: " + (feedback.Email != "" ? feedback.Email : "{email not provided}") + ":\n\n" + feedback.Body + "\n\nEnd of feedback.",
 						"Feedback Manager"

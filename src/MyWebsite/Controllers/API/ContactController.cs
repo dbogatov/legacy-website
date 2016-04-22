@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using MyWebsite.Models;
@@ -27,7 +28,7 @@ namespace MyWebsite.Controllers.API
 			try {
 				Task.Run(() => {
 					_emailSender.SendEmailAsync(
-						"dbogatov@wpi.edu",
+						new List<string> { "dbogatov@wpi.edu" },
 						"You have been contacted!",
 						@"Name: " + contact.Name + "\nEmail: " + contact.Email + "\nComment: " + contact.Comment + "\nLanguage: " + contact.Language + "\n\nEnd of message.",
 						"Contact Manager"
