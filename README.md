@@ -26,3 +26,6 @@ http://stackoverflow.com/questions/24455238/lxml-installation-error-ubuntu-14-04
 
 Reset admin password Gitlab  
 http://doc.gitlab.com/ce/security/reset_root_password.html
+
+Gitlab logs  
+http://doc.gitlab.com/ee/logs/logs.html
