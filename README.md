@@ -29,3 +29,6 @@ http://doc.gitlab.com/ce/security/reset_root_password.html
 
 Gitlab logs  
 http://doc.gitlab.com/ee/logs/logs.html
+
+Git alternative remote  
+http://stackoverflow.com/questions/849308/pull-push-from-multiple-remote-locations
