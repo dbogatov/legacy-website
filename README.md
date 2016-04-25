@@ -32,3 +32,6 @@ http://doc.gitlab.com/ee/logs/logs.html
 
 Git alternative remote  
 http://stackoverflow.com/questions/849308/pull-push-from-multiple-remote-locations
+
+See folder size on Linux  
+http://unix.stackexchange.com/a/185765
