@@ -20,3 +20,9 @@ https://about.gitlab.com/2015/04/21/gitlab-on-raspberry-pi-2/
 
 Configure Gitlab  
 https://www.digitalocean.com/community/tutorials/how-to-use-the-gitlab-one-click-install-image-to-manage-git-repositories
+
+Add SWAP file  
+http://stackoverflow.com/questions/24455238/lxml-installation-error-ubuntu-14-04-internal-compiler-error/26762938#26762938
+
+Reset admin password Gitlab  
+http://doc.gitlab.com/ce/security/reset_root_password.html
