@@ -35,3 +35,6 @@ http://stackoverflow.com/questions/849308/pull-push-from-multiple-remote-locatio
 
 See folder size on Linux  
 http://unix.stackexchange.com/a/185765
+
+Link sites available to enabled NGINX  
+https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-virtual-hosts-server-blocks-on-ubuntu-12-04-lts--3
