@@ -96,7 +96,9 @@ class Mandelbrot {
 
 	private interactionsEnabled: boolean = true;	
 
-	private canvasOriginalPosition: JQueryCoordinates;
+    private canvasOriginalPosition: JQueryCoordinates;
+    private canvasOriginalWidth: number;
+    private canvasOriginalHeight: number;
 
 	private static mapAbcToNum = [
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -129,7 +131,9 @@ class Mandelbrot {
 		this.canvas.width = this.canvas.offsetWidth;
 		this.canvas.height = this.canvas.offsetHeight;
 
-		this.canvasOriginalPosition = this.jCanvas.position();
+        this.canvasOriginalPosition = this.jCanvas.position();
+        this.canvasOriginalWidth = this.jCanvas.width();
+        this.canvasOriginalHeight = this.jCanvas.height();
 
 		(<any>this.jCanvas).draggable({
 			stop: (event, ui) => {
@@ -209,7 +213,22 @@ class Mandelbrot {
 	private viewZoomed(directionIn: boolean, offsetTop: number, offsetLeft: number): void {
 		//alert(`Zoomed ${directionIn ? "in" : "out"}. Offsets: ${offsetTop}, ${offsetLeft}`);
 
-		this.fractalModel.setNewCenter(offsetTop, offsetLeft);
+        let w = this.canvas.width;
+        let h = this.canvas.height;
+
+        if (directionIn) {
+            this.canvas.style.left = (w / 2 - offsetLeft * 2) + "px";
+            this.canvas.style.top = (h / 2 - offsetTop * 2) + "px";
+            this.canvas.style.width = (w * 2) + "px";
+            this.canvas.style.height = (h * 2) + "px";
+        } else {
+            this.canvas.style.left = (w / 2 - offsetLeft / 2) + "px";
+            this.canvas.style.top = (h / 2 - offsetTop / 2) + "px";
+            this.canvas.style.width = (w / 2) + "px";
+            this.canvas.style.height = (h / 2) + "px";
+        }
+
+        this.fractalModel.setNewCenter(offsetTop, offsetLeft);
 		this.fractalModel.zoom(directionIn);
 
 		this.getNewFractal();
@@ -223,7 +242,9 @@ class Mandelbrot {
 	private putCanvasBack() {
 		this.jCanvas.css({
 			top: this.canvasOriginalPosition.top,
-			left: this.canvasOriginalPosition.left,
+            left: this.canvasOriginalPosition.left,
+            width: this.canvasOriginalWidth,
+            height: this.canvasOriginalHeight,
 			position: "absolute"
 		});
 		
