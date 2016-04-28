@@ -38,3 +38,6 @@ http://unix.stackexchange.com/a/185765
 
 Link sites available to enabled NGINX  
 https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-virtual-hosts-server-blocks-on-ubuntu-12-04-lts--3
+
+Coexist nginx and apache2  
+https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-as-a-reverse-proxy-for-apache
