@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Microsoft.AspNet.Http;
+using Microsoft.AspNetCore.Http;
 using MyWebsite.Models.Enitites;
 using Newtonsoft.Json;
 
@@ -15,7 +15,7 @@ namespace MyWebsite.Models.Projects.Pentago
 
 	public static class GameModel
 	{
-		public static IReadableStringCollection cookies;
+		public static IRequestCookieCollection cookies;
 		public static IResponseCookies responseCookies;
 
 		private static String GenerateCode(int length)
@@ -169,7 +169,7 @@ namespace MyWebsite.Models.Projects.Pentago
 
 		public static bool IsMyTurn()
 		{
-			string role = cookies["PentagoCookierole"];
+			string role = cookies["PentagoCookieRole"];
 
 			var context = new DataContext();
 			var game = context.PentagoGames.First(g => g.GameCode.Equals(cookies["PentagoCookieCode"]));

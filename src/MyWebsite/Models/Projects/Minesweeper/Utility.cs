@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using MyWebsite.Models.Enitites;
 
 namespace MyWebsite.Models.Minesweeper

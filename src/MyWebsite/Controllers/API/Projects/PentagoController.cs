@@ -1,7 +1,7 @@
 using System.Linq;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Microsoft.AspNet.Http;
+using Microsoft.AspNetCore.Http;
 using MyWebsite.Models;
 using MyWebsite.Models.Projects.Pentago;
 using MyWebsite.ViewModels.Projects.Pentago;
@@ -25,7 +25,7 @@ namespace MyWebsite.Controllers.API
 		[HttpPost]
 		public string HostGame()
 		{
-			return GameModel.HostGame();
+			return JsonConvert.SerializeObject(GameModel.HostGame());
 		}
 
 		[Route("checkjoin")]

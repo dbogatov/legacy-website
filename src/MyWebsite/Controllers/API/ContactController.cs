@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MyWebsite.Models;
 using MyWebsite.Models.Enitites;
 using MyWebsite.Services;

@@ -25,7 +25,7 @@ function runSolver(field) {
 
 function parseSolverResponse(msg) {
 	$('.fieldCell').css({ 'border': '1px solid darkgrey' });
-	var move = jQuery.parseJSON(msg.d);
+	var move = msg.d;
 	console.log(move);
 	if (!move.length) {
 		$('#checkBox').prop('checked', false);
@@ -121,7 +121,7 @@ function isGameRunning() {
 }
 
 function parseMines(msg) {
-	var changes = jQuery.parseJSON(msg.d);
+	var changes = msg.d;
 
 	for (var i = 0; i < changes.length; i++) {
 		var buttonid = changes[i]["x"] + "-" + changes[i]["y"];
@@ -132,7 +132,7 @@ function parseMines(msg) {
 }
 
 function parseAnswer(msg) {
-	var changes = jQuery.parseJSON(msg.d);
+	var changes = msg.d;
 	var preEnd = false;
 
 	for (var i = 0; i < changes.length; i++) {

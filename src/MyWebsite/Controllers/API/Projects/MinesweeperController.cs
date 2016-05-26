@@ -1,10 +1,9 @@
 using System.Linq;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Microsoft.AspNet.Http;
-
+using Microsoft.AspNetCore.Http;
 using MyWebsite.Models.Minesweeper;
-using Microsoft.AspNet.Http.Features;
+using Microsoft.AspNetCore.Http.Features;
 using System;
 using System.Threading;
 using MyWebsite.Models;
@@ -18,7 +17,7 @@ namespace MyWebsite.Controllers.API
 	public class MinesweeperController : Controller {
 
 		private readonly ISession session;
-		private readonly IReadableStringCollection cookies;
+		private readonly IRequestCookieCollection cookies;
 		private readonly IResponseCookies responseCookies;
 
 		private readonly DataContext context;
@@ -50,7 +49,7 @@ namespace MyWebsite.Controllers.API
 		[Route("getNickName")]
 		[HttpPost]
 		public string GetNickName() {
-			return !string.IsNullOrWhiteSpace(cookies["UserID"]) ? Models.Minesweeper.Utility.getNickname(Convert.ToInt32(cookies["UserID"])) : "";
+			return JsonConvert.SerializeObject(!string.IsNullOrWhiteSpace(cookies["UserID"]) ? Models.Minesweeper.Utility.getNickname(Convert.ToInt32(cookies["UserID"])) : "");
 		}
 
 		[Route("openPlace")]

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Mvc;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyWebsite.Models;
 using MyWebsite.Models.Enitites;
 
@@ -33,7 +33,7 @@ namespace MyWebsite.Controllers.API
 
 			var course = _context.Courses.FirstOrDefault(c => c.Title.Equals(title));
 
-			return course == null ? (IActionResult)HttpNotFound() : Ok(course);
+			return course == null ? (IActionResult)NotFound() : Ok(course);
 		}
 	}
 }

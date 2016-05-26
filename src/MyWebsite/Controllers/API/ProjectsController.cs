@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MyWebsite.Models;
 using MyWebsite.Models.Enitites;
 
@@ -23,9 +23,9 @@ namespace MyWebsite.Controllers.API
 		{
 			// TODO change to joint entity
 
-			var projects = _context.Projects.AsEnumerable();
-			var tags = _context.Tags.AsEnumerable();
-			var projTags = _context.ProjectTags.AsEnumerable();
+			var projects = _context.Projects.ToList();
+			var tags = _context.Tags.ToList();
+			var projTags = _context.ProjectTags.ToList();
 
 			var result =
 				from p in projects
@@ -43,7 +43,7 @@ namespace MyWebsite.Controllers.API
 						from t in tags
 						join pt in ps on t.TagId equals pt.TagId
 						select t
-						).AsEnumerable()
+						).ToList()
 				};
 
 			return result.OrderByDescending(p => p.DateCompleted).ToList();
@@ -53,10 +53,9 @@ namespace MyWebsite.Controllers.API
 		[HttpGet("{id}", Name = "GetProject")]
 		public IActionResult GetProject([FromRoute] int id)
 		{
-
 			var project = _context.Projects.FirstOrDefault(p => p.ProjectId == id);
 
-			return project == null ? (IActionResult)HttpNotFound() : Ok(project);
+			return project == null ? (IActionResult)NotFound() : Ok(project);
 		}
 	}
 }

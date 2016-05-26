@@ -1,15 +1,14 @@
 {
-	"version": "0.1.0",
-	"command": "gulp",
-	"isShellCommand": true,
-	"args": [
-		"--no-color"
-	],
-	"tasks": [
-		{
-			"taskName": "ts-debug",
-			"args": [],
-			"isBuildCommand": true
-		}
-	]
+    "version": "0.1.0",
+    "command": "dotnet",
+    "isShellCommand": true,
+    "args": [],
+    "tasks": [
+        {
+            "taskName": "build",
+            "args": [],
+            "isBuildCommand": true,
+            "problemMatcher": "$msCompile"
+        }
+    ]
 }

@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Cors;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using MyWebsite.Models;
 using MyWebsite.Models.Enitites;
 using MyWebsite.Services;
@@ -22,7 +22,7 @@ namespace MyWebsite.Controllers.API
 			_emailSender = emailSender;
 		}
 
-		// POST: api/SendEmail
+		// POST: api/Email/SendEmail
 		[HttpPost]
 		[Route("SendEmail")]
 		public bool SendEmail(EmailViewModel model)

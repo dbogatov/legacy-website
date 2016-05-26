@@ -394,13 +394,6 @@ var d3ViewController = (function() {
 
 	function renderField(field) {
 
-		try {
-			field = jQuery.parseJSON(field);
-		} catch (err) {
-			alert("There was an error.");
-			return false;
-		}
-
 		d3.selectAll(".mark").remove();
 		d3.selectAll(".pentagoCell").attr("data-status", "empty");
 
@@ -601,7 +594,6 @@ var gameController = (function() {
 		pentagoAPIWrapper.init(function(turnResult) {
 
 			if (turnResult != null) {
-				turnResult = JSON.parse(turnResult);
 				viewController.putMark(turnResult.x, turnResult.y, turnResult.mark);
 
 				pentagoAPIWrapper.init(function(fieldResult) {

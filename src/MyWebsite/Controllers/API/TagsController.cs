@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MyWebsite.Models;
 using MyWebsite.Models.Enitites;
 
@@ -31,7 +31,7 @@ namespace MyWebsite.Controllers.API
 
 			var tag = _context.Tags.FirstOrDefault(t => t.TagId == id);
 
-			return tag == null ? (IActionResult)HttpNotFound() : Ok(tag);
+			return tag == null ? (IActionResult)NotFound() : Ok(tag);
 		}
 	}
 }

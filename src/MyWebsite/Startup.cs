@@ -1,6 +1,8 @@
 ﻿using System;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
+using System.IO;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -18,18 +20,16 @@ namespace MyWebsite
 
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
+				.SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets();
-
-                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                builder.AddApplicationInsightsSettings(developerMode: true);
             }
 
-            builder.AddEnvironmentVariables();
+            //builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -39,16 +39,15 @@ namespace MyWebsite
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<DataContext>();
+            services
+				.AddEntityFrameworkNpgsql()
+				.AddDbContext<DataContext>();
 
             DataContext.connectionString = Configuration["DataAccessPostgreSqlProvider:ConnectionString"];
 
             services.AddMvc();
-            services.AddCaching();
+            
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -66,9 +65,9 @@ namespace MyWebsite
 					));
 			});
 
-            services.AddInstance<IConfiguration>(Configuration);
-
             // Add application services.
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			
             services.AddTransient<IEmailSender, DefaultEmailSender>();
             services.AddTransient<DataContext, DataContext>();
             services.AddTransient<ICryptoService, CryptoService>();
@@ -86,15 +85,8 @@ namespace MyWebsite
                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             };
 
-            app.UseApplicationInsightsRequestTelemetry();
-
-            app.UseBrowserLink();
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
-
-            app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
-
-            app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
 
@@ -115,6 +107,17 @@ namespace MyWebsite
         }
 
         // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+		public static void Main(string[] args)
+		{
+			var host = new WebHostBuilder()
+				.UseKestrel()
+				.UseContentRoot(Directory.GetCurrentDirectory())
+				.UseIISIntegration()
+				.UseStartup<Startup>()
+				.UseUrls("http://localhost:5001")
+				.Build();
+
+			host.Run();
+		}
     }
 }

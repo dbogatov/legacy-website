@@ -1,5 +1,5 @@
 using System;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MyWebsite.ViewModels.Projects.GoogleFinanceParser;
 using Newtonsoft.Json;
 using System.Net.Http;

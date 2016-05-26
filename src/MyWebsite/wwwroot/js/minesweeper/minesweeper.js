@@ -629,7 +629,7 @@ function getLeaderBoard(mode) {
 }
 
 function parseLeaders(msg) {
-	var leaders = jQuery.parseJSON(msg.d);
+	var leaders = msg.d;
 	var message = '';
 	for (var i = 0; i < leaders.length; i++) {
 		message += '<tr><td> ' + parseInt(i + 1) + "</td><td>" + leaders[i]['NickName'] + "</td><td>" + Math.round(leaders[i]['Duration'] / 10) / 100 + "</td></tr>";

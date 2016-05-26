@@ -1,6 +1,7 @@
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MyWebsite.Models.Mandelbrot;
 using MyWebsite.ViewModels.Mandelbrot;
+using Newtonsoft.Json;
 
 namespace MyWebsite.Controllers.API.Projects
 {
@@ -33,7 +34,7 @@ namespace MyWebsite.Controllers.API.Projects
 		[Route("GetData")]
         public string GetData(int id)
         {
-            return Mandelbrot.GetData(id);
+            return JsonConvert.SerializeObject(Mandelbrot.GetData(id));
         }
 
         // GET: api/Projects/Mandelbrot/IsDone
