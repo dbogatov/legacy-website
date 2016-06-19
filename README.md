@@ -41,3 +41,8 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-virtual-hos
 
 Coexist nginx and apache2  
 https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-as-a-reverse-proxy-for-apache
+
+Graphite+Graphana (2 parts)  
+https://habrahabr.ru/post/302720/  
+https://habrahabr.ru/post/302840/  
+http://stackoverflow.com/questions/2952187/getting-error-loading-mysqldb-module-no-module-named-mysqldb-have-tried-pre  
