@@ -25,6 +25,7 @@ namespace MyWebsite.Controllers.API
 		// POST: api/Email/SendEmail
 		[HttpPost]
 		[Route("SendEmail")]
+        [EnableCors("AllowSpecificOrigin")] 
 		public bool SendEmail(EmailViewModel model)
 		{
             try
