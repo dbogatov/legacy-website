@@ -71,7 +71,7 @@ namespace MyWebsite
 						"http://visasupport.kiev.ua",
 						"http://lp.visasupport.kiev.ua",
 						"http://eu.visasupport.kiev.ua",
-						"http://darinagulley.com/"
+						"http://darinagulley.com"
 					));
 			});
 
