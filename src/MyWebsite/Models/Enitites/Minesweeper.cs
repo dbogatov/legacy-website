@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWebsite.Models.Enitites
 {
+	[Table("Leaderboard")]
 	public class Leaderboard
 	{
 		[Key]
@@ -13,6 +14,7 @@ namespace MyWebsite.Models.Enitites
 		public NickNameId NickNameId { get; set; }
 	}
 
+	[Table("Gamestat")]
 	public class Gamestat
 	{
 		[Key]
@@ -22,6 +24,7 @@ namespace MyWebsite.Models.Enitites
 		public long MSStart { get; set; }
 	}
 
+	[Table("NickNameId")]
 	public class NickNameId
 	{
 		[Key]

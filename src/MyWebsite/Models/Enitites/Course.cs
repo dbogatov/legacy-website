@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWebsite.Models.Enitites
 {
+	[Table("Course")]
 	public class Course
 	{
 		[Key]
@@ -19,6 +20,7 @@ namespace MyWebsite.Models.Enitites
 		public Requirement Requirement { get; set; }
 	}
 
+	[Table("Requirement")]
 	public class Requirement
 	{
 		[Key]
@@ -33,6 +35,7 @@ namespace MyWebsite.Models.Enitites
 		public ICollection<Course> Courses { get; set; }
 	}
 
+	[Table("ParentRequirement")]
 	public class ParentRequirement
 	{
 		[Key]

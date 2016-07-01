@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWebsite.Models.Enitites
 {
+	[Table("PentagoGame")]
 	public class PentagoGame
 	{
 		[Key]

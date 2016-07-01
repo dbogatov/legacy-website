@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWebsite.Models.Enitites
 {
+	[Table("Contact")]
 	public class Contact
 	{
 		[Key]
