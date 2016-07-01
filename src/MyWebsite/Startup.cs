@@ -9,104 +9,114 @@ using Microsoft.Extensions.Logging;
 using MyWebsite.Models;
 using MyWebsite.Services;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MyWebsite
 {
-    public class Startup
-    {
-        public Startup(IHostingEnvironment env)
-        {
-            // Set up configuration sources.
+	public class Startup
+	{
+		public Startup(IHostingEnvironment env)
+		{
+			// Set up configuration sources.
 
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+			var builder = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json")
 				.SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            if (env.IsDevelopment())
-            {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
-            }
+			if (env.IsDevelopment())
+			{
+				// For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+				builder.AddUserSecrets();
+			}
 
-            //builder.AddEnvironmentVariables();
-            Configuration = builder.Build();
-        }
+			//builder.AddEnvironmentVariables();
+			Configuration = builder.Build();
+		}
 
-        public IConfigurationRoot Configuration { get; set; }
+		public IConfigurationRoot Configuration { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            // Add framework services.
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
+		{
+			// Add framework services.
 
-            services
+			services
 				.AddEntityFrameworkNpgsql()
 				.AddDbContext<DataContext>();
 
-            DataContext.connectionString = Configuration["DataAccessPostgreSqlProvider:ConnectionString"];
+			DataContext.connectionString = Configuration["DataAccessPostgreSqlProvider:ConnectionString"];
 
-            services.AddMvc();
-            
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
-                options.CookieName = ".MyApplication";
-            });
+			services.AddMvc().AddJsonOptions(opt =>
+			{
+				var resolver = opt.SerializerSettings.ContractResolver;
+				if (resolver != null)
+				{
+					var res = resolver as DefaultContractResolver;
+					res.NamingStrategy = null;  // <<!-- this removes the camelcasing
+				}
+			});
 
-            services.AddCors(options =>
+			services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(30);
+				options.CookieName = ".MyApplication";
+			});
+
+			services.AddCors(options =>
 			{
 				options.AddPolicy(
-					"AllowSpecificOrigin", 
+					"AllowSpecificOrigin",
 					builder => builder.WithOrigins(
 						"http://visasupport.kiev.ua",
 						"http://lp.visasupport.kiev.ua",
-						"http://eu.visasupport.kiev.ua"
+						"http://eu.visasupport.kiev.ua",
+						"http://darinagulley.com/"
 					));
 			});
 
-            // Add application services.
+			// Add application services.
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-			
-            services.AddTransient<IEmailSender, DefaultEmailSender>();
-            services.AddTransient<DataContext, DataContext>();
-            services.AddTransient<ICryptoService, CryptoService>();
-        }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
-        {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+			services.AddTransient<IEmailSender, DefaultEmailSender>();
+			services.AddTransient<DataContext, DataContext>();
+			services.AddTransient<ICryptoService, CryptoService>();
+		}
 
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                Formatting = Newtonsoft.Json.Formatting.Indented,
-                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            };
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
+		{
+			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+			loggerFactory.AddDebug();
 
-            app.UseDeveloperExceptionPage();
-            app.UseDatabaseErrorPage();
+			JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+			{
+				Formatting = Newtonsoft.Json.Formatting.Indented,
+				ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+			};
 
-            app.UseStaticFiles();
+			app.UseDeveloperExceptionPage();
+			app.UseDatabaseErrorPage();
 
-            app.UseSession();
+			app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+			app.UseSession();
 
-            using (var context = serviceProvider.GetService<DataContext>())
-            {
-                context.Database.EnsureCreated();
-                context.EnsureSeedData();
-            }
-        }
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}/{id?}");
+			});
 
-        // Entry point for the application.
+			using (var context = serviceProvider.GetService<DataContext>())
+			{
+				context.Database.EnsureCreated();
+				context.EnsureSeedData();
+			}
+		}
+
+		// Entry point for the application.
 		public static void Main(string[] args)
 		{
 			var host = new WebHostBuilder()
@@ -119,5 +129,5 @@ namespace MyWebsite
 
 			host.Run();
 		}
-    }
+	}
 }
