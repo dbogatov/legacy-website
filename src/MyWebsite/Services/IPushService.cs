@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
 namespace MyWebsite.Services
@@ -8,6 +9,8 @@ namespace MyWebsite.Services
     {
         void SendAll(string message);
         void SendTo(IEnumerable<string> tokens);
+
+        void SendToTelegram(string message);
     }
 
     public class PushService : IPushService
@@ -21,7 +24,22 @@ namespace MyWebsite.Services
         {
 			
         }
+
+		public void SendToTelegram(string message) 
+		{
+			using (var client = new HttpClient())
+			{
+				var values = new Dictionary<string, string>
+				{
+					{ "token", "217717405:AAFg9Y0IRxP2s1_u0XHTGhCs53Q1e8RPOws" },
+					{ "message", message },
+					{ "chatid", "@dmytrochan" }
+				};
+
+				var content = new FormUrlEncodedContent(values);
+				
+				client.PostAsync("https://push.dbogatov.org/api/push/telegram", content).Wait();
+			}
+		}
     }
-
-
 }

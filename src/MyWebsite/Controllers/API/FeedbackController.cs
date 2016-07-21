@@ -14,28 +14,32 @@ namespace MyWebsite.Controllers.API
 	{
 		private readonly DataContext _context;
 		private readonly IEmailSender _emailSender;
+		private readonly IPushService _pushService;
 
-		public FeedbackController(DataContext context, IEmailSender emailSender)
+		public FeedbackController(DataContext context, IEmailSender emailSender, IPushService pushService)
 		{
 			_context = context;
 			_emailSender = emailSender;
-		}
+            _pushService = pushService;
+        }
 
 		// POST api/feedback
 		[HttpPost]
 		public bool Post(Feedback feedback)
 		{
-			try
+            _pushService.SendToTelegram(@"FEEDBACK: " + feedback.Subject + "\n\nURL: " + feedback.Url + "\n\nFrom: " + (feedback.Email != "" ? feedback.Email : "{email not provided}") + ":\n\n" + feedback.Body + "\n\nEnd of feedback.");
+
+            try
 			{
-				Task.Run(() =>
-				{
-					_emailSender.SendEmailAsync(
-						new List<string> { "dbogatov@wpi.edu" },
-						feedback.Subject,
-						@"FEEDBACK: " + feedback.Subject + "\n\nURL: " + feedback.Url + "\n\nFrom: " + (feedback.Email != "" ? feedback.Email : "{email not provided}") + ":\n\n" + feedback.Body + "\n\nEnd of feedback.",
-						"Feedback Manager"
-					);
-				});
+				// Task.Run(() =>
+				// {
+				// 	_emailSender.SendEmailAsync(
+				// 		new List<string> { "dbogatov@wpi.edu" },
+				// 		feedback.Subject,
+				// 		@"FEEDBACK: " + feedback.Subject + "\n\nURL: " + feedback.Url + "\n\nFrom: " + (feedback.Email != "" ? feedback.Email : "{email not provided}") + ":\n\n" + feedback.Body + "\n\nEnd of feedback.",
+				// 		"Feedback Manager"
+				// 	);
+				// });
 
 				_context.Add(feedback);
 				_context.SaveChanges();
