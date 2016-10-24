@@ -17,11 +17,11 @@ git reset --hard origin/master
 
 dotnet restore
 
-supervisorctl stop mywebsite
+supervisorctl stop oldwebsite
 
 rm -rf /srv/www/dotnetcore/shevastream/*
 
 dotnet publish -o /srv/www/dotnetcore/mywebsite
 
-supervisorctl start mywebsite
+supervisorctl start oldwebsite
 
