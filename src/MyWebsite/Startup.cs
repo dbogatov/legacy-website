@@ -125,7 +125,7 @@ namespace MyWebsite
 				.UseContentRoot(Directory.GetCurrentDirectory())
 				.UseIISIntegration()
 				.UseStartup<Startup>()
-				.UseUrls("http://localhost:5001")
+				.UseUrls("http://*:5001")
 				.Build();
 
 			host.Run();
