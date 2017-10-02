@@ -1,16 +1,15 @@
-FROM microsoft/dotnet:1.1-runtime
+FROM johnwu/dotnet-build
 
-# Create directory for the app source code
-WORKDIR /srv
+WORKDIR /code
 
 # Copy the source and restore dependencies
-COPY bin/release/netcoreapp1.0/publish/ /srv
+COPY . .
 
-ENV ASPNETCORE_ENVIRONMENT Production
-ENV HOME /srv
+RUN npm install -g gulp bower && dotnet restore && dotnet build && dotnet publish
+
 
 # Expose the port and start the app
 
 EXPOSE 5001
 
-ENTRYPOINT /bin/bash -c "dotnet MyWebsite.dll"
+ENTRYPOINT /bin/bash -c "dotnet bin/Debug/netcoreapp1.0/MyWebsite.dll"

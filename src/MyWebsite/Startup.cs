@@ -10,6 +10,7 @@ using MyWebsite.Models;
 using MyWebsite.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyWebsite
 {
@@ -41,11 +42,24 @@ namespace MyWebsite
 		{
 			// Add framework services.
 
-			services
-				.AddEntityFrameworkNpgsql()
-				.AddDbContext<DataContext>();
+			// services
+			// 	.AddEntityFrameworkNpgsql()
+			// 	.AddDbContext<DataContext>();
 
-			DataContext.connectionString = Configuration["DataAccessPostgreSqlProvider:ConnectionString"];
+			services
+					.AddEntityFrameworkInMemoryDatabase()
+					.AddDbContext<DataContext>(
+						b => b
+							.UseInMemoryDatabase()
+							.UseInternalServiceProvider(
+								new ServiceCollection()
+									.AddEntityFrameworkInMemoryDatabase()
+									.BuildServiceProvider()
+							)
+					);
+
+
+			// DataContext.connectionString = Configuration["DataAccessPostgreSqlProvider:ConnectionString"];
 
 			services.AddMvc().AddJsonOptions(opt =>
 			{
