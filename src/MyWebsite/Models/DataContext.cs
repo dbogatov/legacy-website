@@ -32,11 +32,11 @@ namespace MyWebsite.Models
 
         public DbSet<PentagoGame> PentagoGames { get; set; }
 
-        // protected override void OnConfiguring(DbContextOptionsBuilder options)
-        // {
-        //     //options.UseInMemoryDatabase();
-        //     // options.UseNpgsql(DataContext.connectionString);
-        // }
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            options.UseInMemoryDatabase();
+            // options.UseNpgsql(DataContext.connectionString);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -202,7 +202,7 @@ namespace MyWebsite.Models
                     CourseId = "ECON2110",
                     GradePercent = 90,
                     GradeLetter = "A",
-                    Status = "Registered",
+                    Status = "Completed",
                     ReqId = 10
                 },
                 new Course
@@ -213,7 +213,7 @@ namespace MyWebsite.Models
                     CourseId = "ECE2010",
                     GradePercent = 90,
                     GradeLetter = "A",
-                    Status = "Registered",
+                    Status = "Completed",
                     ReqId = 3
                 },
                 new Course
@@ -422,7 +422,7 @@ namespace MyWebsite.Models
                     CourseId = "HU3910",
                     GradePercent = 90,
                     GradeLetter = "A",
-                    Status = "Registered",
+                    Status = "Completed",
                     ReqId = 6
                 },
                 new Course
@@ -444,7 +444,7 @@ namespace MyWebsite.Models
                     CourseId = "CS4536",
                     GradePercent = 90,
                     GradeLetter = "A",
-                    Status = "Registered",
+                    Status = "Completed",
                     ReqId = 1
                 },
                 new Course
@@ -499,7 +499,7 @@ namespace MyWebsite.Models
                     CourseId = "PE1002",
                     GradePercent = 90,
                     GradeLetter = "A",
-                    Status = "Registered",
+                    Status = "Completed",
                     ReqId = 8
                 },
                 new Course

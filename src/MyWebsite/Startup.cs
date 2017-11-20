@@ -47,16 +47,16 @@ namespace MyWebsite
 			// 	.AddDbContext<DataContext>();
 
 			services
-					.AddEntityFrameworkInMemoryDatabase()
-					.AddDbContext<DataContext>(
-						b => b
-							.UseInMemoryDatabase()
-							.UseInternalServiceProvider(
-								new ServiceCollection()
-									.AddEntityFrameworkInMemoryDatabase()
-									.BuildServiceProvider()
-							)
-					);
+					.AddEntityFrameworkInMemoryDatabase();
+					// .AddDbContext<DataContext>(
+					// 	b => b
+					// 		.UseInMemoryDatabase()
+					// 		.UseInternalServiceProvider(
+					// 			new ServiceCollection()
+					// 				.AddEntityFrameworkInMemoryDatabase()
+					// 				.BuildServiceProvider()
+					// 		)
+					// );
 
 
 			// DataContext.connectionString = Configuration["DataAccessPostgreSqlProvider:ConnectionString"];
@@ -139,7 +139,7 @@ namespace MyWebsite
 				.UseContentRoot(Directory.GetCurrentDirectory())
 				.UseIISIntegration()
 				.UseStartup<Startup>()
-				.UseUrls("http://*:5001")
+				.UseUrls("http://*:80")
 				.Build();
 
 			host.Run();
